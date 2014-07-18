@@ -1,0 +1,100 @@
+Changelog Remarius Ristaion
+
+InDev 1.0
+- neues Player-Movement hinzugefügt
+- neuer Hintergrund
+- Stachelstein-KI ersetzt Asteroiden, neues Spawn-Verhalten
+- neue Player-Sprites
+- Hoover zum Testen von Monster-Sprites hinzugefügt (H drücken)
+- funktionierende Lebensanzeige
+- Leben können mit STRG-Tasten abgezogen und aufgefüllt werden
+- Kollision von Player mit Monster eingefügt: Leben wird abgezogen, Monster despawnt
+
+InDev 1.0_01:
+- Bug entfernt, dass mit einmal STRG drücken mehrere Herzen abgezogen/aufgefüllt werden
+
+
+InDev 1.1:
+- neue Bildschirmauflösung und Farbtiefe
+- Herzanzeige überarbeitet
+- Stachelsteinsprites für den Stachelstein
+- RoterSlime-Sprites für Roten Slime eingefügt
+- Playersprites jetzt in einer Datei
+- Menü eingefügt (ohne Bilder)
+- Spiel kann angehalten werden
+- Beenden jetzt nur noch über das Menü möglich, ESC zum anhalten
+
+
+InDev 1.2:
+- Spiele können nun gespeichert werden (Playerposition und Leben)
+- gespeicherte Spiele können beim Neustart geladen werden, Menüerweiterung
+- neues Monster "Bombo" implementiert
+- der Bombo verfolgt den Spieler und explodiert in seiner Nähe
+- zugehörige Explosion verursacht Schaden (Explosions-Sprite provisorisch)
+- alle endgültigen Grafiken werden als PNG geladen (+ Unterstützung von verschiedenen Bildformaten)
+- Ersetzung der Colorkeys durch Alphakanal
+- im Spiel kann nun Text dargestellt werden
+- das Fenster hat einen Namen
+- Fps-Anzeige
+- grafisches Pause-Menü, neuer Hintergrund
+- der Player hat wieder ein bildschirmgroßes Bewegungsfeld
+
+Bugs:
+- es können keine Bombos gespawnt werden
+- Bombos können nicht getötet werden
+
+
+InDev 1.3:
+- Bombos und Stachelsteine können jetzt gespawnt werden (B/Z)
+- erweitertes Haupt- und Pausemenü
+- zentrierter Buttontext
+- Menü komplett mit Grafiken versehen
+- es kann jetzt per Menü gespeichert und geladen werden (Lan hats wieder kaputtbekommen)
+- es gibt drei Spielstände, die gespeichert werden können
+- Spidersprites implementiert
+- Kollisionsüberprüfung wieder eingeführt
+- Effekte von unterschiedlichen Kollisionstypen (Explosion, Angriff, Schuss...) werden in Zukunft innerhalb des Objekts berechnet
+- Spielerbewegung in komplexeres Winkelmaß überführt
+- Alles, was ein Rect besitzt, wird nun in einer neuen Klasse (Rectmaster) und nicht mehr in der Game verwaltet
+- Explosionen vernichten nun auch andere Mobs und fügen Schaden je nach TPS zu (je weniger Tps, desto weniger Schaden!)
+- Angriffsfunktion für den Spieler hinzugefügt; Dieser kann nun in alle acht Richtungen angreifen (X)
+- Schussfunktion auf andere Taste gelegt (C)
+- SpawnAsteroids entfernt (yay)
+
+
+InDev 1.4:
+- Monsterklasse hinzugefügt
+- Bombo und Stachelstein werden nun vererbt
+- Neues Monster: Hexaspider, muss noch feinjustiert und in die CheCol eingebaut werden
+- Knockback funktioniert richtig (naja. Die Sprites sind falsch)
+- Explosionen, Schüsse und Angriffe funktionieren nun Ordnungsgemäß
+- Bombo verbessert
+- Sound und Musik kann nun abgespielt werden
+- erster InGame Musik-Track, der im Hauptmenü nicht läuft
+- bewegliche Kamera implementiert, die nur einen Bildschirmausschnitt zeigt
+- der Spieler befindet sich außer in Randregionen immer im Mittelpunkt des Bildes
+- Map, bestehend aus 4 Layern hinzugefügt
+- Map wird aus 4 Dateien geladen, die sich mit einem Editor bearbeiten lassen
+- Mapuntergrund wird aus Texturen gerendert (Texturset)
+
+Bugs:
+- verbesserter Bombo sowie Knockback funktionieren nicht
+- Das Spiel stürzt ab, wenn ein Savegame geladen wird
+- man kann immernoch keine Savegames löschen
+- Monster können nur im oberen linken Mapbereich existieren
+- der Player kann unten rechts aus der Map laufen
+
+
+InDev 1.4_01:
+- Lanyovans Änderungen eingebaut (Bombo 2.0, Knockback)
+- Spinne erhält nun Schaden, teilt noch keinen aus
+- Sadchant hats sich angeschaut *_*
+- für die nächsten drei Versionen macht Lanyovan garantiert NICHT den Bastler -.-
+
+InDev 1.5:
+- Erweiterte Hauptmenü-optionen
+- Vollbild-Modus lässt sich an/aus stellen
+- Musik/Sound regulierbar
+- Savegame-Bug behoben
+- Player nun ein "Monster"
+- Nicht begehbare Blöcke eingefügt
