@@ -1,10 +1,14 @@
+# toplevel debug
+
 Debug/
-*.ncb
-*.aps
-*.vcproj*
+
+
+# toplevel useless stuff
+
 *.sdf
-*.sln
 *.suo
-*.rc
-*.vcxproj*
-UpgradeLog*
+
+
+# main folder debug
+
+Remarius/Debug/
