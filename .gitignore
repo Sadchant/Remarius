@@ -1,0 +1,10 @@
+Debug/
+*.ncb
+*.aps
+*.vcproj*
+*.sdf
+*.sln
+*.suo
+*.rc
+*.vcxproj*
+UpgradeLog*
