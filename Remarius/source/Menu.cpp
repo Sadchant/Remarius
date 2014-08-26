@@ -58,7 +58,7 @@ void CMenu::Run()
 			m_pTextMenucaption->SetText ("Hauptmenü");
 			m_pTextMenucaption->Render (static_cast<float>((1024 - m_pTextMenucaption->GetLength())/2), 170);
                
-                if (g_pFramework->KeyDown(SDLK_RETURN)==false)
+                if (g_pFramework->KeyDown(SDL_SCANCODE_RETURN)==false)
                         m_bEnterLock=false;
 
                 switch (m_State)
@@ -148,7 +148,7 @@ void CMenu::Run()
 					case (SDL_KEYDOWN):
 					switch (event.key.keysym.sym)
                     {
-					case (SDLK_DOWN):
+					case (SDL_SCANCODE_DOWN):
 						{
 							if (m_bStateLock==false)
 							{
@@ -157,7 +157,7 @@ void CMenu::Run()
 							}
 						} break;
 
-					case (SDLK_UP):
+					case (SDL_SCANCODE_UP):
 						{
 							if (m_bStateLock==false)
 							{
@@ -179,7 +179,7 @@ void CMenu::Run()
 					case (SDL_KEYUP):
 					switch (event.key.keysym.sym)
 					{
-						case (SDLK_RETURN):
+						case (SDL_SCANCODE_RETURN):
                         {
 							if (m_bEnterLock==false)
 								Play ();
@@ -196,7 +196,7 @@ void CMenu::Run()
 				case (SDL_KEYDOWN):
 				switch (event.key.keysym.sym)
                 {
-					case (SDLK_UP):
+					case (SDL_SCANCODE_UP):
 					{
 						if (m_bStateLock==false)
 						{
@@ -205,7 +205,7 @@ void CMenu::Run()
 						}
 					} break;
  
-					case (SDLK_DOWN):
+					case (SDL_SCANCODE_DOWN):
 					{
 						if (m_bStateLock==false)
 						{
@@ -227,7 +227,7 @@ void CMenu::Run()
 				case (SDL_KEYUP):
 				switch (event.key.keysym.sym)
 				{
-					case (SDLK_RETURN):
+					case (SDL_SCANCODE_RETURN):
 					{
 							Options();
 					} break;
@@ -243,7 +243,7 @@ void CMenu::Run()
 				case (SDL_KEYDOWN):
 				switch (event.key.keysym.sym)
                 {	
-					case (SDLK_UP):
+					case (SDL_SCANCODE_UP):
 					{
 						if (m_bStateLock==false)
 						{
@@ -252,7 +252,7 @@ void CMenu::Run()
 						}
 					} break;
 
-					case (SDLK_DOWN):
+					case (SDL_SCANCODE_DOWN):
 					{
 						if (m_bStateLock==false)
 						{
@@ -274,7 +274,7 @@ void CMenu::Run()
 				case (SDL_KEYUP):
 				switch (event.key.keysym.sym)
 				{
-					case (SDLK_RETURN):
+					case (SDL_SCANCODE_RETURN):
 					{
 							SDL_EventState(SDL_SYSWMEVENT, SDL_ENABLE);
 							m_bMenu1End=true;
@@ -287,7 +287,7 @@ void CMenu::Run()
 			if (g_pFramework->KeyDown(SDL_SCANCODE_ESCAPE) == false)
 				m_bEscapeLock=false;
  
-			if (g_pFramework->KeyDown(SDLK_UP)==false && g_pFramework->KeyDown(SDLK_DOWN)==false)
+			if (g_pFramework->KeyDown(SDL_SCANCODE_UP)==false && g_pFramework->KeyDown(SDL_SCANCODE_DOWN)==false)
 				m_bStateLock=false;
  
 		}        
@@ -542,9 +542,9 @@ void CMenu::Options()
 		}  
 		g_pFramework->Render ();
 										
-		if (g_pFramework->KeyDown(SDLK_RETURN)==false)
+		if (g_pFramework->KeyDown(SDL_SCANCODE_RETURN)==false)
 			m_bEnterLock=false;
-		if (g_pFramework->KeyDown(SDLK_UP)==false && g_pFramework->KeyDown(SDLK_DOWN)==false)
+		if (g_pFramework->KeyDown(SDL_SCANCODE_UP)==false && g_pFramework->KeyDown(SDL_SCANCODE_DOWN)==false)
 			m_bStateLock=false;
 		if (g_pFramework->KeyDown(SDL_SCANCODE_ESCAPE) == false)
 			m_bEscapeLock=false;
@@ -560,7 +560,7 @@ void CMenu::Options()
 				case (SDL_KEYDOWN):
 				switch (event.key.keysym.sym)
 				{
-				case (SDLK_DOWN):
+				case (SDL_SCANCODE_DOWN):
 					{
 						if (m_bStateLock==false)
 						{
@@ -568,7 +568,7 @@ void CMenu::Options()
 							m_bStateLock=true;
 						}
 					} break;
-				case (SDLK_UP):
+				case (SDL_SCANCODE_UP):
 					{
 						if (m_bStateLock==false)
 						{
@@ -589,7 +589,7 @@ void CMenu::Options()
 				case (SDL_KEYUP):
 				switch (event.key.keysym.sym)
 				{
-					case (SDLK_RETURN):
+					case (SDL_SCANCODE_RETURN):
 					{
 							if(m_bFullSize==true)
 							{
@@ -618,7 +618,7 @@ void CMenu::Options()
 				case (SDL_KEYDOWN):
 				switch (event.key.keysym.sym)
 				{
-				case (SDLK_UP):
+				case (SDL_SCANCODE_UP):
 					{
 						if (m_bStateLock==false)
 						{
@@ -626,7 +626,7 @@ void CMenu::Options()
 							m_bStateLock=true;
 						}
 					} break;
-				case (SDLK_DOWN):
+				case (SDL_SCANCODE_DOWN):
 					{
 						if (m_bStateLock==false)
 						{
@@ -647,7 +647,7 @@ void CMenu::Options()
 				case (SDL_KEYUP):
 				switch (event.key.keysym.sym)
 				{
-					case (SDLK_RETURN):
+					case (SDL_SCANCODE_RETURN):
 					{
 						if(m_bMusic==true)
 						{
@@ -670,7 +670,7 @@ void CMenu::Options()
 					case (SDL_KEYDOWN):
 					switch (event.key.keysym.sym)
 					{
-					case (SDLK_UP):
+					case (SDL_SCANCODE_UP):
 						{
 							if (m_bStateLock==false)
 							{
@@ -678,7 +678,7 @@ void CMenu::Options()
 								m_bStateLock=true;
 							}
 						} break;
-					case (SDLK_DOWN):
+					case (SDL_SCANCODE_DOWN):
 						{
 							if (m_bStateLock==false)
 							{
@@ -699,7 +699,7 @@ void CMenu::Options()
 				case (SDL_KEYUP):
 				switch (event.key.keysym.sym)
 				{
-					case (SDLK_RETURN):
+					case (SDL_SCANCODE_RETURN):
 					{
 						if(m_bSound==true)
 						{
@@ -722,7 +722,7 @@ void CMenu::Options()
 					case (SDL_KEYDOWN):
 					switch (event.key.keysym.sym)
 					{
-					case (SDLK_UP):
+					case (SDL_SCANCODE_UP):
 						{
 							if (m_bStateLock==false)
 							{
@@ -730,7 +730,7 @@ void CMenu::Options()
 								m_bStateLock=true;
 							}
 						} break;
-					case (SDLK_DOWN):
+					case (SDL_SCANCODE_DOWN):
 						{
 							if (m_bStateLock==false)
 							{
@@ -751,7 +751,7 @@ void CMenu::Options()
 					case (SDL_KEYUP):
 					switch (event.key.keysym.sym)
 					{
-						case (SDLK_RETURN):
+						case (SDL_SCANCODE_RETURN):
 						{
 							m_bMenu2End=true;
 							m_bEnterLock=true;
@@ -902,9 +902,9 @@ void CMenu::Play()
 		}
 		g_pFramework->Render ();
 		 
-		if (g_pFramework->KeyDown(SDLK_RETURN)==false)
+		if (g_pFramework->KeyDown(SDL_SCANCODE_RETURN)==false)
 			m_bEnterLock=false;
-		if (g_pFramework->KeyDown(SDLK_UP)==false && g_pFramework->KeyDown(SDLK_DOWN)==false)
+		if (g_pFramework->KeyDown(SDL_SCANCODE_UP)==false && g_pFramework->KeyDown(SDL_SCANCODE_DOWN)==false)
 			m_bStateLock=false;
 		if (g_pFramework->KeyDown(SDL_SCANCODE_ESCAPE) == false)
 			m_bEscapeLock=false;
@@ -920,7 +920,7 @@ void CMenu::Play()
 				case (SDL_KEYDOWN):
 				switch (event.key.keysym.sym)
 				{	
-				case (SDLK_DOWN):
+				case (SDL_SCANCODE_DOWN):
 				{
 					if (m_bStateLock==false)
 					{
@@ -928,7 +928,7 @@ void CMenu::Play()
 						m_bStateLock=true;
 					}
 				} break;
-				case (SDLK_UP):
+				case (SDL_SCANCODE_UP):
 				{
 					if (m_bStateLock==false)
 					{
@@ -949,7 +949,7 @@ void CMenu::Play()
 				case (SDL_KEYUP):
 				switch (event.key.keysym.sym)
 				{
-				case (SDLK_RETURN):
+				case (SDL_SCANCODE_RETURN):
 				{
 					CGame Game;
 					Game.m_Savestate=1;
@@ -1002,9 +1002,9 @@ void CMenu::Play()
 												break;
 										}
 										g_pFramework->Render ();
-										if (g_pFramework->KeyDown(SDLK_RETURN)==false)
+										if (g_pFramework->KeyDown(SDL_SCANCODE_RETURN)==false)
 											m_bEnterLock=false;
-										if (g_pFramework->KeyDown(SDLK_UP)==false && g_pFramework->KeyDown(SDLK_DOWN)==false)
+										if (g_pFramework->KeyDown(SDL_SCANCODE_UP)==false && g_pFramework->KeyDown(SDL_SCANCODE_DOWN)==false)
 											m_bStateLock=false;
 										if (g_pFramework->KeyDown(SDL_SCANCODE_ESCAPE) == false)
 											m_bEscapeLock=false;
@@ -1019,7 +1019,7 @@ void CMenu::Play()
 												case (SDL_KEYDOWN):
 												switch (event.key.keysym.sym)
 												{	
-												case (SDLK_DOWN):
+												case (SDL_SCANCODE_DOWN):
 													{
 														if (m_bStateLock==false)
 														{
@@ -1027,7 +1027,7 @@ void CMenu::Play()
 															m_bStateLock=true;
 														}
 													} break;
-												case (SDLK_UP):
+												case (SDL_SCANCODE_UP):
 													{
 														if (m_bStateLock==false)
 														{
@@ -1049,7 +1049,7 @@ void CMenu::Play()
 												case (SDL_KEYUP):
 												switch (event.key.keysym.sym)
 												{
-													case (SDLK_RETURN):
+													case (SDL_SCANCODE_RETURN):
 													{
 															SDL_EventState(SDL_SYSWMEVENT, SDL_ENABLE);
 															Game.Run ();
@@ -1070,7 +1070,7 @@ void CMenu::Play()
 												case (SDL_KEYDOWN):
 												switch (event.key.keysym.sym)
 												{												
-												case (SDLK_DOWN):
+												case (SDL_SCANCODE_DOWN):
 													{
 														if (m_bStateLock==false)
 														{
@@ -1078,7 +1078,7 @@ void CMenu::Play()
 															m_bStateLock=true;
 														}
 													} break;
-												case (SDLK_UP):
+												case (SDL_SCANCODE_UP):
 													{
 														if (m_bStateLock==false)
 														{
@@ -1100,7 +1100,7 @@ void CMenu::Play()
 												case (SDL_KEYUP):
 												switch (event.key.keysym.sym)
 												{
-													case (SDLK_RETURN):
+													case (SDL_SCANCODE_RETURN):
 													{
 														m_bMenu3End=true;
 														m_bEnterLock=true;
@@ -1195,9 +1195,9 @@ void CMenu::Play()
 										break;
 										}
 										g_pFramework->Render ();
-										if (g_pFramework->KeyDown(SDLK_RETURN)==false)
+										if (g_pFramework->KeyDown(SDL_SCANCODE_RETURN)==false)
 											m_bEnterLock=false;
-										if (g_pFramework->KeyDown(SDLK_UP)==false && g_pFramework->KeyDown(SDLK_DOWN)==false)
+										if (g_pFramework->KeyDown(SDL_SCANCODE_UP)==false && g_pFramework->KeyDown(SDL_SCANCODE_DOWN)==false)
 											m_bStateLock=false;
 										if (g_pFramework->KeyDown(SDL_SCANCODE_ESCAPE) == false)
 											m_bEscapeLock=false;
@@ -1211,7 +1211,7 @@ void CMenu::Play()
 												case (SDL_KEYDOWN):
 												switch (event.key.keysym.sym)
 												{
-												case (SDLK_DOWN):
+												case (SDL_SCANCODE_DOWN):
 													{
 														if (m_bStateLock==false)
 														{
@@ -1219,7 +1219,7 @@ void CMenu::Play()
 															m_bStateLock=true;
 														}
 													} break;
-												case (SDLK_UP):
+												case (SDL_SCANCODE_UP):
 													{
 														if (m_bStateLock==false)
 														{
@@ -1241,7 +1241,7 @@ void CMenu::Play()
 												case (SDL_KEYUP):
 												switch (event.key.keysym.sym)
 												{
-													case(SDLK_RETURN):
+													case(SDL_SCANCODE_RETURN):
 													{
 															SDL_EventState(SDL_SYSWMEVENT, SDL_ENABLE);
 															Game.Run (1);
@@ -1262,7 +1262,7 @@ void CMenu::Play()
 												case (SDL_KEYDOWN):
 												switch (event.key.keysym.sym)
 												{												
-												case (SDLK_DOWN):
+												case (SDL_SCANCODE_DOWN):
 													{
 														if (m_bStateLock==false)
 														{
@@ -1270,7 +1270,7 @@ void CMenu::Play()
 															m_bStateLock=true;
 														}
 													} break;
-												case (SDLK_UP):
+												case (SDL_SCANCODE_UP):
 													{
 														if (m_bStateLock==false)
 														{
@@ -1292,7 +1292,7 @@ void CMenu::Play()
 												case (SDL_KEYUP):
 												switch (event.key.keysym.sym)
 												{
-													case(SDLK_RETURN):
+													case(SDL_SCANCODE_RETURN):
 													{
 															m_bEnterLock=true;
 															m_State4=1;
@@ -1305,9 +1305,9 @@ void CMenu::Play()
 	
 															while (	m_bMenu4End==false)
 															{
-																if (g_pFramework->KeyDown(SDLK_RETURN)==false)
+																if (g_pFramework->KeyDown(SDL_SCANCODE_RETURN)==false)
 																	m_bEnterLock=false;
-																if (g_pFramework->KeyDown(SDLK_UP)==false && g_pFramework->KeyDown(SDLK_DOWN)==false)
+																if (g_pFramework->KeyDown(SDL_SCANCODE_UP)==false && g_pFramework->KeyDown(SDL_SCANCODE_DOWN)==false)
 																	m_bStateLock=false;
 
 																switch (m_State4)
@@ -1358,14 +1358,14 @@ void CMenu::Play()
 																	case (SDL_KEYDOWN):
 																	switch (event.key.keysym.sym)
 																	{																	
-																	case (SDLK_DOWN):
+																	case (SDL_SCANCODE_DOWN):
 																		if (m_bStateLock==false)
 																		{
 																			m_State4=2;
 																			m_bStateLock=true;
 																		}
 																	break;
-																	case (SDLK_UP):
+																	case (SDL_SCANCODE_UP):
 																		if (m_bStateLock==false)
 																		{
 																			m_State4=2;
@@ -1384,7 +1384,7 @@ void CMenu::Play()
 																	case (SDL_KEYUP):
 																	switch (event.key.keysym.sym)
 																	{
-																		case (SDLK_RETURN):
+																		case (SDL_SCANCODE_RETURN):
 																			cout<<"Spiel wurde geloescht"<<endl;
 																			m_bMenu4End=true;
 																			m_bMenu3End=true;
@@ -1402,14 +1402,14 @@ void CMenu::Play()
 																	case (SDL_KEYDOWN):
 																	switch (event.key.keysym.sym)
 																	{																	
-																	case (SDLK_DOWN):
+																	case (SDL_SCANCODE_DOWN):
 																		if (m_bStateLock==false)
 																		{
 																			m_State4=1;
 																			m_bStateLock=true;
 																		}
 																	break;
-																	case (SDLK_UP):
+																	case (SDL_SCANCODE_UP):
 																		if (m_bStateLock==false)
 																		{
 																			m_State4=1;
@@ -1428,7 +1428,7 @@ void CMenu::Play()
 																	case (SDL_KEYUP):
 																	switch (event.key.keysym.sym)
 																	{
-																	case (SDLK_RETURN):
+																	case (SDL_SCANCODE_RETURN):
 																		m_bMenu4End=true;
 																		m_bEnterLock=true;
 																	break;
@@ -1450,7 +1450,7 @@ void CMenu::Play()
 												case (SDL_KEYDOWN):
 												switch (event.key.keysym.sym)
 												{												
-												case (SDLK_DOWN):
+												case (SDL_SCANCODE_DOWN):
 													{
 														if (m_bStateLock==false)
 														{
@@ -1458,7 +1458,7 @@ void CMenu::Play()
 															m_bStateLock=true;								
 													}
 													} break;
-												case (SDLK_UP):
+												case (SDL_SCANCODE_UP):
 													{
 														if (m_bStateLock==false)
 														{
@@ -1480,7 +1480,7 @@ void CMenu::Play()
 												case (SDL_KEYUP):
 												switch (event.key.keysym.sym)
 												{
-													case(SDLK_RETURN):
+													case(SDL_SCANCODE_RETURN):
 													{
 														m_bMenu3End=true;
 														m_bEscapeLock=true;
@@ -1506,7 +1506,7 @@ void CMenu::Play()
 				case (SDL_KEYDOWN):
 				switch (event.key.keysym.sym)
 				{
-										case (SDLK_DOWN):
+										case (SDL_SCANCODE_DOWN):
 											{
 												if (m_bStateLock==false)
 												{
@@ -1514,7 +1514,7 @@ void CMenu::Play()
 													m_bStateLock=true;
 												}
 											} break;
-										case (SDLK_UP):
+										case (SDL_SCANCODE_UP):
 											{
 												if (m_bStateLock==false)
 												{
@@ -1535,7 +1535,7 @@ void CMenu::Play()
 										case (SDL_KEYUP):
 										switch (event.key.keysym.sym)
 										{
-											case (SDLK_RETURN):
+											case (SDL_SCANCODE_RETURN):
 						{
 								CGame Game;
 								Game.m_Savestate=2;
@@ -1588,9 +1588,9 @@ void CMenu::Play()
 												break;
 										}
 										g_pFramework->Render ();
-										if (g_pFramework->KeyDown(SDLK_RETURN)==false)
+										if (g_pFramework->KeyDown(SDL_SCANCODE_RETURN)==false)
 											m_bEnterLock=false;
-										if (g_pFramework->KeyDown(SDLK_UP)==false && g_pFramework->KeyDown(SDLK_DOWN)==false)
+										if (g_pFramework->KeyDown(SDL_SCANCODE_UP)==false && g_pFramework->KeyDown(SDL_SCANCODE_DOWN)==false)
 											m_bStateLock=false;
 										if (g_pFramework->KeyDown(SDL_SCANCODE_ESCAPE) == false)
 											m_bEscapeLock=false;
@@ -1605,7 +1605,7 @@ void CMenu::Play()
 												case (SDL_KEYDOWN):
 												switch (event.key.keysym.sym)
 												{	
-												case (SDLK_DOWN):
+												case (SDL_SCANCODE_DOWN):
 													{
 														if (m_bStateLock==false)
 														{
@@ -1613,7 +1613,7 @@ void CMenu::Play()
 															m_bStateLock=true;
 														}
 													} break;
-												case (SDLK_UP):
+												case (SDL_SCANCODE_UP):
 													{
 														if (m_bStateLock==false)
 														{
@@ -1635,7 +1635,7 @@ void CMenu::Play()
 												case (SDL_KEYUP):
 												switch (event.key.keysym.sym)
 												{
-													case (SDLK_RETURN):
+													case (SDL_SCANCODE_RETURN):
 													{
 															SDL_EventState(SDL_SYSWMEVENT, SDL_ENABLE);
 															Game.Run ();
@@ -1656,7 +1656,7 @@ void CMenu::Play()
 												case (SDL_KEYDOWN):
 												switch (event.key.keysym.sym)
 												{												
-												case (SDLK_DOWN):
+												case (SDL_SCANCODE_DOWN):
 													{
 														if (m_bStateLock==false)
 														{
@@ -1664,7 +1664,7 @@ void CMenu::Play()
 															m_bStateLock=true;
 														}
 													} break;
-												case (SDLK_UP):
+												case (SDL_SCANCODE_UP):
 													{
 														if (m_bStateLock==false)
 														{
@@ -1686,7 +1686,7 @@ void CMenu::Play()
 												case (SDL_KEYUP):
 												switch (event.key.keysym.sym)
 												{
-													case (SDLK_RETURN):
+													case (SDL_SCANCODE_RETURN):
 													{
 														m_bMenu3End=true;
 														m_bEnterLock=true;
@@ -1781,9 +1781,9 @@ void CMenu::Play()
 										break;
 										}
 										g_pFramework->Render ();
-										if (g_pFramework->KeyDown(SDLK_RETURN)==false)
+										if (g_pFramework->KeyDown(SDL_SCANCODE_RETURN)==false)
 											m_bEnterLock=false;
-										if (g_pFramework->KeyDown(SDLK_UP)==false && g_pFramework->KeyDown(SDLK_DOWN)==false)
+										if (g_pFramework->KeyDown(SDL_SCANCODE_UP)==false && g_pFramework->KeyDown(SDL_SCANCODE_DOWN)==false)
 											m_bStateLock=false;
 										if (g_pFramework->KeyDown(SDL_SCANCODE_ESCAPE) == false)
 											m_bEscapeLock=false;
@@ -1797,7 +1797,7 @@ void CMenu::Play()
 												case (SDL_KEYDOWN):
 												switch (event.key.keysym.sym)
 												{
-												case (SDLK_DOWN):
+												case (SDL_SCANCODE_DOWN):
 													{
 														if (m_bStateLock==false)
 														{
@@ -1805,7 +1805,7 @@ void CMenu::Play()
 															m_bStateLock=true;
 														}
 													} break;
-												case (SDLK_UP):
+												case (SDL_SCANCODE_UP):
 													{
 														if (m_bStateLock==false)
 														{
@@ -1827,7 +1827,7 @@ void CMenu::Play()
 												case (SDL_KEYUP):
 												switch (event.key.keysym.sym)
 												{
-													case(SDLK_RETURN):
+													case(SDL_SCANCODE_RETURN):
 													{
 															SDL_EventState(SDL_SYSWMEVENT, SDL_ENABLE);
 															Game.Run (1);
@@ -1848,7 +1848,7 @@ void CMenu::Play()
 												case (SDL_KEYDOWN):
 												switch (event.key.keysym.sym)
 												{												
-												case (SDLK_DOWN):
+												case (SDL_SCANCODE_DOWN):
 													{
 														if (m_bStateLock==false)
 														{
@@ -1856,7 +1856,7 @@ void CMenu::Play()
 															m_bStateLock=true;
 														}
 													} break;
-												case (SDLK_UP):
+												case (SDL_SCANCODE_UP):
 													{
 														if (m_bStateLock==false)
 														{
@@ -1878,7 +1878,7 @@ void CMenu::Play()
 												case (SDL_KEYUP):
 												switch (event.key.keysym.sym)
 												{
-													case(SDLK_RETURN):
+													case(SDL_SCANCODE_RETURN):
 													{
 															m_bEnterLock=true;
 															m_State4=1;
@@ -1891,9 +1891,9 @@ void CMenu::Play()
 	
 															while (	m_bMenu4End==false)
 															{
-																if (g_pFramework->KeyDown(SDLK_RETURN)==false)
+																if (g_pFramework->KeyDown(SDL_SCANCODE_RETURN)==false)
 																	m_bEnterLock=false;
-																if (g_pFramework->KeyDown(SDLK_UP)==false && g_pFramework->KeyDown(SDLK_DOWN)==false)
+																if (g_pFramework->KeyDown(SDL_SCANCODE_UP)==false && g_pFramework->KeyDown(SDL_SCANCODE_DOWN)==false)
 																	m_bStateLock=false;
 
 																switch (m_State4)
@@ -1944,14 +1944,14 @@ void CMenu::Play()
 																	case (SDL_KEYDOWN):
 																	switch (event.key.keysym.sym)
 																	{																	
-																	case (SDLK_DOWN):
+																	case (SDL_SCANCODE_DOWN):
 																		if (m_bStateLock==false)
 																		{
 																			m_State4=2;
 																			m_bStateLock=true;
 																		}
 																	break;
-																	case (SDLK_UP):
+																	case (SDL_SCANCODE_UP):
 																		if (m_bStateLock==false)
 																		{
 																			m_State4=2;
@@ -1970,7 +1970,7 @@ void CMenu::Play()
 																	case (SDL_KEYUP):
 																	switch (event.key.keysym.sym)
 																	{
-																		case (SDLK_RETURN):
+																		case (SDL_SCANCODE_RETURN):
 																			cout<<"Spiel wurde geloescht"<<endl;
 																			m_bMenu4End=true;
 																			m_bMenu3End=true;
@@ -1988,14 +1988,14 @@ void CMenu::Play()
 																	case (SDL_KEYDOWN):
 																	switch (event.key.keysym.sym)
 																	{																	
-																	case (SDLK_DOWN):
+																	case (SDL_SCANCODE_DOWN):
 																		if (m_bStateLock==false)
 																		{
 																			m_State4=1;
 																			m_bStateLock=true;
 																		}
 																	break;
-																	case (SDLK_UP):
+																	case (SDL_SCANCODE_UP):
 																		if (m_bStateLock==false)
 																		{
 																			m_State4=1;
@@ -2014,7 +2014,7 @@ void CMenu::Play()
 																	case (SDL_KEYUP):
 																	switch (event.key.keysym.sym)
 																	{
-																	case (SDLK_RETURN):
+																	case (SDL_SCANCODE_RETURN):
 																		m_bMenu4End=true;
 																		m_bEnterLock=true;
 																	break;
@@ -2036,7 +2036,7 @@ void CMenu::Play()
 												case (SDL_KEYDOWN):
 												switch (event.key.keysym.sym)
 												{												
-												case (SDLK_DOWN):
+												case (SDL_SCANCODE_DOWN):
 													{
 														if (m_bStateLock==false)
 														{
@@ -2044,7 +2044,7 @@ void CMenu::Play()
 															m_bStateLock=true;								
 													}
 													} break;
-												case (SDLK_UP):
+												case (SDL_SCANCODE_UP):
 													{
 														if (m_bStateLock==false)
 														{
@@ -2066,7 +2066,7 @@ void CMenu::Play()
 												case (SDL_KEYUP):
 												switch (event.key.keysym.sym)
 												{
-													case(SDLK_RETURN):
+													case(SDL_SCANCODE_RETURN):
 													{
 														m_bMenu3End=true;
 														m_bEscapeLock=true;
@@ -2091,7 +2091,7 @@ void CMenu::Play()
 										case (SDL_KEYDOWN):
 										switch (event.key.keysym.sym)
 										{
-										case (SDLK_DOWN):
+										case (SDL_SCANCODE_DOWN):
 											{
 												if (m_bStateLock==false)
 												{
@@ -2099,7 +2099,7 @@ void CMenu::Play()
 													m_bStateLock=true;
 												}
 											} break;
-										case (SDLK_UP):
+										case (SDL_SCANCODE_UP):
 											{
 												if (m_bStateLock==false)
 												{
@@ -2120,7 +2120,7 @@ void CMenu::Play()
 										case (SDL_KEYUP):
 										switch (event.key.keysym.sym)
 										{
-											case (SDLK_RETURN):
+											case (SDL_SCANCODE_RETURN):
 											{
 								CGame Game;
 								Game.m_Savestate=3;
@@ -2173,9 +2173,9 @@ void CMenu::Play()
 												break;
 										}
 										g_pFramework->Render ();
-										if (g_pFramework->KeyDown(SDLK_RETURN)==false)
+										if (g_pFramework->KeyDown(SDL_SCANCODE_RETURN)==false)
 											m_bEnterLock=false;
-										if (g_pFramework->KeyDown(SDLK_UP)==false && g_pFramework->KeyDown(SDLK_DOWN)==false)
+										if (g_pFramework->KeyDown(SDL_SCANCODE_UP)==false && g_pFramework->KeyDown(SDL_SCANCODE_DOWN)==false)
 											m_bStateLock=false;
 										if (g_pFramework->KeyDown(SDL_SCANCODE_ESCAPE) == false)
 											m_bEscapeLock=false;
@@ -2190,7 +2190,7 @@ void CMenu::Play()
 												case (SDL_KEYDOWN):
 												switch (event.key.keysym.sym)
 												{	
-												case (SDLK_DOWN):
+												case (SDL_SCANCODE_DOWN):
 													{
 														if (m_bStateLock==false)
 														{
@@ -2198,7 +2198,7 @@ void CMenu::Play()
 															m_bStateLock=true;
 														}
 													} break;
-												case (SDLK_UP):
+												case (SDL_SCANCODE_UP):
 													{
 														if (m_bStateLock==false)
 														{
@@ -2220,7 +2220,7 @@ void CMenu::Play()
 												case (SDL_KEYUP):
 												switch (event.key.keysym.sym)
 												{
-													case (SDLK_RETURN):
+													case (SDL_SCANCODE_RETURN):
 													{
 															SDL_EventState(SDL_SYSWMEVENT, SDL_ENABLE);
 															Game.Run ();
@@ -2241,7 +2241,7 @@ void CMenu::Play()
 												case (SDL_KEYDOWN):
 												switch (event.key.keysym.sym)
 												{												
-												case (SDLK_DOWN):
+												case (SDL_SCANCODE_DOWN):
 													{
 														if (m_bStateLock==false)
 														{
@@ -2249,7 +2249,7 @@ void CMenu::Play()
 															m_bStateLock=true;
 														}
 													} break;
-												case (SDLK_UP):
+												case (SDL_SCANCODE_UP):
 													{
 														if (m_bStateLock==false)
 														{
@@ -2271,7 +2271,7 @@ void CMenu::Play()
 												case (SDL_KEYUP):
 												switch (event.key.keysym.sym)
 												{
-													case (SDLK_RETURN):
+													case (SDL_SCANCODE_RETURN):
 													{
 														m_bMenu3End=true;
 														m_bEnterLock=true;
@@ -2366,9 +2366,9 @@ void CMenu::Play()
 										break;
 										}
 										g_pFramework->Render ();
-										if (g_pFramework->KeyDown(SDLK_RETURN)==false)
+										if (g_pFramework->KeyDown(SDL_SCANCODE_RETURN)==false)
 											m_bEnterLock=false;
-										if (g_pFramework->KeyDown(SDLK_UP)==false && g_pFramework->KeyDown(SDLK_DOWN)==false)
+										if (g_pFramework->KeyDown(SDL_SCANCODE_UP)==false && g_pFramework->KeyDown(SDL_SCANCODE_DOWN)==false)
 											m_bStateLock=false;
 										if (g_pFramework->KeyDown(SDL_SCANCODE_ESCAPE) == false)
 											m_bEscapeLock=false;
@@ -2382,7 +2382,7 @@ void CMenu::Play()
 												case (SDL_KEYDOWN):
 												switch (event.key.keysym.sym)
 												{
-												case (SDLK_DOWN):
+												case (SDL_SCANCODE_DOWN):
 													{
 														if (m_bStateLock==false)
 														{
@@ -2390,7 +2390,7 @@ void CMenu::Play()
 															m_bStateLock=true;
 														}
 													} break;
-												case (SDLK_UP):
+												case (SDL_SCANCODE_UP):
 													{
 														if (m_bStateLock==false)
 														{
@@ -2412,7 +2412,7 @@ void CMenu::Play()
 												case (SDL_KEYUP):
 												switch (event.key.keysym.sym)
 												{
-													case(SDLK_RETURN):
+													case(SDL_SCANCODE_RETURN):
 													{
 															SDL_EventState(SDL_SYSWMEVENT, SDL_ENABLE);
 															Game.Run (1);
@@ -2433,7 +2433,7 @@ void CMenu::Play()
 												case (SDL_KEYDOWN):
 												switch (event.key.keysym.sym)
 												{												
-												case (SDLK_DOWN):
+												case (SDL_SCANCODE_DOWN):
 													{
 														if (m_bStateLock==false)
 														{
@@ -2441,7 +2441,7 @@ void CMenu::Play()
 															m_bStateLock=true;
 														}
 													} break;
-												case (SDLK_UP):
+												case (SDL_SCANCODE_UP):
 													{
 														if (m_bStateLock==false)
 														{
@@ -2463,7 +2463,7 @@ void CMenu::Play()
 												case (SDL_KEYUP):
 												switch (event.key.keysym.sym)
 												{
-													case(SDLK_RETURN):
+													case(SDL_SCANCODE_RETURN):
 													{
 															m_bEnterLock=true;
 															m_State4=1;
@@ -2476,9 +2476,9 @@ void CMenu::Play()
 	
 															while (	m_bMenu4End==false)
 															{
-																if (g_pFramework->KeyDown(SDLK_RETURN)==false)
+																if (g_pFramework->KeyDown(SDL_SCANCODE_RETURN)==false)
 																	m_bEnterLock=false;
-																if (g_pFramework->KeyDown(SDLK_UP)==false && g_pFramework->KeyDown(SDLK_DOWN)==false)
+																if (g_pFramework->KeyDown(SDL_SCANCODE_UP)==false && g_pFramework->KeyDown(SDL_SCANCODE_DOWN)==false)
 																	m_bStateLock=false;
 
 																switch (m_State4)
@@ -2529,14 +2529,14 @@ void CMenu::Play()
 																	case (SDL_KEYDOWN):
 																	switch (event.key.keysym.sym)
 																	{																	
-																	case (SDLK_DOWN):
+																	case (SDL_SCANCODE_DOWN):
 																		if (m_bStateLock==false)
 																		{
 																			m_State4=2;
 																			m_bStateLock=true;
 																		}
 																	break;
-																	case (SDLK_UP):
+																	case (SDL_SCANCODE_UP):
 																		if (m_bStateLock==false)
 																		{
 																			m_State4=2;
@@ -2555,7 +2555,7 @@ void CMenu::Play()
 																	case (SDL_KEYUP):
 																	switch (event.key.keysym.sym)
 																	{
-																		case (SDLK_RETURN):
+																		case (SDL_SCANCODE_RETURN):
 																			cout<<"Spiel wurde geloescht"<<endl;
 																			m_bMenu4End=true;
 																			m_bMenu3End=true;
@@ -2573,14 +2573,14 @@ void CMenu::Play()
 																	case (SDL_KEYDOWN):
 																	switch (event.key.keysym.sym)
 																	{																	
-																	case (SDLK_DOWN):
+																	case (SDL_SCANCODE_DOWN):
 																		if (m_bStateLock==false)
 																		{
 																			m_State4=1;
 																			m_bStateLock=true;
 																		}
 																	break;
-																	case (SDLK_UP):
+																	case (SDL_SCANCODE_UP):
 																		if (m_bStateLock==false)
 																		{
 																			m_State4=1;
@@ -2599,7 +2599,7 @@ void CMenu::Play()
 																	case (SDL_KEYUP):
 																	switch (event.key.keysym.sym)
 																	{
-																	case (SDLK_RETURN):
+																	case (SDL_SCANCODE_RETURN):
 																		m_bMenu4End=true;
 																		m_bEnterLock=true;
 																	break;
@@ -2621,7 +2621,7 @@ void CMenu::Play()
 												case (SDL_KEYDOWN):
 												switch (event.key.keysym.sym)
 												{												
-												case (SDLK_DOWN):
+												case (SDL_SCANCODE_DOWN):
 													{
 														if (m_bStateLock==false)
 														{
@@ -2629,7 +2629,7 @@ void CMenu::Play()
 															m_bStateLock=true;								
 													}
 													} break;
-												case (SDLK_UP):
+												case (SDL_SCANCODE_UP):
 													{
 														if (m_bStateLock==false)
 														{
@@ -2651,7 +2651,7 @@ void CMenu::Play()
 												case (SDL_KEYUP):
 												switch (event.key.keysym.sym)
 												{
-													case(SDLK_RETURN):
+													case(SDL_SCANCODE_RETURN):
 													{
 														m_bMenu3End=true;
 														m_bEscapeLock=true;
@@ -2676,7 +2676,7 @@ void CMenu::Play()
 						case (SDL_KEYDOWN):
 						switch (event.key.keysym.sym)
 						{						
-						case (SDLK_DOWN):
+						case (SDL_SCANCODE_DOWN):
 						{
 							if (m_bStateLock==false)
 							{
@@ -2684,7 +2684,7 @@ void CMenu::Play()
 								m_bStateLock=true;
 							}
 						} break;
-						case (SDLK_UP):
+						case (SDL_SCANCODE_UP):
 						{
 							if (m_bStateLock==false)
 							{
@@ -2705,7 +2705,7 @@ void CMenu::Play()
 						case (SDL_KEYUP):
 						switch (event.key.keysym.sym)
 						{
-						case (SDLK_RETURN):
+						case (SDL_SCANCODE_RETURN):
 						{
 							m_bMenu2End=true;
 							m_bEscapeLock=true;

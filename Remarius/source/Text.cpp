@@ -74,9 +74,9 @@ void CText::SetText (const char *sentence)									 // eigentlicher Text wird üb
 
 void CText::Render (float TextxPos, float TextyPos)																	
 {
-	m_TextRect.x = static_cast<float>(TextxPos);
+	m_TextRect.x = static_cast<int>(TextxPos);
 	//m_TextRect.y = static_cast<Sint16>(TextyPos);
-	m_TextRect.y = static_cast<float>(TextyPos);
+	m_TextRect.y = static_cast<int>(TextyPos);
 	m_TextRect.w = text_width;
 	m_TextRect.h = text_height;
 

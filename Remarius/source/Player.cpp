@@ -120,30 +120,30 @@ void CPlayer::Update ()												// Spieler updaten
 }
 void CPlayer::ProcessMoving ()										// Spieler bewegen
 {
-	if ((g_pFramework->KeyDown(SDLK_UP) && g_pFramework->KeyDown(SDLK_DOWN)) || (g_pFramework->KeyDown(SDLK_LEFT) && (g_pFramework->KeyDown(SDLK_RIGHT))))
+	if ((g_pFramework->KeyDown(SDL_SCANCODE_UP) && g_pFramework->KeyDown(SDL_SCANCODE_DOWN)) || (g_pFramework->KeyDown(SDL_SCANCODE_LEFT) && (g_pFramework->KeyDown(SDL_SCANCODE_RIGHT))))
 		m_bBlock = true;
 	else m_bBlock = false;
 
 	if (!m_bBlock)
 	{
-		if (g_pFramework->KeyDown(SDLK_UP))
-			if (g_pFramework->KeyDown(SDLK_LEFT))
+		if (g_pFramework->KeyDown(SDL_SCANCODE_UP))
+			if (g_pFramework->KeyDown(SDL_SCANCODE_LEFT))
 				m_fDirection = 0.625f;
-			else if (g_pFramework->KeyDown(SDLK_RIGHT))
+			else if (g_pFramework->KeyDown(SDL_SCANCODE_RIGHT))
 				m_fDirection = 0.375f;
 			else m_fDirection = 0.5f;
-		else if (g_pFramework->KeyDown(SDLK_DOWN))
-			if (g_pFramework->KeyDown(SDLK_LEFT))
+		else if (g_pFramework->KeyDown(SDL_SCANCODE_DOWN))
+			if (g_pFramework->KeyDown(SDL_SCANCODE_LEFT))
 				m_fDirection = 0.875f;
-			else if (g_pFramework->KeyDown(SDLK_RIGHT))
+			else if (g_pFramework->KeyDown(SDL_SCANCODE_RIGHT))
 				m_fDirection = 0.125f;
 			else m_fDirection = 0.0f;
-		else if (g_pFramework->KeyDown(SDLK_LEFT))
+		else if (g_pFramework->KeyDown(SDL_SCANCODE_LEFT))
 			m_fDirection = 0.75f;
-		else if (g_pFramework->KeyDown(SDLK_RIGHT))
+		else if (g_pFramework->KeyDown(SDL_SCANCODE_RIGHT))
 			m_fDirection = 0.25f;
 		
-		if (g_pFramework->KeyDown(SDLK_UP) || g_pFramework->KeyDown(SDLK_DOWN) || g_pFramework->KeyDown(SDLK_LEFT) || g_pFramework->KeyDown(SDLK_RIGHT))
+		if (g_pFramework->KeyDown(SDL_SCANCODE_UP) || g_pFramework->KeyDown(SDL_SCANCODE_DOWN) || g_pFramework->KeyDown(SDL_SCANCODE_LEFT) || g_pFramework->KeyDown(SDL_SCANCODE_RIGHT))
 		{
 			m_fXPos += static_cast<float>(255.0f * sin(m_fDirection * 2 * M_PI) * g_pTimer->GetElapsed());
 			m_fYPos += static_cast<float>(255.0f * cos(m_fDirection * 2 * M_PI) * g_pTimer->GetElapsed());
@@ -151,45 +151,45 @@ void CPlayer::ProcessMoving ()										// Spieler bewegen
 		}
 	}
 
-	if (g_pFramework->KeyDown(SDLK_LCTRL) && m_bLifeLock == false)								// Wenn Heiltaste
+	if (g_pFramework->KeyDown(SDL_SCANCODE_LCTRL) && m_bLifeLock == false)								// Wenn Heiltaste
 		{
 			if (m_Life<m_maxLife) {m_Life++;}
 			m_bLifeLock = true;
-		} else if (g_pFramework->KeyDown(SDLK_RCTRL) && m_bLifeLock == false)					// ansonsten Wenn Schadenstaste
+		} else if (g_pFramework->KeyDown(SDL_SCANCODE_RCTRL) && m_bLifeLock == false)					// ansonsten Wenn Schadenstaste
 		{
 			if (m_Life>5) {m_Life--;}
 			m_bLifeLock = true;
 		} 
-		if (g_pFramework->KeyDown(SDLK_LCTRL)==false && g_pFramework->KeyDown(SDLK_RCTRL)==false)
+		if (g_pFramework->KeyDown(SDL_SCANCODE_LCTRL)==false && g_pFramework->KeyDown(SDL_SCANCODE_RCTRL)==false)
 			m_bLifeLock = false;																// wenn keins von beiden, dann Lifelock aus
 }
 
 void CPlayer::ProcessMoving (float Speed)										// Spieler bewegen
 {
-	if ((g_pFramework->KeyDown(SDLK_UP) && g_pFramework->KeyDown(SDLK_DOWN)) || (g_pFramework->KeyDown(SDLK_LEFT) && (g_pFramework->KeyDown(SDLK_RIGHT))))
+	if ((g_pFramework->KeyDown(SDL_SCANCODE_UP) && g_pFramework->KeyDown(SDL_SCANCODE_DOWN)) || (g_pFramework->KeyDown(SDL_SCANCODE_LEFT) && (g_pFramework->KeyDown(SDL_SCANCODE_RIGHT))))
 		m_bBlock = true;
 	else m_bBlock = false;
 
 	if (!m_bBlock)
 	{
-		if (g_pFramework->KeyDown(SDLK_UP))
-			if (g_pFramework->KeyDown(SDLK_LEFT))
+		if (g_pFramework->KeyDown(SDL_SCANCODE_UP))
+			if (g_pFramework->KeyDown(SDL_SCANCODE_LEFT))
 				m_fDirection = 0.625f;
-			else if (g_pFramework->KeyDown(SDLK_RIGHT))
+			else if (g_pFramework->KeyDown(SDL_SCANCODE_RIGHT))
 				m_fDirection = 0.375f;
 			else m_fDirection = 0.5f;
-		else if (g_pFramework->KeyDown(SDLK_DOWN))
-			if (g_pFramework->KeyDown(SDLK_LEFT))
+		else if (g_pFramework->KeyDown(SDL_SCANCODE_DOWN))
+			if (g_pFramework->KeyDown(SDL_SCANCODE_LEFT))
 				m_fDirection = 0.875f;
-			else if (g_pFramework->KeyDown(SDLK_RIGHT))
+			else if (g_pFramework->KeyDown(SDL_SCANCODE_RIGHT))
 				m_fDirection = 0.125f;
 			else m_fDirection = 0.0f;
-		else if (g_pFramework->KeyDown(SDLK_LEFT))
+		else if (g_pFramework->KeyDown(SDL_SCANCODE_LEFT))
 			m_fDirection = 0.75f;
-		else if (g_pFramework->KeyDown(SDLK_RIGHT))
+		else if (g_pFramework->KeyDown(SDL_SCANCODE_RIGHT))
 			m_fDirection = 0.25f;
 		
-		if (g_pFramework->KeyDown(SDLK_UP) || g_pFramework->KeyDown(SDLK_DOWN) || g_pFramework->KeyDown(SDLK_LEFT) || g_pFramework->KeyDown(SDLK_RIGHT))
+		if (g_pFramework->KeyDown(SDL_SCANCODE_UP) || g_pFramework->KeyDown(SDL_SCANCODE_DOWN) || g_pFramework->KeyDown(SDL_SCANCODE_LEFT) || g_pFramework->KeyDown(SDL_SCANCODE_RIGHT))
 		{
 			m_fXPos += static_cast<float>(Speed * sin(m_fDirection * 2 * M_PI) * g_pTimer->GetElapsed());
 			m_fYPos += static_cast<float>(Speed * cos(m_fDirection * 2 * M_PI) * g_pTimer->GetElapsed());
@@ -197,16 +197,16 @@ void CPlayer::ProcessMoving (float Speed)										// Spieler bewegen
 		}
 	}
 
-	if (g_pFramework->KeyDown(SDLK_LCTRL) && m_bLifeLock == false)								// Wenn Heiltaste
+	if (g_pFramework->KeyDown(SDL_SCANCODE_LCTRL) && m_bLifeLock == false)								// Wenn Heiltaste
 		{
 			if (m_Life<m_maxLife) {m_Life++;}
 			m_bLifeLock = true;
-		} else if (g_pFramework->KeyDown(SDLK_RCTRL) && m_bLifeLock == false)					// ansonsten Wenn Schadenstaste
+		} else if (g_pFramework->KeyDown(SDL_SCANCODE_RCTRL) && m_bLifeLock == false)					// ansonsten Wenn Schadenstaste
 		{
 			if (m_Life>5) {m_Life--;}
 			m_bLifeLock = true;
 		} 
-		if (g_pFramework->KeyDown(SDLK_LCTRL)==false && g_pFramework->KeyDown(SDLK_RCTRL)==false)
+		if (g_pFramework->KeyDown(SDL_SCANCODE_LCTRL)==false && g_pFramework->KeyDown(SDL_SCANCODE_RCTRL)==false)
 			m_bLifeLock = false;																// wenn keins von beiden, dann Lifelock aus
 }
 
@@ -217,12 +217,12 @@ void CPlayer::ProcessTools ()									// Schießen
 	if (!m_bToolLock)
 	{
 		m_bToolLock = true;
-		if (g_pFramework->KeyDown(SDLK_c))
+		if (g_pFramework->KeyDown(SDL_SCANCODE_C))
 		{
 			CShot Shot(m_pSpriteShot, m_fXPos, m_fYPos);
 			m_ShotList.push_back (Shot);
 		}
-		else if (g_pFramework->KeyDown(SDLK_x))
+		else if (g_pFramework->KeyDown(SDL_SCANCODE_X))
 		{
 			if (m_SpriteDirection % 2 == 1)
 			{
@@ -283,7 +283,7 @@ void CPlayer::ProcessTools ()									// Schießen
 			}
 			m_fAttackTimer = 0.1f;
 		} else m_bToolLock = false;
-	} else if (!g_pFramework->KeyDown(SDLK_c) && !g_pFramework->KeyDown(SDLK_x))
+	} else if (!g_pFramework->KeyDown(SDL_SCANCODE_C) && !g_pFramework->KeyDown(SDL_SCANCODE_X))
 		m_bToolLock = false;
 
 }

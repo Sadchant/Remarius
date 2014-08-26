@@ -138,7 +138,7 @@ void CStuff::SetPlayer(int Life, float X, float Y)
 }
 void CStuff::CommandSpawns()																					// Per Tastendruck Monster erzeugen
 {
-	if (g_pFramework->KeyDown(SDLK_h) && m_bSpawnLock == false)
+	if (g_pFramework->KeyDown(SDL_SCANCODE_H) && m_bSpawnLock == false)
 	{
 		CHoover Hoover;
 		Hoover.Init(m_pSpriteHoover);
@@ -146,7 +146,7 @@ void CStuff::CommandSpawns()																					// Per Tastendruck Monster erze
 		m_bSpawnLock = true;
 
 	}
-	if (g_pFramework->KeyDown(SDLK_b) && m_bSpawnLock == false)
+	if (g_pFramework->KeyDown(SDL_SCANCODE_B) && m_bSpawnLock == false)
 	{
 		int XPos = rand()%800;																		// Zufällige Position
 		int YPos = rand()%600;
@@ -155,7 +155,7 @@ void CStuff::CommandSpawns()																					// Per Tastendruck Monster erze
 		m_bSpawnLock = true;
 
 	}
-	if (g_pFramework->KeyDown(SDLK_y) && m_bSpawnLock == false)
+	if (g_pFramework->KeyDown(SDL_SCANCODE_Y) && m_bSpawnLock == false)
 	{
 		int XPos = rand()%800;																		// Zufällige Position
 		int YPos = rand()%600;
@@ -163,7 +163,7 @@ void CStuff::CommandSpawns()																					// Per Tastendruck Monster erze
 		m_StachelsteinList.push_back (Stachelstein);														// Stachelstein in Liste einfügen
 		m_bSpawnLock = true;
 	}
-	if (g_pFramework->KeyDown(SDLK_p) && m_bSpawnLock == false)
+	if (g_pFramework->KeyDown(SDL_SCANCODE_P) && m_bSpawnLock == false)
 	{
 		int XPos = rand()%1024;																		// Zufällige Position
 		int YPos = rand()%768;
@@ -171,7 +171,7 @@ void CStuff::CommandSpawns()																					// Per Tastendruck Monster erze
 		m_SpiderList.push_back (Spider);														// Spider in Liste einfügen
 		m_bSpawnLock = true;
 	}
-	if (!g_pFramework->KeyDown(SDLK_y) && !g_pFramework->KeyDown(SDLK_h) && !g_pFramework->KeyDown(SDLK_b) && !g_pFramework->KeyDown(SDLK_p))
+	if (!g_pFramework->KeyDown(SDL_SCANCODE_Y) && !g_pFramework->KeyDown(SDL_SCANCODE_H) && !g_pFramework->KeyDown(SDL_SCANCODE_B) && !g_pFramework->KeyDown(SDL_SCANCODE_P))
 		m_bSpawnLock = false;
 }
 void CStuff::CheckCollisions ()																					// Kollisionen prüfen

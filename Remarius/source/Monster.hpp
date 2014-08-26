@@ -9,6 +9,7 @@ class CMonster
 		//CMonster(CSprite pSpriteMonster, float fXPos, float fYPos);
 		virtual	void		Update		();
 		virtual	void		Render		(float CameraX, float CameraY);
+		virtual void		Render		(int CameraX, int CameraY){Render(static_cast<float>(CameraX), static_cast<float>(CameraY));};
 
 		bool		CanDamage		(){if (m_fDamageTimer <= 0) return true; else return false;}	// Fkt für CheCol / Agieren
 		void		DoDamage		(int Damage);													// Terrain
