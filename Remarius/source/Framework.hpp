@@ -16,21 +16,16 @@ class CFramework : public TSingleton<CFramework>
 		bool  Init_Video (char* name, int window_width, int window_height, bool bFullscreen);
 		void  Quit		 ();
 		void  Update	 ();
-		void  Clear		 ();
 		void  Render	 ();
 		bool  KeyDown	(Uint8 Key_ID);
-		SDL_Window *GetScreen ()	{return sdl_Window;}
-		SDL_Renderer *GetRenderer() { return sdl_Renderer; }
-		SDL_Texture *GetTexture()	{ return sdl_Texture; }
+		SDL_Window*		GetScreen ()	{return sdl_Window;}
+		SDL_Renderer*	GetRenderer() { return sdl_Renderer; }
 		
 
 	private:
-		SDL_Window		*sdl_Window;							// Fenster, in dem alles stattfindet
-		
-		SDL_Renderer	*sdl_Renderer;							// Renderer, der alles rendert
-		SDL_Texture		*sdl_Texture;							// hier vermutlich nicht benötigt
-		//SDL_Surface		*sdl_Surface;						// war früher das Ding, wo draufgerendert wurde
-		const Uint8		*m_pKeystate;							// Array für aktuellen Tastaturstatus				
+		SDL_Window*		sdl_Window;						// Fenster, in dem alles stattfindet		
+		SDL_Renderer*	sdl_Renderer;					// Renderer, der alles rendert
+		const Uint8*	pKeystate;						// Array für aktuellen Tastaturstatus				
 
 };
 

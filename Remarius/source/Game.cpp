@@ -84,7 +84,6 @@ void CGame::Run ()         // Hauptschleife des Spiels
 	{																			// Events bearbeiten
 	
 	g_pFramework->Update ();																		// Framework updaten und Buffer löschen
-	g_pFramework->Clear ();
 
 
 	Rectmaster.Update();
@@ -102,13 +101,12 @@ void CGame::Run ()         // Hauptschleife des Spiels
 
 void CGame::Run (int i)         // Hauptschleife des Spiels
 {
+	cout << "In der Game angekommen" << endl;
 	Load();
 	while (m_bGameRun == true)																		// Wenn es läuft...
 	{																			// Events bearbeiten
 	
 	g_pFramework->Update ();																		// Framework updaten und Buffer löschen
-	g_pFramework->Clear ();
-
 
 	Rectmaster.Update();
 

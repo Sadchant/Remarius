@@ -1,108 +1,74 @@
 #include "Framework.hpp"
 
-// Init
-//
-// Aufgabe: Framework initialisieren
-//
+// initialisiert die benötigten SDL-Teile und ruft Init_Video auf
 bool CFramework::Init ()
 {
-	// Alle Systeme der SDL initialisieren
+	// Alle benötigten Systeme der SDL initialisieren
 	if (SDL_Init (SDL_INIT_VIDEO | SDL_INIT_TIMER) == -1 )
 	{
 		cout << "SDL konnte nicht initialisiert werden!" << endl;
 		cout << "Fehlermeldung: " << SDL_GetError () << endl;
-
 		Quit ();
-
 		return (false);
 	}
-	cout << "SDL initialisiert" << endl;
+
 	if (Init_Video ("Remarius Risation Indev 1.6", 1024, 768, false) == false)		// an der Stelle Daten aus Datei einlesen!
 	{
 		cout << "SDL_Video konnte nicht initialisiert werden!" << endl;
 		cout << "Fehlermeldung: " << SDL_GetError () << endl;
-
 		Quit ();
 		return (false);	
 	}
-	cout << "Init_Video aufgerufen" << endl;
 
 	// Zeiger auf internes Array für Tastaturstatus ermitteln
-	m_pKeystate = SDL_GetKeyboardState(NULL);
+	pKeystate = SDL_GetKeyboardState(NULL);
 
 	// Alles ging glatt, also true zurückliefern
 	return (true);
 
-} // Init
+}
 
+// erzeugt ein SDL_Window mit den übergebenen Werten und einen SDL_Renderer
 bool CFramework::Init_Video (char* name, int width, int height, bool bFullscreen)
 {
+	// sollte bereits ein Fenster vorhanden sein, zerstöre es
 	if (sdl_Window != NULL)
 	{
 		SDL_DestroyWindow(sdl_Window);
 	}
 
+	//erzeugt das Fenster im Fullscreen oder Fenstermodus
 	if (bFullscreen == true)
-	{
-		/*m_pScreen = SDL_SetVideoMode (ScreenWidth, ScreenHeight, ColorDepth,
-			SDL_HWSURFACE | SDL_DOUBLEBUF |
-			SDL_FULLSCREEN | SDL_ASYNCBLIT);*/
-
-		//erzeugt das Fenster im Fullscreen
+	{		
 		sdl_Window = SDL_CreateWindow(name, SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, width, height, SDL_WINDOW_FULLSCREEN);
-
 	}
 	else
-	{
-		//erzeugt das Fenster 
+	{		
 		sdl_Window = SDL_CreateWindow(name, SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, width, height, SDL_WINDOW_SHOWN);
-		//SDL_GL_SetAttribute( SDL_GL_DOUBLEBUFFER, 1 );
-		/*sdlWindow = SDL_SetVideoMode (ScreenWidth, ScreenHeight, ColorDepth,
-			SDL_HWSURFACE | SDL_DOUBLEBUF| SDL_ASYNCBLIT);
-			//SDL_OPENGL);*/
-		
 	}
-
-	//erzeugt den Renderer
 	sdl_Renderer = SDL_CreateRenderer(sdl_Window, -1, SDL_RENDERER_ACCELERATED);
-	/*sdl_Texture = SDL_CreateTexture(sdl_Renderer,												//wozu allgemeine Textur? Wird vielleicht noch gebraucht
-					SDL_PIXELFORMAT_ARGB8888,
-					SDL_TEXTUREACCESS_STATIC,
-					window_width, window_height);*/
-	//sdl_Texture = SDL_CreateTextureFromSurface(sdl_Renderer, mySurface);
-
-
-
 	// Prüfen, ob alles funktioniert hat
 	if ((sdl_Window == NULL) || (sdl_Renderer == NULL))
 	{
 		cout << "Videomodus konnte nicht gesetzt werden!" << endl;
 		cout << "Fehlermeldung: " << SDL_GetError () << endl;
-
 		Quit ();
-
 		return (false);
 	}
 	return (true);
 }
 
-// Quit
-//
-// Aufgabe: Framework (SDL) beenden
-//
+
+// beendet das Framework und fährt die SDL herunter
 void CFramework::Quit ()
 {
 	// SDL beenden
-	SDL_DestroyRenderer(sdl_Renderer);
 	SDL_DestroyWindow(sdl_Window);
+	SDL_DestroyRenderer(sdl_Renderer);	
 	SDL_Quit ();
+}
 
-} // Quit
-
-// Update
-//
-// Aufgabe: Timer und Keyboardstatus updaten
-//
+// updatet Timer und Tastaturstatus
 void CFramework::Update ()
 {
 	// Timer updaten
@@ -113,40 +79,21 @@ void CFramework::Update ()
 
 } // Update
 
-// Keydown
-//
-// Aufgabe: Tastendruck abfragen
-//
+
+// schaut, ob die übergebene Tasten-ID in pKeystate drin ist
 bool CFramework::KeyDown(Uint8 Key_ID)
 {
 	// Prüfen, ob Taste gedrückt ist
-	return (m_pKeystate[Key_ID] ? true : false);
+	return (pKeystate[Key_ID] ? true : false);
 	
-} // KeyDown
+}
 
-// Clear
-//
-// Aufgabe: Buffer löschen
-//
-void CFramework::Clear ()
+// rendert alles aus dem renderer und reinigt ihn danach
+void CFramework::Render()
 {
-	SDL_RenderClear(sdl_Renderer);
-
-
-} // Clear
-
-// Flip
-//
-// Aufgabe: Surface umschalten (flippen)
-//
-void CFramework::Render ()
-{
-	// Surface umschalten
-	//SDL_Flip (m_pScreen);
-
-	//
+	cout << "Render aufgerufen" << endl;	
 	SDL_RenderPresent(sdl_Renderer);
 	SDL_RenderClear(sdl_Renderer);
-
-} // Flip
+	
+}
 
