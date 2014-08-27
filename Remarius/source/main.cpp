@@ -1,19 +1,16 @@
 #include "main.h"
 
+//initialisiert das Framework, erzeugt ein neues Programm, lässt es laufen und beendet alles wieder
 int main (int argc, char *argv[])
 {
-	if (g_pFramework->Init () == false)									// (1024, 768, 32, true) für Release
+	if (g_pFramework->Init() == false)
+	{
 		return (0);	
-
-	cout << "Framework komplett initialisiert" << endl;
-	CProgram Program;													// neues Program erstellen
-
-	Program.Run();														// Program laufen lassen
-
-	Program.Quit();														// Program beenden
-
-	g_pFramework->Quit ();												// Framework beenden
+	}		
+	CProgram Program;	
+	Program.Run();														
+	Program.Quit();														
+	g_pFramework->Quit ();												
 	g_pFramework->Del ();
-
 	return (0);
 }

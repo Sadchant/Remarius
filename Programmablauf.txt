@@ -1,0 +1,6 @@
+Programmablauf
+
+main:
+Framework wird initialisert
+Program wird erzeugt
+Program.Run wird aufgerufen

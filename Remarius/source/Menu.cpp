@@ -34,15 +34,15 @@ CMenu::CMenu()
 
 	m_pTextMenucaption = NULL;
 	m_pTextMenucaption = new CText;
-	m_pTextMenucaption->Open ("Data/verdana.ttf", 40);
+	m_pTextMenucaption->OpenFont ("Data/verdana.ttf", 40);
 
 	m_pTextMenutext = NULL;
 	m_pTextMenutext = new CText;
-	m_pTextMenutext->Open ("Data/verdana.ttf", 19);
+	m_pTextMenutext->OpenFont ("Data/verdana.ttf", 19);
 
 	m_pTextMenutextd = NULL;
 	m_pTextMenutextd = new CText;
-	m_pTextMenutextd->Open ("Data/verdana.ttf", 19);
+	m_pTextMenutextd->OpenFont ("Data/verdana.ttf", 19);
 
 	cout << "Menüsachen geladen" << endl;
 }
@@ -54,9 +54,10 @@ void CMenu::Run()
         while  (m_bMenu1End==false)
         {
 			m_pMenuBackground->Render ();
-			m_pTextMenucaption->SetTextColor (230, 230, 0);
-			m_pTextMenucaption->SetText ("Hauptmenü");
-			m_pTextMenucaption->Render (static_cast<float>((1024 - m_pTextMenucaption->GetLength())/2), 170);
+			m_pTextMenucaption->SetColor (230, 230, 0);
+			m_pTextMenucaption->SetContent ("Hauptmenü");
+			m_pTextMenucaption->SetPos(static_cast<float>((1024 - m_pTextMenucaption->GetLength()) / 2), 170);
+			m_pTextMenucaption->Render ();
                
                 if (g_pFramework->KeyDown(SDL_SCANCODE_RETURN)==false)
                         m_bEnterLock=false;
@@ -66,10 +67,11 @@ void CMenu::Run()
                 case (1):
                     m_pMenubuttons->SetPos (334, 274);
 					m_pMenubuttons->Render (0, 1);
-					m_pTextMenutext->SetTextColor (255, 255, 255);
-					m_pTextMenutext->SetText ("Spielen");
-					m_pTextMenutext->Render (static_cast<float>((301 - m_pTextMenutext->GetLength())/2+ 361),
+					m_pTextMenutext->SetColor (255, 255, 255);
+					m_pTextMenutext->SetContent ("Spielen");
+					m_pTextMenucaption->SetPos(static_cast<float>((301 - m_pTextMenutext->GetLength())/2+ 361),
 											static_cast<float>((65 - m_pTextMenutext->GetHigh())/2 + 274));
+					m_pTextMenutext->Render();
 
 					m_pMenubuttons->SetPos (334, 374);
 					m_pMenubuttons->Render (0, 0);

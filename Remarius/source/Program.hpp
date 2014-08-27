@@ -14,8 +14,8 @@ public:
 
 
 private:
-	bool m_bEnd;
-	CText *m_pText;
+	bool	m_bEnd;
+	CText	*pText;
 
 };
 

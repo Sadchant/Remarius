@@ -9,23 +9,26 @@ bool CFramework::Init ()
 		cout << "SDL konnte nicht initialisiert werden!" << endl;
 		cout << "Fehlermeldung: " << SDL_GetError () << endl;
 		Quit ();
-		return (false);
+		return false;
 	}
-
 	if (Init_Video ("Remarius Risation Indev 1.6", 1024, 768, false) == false)		// an der Stelle Daten aus Datei einlesen!
 	{
 		cout << "SDL_Video konnte nicht initialisiert werden!" << endl;
 		cout << "Fehlermeldung: " << SDL_GetError () << endl;
 		Quit ();
-		return (false);	
+		return false;	
 	}
-
 	// Zeiger auf internes Array für Tastaturstatus ermitteln
 	pKeystate = SDL_GetKeyboardState(NULL);
-
-	// Alles ging glatt, also true zurückliefern
-	return (true);
-
+	IMG_Init(IMG_INIT_PNG);
+	if (TTF_Init() == -1)
+	{
+		cout << "Fehler beim Initialsieren von TTF" << TTF_GetError() << endl;
+		Quit();
+		return false;
+	}
+	// Alles hat funktioniert, also true zurückliefern
+	return true;
 }
 
 // erzeugt ein SDL_Window mit den übergebenen Werten und einen SDL_Renderer
@@ -62,10 +65,11 @@ bool CFramework::Init_Video (char* name, int width, int height, bool bFullscreen
 // beendet das Framework und fährt die SDL herunter
 void CFramework::Quit ()
 {
-	// SDL beenden
 	SDL_DestroyWindow(sdl_Window);
 	SDL_DestroyRenderer(sdl_Renderer);	
 	SDL_Quit ();
+	IMG_Quit();
+	TTF_Quit();
 }
 
 // updatet Timer und Tastaturstatus
@@ -73,25 +77,20 @@ void CFramework::Update ()
 {
 	// Timer updaten
 	g_pTimer->Update ();
-
-	// Tastaturstatus ermitteln
+	// updated die Event-Warteschlange
 	SDL_PumpEvents ();
-
-} // Update
-
-
-// schaut, ob die übergebene Tasten-ID in pKeystate drin ist
-bool CFramework::KeyDown(Uint8 Key_ID)
-{
-	// Prüfen, ob Taste gedrückt ist
-	return (pKeystate[Key_ID] ? true : false);
-	
 }
 
-// rendert alles aus dem renderer und reinigt ihn danach
+
+// schaut, ob die übergebene Tasten-ID in pKeystate drin ist, wenn ja, wird true zurückgegeben
+bool CFramework::KeyDown(Uint8 Key_ID)
+{
+	return (pKeystate[Key_ID] ? true : false);	
+}
+
+// rendert alles aus dem Renderer und reinigt ihn danach
 void CFramework::Render()
 {
-	cout << "Render aufgerufen" << endl;	
 	SDL_RenderPresent(sdl_Renderer);
 	SDL_RenderClear(sdl_Renderer);
 	
