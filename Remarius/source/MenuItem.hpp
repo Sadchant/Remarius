@@ -2,6 +2,7 @@
 #define MENUITEM_HPP
 
 #include "Text.hpp"
+#include "Sprite.hpp"
 
 class CMenuItem
 {
