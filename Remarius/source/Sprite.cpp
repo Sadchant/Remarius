@@ -32,9 +32,9 @@ void CSprite::Load (const string sFilename)														// unanimierten Sprite 
 	Rect.w = width;
 	Rect.h = height;
 
-	cout << sFilename.c_str() << ": " << endl;
-	cout << "Breite: " << width << endl;
-	cout << "Hoehe: " << height << endl;
+	//cout << sFilename.c_str() << ": " << endl;
+	//cout << "Breite: " << width << endl;
+	//cout << "Hoehe: " << height << endl;
 
 	//convertedImage = SDL_DisplayFormatAlpha (pImage);
 }
@@ -70,8 +70,10 @@ void CSprite::SetScreenPos (float fXPos, float fYPos, float CameraX, float Camer
 
 void CSprite::Render ()																	// unanimierten Sprite rendern
 {
-	//SDL_BlitSurface (convertedImage, NULL, pScreen, &Rect);						// Sprite rendern
-	SDL_RenderCopy(pRenderer, pTexture, NULL, &Rect);
+	if (SDL_RenderCopy(pRenderer, pTexture, NULL, &Rect) < 0)				// Textur wird in der Renderer kopiert
+	{
+		cout << "Fehler beim Kopieren der Textur: " << SDL_GetError() << endl;
+	}
 }
 
 void CSprite::Render (float fFrameNumber)										// animiertes Sprite (Ausschnitt) rendern

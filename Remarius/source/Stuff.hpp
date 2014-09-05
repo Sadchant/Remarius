@@ -8,6 +8,7 @@
 #include "Hexaspider.hpp"
 #include "Explosion.hpp"
 #include "Tile.hpp"
+#include "Debugscreen.hpp"
 #include <string>
 #include <fstream>
 #include <sstream>

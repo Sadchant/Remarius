@@ -1,0 +1,57 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<MENU>
+  <PAGE text ="Hauptmenü" id="1">
+    <ITEM>
+      <TEXT>Spielen</TEXT>
+      <LINK>3</LINK>      
+    </ITEM>
+    <ITEM>
+      <TEXT>Optionen</TEXT>
+      <LINK>2</LINK>
+    </ITEM>
+    <ITEM>
+      <TEXT>Beenden</TEXT>
+      <FUNCTION>beenden</FUNCTION>
+    </ITEM>    
+  </PAGE>
+
+  <PAGE text ="Wähle einen Spielstand" id="2">
+    <ITEM>
+      <TEXT>Spielstand 1</TEXT>
+      <LINK>4</LINK>
+    </ITEM>
+    <ITEM>
+      <TEXT>Spielstand 2</TEXT>
+      <LINK>4</LINK>
+    </ITEM>
+    <ITEM>
+      <TEXT>Spielstand 3</TEXT>
+      <LINK>4</LINK>
+    </ITEM>
+    <ITEM>
+      <TEXT>Zurück</TEXT>
+      <LINK>1</LINK>
+    </ITEM>
+  </PAGE>
+  <PAGE text="Optionen" id="3">
+    <ITEM>
+      <TEXT>Vollbild</TEXT>
+      <FUNCTION>Vollbild</FUNCTION>
+    </ITEM>
+    <ITEM>
+      <BILD>Menübutton 1</BILD>
+      <FUNCTION>Musik aus</FUNCTION>
+    </ITEM>
+    <ITEM>
+      <BILD>Menübutton 2</BILD>
+      <FUNCTION>Musik Lautstärke</FUNCTION>
+    </ITEM>
+    <ITEM>
+      <BILD>Menübutton 1</BILD>
+      <FUNCTION>Sound aus</FUNCTION>
+    </ITEM>
+    
+  </PAGE>
+  
+  
+</MENU>

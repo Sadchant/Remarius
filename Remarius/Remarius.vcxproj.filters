@@ -78,6 +78,7 @@
     <ClInclude Include="source\Timer.hpp">
       <Filter>Headerdateien</Filter>
     </ClInclude>
+<<<<<<< HEAD
     <ClInclude Include="source\MenuItem.hpp">
       <Filter>Headerdateien</Filter>
     </ClInclude>
@@ -85,6 +86,12 @@
       <Filter>Headerdateien</Filter>
     </ClInclude>
     <ClInclude Include="source\Util.hpp">
+=======
+    <ClInclude Include="source\Music.hpp">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="source\Debugscreen.hpp">
+>>>>>>> 2c3ab7e99f198ef71ba7e7e6ea8976fcbc9cbace
       <Filter>Headerdateien</Filter>
     </ClInclude>
   </ItemGroup>
@@ -149,10 +156,17 @@
     <ClCompile Include="source\Timer.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
+<<<<<<< HEAD
     <ClCompile Include="source\MenuItem.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
     <ClCompile Include="source\MenuPage.cpp">
+=======
+    <ClCompile Include="source\Music.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="source\Debugscreen.cpp">
+>>>>>>> 2c3ab7e99f198ef71ba7e7e6ea8976fcbc9cbace
       <Filter>Quelldateien</Filter>
     </ClCompile>
   </ItemGroup>

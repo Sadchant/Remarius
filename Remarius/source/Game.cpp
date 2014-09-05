@@ -20,19 +20,19 @@ CGame::CGame ()																									// Game initialisieren
 
 	m_pTextMenucaption = NULL;
 	m_pTextMenucaption = new CText;
-	m_pTextMenucaption->Open ("Data/verdana.ttf", 40);
+	m_pTextMenucaption->OpenFont ("Data/verdana.ttf", 40);
 
 	m_pTextMenutext = NULL;
 	m_pTextMenutext = new CText;
-	m_pTextMenutext->Open ("Data/verdana.ttf", 19);
+	m_pTextMenutext->OpenFont ("Data/verdana.ttf", 19);
 
 	m_pTextMenuSave = NULL;
 	m_pTextMenuSave = new CText;
-	m_pTextMenuSave->Open ("Data/verdana.ttf", 25);
+	m_pTextMenuSave->OpenFont ("Data/verdana.ttf", 25);
 
-	m_pTrack_1 = NULL;
-	m_pTrack_1 = new CSound;
-	m_pTrack_1->OpenMusic ("Music/Track_1.mp3");
+	pTrack_1 = NULL;
+	pTrack_1 = new CMusic;
+	pTrack_1->Load ("Music/Track_1.mp3");
 
 	Framecounter = 0;
 	Timecounter = 0;
@@ -70,16 +70,20 @@ void CGame::Quit ()																								// Müll freigeben
 		delete (m_pTextMenuSave);
 		m_pTextMenuSave = NULL;
 	}
-	if (m_pTrack_1 != NULL)																			// Staubsaugersprite freigeben
+	if (pTrack_1 != NULL)																			// Staubsaugersprite freigeben
 	{
-		m_pTrack_1->StopMusic ();
-		delete (m_pTrack_1);
-		m_pTrack_1 = NULL;
+		pTrack_1->StopMusic ();
+		delete pTrack_1;
+		pTrack_1 = NULL;
 	}
 	
 }
-void CGame::Run ()         // Hauptschleife des Spiels
+void CGame::Run (bool Safegame)         // Hauptschleife des Spiels
 {
+	if (Safegame)
+	{
+		Load();
+	}
 	while (m_bGameRun == true)																		// Wenn es läuft...
 	{																			// Events bearbeiten
 	
@@ -91,31 +95,10 @@ void CGame::Run ()         // Hauptschleife des Spiels
 	FpsCounter ();
 
 	ProcessEvents ();	
-	m_pTrack_1->PlayMusic ();
-	g_pFramework->Render ();																				// Buffer flippen
+	//pTrack_1->Play ();
+	g_pDebugscreen->Render();
+	g_pFramework->Render ();	
 	
-
-  }
-
-}
-
-void CGame::Run (int i)         // Hauptschleife des Spiels
-{
-	cout << "In der Game angekommen" << endl;
-	Load();
-	while (m_bGameRun == true)																		// Wenn es läuft...
-	{																			// Events bearbeiten
-	
-	g_pFramework->Update ();																		// Framework updaten und Buffer löschen
-
-	Rectmaster.Update();
-
-	FpsCounter ();
-
-
-	ProcessEvents ();	
-	m_pTrack_1->PlayMusic ();
-	g_pFramework->Render ();																				// Buffer flippen
 
   }
 
@@ -183,7 +166,7 @@ void CGame::FpsCounter ()
 
 	if (Timecounter >= 1.0f)
 	{
-	cout << Framecounter << "; ";
+	g_pDebugscreen->FPS(Framecounter);
 	Framecounter = 0;
 	Timecounter--;
 	}
@@ -191,42 +174,25 @@ void CGame::FpsCounter ()
 
 void CGame::ProcessEvents ()																				// Events bearbeiten
 {
-  SDL_Event Event;
 
-  if (SDL_PollEvent (&Event))																		// Gab es ein Event?
-  {
-    switch (Event.type)																				// Ja, also schauen welches
-    {
-      
-      case (SDL_QUIT):																				// Beenden?
-      {
-        m_bGameRun = false;
+	if (g_pFramework->KeyDown (SDL_SCANCODE_ESCAPE))																// Wurde Escape gedrückt?
+	{
+		g_pDebugscreen->Set("Escape wurde gedrückt");
+		m_State=1;																			// Auswahl auf "Spiel fortsetzen" setzen
+		m_bBreakLock=false;
+		Break ();																			// Pausemenü laufen lassen	
+	}
 
-      } break;
-      case (SDL_KEYDOWN):																			// Wurde eine Taste gedrückt?
-      {
-        switch (Event.key.keysym.sym)
-        {
-          case (SDL_SCANCODE_ESCAPE):																		// Wurde Escape gedrückt?
-          {
-				m_State=1;																			// Auswahl auf "Spiel fortsetzen" setzen
-				m_bBreakLock=false;
-				Break ();																			// Pausemenü laufen lassen	
-          } break;
-
-		   case (SDL_SCANCODE_L):
-                  {
-                                Load();
-                  } break;
-           case (SDL_SCANCODE_K):
-                  {
-                                Save();
-                  } break;
-        }
-      } break;
-    }
-  }
-
+	if (g_pFramework->KeyDown(SDL_SCANCODE_L))																// Wurde Escape gedrückt?
+	{
+		g_pDebugscreen->Set("Spielstand geladen");
+		Load();
+	} 
+	if (g_pFramework->KeyDown(SDL_SCANCODE_K))
+	{
+		g_pDebugscreen->Set("Spielstand gespeichert", false);
+		Save();
+	} 
 }
 void CGame::Break()
 {
@@ -235,9 +201,10 @@ void CGame::Break()
 	{
 		m_pMenubackground->SetPos (134, 99);
 		m_pMenubackground->Render (0);
-		m_pTextMenucaption->SetTextColor (230, 230, 0);
-		m_pTextMenucaption->SetText ("Pause");
-		m_pTextMenucaption->Render (static_cast<float>((755 - m_pTextMenucaption->GetLength())/2+ 134), 200);
+		m_pTextMenucaption->SetColor (230, 230, 0);
+		m_pTextMenucaption->SetContent ("Pause");
+		m_pTextMenucaption->SetPos(static_cast<float>((755 - m_pTextMenucaption->GetLength()) / 2 + 134), 200);
+		m_pTextMenucaption->Render();
 
 		if (g_pFramework->KeyDown(SDL_SCANCODE_RETURN)==false)
 			m_bEnterLock=false;
@@ -253,24 +220,27 @@ void CGame::Break()
 			{
 				m_pMenubuttons->SetPos (361, 274);
 				m_pMenubuttons->Render (0, 1);
-				m_pTextMenutext->SetTextColor (255, 255, 255);
-				m_pTextMenutext->SetText ("Fortsetzen");
-				m_pTextMenutext->Render (static_cast<float>((301 - m_pTextMenutext->GetLength())/2+ 361),
+				m_pTextMenutext->SetColor (255, 255, 255);
+				m_pTextMenutext->SetContent ("Fortsetzen");
+				m_pTextMenucaption->SetPos(static_cast<float>((301 - m_pTextMenutext->GetLength())/2+ 361),
 										static_cast<float>((65 - m_pTextMenutext->GetHigh())/2 + 274));
+				m_pTextMenutext->Render();
 
 				m_pMenubuttons->SetPos (361, 354);
 				m_pMenubuttons->Render (0, 0);
-				m_pTextMenutext->SetTextColor (180, 180, 180);
-				m_pTextMenutext->SetText ("Speichern");
-				m_pTextMenutext->Render (static_cast<float>((301 - m_pTextMenutext->GetLength())/2+ 361),
+				m_pTextMenutext->SetColor (180, 180, 180);
+				m_pTextMenutext->SetContent ("Speichern");
+				m_pTextMenucaption->SetPos(static_cast<float>((301 - m_pTextMenutext->GetLength())/2+ 361),
 										static_cast<float>((65 - m_pTextMenutext->GetHigh())/2 + 354));
+				m_pTextMenutext->Render();
 
 				m_pMenubuttons->SetPos (361, 434);
 				m_pMenubuttons->Render (0, 0);
-				m_pTextMenutext->SetTextColor (180, 180, 180);
-				m_pTextMenutext->SetText ("Beenden");
-				m_pTextMenutext->Render (static_cast<float>((301 - m_pTextMenutext->GetLength())/2+ 361),
+				m_pTextMenutext->SetColor (180, 180, 180);
+				m_pTextMenutext->SetContent ("Beenden");
+				m_pTextMenucaption->SetPos(static_cast<float>((301 - m_pTextMenutext->GetLength())/2+ 361),
 										static_cast<float>((65 - m_pTextMenutext->GetHigh())/2 + 434));
+				m_pTextMenutext->Render();
 
 			} break;
 
@@ -280,48 +250,54 @@ void CGame::Break()
 				cout<<"Speichern"<<endl;
 				m_pMenubuttons->SetPos (361, 274);
 				m_pMenubuttons->Render (0, 0);
-				m_pTextMenutext->SetTextColor (180, 180, 180);
-				m_pTextMenutext->SetText ("Fortsetzen");
-				m_pTextMenutext->Render (static_cast<float>((301 - m_pTextMenutext->GetLength())/2+ 361),
+				m_pTextMenutext->SetColor (180, 180, 180);
+				m_pTextMenutext->SetContent ("Fortsetzen");
+				m_pTextMenucaption->SetPos(static_cast<float>((301 - m_pTextMenutext->GetLength())/2+ 361),
 										static_cast<float>((65 - m_pTextMenutext->GetHigh())/2 + 274));
+				m_pTextMenutext->Render();
 
 				m_pMenubuttons->SetPos (361, 354);
 				m_pMenubuttons->Render (0, 1);
-				m_pTextMenutext->SetTextColor (255, 255, 255);
-				m_pTextMenutext->SetText ("Speichern");
-				m_pTextMenutext->Render (static_cast<float>((301 - m_pTextMenutext->GetLength())/2+ 361),
+				m_pTextMenutext->SetColor (255, 255, 255);
+				m_pTextMenutext->SetContent ("Speichern");
+				m_pTextMenucaption->SetPos(static_cast<float>((301 - m_pTextMenutext->GetLength())/2+ 361),
 										static_cast<float>((65 - m_pTextMenutext->GetHigh())/2 + 354));
+				m_pTextMenutext->Render();
 
 				m_pMenubuttons->SetPos (361, 434);
 				m_pMenubuttons->Render (0, 0);
-				m_pTextMenutext->SetTextColor (180, 180, 180);
-				m_pTextMenutext->SetText ("Beenden");
-				m_pTextMenutext->Render (static_cast<float>((301 - m_pTextMenutext->GetLength())/2+ 361),
+				m_pTextMenutext->SetColor (180, 180, 180);
+				m_pTextMenutext->SetContent ("Beenden");
+				m_pTextMenucaption->SetPos(static_cast<float>((301 - m_pTextMenutext->GetLength())/2+ 361),
 										static_cast<float>((65 - m_pTextMenutext->GetHigh())/2 + 434));
+				m_pTextMenutext->Render();
 
 			} break;
 		case (3):
 			{
 				m_pMenubuttons->SetPos (361, 274);
 				m_pMenubuttons->Render (0, 0);
-				m_pTextMenutext->SetTextColor (180, 180, 180);
-				m_pTextMenutext->SetText ("Fortsetzen");
-				m_pTextMenutext->Render (static_cast<float>((301 - m_pTextMenutext->GetLength())/2+ 361),
+				m_pTextMenutext->SetColor (180, 180, 180);
+				m_pTextMenutext->SetContent ("Fortsetzen");
+				m_pTextMenucaption->SetPos(static_cast<float>((301 - m_pTextMenutext->GetLength())/2+ 361),
 										static_cast<float>((65 - m_pTextMenutext->GetHigh())/2 + 274));
+				m_pTextMenutext->Render();
 
 				m_pMenubuttons->SetPos (361, 354);
 				m_pMenubuttons->Render (0, 0);
-				m_pTextMenutext->SetTextColor (180, 180, 180);
-				m_pTextMenutext->SetText ("Speichern");
-				m_pTextMenutext->Render (static_cast<float>((301 - m_pTextMenutext->GetLength())/2+ 361),
+				m_pTextMenutext->SetColor (180, 180, 180);
+				m_pTextMenutext->SetContent ("Speichern");
+				m_pTextMenucaption->SetPos(static_cast<float>((301 - m_pTextMenutext->GetLength())/2+ 361),
 										static_cast<float>((65 - m_pTextMenutext->GetHigh())/2 + 354));
+				m_pTextMenutext->Render();
 
 				m_pMenubuttons->SetPos (361, 434);
 				m_pMenubuttons->Render (0, 1);
-				m_pTextMenutext->SetTextColor (255, 255, 255);
-				m_pTextMenutext->SetText ("Beenden");
-				m_pTextMenutext->Render (static_cast<float>((301 - m_pTextMenutext->GetLength())/2+ 361),
+				m_pTextMenutext->SetColor (255, 255, 255);
+				m_pTextMenutext->SetContent ("Beenden");
+				m_pTextMenucaption->SetPos(static_cast<float>((301 - m_pTextMenutext->GetLength())/2+ 361),
 										static_cast<float>((65 - m_pTextMenutext->GetHigh())/2 + 434));
+				m_pTextMenutext->Render();
 			} break;
 				
 		}
@@ -333,43 +309,41 @@ void CGame::Break()
 
 		switch (m_State)
 		{
-		case (1):
-		{
-			switch (event.key.keysym.sym)
+			case (1):
 			{
-				case (SDL_SCANCODE_RETURN):
+				if (g_pFramework->KeyDown(SDL_SCANCODE_RETURN))
 				{
-					if (m_bEnterLock==false)
+					if (m_bEnterLock == false)
 					{
-						SDL_EventState(SDL_SYSWMEVENT, SDL_ENABLE);	
-						m_bBreakLock=true;
+						m_bBreakLock = true;
 					}
-				} break;
-				case (SDL_SCANCODE_DOWN):
-				{
-				if (m_bStateLock==false)
-				{
-					m_State=2;
-					m_bStateLock=true;
 				}
-				} break;
-
-				case (SDL_SCANCODE_UP):	
+				if (g_pFramework->KeyDown(SDL_SCANCODE_DOWN))
 				{
-				if (m_bStateLock==false)
-				{
-					m_State=3;
-					m_bStateLock=true;
+					if (m_bStateLock == false)
+					{
+						m_State = 2;
+						m_bStateLock = true;
+					}
 				}
-				} break;
-
-				case (SDL_SCANCODE_ESCAPE):
+				if (g_pFramework->KeyDown(SDL_SCANCODE_UP))
 				{
-				if (m_bEscapeLock==false)															
-					m_bBreakLock=true;
-				} break;
-			}
-		} break;
+					if (m_bStateLock == false)
+					{
+						m_State = 3;
+						m_bStateLock = true;
+					}
+				}
+				if (g_pFramework->KeyDown(SDL_SCANCODE_ESCAPE))
+				{
+					if (m_bEscapeLock == false)
+					{
+						m_bBreakLock = true;
+					}
+				}
+			}break;
+		
+	
 
 		case (2):
 		{
@@ -385,9 +359,10 @@ void CGame::Break()
 						cout<<"Wirklich speichern?"<<endl;
 						m_pMenubackground->SetPos (134, 99);
 						m_pMenubackground->Render (0);
-						m_pTextMenuSave->SetTextColor (230, 230, 0);
-						m_pTextMenuSave->SetText ("Soll wirklich gespeichert werden?");
-						m_pTextMenuSave->Render (static_cast<float>((755 - m_pTextMenuSave->GetLength())/2+ 134), 240);
+						m_pTextMenuSave->SetColor (230, 230, 0);
+						m_pTextMenuSave->SetContent ("Soll wirklich gespeichert werden?");
+						m_pTextMenucaption->SetPos(static_cast<float>((755 - m_pTextMenuSave->GetLength())/2+ 134), 240);
+						m_pTextMenuSave->Render();
 
 						while (	m_bBreakLock2==false)
 						{
@@ -402,34 +377,38 @@ void CGame::Break()
 								cout<<"Ja"<<endl; 
 								m_pMenubuttons->SetPos (361, 304);
 								m_pMenubuttons->Render (0, 1);
-								m_pTextMenutext->SetTextColor (255, 255, 255);
-								m_pTextMenutext->SetText ("Ja");
-								m_pTextMenutext->Render (static_cast<float>((301 - m_pTextMenutext->GetLength())/2+ 361),
+								m_pTextMenutext->SetColor (255, 255, 255);
+								m_pTextMenutext->SetContent ("Ja");
+								m_pTextMenucaption->SetPos(static_cast<float>((301 - m_pTextMenutext->GetLength())/2+ 361),
 														static_cast<float>((65 - m_pTextMenutext->GetHigh())/2 + 304));
+								m_pTextMenutext->Render();
 
 								m_pMenubuttons->SetPos (361, 394);
 								m_pMenubuttons->Render (0, 0);
-								m_pTextMenutext->SetTextColor (180, 180, 180);
-								m_pTextMenutext->SetText ("Nein");
-								m_pTextMenutext->Render (static_cast<float>((301 - m_pTextMenutext->GetLength())/2+ 361),
+								m_pTextMenutext->SetColor (180, 180, 180);
+								m_pTextMenutext->SetContent ("Nein");
+								m_pTextMenucaption->SetPos(static_cast<float>((301 - m_pTextMenutext->GetLength())/2+ 361),
 														static_cast<float>((65 - m_pTextMenutext->GetHigh())/2 + 394));
+								m_pTextMenutext->Render();
 								break;
 
 							case(2):
 								cout<<"Nein"<<endl;
 								m_pMenubuttons->SetPos (361, 304);
 								m_pMenubuttons->Render (0, 0);
-								m_pTextMenutext->SetTextColor (180, 180, 180);
-								m_pTextMenutext->SetText ("Ja");
-								m_pTextMenutext->Render (static_cast<float>((301 - m_pTextMenutext->GetLength())/2+ 361),
+								m_pTextMenutext->SetColor (180, 180, 180);
+								m_pTextMenutext->SetContent ("Ja");
+								m_pTextMenucaption->SetPos(static_cast<float>((301 - m_pTextMenutext->GetLength())/2+ 361),
 														static_cast<float>((65 - m_pTextMenutext->GetHigh())/2 + 304));
+								m_pTextMenutext->Render();
 
 								m_pMenubuttons->SetPos (361, 394);
 								m_pMenubuttons->Render (0, 1);
-								m_pTextMenutext->SetTextColor (255, 255, 255);
-								m_pTextMenutext->SetText ("Nein");
-								m_pTextMenutext->Render (static_cast<float>((301 - m_pTextMenutext->GetLength())/2+ 361),
+								m_pTextMenutext->SetColor (255, 255, 255);
+								m_pTextMenutext->SetContent ("Nein");
+								m_pTextMenucaption->SetPos(static_cast<float>((301 - m_pTextMenutext->GetLength())/2+ 361),
 														static_cast<float>((65 - m_pTextMenutext->GetHigh())/2 + 394));
+								m_pTextMenutext->Render();
 								break;
 							}
 							g_pFramework->Render ();
@@ -550,9 +529,10 @@ void CGame::Break()
 						cout<<"Wirklich beenden?"<<endl;
 						m_pMenubackground->SetPos (134, 99);
 						m_pMenubackground->Render (0);
-						m_pTextMenuSave->SetTextColor (230, 230, 0);
-						m_pTextMenuSave->SetText ("Soll wirklich beendet werden?");
-						m_pTextMenuSave->Render (static_cast<float>((755 - m_pTextMenuSave->GetLength())/2+ 134), 240);
+						m_pTextMenuSave->SetColor (230, 230, 0);
+						m_pTextMenuSave->SetContent ("Soll wirklich beendet werden?");
+						m_pTextMenucaption->SetPos(static_cast<float>((755 - m_pTextMenuSave->GetLength())/2+ 134), 240);
+						m_pTextMenuSave->Render();
 
 						while (	m_bBreakLock2==false)
 						{
@@ -567,34 +547,38 @@ void CGame::Break()
 								cout<<"Ja"<<endl; 
 								m_pMenubuttons->SetPos (361, 304);
 								m_pMenubuttons->Render (0, 1);
-								m_pTextMenutext->SetTextColor (255, 255, 255);
-								m_pTextMenutext->SetText ("Ja");
-								m_pTextMenutext->Render (static_cast<float>((301 - m_pTextMenutext->GetLength())/2+ 361),
+								m_pTextMenutext->SetColor (255, 255, 255);
+								m_pTextMenutext->SetContent ("Ja");
+								m_pTextMenucaption->SetPos(static_cast<float>((301 - m_pTextMenutext->GetLength())/2+ 361),
 														static_cast<float>((65 - m_pTextMenutext->GetHigh())/2 + 304));
+								m_pTextMenutext->Render();
 
 								m_pMenubuttons->SetPos (361, 394);
 								m_pMenubuttons->Render (0, 0);
-								m_pTextMenutext->SetTextColor (180, 180, 180);
-								m_pTextMenutext->SetText ("Nein");
-								m_pTextMenutext->Render (static_cast<float>((301 - m_pTextMenutext->GetLength())/2+ 361),
+								m_pTextMenutext->SetColor (180, 180, 180);
+								m_pTextMenutext->SetContent ("Nein");
+								m_pTextMenucaption->SetPos(static_cast<float>((301 - m_pTextMenutext->GetLength())/2+ 361),
 														static_cast<float>((65 - m_pTextMenutext->GetHigh())/2 + 394));
+								m_pTextMenutext->Render();
 								break;
 
 							case(2):
 								cout<<"Nein"<<endl;
 								m_pMenubuttons->SetPos (361, 304);
 								m_pMenubuttons->Render (0, 0);
-								m_pTextMenutext->SetTextColor (180, 180, 180);
-								m_pTextMenutext->SetText ("Ja");
-								m_pTextMenutext->Render (static_cast<float>((301 - m_pTextMenutext->GetLength())/2+ 361),
+								m_pTextMenutext->SetColor (180, 180, 180);
+								m_pTextMenutext->SetContent ("Ja");
+								m_pTextMenucaption->SetPos(static_cast<float>((301 - m_pTextMenutext->GetLength())/2+ 361),
 														static_cast<float>((65 - m_pTextMenutext->GetHigh())/2 + 304));
+								m_pTextMenutext->Render();
 
 								m_pMenubuttons->SetPos (361, 394);
 								m_pMenubuttons->Render (0, 1);
-								m_pTextMenutext->SetTextColor (255, 255, 255);
-								m_pTextMenutext->SetText ("Nein");
-								m_pTextMenutext->Render (static_cast<float>((301 - m_pTextMenutext->GetLength())/2+ 361),
+								m_pTextMenutext->SetColor (255, 255, 255);
+								m_pTextMenutext->SetContent ("Nein");
+								m_pTextMenucaption->SetPos(static_cast<float>((301 - m_pTextMenutext->GetLength())/2+ 361),
 														static_cast<float>((65 - m_pTextMenutext->GetHigh())/2 + 394));
+								m_pTextMenutext->Render();
 								break;
 							}
 							g_pFramework->Render ();
@@ -614,7 +598,7 @@ void CGame::Break()
 										m_bGameRun=false;
 										m_bBreakLock2=true;
 										m_bEnterLock=true;
-										m_pTrack_1->PauseMusic ();
+										pTrack_1->PauseMusic ();
 									}
 								break;
 								case (SDL_SCANCODE_DOWN):

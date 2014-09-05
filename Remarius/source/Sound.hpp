@@ -10,18 +10,12 @@ class CSound
 	public:
 		CSound ();
 		~CSound ();
-		void		Quit ();
-		void		OpenMusic	(const string sFilename);
-		void		OpenSound	(const string sFilename);
-		void		PlayMusic	();
-		void		PlaySound	();
+		void		Load		(string sFilename);
+		void		Play		();
 		void		SetVolume	(int Volume);
-		void		PauseMusic	();
-		void		StopMusic	();
 
 	private:
-		Mix_Music		*m_pMusic;
-		Mix_Chunk		*m_pSound;
+		Mix_Chunk*		pSound;
 		
 };
 

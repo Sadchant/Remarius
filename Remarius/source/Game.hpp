@@ -1,9 +1,11 @@
 #ifndef GAME_HPP
 #define GAME_HPP
 
+#include "Debugscreen.hpp"
 #include "Stuff.hpp"
 #include "Text.hpp"
 #include "Sound.hpp"
+#include "Music.hpp"
 #include <fstream>
 #include <string>
 #include <sstream>
@@ -13,8 +15,7 @@ class CGame
 	public:
 		CGame	();
 
-		void	Run     ();
-		void	Run     (int i);
+		void	Run     (bool Safegame);
 		void	Quit	();
 		void	Save    ();
 		bool	Load    ();
@@ -25,6 +26,7 @@ class CGame
 		void	Break			();			// Pausemenü
 		void	FpsCounter		();			//gibt FPS aus
 
+		
 		CSprite			*m_pMenubackground;		// Sprite des Menühintergrunds
 		CSprite			*m_pMenubuttons;		// Sprite der Menübuttons
 		CStuff			Rectmaster;				// Verwaltung von allem, was ein Rect hat
@@ -44,7 +46,7 @@ class CGame
 		int				m_State2;
 
 		SDL_Event		event;
-		CSound			*m_pTrack_1;
+		CMusic*			pTrack_1;
 };
 
 #endif

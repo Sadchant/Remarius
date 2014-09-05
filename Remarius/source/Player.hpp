@@ -5,6 +5,7 @@
 #include "Sprite.hpp"
 #include "Shot.hpp"
 #include "Monster.hpp"
+#include "Debugscreen.hpp"
 
 class CPlayer: public CMonster
 {

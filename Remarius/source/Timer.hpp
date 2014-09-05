@@ -10,8 +10,8 @@ class CTimer : public TSingleton<CTimer>
 	public:
 		CTimer				();
 		void	Update		();
-		float	GetElapsed	()
-			{return m_fElapsed;}
+		float	GetElapsed(){ return m_fElapsed; }
+		float	GetLastTime(){ return m_fLastTime; }
 
 	private:
 		float	m_fElapsed;			// Vergangene Zeit seit dem letzten Frame
