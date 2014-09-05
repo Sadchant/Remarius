@@ -144,7 +144,7 @@ void CStuff::CommandSpawns()																					// Per Tastendruck Monster erze
 		Hoover.Init(m_pSpriteHoover);
 		m_HooverList.push_back (Hoover);
 		m_bSpawnLock = true;
-
+		g_pDebugscreen->Set("Hoover gespawnt");
 	}
 	if (g_pFramework->KeyDown(SDL_SCANCODE_B) && m_bSpawnLock == false)
 	{

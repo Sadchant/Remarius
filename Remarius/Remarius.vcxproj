@@ -13,6 +13,7 @@
   <ItemGroup>
     <ClInclude Include="source\Bombo.hpp" />
     <ClInclude Include="source\Camera.hpp" />
+    <ClInclude Include="source\Debugscreen.hpp" />
     <ClInclude Include="source\Explosion.hpp" />
     <ClInclude Include="source\Framework.hpp" />
     <ClInclude Include="source\Game.hpp" />
@@ -21,6 +22,7 @@
     <ClInclude Include="source\main.h" />
     <ClInclude Include="source\Menu.hpp" />
     <ClInclude Include="source\Monster.hpp" />
+    <ClInclude Include="source\Music.hpp" />
     <ClInclude Include="source\Player.hpp" />
     <ClInclude Include="source\Program.hpp" />
     <ClInclude Include="source\Shot.hpp" />
@@ -36,6 +38,7 @@
   <ItemGroup>
     <ClCompile Include="source\Bombo.cpp" />
     <ClCompile Include="source\Camera.cpp" />
+    <ClCompile Include="source\Debugscreen.cpp" />
     <ClCompile Include="source\Explosion.cpp" />
     <ClCompile Include="source\Framework.cpp" />
     <ClCompile Include="source\Game.cpp" />
@@ -44,6 +47,7 @@
     <ClCompile Include="source\main.cpp" />
     <ClCompile Include="source\Menu.cpp" />
     <ClCompile Include="source\Monster.cpp" />
+    <ClCompile Include="source\Music.cpp" />
     <ClCompile Include="source\Player.cpp" />
     <ClCompile Include="source\Program.cpp" />
     <ClCompile Include="source\Shot.cpp" />

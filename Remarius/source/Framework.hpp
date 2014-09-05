@@ -6,6 +6,7 @@
 #include "Timer.hpp"
 #include "SDL_image.h"
 #include "SDL_ttf.h"
+#include "SDL_mixer.h"
 
 using namespace std;
 
@@ -25,6 +26,7 @@ class CFramework : public TSingleton<CFramework>
 	private:
 		SDL_Window*		sdl_Window;						// Fenster, in dem alles stattfindet		
 		SDL_Renderer*	sdl_Renderer;					// Renderer, der alles rendert
+		SDL_Event		Event;
 		const Uint8*	pKeystate;						// Array für aktuellen Tastaturstatus
 		int				Size;
 };

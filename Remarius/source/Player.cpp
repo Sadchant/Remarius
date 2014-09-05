@@ -87,7 +87,7 @@ void CPlayer::LifeRender ()											// Lebensanzeige rendern
 
 	for (int i = m_maxLife; i > m_Life; i--)							// leere Herzen rendern
 	{
-		m_pSpriteLife->SetPos(static_cast<float>(-1+i*14), 10.0f);
+		m_pSpriteLife->SetPos(static_cast<float>(-1+i*14), 13.0f);
 		m_pSpriteLife->Render(static_cast<float>(5-i%2));
 	}
 
@@ -117,6 +117,7 @@ void CPlayer::Update ()												// Spieler updaten
 	ProcessTools ();													// Prüfen, ob geschossen wurde
 
 	CheckPosition ();													// Position und Animationsphase überprüfen
+	g_pDebugscreen->Set("x-Position: ", m_fXPos);
 }
 void CPlayer::ProcessMoving ()										// Spieler bewegen
 {

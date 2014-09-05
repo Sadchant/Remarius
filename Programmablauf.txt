@@ -1,6 +1,52 @@
 Programmablauf
 
-main:
+[main]:
 Framework wird initialisert
-Program wird erzeugt
+neues Program wird erzeugt
 Program.Run wird aufgerufen
+
+	[Program Run]:
+	neues Menu wird erzeugt
+		-> Texte und Menubilder werden geladen
+	Menu.Run wird aufgerufen
+
+		[Menu.Run]:
+		Optionen werden eingestellt
+		gespeichertes Spiel kann geladen werden
+		Game wird erzeugt
+			-> Texte und Menubilder werden geladen
+		Game.Run wird aufgerufen
+
+			[Game.Run]:
+			(Hauptgameschleife)
+			Framework wird geupdated
+			Rectmaster.Update wird aufgerufen
+			Fps werden gezählt
+			Tastendrucke (Events) werden registriert
+			Musik wird abgespielt
+			Framework rendert
+				
+				--> Rectmaster-Konstruktor: Ingame-Bilder werden geladen
+				    Player und Camera werden erzeugt
+				    Player, Schuss und Herzleisten-Bilder werden geladen
+				[Rectmaster.Update(Stuff)]
+				Player wird geupdated
+				Camera wird neu positioniert
+				Spieler und Lebensanzeige werden gerendert
+				Explosionsliste wird durchlaufen ????
+				bei Tastendruck werden Monster gespawnt
+				Kollisionen werden abgefragt
+				Monster werden gerendert
+
+					[Player.Update]
+						Bewegung auf Tastendruck wird ausgeführt
+						PlayerRect wird neu positioniert
+						Attackrect wird neu positioniert
+						Position wird auf Korrektheit überprüft (Mapränder!), Animationsphase wird berichtigt
+						
+
+
+
+
+		
+	

@@ -78,6 +78,12 @@
     <ClInclude Include="source\Timer.hpp">
       <Filter>Headerdateien</Filter>
     </ClInclude>
+    <ClInclude Include="source\Music.hpp">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="source\Debugscreen.hpp">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="source\Bombo.cpp">
@@ -138,6 +144,12 @@
       <Filter>Quelldateien</Filter>
     </ClCompile>
     <ClCompile Include="source\Timer.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="source\Music.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="source\Debugscreen.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
   </ItemGroup>

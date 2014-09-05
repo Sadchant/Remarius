@@ -3,8 +3,8 @@
 // initialisiert die benötigten SDL-Teile und ruft Init_Video auf
 bool CFramework::Init ()
 {
-	// Alle benötigten Systeme der SDL initialisieren
-	if (SDL_Init (SDL_INIT_VIDEO | SDL_INIT_TIMER) == -1 )
+	
+	if (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_TIMER | SDL_INIT_AUDIO) == -1)		// Alle benötigten Systeme der SDL initialisieren
 	{
 		cout << "SDL konnte nicht initialisiert werden!" << endl;
 		cout << "Fehlermeldung: " << SDL_GetError () << endl;
@@ -17,31 +17,35 @@ bool CFramework::Init ()
 		cout << "Fehlermeldung: " << SDL_GetError () << endl;
 		Quit ();
 		return false;	
-	}
-	// Zeiger auf internes Array für Tastaturstatus ermitteln
-	pKeystate = SDL_GetKeyboardState(NULL);
+	}	
+	pKeystate = SDL_GetKeyboardState(NULL);					// Zeiger auf internes Array für Tastaturstatus ermitteln
 	IMG_Init(IMG_INIT_PNG);
+	Mix_Init(0);																	// mit 0 werden alle Mixer-Systeme initialisiert
 	if (TTF_Init() == -1)
 	{
 		cout << "Fehler beim Initialsieren von TTF" << TTF_GetError() << endl;
 		Quit();
 		return false;
 	}
-	// Alles hat funktioniert, also true zurückliefern
+	if (Mix_OpenAudio(22050, MIX_DEFAULT_FORMAT, 2, 4096) == -1) {
+		cout << "Fehler beim Aufruf von Mix_OpenAudio: " << Mix_GetError() << endl;
+		Quit();
+		return false;
+	}	
 	return true;
 }
 
 // erzeugt ein SDL_Window mit den übergebenen Werten und einen SDL_Renderer
 bool CFramework::Init_Video (char* name, int width, int height, bool bFullscreen)
 {
-	// sollte bereits ein Fenster vorhanden sein, zerstöre es
-	if (sdl_Window != NULL)
+	
+	if (sdl_Window != NULL)						// sollte bereits ein Fenster vorhanden sein, zerstöre es
 	{
 		SDL_DestroyWindow(sdl_Window);
 	}
 
-	//erzeugt das Fenster im Fullscreen oder Fenstermodus
-	if (bFullscreen == true)
+	
+	if (bFullscreen == true)					//erzeugt das Fenster im Fullscreen oder Fenstermodus
 	{		
 		sdl_Window = SDL_CreateWindow(name, SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, width, height, SDL_WINDOW_FULLSCREEN);
 	}
@@ -49,9 +53,9 @@ bool CFramework::Init_Video (char* name, int width, int height, bool bFullscreen
 	{		
 		sdl_Window = SDL_CreateWindow(name, SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, width, height, SDL_WINDOW_SHOWN);
 	}
-	sdl_Renderer = SDL_CreateRenderer(sdl_Window, -1, SDL_RENDERER_ACCELERATED);
-	// Prüfen, ob alles funktioniert hat
-	if ((sdl_Window == NULL) || (sdl_Renderer == NULL))
+	sdl_Renderer = SDL_CreateRenderer(sdl_Window, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
+	
+	if ((sdl_Window == NULL) || (sdl_Renderer == NULL))								// Prüfen, ob alles funktioniert hat
 	{
 		cout << "Videomodus konnte nicht gesetzt werden!" << endl;
 		cout << "Fehlermeldung: " << SDL_GetError () << endl;
@@ -66,19 +70,24 @@ bool CFramework::Init_Video (char* name, int width, int height, bool bFullscreen
 void CFramework::Quit ()
 {
 	SDL_DestroyWindow(sdl_Window);
-	SDL_DestroyRenderer(sdl_Renderer);	
-	SDL_Quit ();
+	SDL_DestroyRenderer(sdl_Renderer);		
 	IMG_Quit();
 	TTF_Quit();
+	Mix_Quit();
+	Mix_CloseAudio();
+	SDL_Quit ();
 }
 
 // updatet Timer und Tastaturstatus
 void CFramework::Update ()
 {
-	// Timer updaten
-	g_pTimer->Update ();
-	// updated die Event-Warteschlange
-	SDL_PumpEvents ();
+	g_pTimer->Update ();			// Timer updaten	
+	SDL_PumpEvents ();				// updated die Event-Warteschlange
+	SDL_PollEvent(&Event);
+	if (Event.type == SDL_QUIT) 
+	{
+		exit(0);
+	}
 }
 
 

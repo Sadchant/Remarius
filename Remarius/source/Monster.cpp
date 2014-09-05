@@ -34,10 +34,10 @@ void CMonster::Update ()
 	m_Rect.y = static_cast<int>(m_fYPos);															// Rect bewegen
 	m_Rect.x = static_cast<int>(m_fXPos);
 
-	if ((m_fYPos > 768.0f) || (m_fYPos < 0.0f))														// Deaktivieren, falls außerhalb des Bildschirms
+	/*if ((m_fYPos > 768.0f) || (m_fYPos < 0.0f))														// Deaktivieren, falls außerhalb des Bildschirms
 		m_bIsAlive = false;
 	if ((m_fXPos > 1024.0f) || (m_fXPos < 0.0f))
-		m_bIsAlive = false;
+		m_bIsAlive = false;*/
 }
 void CMonster::Render (float CameraX, float CameraY)
 {
