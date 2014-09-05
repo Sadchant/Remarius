@@ -1,4 +1,4 @@
-#include MenuItem.hpp
+#include "MenuItem.hpp"
 
 CMenuItem::CMenuItem(CSprite* bg, char* label, int fontsize)
 {
@@ -14,16 +14,16 @@ CMenuItem::~CMenuItem()
 	delete text;
 }
 
-CMenuItem::render(int x, int y)
+void CMenuItem::render(int x, int y)
 {
-	background->setPos(x, y);
-	background->render(0, (selected) ? 1 : 0);
-	text->setPos(x + (background->getLength() - text->getLength())/2,
-				 y + (background->getlength() - text->getLength())/2);
-	text->render();
+	background->SetPos(x, y);
+	background->Render(0, (selected) ? 1 : 0);
+	text->SetPos(x + (background->GetRect().w - text->GetLength())/2,
+				 y + (background->GetRect().h - text->GetHigh())/2);
+	text->Render();
 }
 
-CMenuItem::select(bool b)
+void CMenuItem::select(bool b)
 {
 	selected = b;
 	if (selected)

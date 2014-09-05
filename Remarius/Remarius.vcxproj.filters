@@ -78,6 +78,15 @@
     <ClInclude Include="source\Timer.hpp">
       <Filter>Headerdateien</Filter>
     </ClInclude>
+    <ClInclude Include="source\MenuItem.hpp">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="source\MenuPage.hpp">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="source\Util.hpp">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="source\Bombo.cpp">
@@ -138,6 +147,12 @@
       <Filter>Quelldateien</Filter>
     </ClCompile>
     <ClCompile Include="source\Timer.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="source\MenuItem.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="source\MenuPage.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
   </ItemGroup>

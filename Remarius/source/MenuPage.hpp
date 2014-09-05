@@ -11,7 +11,7 @@ class CMenuPage
 public:
 	CMenuPage(CSprite* bg, char* label, int fontsize);
 	~CMenuPage();
-	void addItem(CMenuItem* item);
+	void addItem(CMenuItem& item);
 	void render();
 
 private:
@@ -19,7 +19,6 @@ private:
 	int					selected;
 	CSprite*			background;
 	CText*				caption;
-	CMenuItem*			selectedItem;
 };
 
 #endif

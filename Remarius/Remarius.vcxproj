@@ -20,6 +20,8 @@
     <ClInclude Include="source\Hoover.hpp" />
     <ClInclude Include="source\main.h" />
     <ClInclude Include="source\Menu.hpp" />
+    <ClInclude Include="source\MenuItem.hpp" />
+    <ClInclude Include="source\MenuPage.hpp" />
     <ClInclude Include="source\Monster.hpp" />
     <ClInclude Include="source\Player.hpp" />
     <ClInclude Include="source\Program.hpp" />
@@ -32,6 +34,7 @@
     <ClInclude Include="source\Text.hpp" />
     <ClInclude Include="source\Tile.hpp" />
     <ClInclude Include="source\Timer.hpp" />
+    <ClInclude Include="source\Util.hpp" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="source\Bombo.cpp" />
@@ -43,6 +46,8 @@
     <ClCompile Include="source\Hoover.cpp" />
     <ClCompile Include="source\main.cpp" />
     <ClCompile Include="source\Menu.cpp" />
+    <ClCompile Include="source\MenuItem.cpp" />
+    <ClCompile Include="source\MenuPage.cpp" />
     <ClCompile Include="source\Monster.cpp" />
     <ClCompile Include="source\Player.cpp" />
     <ClCompile Include="source\Program.cpp" />

@@ -1,36 +1,37 @@
 #include "MenuPage.hpp"
 
-CMenuPage::CMenuPage(CSprite* bg, char* caption, int fontsize)
+CMenuPage::CMenuPage(CSprite* bg, char* label, int fontsize)
 {
 	background = bg;
 	caption = new CText();
 	caption->OpenFont("Data/verdana.ttf", fontsize);
-	caption->setColor(230, 230, 0);
+	caption->SetColor(230, 230, 0);
 	caption->SetContent(label);
-	items = new vector<CMenuPage>;
-	selectedItem = NULL;
+	caption->SetPos(((float)1024 - caption->GetLength() / 2), 70);
+	items = new vector<CMenuItem>;
 }
 
 CMenuPage::~CMenuPage()
 {
-	for (CMenuItem item : items)
-		delete item;
+	for (vector<CMenuItem>::iterator it = items->begin(); it != items->end(); it++)
+		items->erase(it);
 	delete items;
 	delete caption;
 }
 
-CMenuPage::addItem(CMenuItem* item)
+void CMenuPage::addItem(CMenuItem& item)
 {
-	if (!items.size)
-		selectedItem = item;
-	items.pushBack(item);
+	CMenuItem tmp = item;
+	items->push_back(tmp);
+	cout << "item added" << endl;
 }
 
-CMenuPage::render()
+void CMenuPage::render()
 {
-	background->render();
-	caption->render((float) (1024 - caption->getLength()/2), 70);
-
-	for (vector<CMenuItem>::iterator it = items.begin(), int i = 0; it != items.end(); it++, i++)
-		it->render(334, 274 + i * 100);
+	background->Render();
+	caption->Render();
+	cout << "cmenupage::render" << endl;
+	for (int i = 0; i < items->size(); i++)
+		(*items)[i].render(334, 274 + i * 100);
+	cout << "cmenupage:.render end" << endl;
 }

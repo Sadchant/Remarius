@@ -8,9 +8,10 @@ class CMenuItem
 {
 public:
 	CMenuItem(CSprite* bg, char* label, int fontsize);
-	~CmenuItem();
+	~CMenuItem();
 	void render(int x, int y);
 	void select(bool b);
+	//virtual void update(SDL_Event& event);
 
 private:
 	CSprite*		background;
