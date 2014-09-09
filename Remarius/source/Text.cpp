@@ -13,46 +13,20 @@ CText::CText()
 	Size = 0;
 }
 
+CText::CText(const CText& other) :
+CSprite(), Size(0)
+{
+	pFont = other.pFont;
+	pTexture = NULL;
+	pSurface = NULL;
+	pRenderer = g_pFramework->GetRenderer();
+	Color = { 0, 0, 0, 0 };
+	SetContent(string(other.Content));
+}
+
 CText::~CText ()																			// Surface des Sprites freigeben
 {
-	SDL_FreeSurface (pSurface);
-	TTF_CloseFont (pFont);
-}
-
-// Schriftart in der richtigen Größe laden
-void CText::OpenFont (const string sFilename, int Size)														
-{
-	pFont = TTF_OpenFont (sFilename.c_str (), Size);										
-	if (pFont == NULL)																	
-	{
-		cout << "Fehler beim Laden von: " << sFilename.c_str ();
-		cout << endl;
-		cout << "Fehlermeldung: " << TTF_GetError () << endl;	
-		g_pFramework->Quit ();															
-		exit (1);																		
-	}
-}
-
-// Schriftart in der richtigen Größe laden und festlegen ob es fett sein soll
-void CText::OpenFont(const string sFilename, int Size, bool bold, bool italic)
-{
-	pFont = TTF_OpenFont(sFilename.c_str(), Size);
-	if (pFont == NULL)
-	{
-		cout << "Fehler beim Laden von: " << sFilename.c_str();
-		cout << endl;
-		cout << "Fehlermeldung: " << TTF_GetError() << endl;
-		g_pFramework->Quit();
-		exit(1);
-	}
-	if (bold)
-	{
-		TTF_SetFontStyle(pFont, TTF_STYLE_BOLD);
-	}
-	if (italic)
-	{
-		TTF_SetFontStyle(pFont, TTF_STYLE_ITALIC);
-	}
+	if (pSurface != NULL) SDL_FreeSurface (pSurface);
 }
 
 // RGB-Wert der Farbe festlegen
@@ -78,7 +52,8 @@ void CText::SetContent (string Content)
 	int w = 0;
 	this->Content = Content;
 	const char* pContent = Content.c_str();
-	TTF_SizeText(pFont, pContent, &width, &height);		//ermittelt Breite und Höhe des Textes abhängig vom Inhalt
+	if (TTF_SizeText(pFont, pContent, &width, &height))
+		cout << TTF_GetError() << endl;		//ermittelt Breite und Höhe des Textes abhängig vom Inhalt
 	Rect.w = width;
 	Rect.h = height;
 	createTexture();
@@ -88,9 +63,9 @@ void CText::SetContent (string Content)
 void CText::createTexture()
 {	
 	const char* pContent = Content.c_str();
-	if (pContent != NULL)
+	if (!Content.empty())
 	{
-		if (!(pSurface = TTF_RenderText_Blended(pFont, pContent, Color)))		// Surface wird gefüllt
+		if ((pSurface = TTF_RenderText_Blended(pFont, pContent, Color)) == NULL)		// Surface wird gefüllt
 		{
 			cout << "Fehler beim erstellen des Text-Surface: " << TTF_GetError() << endl;
 		}

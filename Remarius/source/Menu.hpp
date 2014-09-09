@@ -2,6 +2,9 @@
 #define MENU_HPP
 
 #include "Game.hpp"
+#include "MenuPage.hpp"
+#include "windows.h"
+#include "Util.hpp"
 
 class CMenu
 {
@@ -9,6 +12,7 @@ public:
 	CMenu ();
 	void Run ();
 	void Quit ();
+	TTF_Font* getDefaultFont() { return defaultFont; }
 
 private:
 	void		PlayMenuMusic (int Volume);
@@ -37,9 +41,14 @@ private:
 	CText		*m_pTextMenutext;
 	CText		*m_pTextMenucaption;
 	CText		*m_pTextMenutextd;
+	vector<CMenuPage> menuPages;
+	CMenuPage* menpage;
+	CMenuItem* menItem;
+	TTF_Font* defaultFont;
 
 	void		Options ();
 	void		Play ();
+	void		generateMenu();
 };
 
 #endif

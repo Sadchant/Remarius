@@ -2,6 +2,7 @@
 
 CGame::CGame ()																									// Game initialisieren
 {
+	pFont = OpenFont("Data/verdana.ttf", 19);
 
 	m_pMenubackground = NULL;																				// Pausemenühintergrund erzeugen
 	m_pMenubackground = new CSprite;
@@ -20,15 +21,15 @@ CGame::CGame ()																									// Game initialisieren
 
 	m_pTextMenucaption = NULL;
 	m_pTextMenucaption = new CText;
-	m_pTextMenucaption->OpenFont ("Data/verdana.ttf", 40);
+	m_pTextMenucaption->SetFont (pFont);
 
 	m_pTextMenutext = NULL;
 	m_pTextMenutext = new CText;
-	m_pTextMenutext->OpenFont ("Data/verdana.ttf", 19);
+	m_pTextMenutext->SetFont (pFont);
 
 	m_pTextMenuSave = NULL;
 	m_pTextMenuSave = new CText;
-	m_pTextMenuSave->OpenFont ("Data/verdana.ttf", 25);
+	m_pTextMenuSave->SetFont (pFont);
 
 	pTrack_1 = NULL;
 	pTrack_1 = new CMusic;
@@ -76,6 +77,7 @@ void CGame::Quit ()																								// Müll freigeben
 		delete pTrack_1;
 		pTrack_1 = NULL;
 	}
+	TTF_CloseFont(pFont);
 	
 }
 void CGame::Run (bool Safegame)         // Hauptschleife des Spiels

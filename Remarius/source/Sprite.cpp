@@ -58,6 +58,7 @@ void CSprite::SetPos (float fXPos, float fYPos)											// Position des Sprite
 {
 	Rect.x = static_cast<int>(fXPos);											// Rect updaten
 	Rect.y = static_cast<int>(fYPos);
+	cout << "set position to x" << Rect.x << " / y" << Rect.y << endl;
 }
 
 void CSprite::SetScreenPos (float fXPos, float fYPos, float CameraX, float CameraY)		//schlechter Programmierstil!		
@@ -73,6 +74,7 @@ void CSprite::Render ()																	// unanimierten Sprite rendern
 	if (SDL_RenderCopy(pRenderer, pTexture, NULL, &Rect) < 0)				// Textur wird in der Renderer kopiert
 	{
 		cout << "Fehler beim Kopieren der Textur: " << SDL_GetError() << endl;
+		cout << pTexture << endl;
 	}
 }
 

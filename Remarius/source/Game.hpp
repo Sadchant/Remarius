@@ -6,6 +6,7 @@
 #include "Text.hpp"
 #include "Sound.hpp"
 #include "Music.hpp"
+#include "Util.hpp"
 #include <fstream>
 #include <string>
 #include <sstream>
@@ -44,6 +45,7 @@ class CGame
 		bool			m_bEnterLock;
 		bool			m_bStateLock;
 		int				m_State2;
+		TTF_Font*		pFont;
 
 		SDL_Event		event;
 		CMusic*			pTrack_1;

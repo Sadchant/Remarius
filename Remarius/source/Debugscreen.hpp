@@ -3,6 +3,7 @@
 
 #include "Text.hpp"
 #include "Singleton.hpp"
+#include "Util.hpp"
 #include <map>
 #include <string>
 
@@ -11,6 +12,7 @@ class CDebugscreen : public TSingleton<CDebugscreen>
 {
 public:
 	CDebugscreen	();
+	~CDebugscreen();
 	void		Set			(string pText);						// erzeugt ein DebugItem für die Map und macht es bei erneutem Aufruf wieder sichtbar
 	void		Set			(string pText, float Variable);		// zusätzliche Variable, die ausgegeben werden kann
 	void		FPS			(int FPS);							// zum Updaten der FPS-Anzeige
@@ -26,6 +28,7 @@ private:
 	int Rows;									// zählt die Zeilen
 	map<string, DebugItem>					Messages;		// Map mit DebugItems
 	map<string, DebugItem>::iterator		itMessages;		// Iterator für die Map	
+	TTF_Font*	pFont;
 };
 
 #endif

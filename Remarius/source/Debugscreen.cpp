@@ -3,9 +3,10 @@
 CDebugscreen::CDebugscreen()
 {
 	Rows = 1;
+	pFont = OpenFont("Data/verdana.ttf", 15, true);
 
 	DebugItem FPS_Word;														// Die FPS-Anzeige, hier das Wort "FPS" wird erzeugt und in die Map geschrieben
-	FPS_Word.pTextObject->OpenFont("Data/verdana.ttf", 15, true, false);
+	FPS_Word.pTextObject->SetFont(pFont);
 	FPS_Word.pTextObject->SetContent("FPS:");
 	FPS_Word.pTextObject->SetColor(255, 255, 255);
 	FPS_Word.pTextObject->SetPos(930, 13);
@@ -15,7 +16,7 @@ CDebugscreen::CDebugscreen()
 	Messages["FPS:"] = FPS_Word;
 
 	DebugItem FPS;															// Die eigentliche FPS-Zahl wird erzeugt und mit 0 initialisiert
-	FPS.pTextObject->OpenFont("Data/verdana.ttf", 15, true, false);
+	FPS.pTextObject->SetFont(pFont);
 	FPS.pTextObject->SetContent("0");
 	FPS.pTextObject->SetColor(255, 255, 255);
 	FPS.pTextObject->SetPos(970, 13);
@@ -23,6 +24,10 @@ CDebugscreen::CDebugscreen()
 	FPS.fTime = 0.0f;
 	FPS.always = true;
 	Messages["FPS"] = FPS;
+}
+CDebugscreen::~CDebugscreen()
+{
+	TTF_CloseFont(pFont);
 }
 
 // erzeugt ein DebugItem für die Map und macht es bei erneutem Aufruf wieder sichtbar
@@ -37,7 +42,7 @@ void CDebugscreen::Set(string Text)
 	else																	// War sie noch nicht in der Map, wird sie erzeugt
 	{	
 		DebugItem Item;			
-		Item.pTextObject->OpenFont("Data/verdana.ttf", 15, true, false);
+		Item.pTextObject->SetFont(pFont);
 		const char* pText = Text.c_str();
 		Item.pTextObject->SetContent(pText);
 		Item.pTextObject->SetColor(255, 255, 255);
@@ -67,7 +72,7 @@ void CDebugscreen::Set(string Text, float Variable)
 	else
 	{
 		DebugItem Item;
-		Item.pTextObject->OpenFont("Data/verdana.ttf", 15, true, false);
+		Item.pTextObject->SetFont(pFont);
 		const char* pText = Text.c_str();
 		Item.pTextObject->SetContent(pText);
 		Item.pTextObject->SetColor(255, 255, 255);
@@ -78,7 +83,7 @@ void CDebugscreen::Set(string Text, float Variable)
 		Messages[Text] = Item;
 
 		DebugItem dVariable;																	// Die Variable wird als DebugItem erzeugt und in die Map gelegt
-		dVariable.pTextObject->OpenFont("Data/verdana.ttf", 15, true, false);
+		dVariable.pTextObject->SetFont(pFont);
 		dVariable.pTextObject->SetContent(Variable_Text);
 		dVariable.pTextObject->SetColor(255, 255, 255);
 		dVariable.pTextObject->SetPos(13 + Item.pTextObject->GetLength() + 5, 57 + 18 * Rows);

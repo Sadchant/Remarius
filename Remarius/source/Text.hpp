@@ -10,13 +10,14 @@ class CText: public CSprite
 {
 	public:
 		CText ();
+		CText(const CText& other);
 		~CText ();
 
-		void		OpenFont	(const string sFilename, int Size);
-		void		OpenFont	(const string sFilename, int Size, bool bold, bool italic);
+		void		SetFont(TTF_Font* font){ pFont = font; }
 		void		SetColor	(int R, int G, int B);
 		void		SetAlpha	(int Alpha);
 		void		SetContent	(string Content);
+		string		GetContent() { return Content; }
 		int			GetHigh()	{ return height; }
 		int			GetLength()	{ return width; }
 

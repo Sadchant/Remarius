@@ -9,13 +9,15 @@
 class CMenuPage
 {
 public:
-	CMenuPage(CSprite* bg, char* label, int fontsize);
+	CMenuPage(CSprite* bg, string label, TTF_Font* font);
+	CMenuPage(const CMenuPage& other);
 	~CMenuPage();
+	CMenuPage& operator = (const CMenuPage& other);
 	void addItem(CMenuItem& item);
 	void render();
 
 private:
-	vector<CMenuItem>*	items;
+	vector<CMenuItem>	items;
 	int					selected;
 	CSprite*			background;
 	CText*				caption;

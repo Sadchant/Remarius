@@ -34,21 +34,40 @@ CMenu::CMenu()
 
 	m_pTextMenucaption = NULL;
 	m_pTextMenucaption = new CText;
-	m_pTextMenucaption->OpenFont ("Data/verdana.ttf", 40);
+	//m_pTextMenucaption->OpenFont ("Data/verdana.ttf", 40);
+	defaultFont = OpenFont("Data/verdana.ttf", 19);
+	m_pTextMenucaption->SetFont(defaultFont);
 
 	m_pTextMenutext = NULL;
 	m_pTextMenutext = new CText;
-	m_pTextMenutext->OpenFont ("Data/verdana.ttf", 19);
+	m_pTextMenutext->SetFont(defaultFont);
 
 	m_pTextMenutextd = NULL;
 	m_pTextMenutextd = new CText;
-	m_pTextMenutextd->OpenFont ("Data/verdana.ttf", 19);
+	m_pTextMenutextd->SetFont(defaultFont);
 
 	cout << "Menüsachen geladen" << endl;
+
+	menpage = new CMenuPage(m_pMenuBackground, "testpage", defaultFont);
+	menItem = new CMenuItem(m_pMenubuttons, "testitem", defaultFont);
+	menpage->addItem(*menItem);
+
+	generateMenu();
+}
+void CMenu::generateMenu()
+{
+	CMenuPage test(m_pMenuBackground, "testpage", defaultFont);
+	menuPages.push_back(test);
 }
 void CMenu::Run()
 {
 	cout << "Menu.Run aufgerufen" << endl;
+
+	//menpage->addItem(menitem);
+
+	menpage->render();
+	g_pFramework->Render();
+	Sleep(1000);
 	CGame Game;
 	Game.Run(false);
 	Game.Quit();
@@ -100,4 +119,11 @@ void CMenu::Quit ()
 		delete (m_pTextMenutextd);
 		m_pTextMenutextd = NULL;
 	}
+	if (defaultFont != NULL)
+	{
+		TTF_CloseFont(defaultFont);
+		defaultFont = NULL;
+	}
+//	delete menpage;
+//	delete menItem;
 }

@@ -16,6 +16,7 @@ public:
 private:
 	bool	m_bEnd;
 	CText	*pText;
+	TTF_Font* pFont;
 
 };
 

@@ -12,6 +12,7 @@ CProgram::CProgram ()
 	SDL_EventState(SDL_MOUSEBUTTONUP, SDL_DISABLE);*/
 	pText = NULL;
 	pText = new CText();
+	pFont = OpenFont("Data/verdana.ttf", 28);
 }
 
 void CProgram::Run()
@@ -19,7 +20,7 @@ void CProgram::Run()
 	CMenu Menu;
 	SDL_Event event;
 	cout<<"Druecke Enter"<<endl;
-	pText->OpenFont ("Data/verdana.ttf", 28);
+	pText->SetFont(pFont);
 	
 	pText->SetContent ("Drücke Enter!");
 	pText->SetColor (255, 255, 255);
@@ -50,6 +51,7 @@ void CProgram::Quit()
 	if (pText != NULL)													
 	{
 		delete pText;
+		pText = NULL;
 	}
 
 }
