@@ -13,3 +13,8 @@ Debug/
 # main folder debug
 
 Remarius/Debug/
+
+
+# main folder test stuff
+
+Remarius/source/Menu2.*

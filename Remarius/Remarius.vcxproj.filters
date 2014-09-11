@@ -1,173 +1,177 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="Quelldateien">
-      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
-      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    <Filter Include="World">
+      <UniqueIdentifier>{0d940996-ec3b-4b3b-9b38-9335525e303f}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Headerdateien">
-      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
-      <Extensions>h;hh;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    <Filter Include="Programflow">
+      <UniqueIdentifier>{f5cf925b-c5b2-4fda-a57b-680e65f5ccb2}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Ressourcendateien">
-      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
-      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    <Filter Include="Resource/Frame">
+      <UniqueIdentifier>{b161e5e2-4c48-4af3-bac3-beacdf019d73}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource/Frame\Rendering">
+      <UniqueIdentifier>{ec2d91d5-64d1-4618-b11b-35cc3a328c55}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource/Frame\Audio">
+      <UniqueIdentifier>{11820d6f-802d-434c-b682-465a8a46066d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="World\Monster">
+      <UniqueIdentifier>{b558adc3-90c6-4036-b7a0-85638154ffdd}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="source\Bombo.hpp">
-      <Filter>Headerdateien</Filter>
-    </ClInclude>
-    <ClInclude Include="source\Camera.hpp">
-      <Filter>Headerdateien</Filter>
-    </ClInclude>
     <ClInclude Include="source\Explosion.hpp">
-      <Filter>Headerdateien</Filter>
-    </ClInclude>
-    <ClInclude Include="source\Framework.hpp">
-      <Filter>Headerdateien</Filter>
-    </ClInclude>
-    <ClInclude Include="source\Game.hpp">
-      <Filter>Headerdateien</Filter>
-    </ClInclude>
-    <ClInclude Include="source\Hexaspider.hpp">
-      <Filter>Headerdateien</Filter>
+      <Filter>World</Filter>
     </ClInclude>
     <ClInclude Include="source\Hoover.hpp">
-      <Filter>Headerdateien</Filter>
-    </ClInclude>
-    <ClInclude Include="source\main.h">
-      <Filter>Headerdateien</Filter>
-    </ClInclude>
-    <ClInclude Include="source\Menu.hpp">
-      <Filter>Headerdateien</Filter>
+      <Filter>World</Filter>
     </ClInclude>
     <ClInclude Include="source\Monster.hpp">
-      <Filter>Headerdateien</Filter>
+      <Filter>World</Filter>
     </ClInclude>
     <ClInclude Include="source\Player.hpp">
-      <Filter>Headerdateien</Filter>
-    </ClInclude>
-    <ClInclude Include="source\Program.hpp">
-      <Filter>Headerdateien</Filter>
+      <Filter>World</Filter>
     </ClInclude>
     <ClInclude Include="source\Shot.hpp">
-      <Filter>Headerdateien</Filter>
+      <Filter>World</Filter>
     </ClInclude>
-    <ClInclude Include="source\Singleton.hpp">
-      <Filter>Headerdateien</Filter>
+    <ClInclude Include="source\Menu.hpp">
+      <Filter>Programflow</Filter>
     </ClInclude>
-    <ClInclude Include="source\Sound.hpp">
-      <Filter>Headerdateien</Filter>
+    <ClInclude Include="source\Game.hpp">
+      <Filter>Programflow</Filter>
     </ClInclude>
-    <ClInclude Include="source\Sprite.hpp">
-      <Filter>Headerdateien</Filter>
-    </ClInclude>
-    <ClInclude Include="source\Stachelstein.hpp">
-      <Filter>Headerdateien</Filter>
-    </ClInclude>
-    <ClInclude Include="source\Stuff.hpp">
-      <Filter>Headerdateien</Filter>
-    </ClInclude>
-    <ClInclude Include="source\Text.hpp">
-      <Filter>Headerdateien</Filter>
-    </ClInclude>
-    <ClInclude Include="source\Tile.hpp">
-      <Filter>Headerdateien</Filter>
-    </ClInclude>
-    <ClInclude Include="source\Timer.hpp">
-      <Filter>Headerdateien</Filter>
-    </ClInclude>
-<<<<<<< HEAD
-    <ClInclude Include="source\MenuItem.hpp">
-      <Filter>Headerdateien</Filter>
-    </ClInclude>
-    <ClInclude Include="source\MenuPage.hpp">
-      <Filter>Headerdateien</Filter>
-    </ClInclude>
-    <ClInclude Include="source\Util.hpp">
-=======
-    <ClInclude Include="source\Music.hpp">
-      <Filter>Headerdateien</Filter>
+    <ClInclude Include="source\main.h">
+      <Filter>Programflow</Filter>
     </ClInclude>
     <ClInclude Include="source\Debugscreen.hpp">
->>>>>>> 2c3ab7e99f198ef71ba7e7e6ea8976fcbc9cbace
-      <Filter>Headerdateien</Filter>
+      <Filter>Programflow</Filter>
+    </ClInclude>
+    <ClInclude Include="source\MenuItem.hpp">
+      <Filter>Programflow</Filter>
+    </ClInclude>
+    <ClInclude Include="source\MenuPage.hpp">
+      <Filter>Programflow</Filter>
+    </ClInclude>
+    <ClInclude Include="source\Program.hpp">
+      <Filter>Programflow</Filter>
+    </ClInclude>
+    <ClInclude Include="source\Stuff.hpp">
+      <Filter>Programflow</Filter>
+    </ClInclude>
+    <ClInclude Include="source\Framework.hpp">
+      <Filter>Resource/Frame</Filter>
+    </ClInclude>
+    <ClInclude Include="source\Singleton.hpp">
+      <Filter>Resource/Frame</Filter>
+    </ClInclude>
+    <ClInclude Include="source\Timer.hpp">
+      <Filter>Resource/Frame</Filter>
+    </ClInclude>
+    <ClInclude Include="source\Util.hpp">
+      <Filter>Resource/Frame</Filter>
+    </ClInclude>
+    <ClInclude Include="source\Tile.hpp">
+      <Filter>World</Filter>
+    </ClInclude>
+    <ClInclude Include="source\Camera.hpp">
+      <Filter>Resource/Frame\Rendering</Filter>
+    </ClInclude>
+    <ClInclude Include="source\Sprite.hpp">
+      <Filter>Resource/Frame\Rendering</Filter>
+    </ClInclude>
+    <ClInclude Include="source\Text.hpp">
+      <Filter>Resource/Frame\Rendering</Filter>
+    </ClInclude>
+    <ClInclude Include="source\Music.hpp">
+      <Filter>Resource/Frame\Audio</Filter>
+    </ClInclude>
+    <ClInclude Include="source\Sound.hpp">
+      <Filter>Resource/Frame\Audio</Filter>
+    </ClInclude>
+    <ClInclude Include="source\Bombo.hpp">
+      <Filter>World\Monster</Filter>
+    </ClInclude>
+    <ClInclude Include="source\Hexaspider.hpp">
+      <Filter>World\Monster</Filter>
+    </ClInclude>
+    <ClInclude Include="source\Stachelstein.hpp">
+      <Filter>World\Monster</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="source\Bombo.cpp">
-      <Filter>Quelldateien</Filter>
-    </ClCompile>
-    <ClCompile Include="source\Camera.cpp">
-      <Filter>Quelldateien</Filter>
-    </ClCompile>
-    <ClCompile Include="source\Explosion.cpp">
-      <Filter>Quelldateien</Filter>
-    </ClCompile>
-    <ClCompile Include="source\Framework.cpp">
-      <Filter>Quelldateien</Filter>
-    </ClCompile>
-    <ClCompile Include="source\Game.cpp">
-      <Filter>Quelldateien</Filter>
-    </ClCompile>
-    <ClCompile Include="source\Hexaspider.cpp">
-      <Filter>Quelldateien</Filter>
-    </ClCompile>
     <ClCompile Include="source\Hoover.cpp">
-      <Filter>Quelldateien</Filter>
-    </ClCompile>
-    <ClCompile Include="source\main.cpp">
-      <Filter>Quelldateien</Filter>
-    </ClCompile>
-    <ClCompile Include="source\Menu.cpp">
-      <Filter>Quelldateien</Filter>
+      <Filter>World</Filter>
     </ClCompile>
     <ClCompile Include="source\Monster.cpp">
-      <Filter>Quelldateien</Filter>
+      <Filter>World</Filter>
     </ClCompile>
     <ClCompile Include="source\Player.cpp">
-      <Filter>Quelldateien</Filter>
-    </ClCompile>
-    <ClCompile Include="source\Program.cpp">
-      <Filter>Quelldateien</Filter>
+      <Filter>World</Filter>
     </ClCompile>
     <ClCompile Include="source\Shot.cpp">
-      <Filter>Quelldateien</Filter>
+      <Filter>World</Filter>
     </ClCompile>
-    <ClCompile Include="source\Sound.cpp">
-      <Filter>Quelldateien</Filter>
-    </ClCompile>
-    <ClCompile Include="source\Sprite.cpp">
-      <Filter>Quelldateien</Filter>
-    </ClCompile>
-    <ClCompile Include="source\Stachelstein.cpp">
-      <Filter>Quelldateien</Filter>
-    </ClCompile>
-    <ClCompile Include="source\Stuff.cpp">
-      <Filter>Quelldateien</Filter>
-    </ClCompile>
-    <ClCompile Include="source\Text.cpp">
-      <Filter>Quelldateien</Filter>
-    </ClCompile>
-    <ClCompile Include="source\Tile.cpp">
-      <Filter>Quelldateien</Filter>
-    </ClCompile>
-    <ClCompile Include="source\Timer.cpp">
-      <Filter>Quelldateien</Filter>
-    </ClCompile>
-<<<<<<< HEAD
-    <ClCompile Include="source\MenuItem.cpp">
-      <Filter>Quelldateien</Filter>
-    </ClCompile>
-    <ClCompile Include="source\MenuPage.cpp">
-=======
-    <ClCompile Include="source\Music.cpp">
-      <Filter>Quelldateien</Filter>
+    <ClCompile Include="source\Explosion.cpp">
+      <Filter>World</Filter>
     </ClCompile>
     <ClCompile Include="source\Debugscreen.cpp">
->>>>>>> 2c3ab7e99f198ef71ba7e7e6ea8976fcbc9cbace
-      <Filter>Quelldateien</Filter>
+      <Filter>Programflow</Filter>
+    </ClCompile>
+    <ClCompile Include="source\Game.cpp">
+      <Filter>Programflow</Filter>
+    </ClCompile>
+    <ClCompile Include="source\main.cpp">
+      <Filter>Programflow</Filter>
+    </ClCompile>
+    <ClCompile Include="source\Menu.cpp">
+      <Filter>Programflow</Filter>
+    </ClCompile>
+    <ClCompile Include="source\MenuItem.cpp">
+      <Filter>Programflow</Filter>
+    </ClCompile>
+    <ClCompile Include="source\MenuPage.cpp">
+      <Filter>Programflow</Filter>
+    </ClCompile>
+    <ClCompile Include="source\Program.cpp">
+      <Filter>Programflow</Filter>
+    </ClCompile>
+    <ClCompile Include="source\Stuff.cpp">
+      <Filter>Programflow</Filter>
+    </ClCompile>
+    <ClCompile Include="source\Framework.cpp">
+      <Filter>Resource/Frame</Filter>
+    </ClCompile>
+    <ClCompile Include="source\Timer.cpp">
+      <Filter>Resource/Frame</Filter>
+    </ClCompile>
+    <ClCompile Include="source\Tile.cpp">
+      <Filter>World</Filter>
+    </ClCompile>
+    <ClCompile Include="source\Camera.cpp">
+      <Filter>Resource/Frame\Rendering</Filter>
+    </ClCompile>
+    <ClCompile Include="source\Sprite.cpp">
+      <Filter>Resource/Frame\Rendering</Filter>
+    </ClCompile>
+    <ClCompile Include="source\Text.cpp">
+      <Filter>Resource/Frame\Rendering</Filter>
+    </ClCompile>
+    <ClCompile Include="source\Music.cpp">
+      <Filter>Resource/Frame\Audio</Filter>
+    </ClCompile>
+    <ClCompile Include="source\Sound.cpp">
+      <Filter>Resource/Frame\Audio</Filter>
+    </ClCompile>
+    <ClCompile Include="source\Bombo.cpp">
+      <Filter>World\Monster</Filter>
+    </ClCompile>
+    <ClCompile Include="source\Hexaspider.cpp">
+      <Filter>World\Monster</Filter>
+    </ClCompile>
+    <ClCompile Include="source\Stachelstein.cpp">
+      <Filter>World\Monster</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

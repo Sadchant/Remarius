@@ -3,7 +3,9 @@
 
 #include "Text.hpp"
 #include "Sprite.hpp"
+#include "Util.hpp"
 #include <string>
+#include <functional>
 
 class CMenuItem
 {
@@ -14,7 +16,6 @@ public:
 	CMenuItem& operator = (const CMenuItem& other);
 	void render(int x, int y);
 	void select(bool b);
-	//virtual void update(SDL_Event& event);
 
 private:
 	CSprite*		background;

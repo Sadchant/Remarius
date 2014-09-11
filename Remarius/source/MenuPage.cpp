@@ -8,14 +8,13 @@ CMenuPage::CMenuPage(CSprite* bg, string label, TTF_Font* font)
 	caption->SetColor(230, 230, 0);
 	caption->SetContent(label);
 	caption->SetPos((float)334, 70);
-//	items = new vector<CMenuItem>;
 }
 
 CMenuPage::CMenuPage(const CMenuPage& other) :
 background(other.background), selected(other.selected)
 {
 	caption = new CText(*other.caption);
-	for (int i = 0; i < other.items.size(); i++)
+	for (unsigned int i = 0; i < other.items.size(); i++)
 		items.push_back(other.items[i]);
 
 }
@@ -30,7 +29,7 @@ CMenuPage& CMenuPage::operator = (const CMenuPage& other)
 {
 	selected = other.selected;
 	items.clear();
-	for (int i = 0; i < other.items.size(); i++)
+	for (unsigned int i = 0; i < other.items.size(); i++)
 	{
 		items.push_back(other.items[i]);
 	}

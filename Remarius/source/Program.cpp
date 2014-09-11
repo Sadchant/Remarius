@@ -18,7 +18,6 @@ CProgram::CProgram ()
 void CProgram::Run()
 {	
 	CMenu Menu;
-	SDL_Event event;
 	cout<<"Druecke Enter"<<endl;
 	pText->SetFont(pFont);
 	
