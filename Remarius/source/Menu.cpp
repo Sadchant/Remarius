@@ -3,6 +3,7 @@
 CMenu::CMenu()
 {
 	menPageIndex = 0;
+	selectedSave = 1;
 
 	m_bFullSize=false;
 	m_bMusic=false;
@@ -21,12 +22,30 @@ CMenu::CMenu()
 void CMenu::generateMenu()
 {
 	menuPages.clear();
-	{
+	{	// Main menu [0]
 		CMenuPage mainmenu(m_pMenuBackground, "Hauptmenü", defaultFont);
 		CMenuItem playbttn(m_pMenubuttons, "Spielen", defaultFont);
-		playbttn.func = std::bind(&CMenu::TO_MAINMENU, ref(*this));
+		playbttn.setfunc(bind([](int& mpg){mpg = 1;}, ref(menPageIndex)));
 		mainmenu.addItem(playbttn);
+		CMenuItem optionsbttn(m_pMenubuttons, "Optionen", defaultFont);
+		optionsbttn.setfunc(bind([](int& mpg){mpg = 2; }, ref(menPageIndex)));
+		mainmenu.addItem(optionsbttn);
+		CMenuItem quitbttn(m_pMenubuttons, "Beenden", defaultFont);
+		quitbttn.setfunc(bind([](int& mpg){mpg = 0; }, ref(menPageIndex)));
+		mainmenu.addItem(quitbttn);
 		menuPages.push_back(mainmenu);
+	}
+	{
+		CMenuPage saveselect(m_pMenuBackground, "Spielstand wählen", defaultFont);
+		CMenuItem savestatebttn1(m_pMenubuttons, "Spielstand 1", defaultFont);
+		savestatebttn1.setfunc(bind([](int& mpg, int& slcsave){mpg = 3; slcsave = 1; }, ref(menPageIndex), ref(selectedSave)));
+		saveselect.addItem(savestatebttn1);
+		CMenuItem savestatebttn2(m_pMenubuttons, "Spielstand 2", defaultFont);
+		savestatebttn2.setfunc(bind([](int& mpg, int& slcsave){mpg = 3; slcsave = 2; }, ref(menPageIndex), ref(selectedSave)));
+		saveselect.addItem(savestatebttn2);
+		CMenuItem savestatebttn3(m_pMenubuttons, "Spielstand 3", defaultFont);
+		savestatebttn3.setfunc(bind([](int& mpg, int& slcsave){mpg = 3; slcsave = 3; }, ref(menPageIndex), ref(selectedSave)));
+		saveselect.addItem(savestatebttn3);
 	}
 }
 void CMenu::Run()
@@ -39,7 +58,7 @@ void CMenu::Run()
 		menuPages[0].render();
 		g_pFramework->Render();
 		cout << menPageIndex << endl;
-		Sleep(2000);
+		Sleep(100);
 	}
 
 }

@@ -32,14 +32,10 @@ private:
 	vector<CMenuPage> menuPages;
 	TTF_Font*	defaultFont;
 	int			menPageIndex;
+	int			selectedSave;
 
 	void		generateMenu();
 	void		STARTGAME();
-
-	void		TO_MAINMENU() { menPageIndex = 1; }
-	void		TO_SAVESELECT() { menPageIndex = 2; }
-	void		TO_OPTIONSMENU() { menPageIndex = 3; }
-
 };
 
 #endif

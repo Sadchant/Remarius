@@ -16,12 +16,13 @@ public:
 	CMenuItem& operator = (const CMenuItem& other);
 	void render(int x, int y);
 	void select(bool b);
-	function<void()> func;
+	void setfunc(function<void()> func){ onUpdate = func; }
 
 private:
 	CSprite*		background;
 	CText*			text;
 	bool			selected;
+	function<void()> onUpdate;
 };
 
 #endif

@@ -44,17 +44,12 @@ void CMenuPage::addItem(CMenuItem& item)
 	//CMenuItem tmp = item;
 	items.push_back(item);
 	items[0].select(true);
-	cout << "item added" << endl;
 }
 
 void CMenuPage::render()
 {
-	cout << "now rendering menupage bg" << endl;
 	background->Render();
-	cout << "now rendering caption" << endl;
 	caption->Render();
-	cout << "cmenupage::render" << endl;
 	for (unsigned int i = 0; i < items.size(); i++)
 		items[i].render(334, 274 + i * 100);
-	cout << "cmenupage:.render end" << endl;
 }
