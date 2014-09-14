@@ -5,6 +5,7 @@
 #include "MenuPage.hpp"
 #include "windows.h"
 #include "Util.hpp"
+#include <functional>
 
 class CMenu
 {
@@ -32,9 +33,13 @@ private:
 	TTF_Font*	defaultFont;
 	int			menPageIndex;
 
-	void		Options ();
-	void		Play ();
 	void		generateMenu();
+	void		STARTGAME();
+
+	void		TO_MAINMENU() { menPageIndex = 1; }
+	void		TO_SAVESELECT() { menPageIndex = 2; }
+	void		TO_OPTIONSMENU() { menPageIndex = 3; }
+
 };
 
 #endif

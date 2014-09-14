@@ -3,6 +3,7 @@
 CMenuItem::CMenuItem(CSprite* bg, string label, TTF_Font* font)
 {
 	background = bg;
+	func = function<void()>([](){});
 	text = new CText;
 	text->SetFont(font);
 	text->SetContent(label);
@@ -12,6 +13,7 @@ CMenuItem::CMenuItem(CSprite* bg, string label, TTF_Font* font)
 CMenuItem::CMenuItem(const CMenuItem& other)
 {
 	background = other.background;
+	func = other.func;
 	text = new CText(*other.text);
 	select(false);
 }
@@ -25,6 +27,7 @@ CMenuItem::~CMenuItem()
 CMenuItem& CMenuItem::operator = (const CMenuItem& other)
 {
 	background = other.background;
+	func = other.func;
 	text = new CText(*other.text);
 	select(false);
 	return *this;
@@ -37,6 +40,7 @@ void CMenuItem::render(int x, int y)
 	text->SetPos((float)x + (float)(background->GetRect().w - text->GetLength())/2,
 				 (float)y + (background->GetRect().h - text->GetHigh())/2);
 	text->Render();
+	func();
 }
 
 void CMenuItem::select(bool b)

@@ -24,6 +24,7 @@ void CMenu::generateMenu()
 	{
 		CMenuPage mainmenu(m_pMenuBackground, "Hauptmenü", defaultFont);
 		CMenuItem playbttn(m_pMenubuttons, "Spielen", defaultFont);
+		playbttn.func = std::bind(&CMenu::TO_MAINMENU, ref(*this));
 		mainmenu.addItem(playbttn);
 		menuPages.push_back(mainmenu);
 	}
@@ -32,13 +33,18 @@ void CMenu::Run()
 {
 	cout << "Menu.Run aufgerufen" << endl;
 
-	//menpage->addItem(menitem);
 	while (menPageIndex > -1)
 	{
-		menuPages[menPageIndex].render();
+		cout << menPageIndex << endl;
+		menuPages[0].render();
 		g_pFramework->Render();
+		cout << menPageIndex << endl;
 		Sleep(2000);
 	}
+
+}
+void CMenu::STARTGAME()
+{
 	CGame Game;
 	Game.Run(false);
 	Game.Quit();
