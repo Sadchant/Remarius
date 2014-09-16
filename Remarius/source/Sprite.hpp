@@ -9,9 +9,10 @@ class CSprite
 {
 	public:
 		CSprite ();
-		CSprite(const string sFilename) : CSprite() { Load(sFilename); }
-		CSprite(const string sFilename, int NumFrames, int FrameWidth, int FrameHeight) : CSprite()
-				{ Load(sFilename, NumFrames, FrameWidth, FrameHeight); }
+		CSprite(const string sFilename);
+		CSprite(const string sFilename, int NumFrames, int FrameWidth, int FrameHeight);
+		CSprite(const CSprite& other);
+		CSprite& operator = (const CSprite& other);
 		~CSprite ();
 		void		Load		(const string sFilename);
 		void		Load		(const string sFilename, int NumFrames, int FrameWidth, int FrameHeight);

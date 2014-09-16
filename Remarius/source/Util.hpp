@@ -4,8 +4,6 @@
 #define UTIL_HPP
 
 #include <string>
-#include "Text.hpp"
-
 
 static TTF_Font* OpenFont(string filename, int size, bool bold = false, bool italic = false)
 {

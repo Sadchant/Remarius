@@ -17,9 +17,9 @@ public:
 
 private:
 	void		PlayMenuMusic (int Volume);
-	bool		m_bStateLock;
-	bool		m_bEnterLock;
-	bool		m_bEscapeLock;
+	void		generateMenu();
+	void		STARTGAME();
+
 	bool		m_bFullSize;
 	bool		m_bMusic;
 	bool		m_bSound;
@@ -33,9 +33,6 @@ private:
 	TTF_Font*	defaultFont;
 	int			menPageIndex;
 	int			selectedSave;
-
-	void		generateMenu();
-	void		STARTGAME();
 };
 
 #endif

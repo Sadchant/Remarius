@@ -14,14 +14,26 @@ CText::CText()
 }
 
 CText::CText(const CText& other) :
-CSprite(), Size(0)
+CSprite(other), Size(0)
 {
 	pFont = other.pFont;
 	pTexture = NULL;
 	pSurface = NULL;
 	pRenderer = g_pFramework->GetRenderer();
-	Color = { 0, 0, 0, 0 };
+	Color = other.Color;
 	SetContent(string(other.Content));
+}
+
+CText& CText::operator = (const CText& other)
+{
+	CSprite::operator=(other);
+	pFont = other.pFont;
+	pTexture = NULL;
+	pSurface = NULL;
+	pRenderer = g_pFramework->GetRenderer();
+	Color = other.Color;
+	SetContent(string(other.Content));
+	return *this;
 }
 
 CText::~CText ()																			// Surface des Sprites freigeben

@@ -11,6 +11,7 @@ class CText: public CSprite
 	public:
 		CText ();
 		CText(const CText& other);
+		CText& operator = (const CText& other);
 		~CText ();
 
 		void		SetFont(TTF_Font* font){ pFont = font; }

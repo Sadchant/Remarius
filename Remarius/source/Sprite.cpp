@@ -7,9 +7,48 @@ CSprite::CSprite ()																				// Zeiger auf Screen holen
 	pRenderer = g_pFramework->GetRenderer ();
 }
 
+CSprite::CSprite(const CSprite& other)
+{
+	pRenderer = g_pFramework->GetRenderer();
+	pTexture = NULL;
+	width = other.width;
+	height = other.height;
+	Rect = other.Rect;
+	FrameRect = other.FrameRect;
+	NumFrames = other.NumFrames;
+	NumFramesX = other.NumFramesX;
+	FrameWidth = other.FrameWidth;
+	FrameHeight = other.FrameHeight;
+}
+
+CSprite::CSprite(string sFilename) : CSprite()
+{
+	Load(sFilename);
+}
+
+CSprite::CSprite(const string sFilename, int NumFrames, int FrameWidth, int FrameHeight) : CSprite()
+{
+	Load(sFilename, NumFrames, FrameWidth, FrameHeight);
+}
+
 CSprite::~CSprite ()																			// Surface des Sprites freigeben
 {
 	//SDL_FreeSurface (pImage);	
+}
+
+CSprite& CSprite::operator = (const CSprite& other)
+{
+	pRenderer = g_pFramework->GetRenderer();
+	pTexture = NULL;
+	width = other.width;
+	height = other.height;
+	Rect = other.Rect;
+	FrameRect = other.FrameRect;
+	NumFrames = other.NumFrames;
+	NumFramesX = other.NumFramesX;
+	FrameWidth = other.FrameWidth;
+	FrameHeight = other.FrameHeight;
+	return *this;
 }
 
 void CSprite::Load (const string sFilename)														// unanimierten Sprite laden

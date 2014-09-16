@@ -15,7 +15,7 @@ CMenuItem::CMenuItem(const CMenuItem& other)
 	background = other.background;
 	onUpdate = other.onUpdate;
 	text = new CText(*other.text);
-	select(false);
+	select(other.selected);
 }
 
 
@@ -29,7 +29,7 @@ CMenuItem& CMenuItem::operator = (const CMenuItem& other)
 	background = other.background;
 	onUpdate = other.onUpdate;
 	text = new CText(*other.text);
-	select(false);
+	select(other.selected);
 	return *this;
 }
 
