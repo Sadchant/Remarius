@@ -57,20 +57,21 @@ void CMenuPage::render()
 
 void CMenuPage::processEvent(SDL_KeyboardEvent &event)
 {
-	switch (event.keysym.scancode)
-	{
-	case SDL_SCANCODE_RETURN:
-		items[selected].onactivate();
-		break;
-	case SDL_SCANCODE_DOWN:
-		if (selected < items.size()-1) 
-			selected++; 
-		break;
-	case SDL_SCANCODE_UP:
-		if (selected > 0)
-			selected--;
-		break;
-	default:
-		break;
-	}
+	if (event.type == SDL_KEYDOWN)
+		switch (event.keysym.scancode)
+		{
+		case SDL_SCANCODE_RETURN:
+			items[selected].onactivate();
+			break;
+		case SDL_SCANCODE_DOWN:
+			if (selected < items.size()-1) 
+				selected++; 
+			break;
+		case SDL_SCANCODE_UP:
+			if (selected > 0)
+				selected--;
+			break;
+		default:
+			break;
+		}
 }
