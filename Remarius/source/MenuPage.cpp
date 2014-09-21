@@ -41,7 +41,6 @@ CMenuPage& CMenuPage::operator = (const CMenuPage& other)
 
 void CMenuPage::addItem(CMenuItem& item)
 {
-	//CMenuItem tmp = item;
 	items.push_back(item);
 	items[0].select(true);
 }

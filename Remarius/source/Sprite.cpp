@@ -97,7 +97,6 @@ void CSprite::SetPos (float fXPos, float fYPos)											// Position des Sprite
 {
 	Rect.x = static_cast<int>(fXPos);											// Rect updaten
 	Rect.y = static_cast<int>(fYPos);
-	cout << "set position to x" << Rect.x << " / y" << Rect.y << endl;
 }
 
 void CSprite::SetScreenPos (float fXPos, float fYPos, float CameraX, float CameraY)		//schlechter Programmierstil!		

@@ -40,7 +40,6 @@ void CMenuItem::render(int x, int y)
 	text->SetPos((float)x + (float)(background->GetRect().w - text->GetLength())/2,
 				 (float)y + (background->GetRect().h - text->GetHigh())/2);
 	text->Render();
-	onUpdate();
 }
 
 void CMenuItem::select(bool b)

@@ -31,7 +31,7 @@ void CMenu::generateMenu()
 		optionsbttn.setfunc(bind([](int& mpg){mpg = 2; }, ref(menPageIndex)));
 		mainmenu.addItem(optionsbttn);
 		CMenuItem quitbttn(m_pMenubuttons, "Beenden", defaultFont);
-		quitbttn.setfunc(bind([](int& mpg){mpg = 0; }, ref(menPageIndex)));
+		quitbttn.setfunc(bind([](int& mpg){mpg = -1; }, ref(menPageIndex)));
 		mainmenu.addItem(quitbttn);
 		menuPages.push_back(mainmenu);
 	}
@@ -46,20 +46,20 @@ void CMenu::generateMenu()
 		CMenuItem savestatebttn3(m_pMenubuttons, "Spielstand 3", defaultFont);
 		savestatebttn3.setfunc(bind([](int& mpg, int& slcsave){mpg = 3; slcsave = 3; }, ref(menPageIndex), ref(selectedSave)));
 		saveselect.addItem(savestatebttn3);
+		menuPages.push_back(saveselect);
 	}
 }
 void CMenu::Run()
 {
 	cout << "Menu.Run aufgerufen" << endl;
 
-	while (menPageIndex > -1)
+/*	while (menPageIndex > -1)
 	{
-		cout << menPageIndex << endl;
-		menuPages[0].render();
+		menuPages[menPageIndex].render();
 		g_pFramework->Render();
-		cout << menPageIndex << endl;
-		Sleep(100);
-	}
+		cin >> menPageIndex;
+	}*/
+	STARTGAME();
 
 }
 void CMenu::STARTGAME()
