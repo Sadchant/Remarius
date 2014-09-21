@@ -65,6 +65,18 @@ bool CFramework::Init_Video (char* name, int width, int height, bool bFullscreen
 	return (true);
 }
 
+bool CFramework::Pressed(SDL_Scancode e)
+{
+	SDL_Event event;
+	while (SDL_PollEvent(&event))
+	{
+		if (event.type == SDL_KEYDOWN
+			&& event.key.repeat == 0
+			&& event.key.keysym.scancode == e)
+			return true;
+	}
+	return false;
+}
 
 // beendet das Framework und fährt die SDL herunter
 void CFramework::Quit ()

@@ -1,6 +1,0 @@
-offene Fragen
-
-Framework.cpp
-g_pTimer->Update ();
-Wo wird g_pTimer initialisiert?
----> "Timer.hpp" wird inkludiert

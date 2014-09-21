@@ -21,7 +21,8 @@ class CFramework : public TSingleton<CFramework>
 		void  Update	 ();
 		void  Render	 ();
 		bool  KeyDown	(Uint8 Key_ID);
-		SDL_Renderer*	GetRenderer() { return sdl_Renderer; }		
+		SDL_Renderer*	GetRenderer() { return sdl_Renderer; }	
+		bool  Pressed	(SDL_Scancode e);
 
 	private:
 		SDL_Window*		sdl_Window;						// Fenster, in dem alles stattfindet		

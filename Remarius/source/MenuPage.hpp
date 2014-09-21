@@ -15,6 +15,7 @@ public:
 	CMenuPage& operator = (const CMenuPage& other);
 	void addItem(CMenuItem& item);
 	void render();
+	void processEvent(SDL_KeyboardEvent &event);
 
 private:
 	vector<CMenuItem>	items;

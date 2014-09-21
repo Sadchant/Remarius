@@ -53,12 +53,18 @@ void CMenu::Run()
 {
 	cout << "Menu.Run aufgerufen" << endl;
 
-/*	while (menPageIndex > -1)
+	while (menPageIndex > -1)
 	{
+		while (SDL_PollEvent(&event))
+		{
+			//if (event.key.repeat == 0)
+				menuPages[menPageIndex].processEvent(event.key);
+		}
+		cout << menPageIndex << endl;
 		menuPages[menPageIndex].render();
 		g_pFramework->Render();
-		cin >> menPageIndex;
-	}*/
+		//cin >> menPageIndex;
+	}
 	STARTGAME();
 
 }

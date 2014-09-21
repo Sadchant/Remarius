@@ -2,6 +2,7 @@
 
 CMenuPage::CMenuPage(CSprite* bg, string label, TTF_Font* font)
 {
+	selected = 0;
 	background = bg;
 	caption = new CText();
 	caption->SetFont(font);
@@ -42,7 +43,6 @@ CMenuPage& CMenuPage::operator = (const CMenuPage& other)
 void CMenuPage::addItem(CMenuItem& item)
 {
 	items.push_back(item);
-	items[0].select(true);
 }
 
 void CMenuPage::render()
@@ -50,5 +50,27 @@ void CMenuPage::render()
 	background->Render();
 	caption->Render();
 	for (unsigned int i = 0; i < items.size(); i++)
-		items[i].render(334, 274 + i * 100);
+	{
+		items[i].render(334, 274 + i * 100, (selected == i));	
+	}
+}
+
+void CMenuPage::processEvent(SDL_KeyboardEvent &event)
+{
+	switch (event.keysym.scancode)
+	{
+	case SDL_SCANCODE_RETURN:
+		items[selected].onactivate();
+		break;
+	case SDL_SCANCODE_DOWN:
+		if (selected < items.size()-1) 
+			selected++; 
+		break;
+	case SDL_SCANCODE_UP:
+		if (selected > 0)
+			selected--;
+		break;
+	default:
+		break;
+	}
 }
