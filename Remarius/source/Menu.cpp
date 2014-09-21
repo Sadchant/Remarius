@@ -46,16 +46,22 @@ void CMenu::generateMenu()
 		CMenuItem savestatebttn3(m_pMenubuttons, "Spielstand 3", defaultFont);
 		savestatebttn3.setfunc(bind([](int& mpg, int& slcsave){mpg = 3; slcsave = 3; }, ref(menPageIndex), ref(selectedSave)));
 		saveselect.addItem(savestatebttn3);
+		menuPages.push_back(saveselect);
 	}
 }
 void CMenu::Run()
 {
 	cout << "Menu.Run aufgerufen" << endl;
-
+	//STARTGAME();
 	while (menPageIndex > -1)
 	{
+		while (SDL_PollEvent(&event))
+		{
+			//if (event.key.repeat == 0)
+				menuPages[menPageIndex].processEvent(event.key);
+		}
 		cout << menPageIndex << endl;
-		menuPages[0].render();
+		menuPages[menPageIndex].render();
 		g_pFramework->Render();
 		cout << menPageIndex << endl;
 		Sleep(100);

@@ -14,15 +14,14 @@ public:
 	CMenuItem(const CMenuItem& other);
 	~CMenuItem();
 	CMenuItem& operator = (const CMenuItem& other);
-	void render(int x, int y);
-	void select(bool b);
-	void setfunc(function<void()> func){ onUpdate = func; }
+	void render(int x, int y, bool b = false);
+	void setfunc(function<void()> func){ activate = func; }
+	void onactivate(){ activate(); }
 
 private:
 	CSprite*		background;
 	CText*			text;
-	bool			selected;
-	function<void()> onUpdate;
+	function<void()> activate;
 };
 
 #endif
