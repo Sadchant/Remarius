@@ -91,7 +91,7 @@ void CMenu::Run()
 		g_pFramework->Render();
 		//cin >> menPageIndex;
 	}
-	STARTGAME(1);
+	//STARTGAME(1);
 
 }
 void CMenu::STARTGAME(int i, bool b)
