@@ -8,6 +8,7 @@ CMenu::CMenu()
 	m_bFullSize=false;
 	m_bMusic=false;
 	m_bSound=false;
+	menuState = true;
 
 	m_pMenuBackground = new CSprite("Data/Menuhintergrund.png");
 	m_pMenubuttons = new CSprite("Data/Hauptmenubuttons.png", 0, 356, 66);													
@@ -31,7 +32,7 @@ void CMenu::generateMenu()
 		optionsbttn.setfunc(bind([](int& mpg){mpg = 2; }, ref(menPageIndex)));
 		mainmenu.addItem(optionsbttn);
 		CMenuItem quitbttn(m_pMenubuttons, "Beenden", defaultFont);
-		quitbttn.setfunc(bind([](int& mpg){mpg = -1; }, ref(menPageIndex)));
+		quitbttn.setfunc(bind([](bool& ms){ms = false; }, ref(menuState)));
 		mainmenu.addItem(quitbttn);
 		menuPages.push_back(mainmenu);
 	}
@@ -46,32 +47,57 @@ void CMenu::generateMenu()
 		CMenuItem savestatebttn3(m_pMenubuttons, "Spielstand 3", defaultFont);
 		savestatebttn3.setfunc(bind([](int& mpg, int& slcsave){mpg = 3; slcsave = 3; }, ref(menPageIndex), ref(selectedSave)));
 		saveselect.addItem(savestatebttn3);
+		CMenuItem quitbttn(m_pMenubuttons, "Zurück", defaultFont);
+		quitbttn.setfunc(bind([](int& mpg){mpg = 0; }, ref(menPageIndex)));
+		saveselect.addItem(quitbttn);
 		menuPages.push_back(saveselect);
+	}
+	{
+		CMenuPage options(m_pMenuBackground, "Optionen", defaultFont);
+		CMenuItem quitbttn(m_pMenubuttons, "Zurück", defaultFont);
+		quitbttn.setfunc(bind([](int& mpg){mpg = 0; }, ref(menPageIndex)));
+		options.addItem(quitbttn);
+		menuPages.push_back(options);
+	}
+	{
+		CMenuPage loadsave(m_pMenuBackground, "Spiel starten", defaultFont);
+		CMenuItem loadbttn(m_pMenubuttons, "Spiel fortsetzen", defaultFont);
+		loadbttn.setfunc(bind([](int& slcsave){	CGame Game;
+								Game.Run(slcsave);
+								Game.Quit();	}, ref(selectedSave)));
+		loadsave.addItem(loadbttn);
+		CMenuItem deletebttn(m_pMenubuttons, "Spielstand löschen", defaultFont);
+		deletebttn.setfunc([](){});
+		loadsave.addItem(deletebttn);
+		CMenuItem quitbttn(m_pMenubuttons, "Zurück", defaultFont);
+		quitbttn.setfunc(bind([](int& mpg){mpg = 1; }, ref(menPageIndex)));
+		loadsave.addItem(quitbttn);
+		menuPages.push_back(loadsave);
 	}
 }
 void CMenu::Run()
 {
 	cout << "Menu.Run aufgerufen" << endl;
 
-	while (menPageIndex > -1)
+	while (menuState)
 	{
 		while (SDL_PollEvent(&event))
 		{
-			//if (event.key.repeat == 0)
-				menuPages[menPageIndex].processEvent(event.key);
+			if (event.key.repeat == 0)
+			menuPages[menPageIndex].processEvent(event.key);
 		}
 		cout << menPageIndex << endl;
 		menuPages[menPageIndex].render();
 		g_pFramework->Render();
 		//cin >> menPageIndex;
 	}
-	STARTGAME();
+	STARTGAME(1);
 
 }
-void CMenu::STARTGAME()
+void CMenu::STARTGAME(int i, bool b)
 {
 	CGame Game;
-	Game.Run(false);
+	Game.Run(i, b);
 	Game.Quit();
 }
 void CMenu::Quit ()

@@ -18,11 +18,12 @@ public:
 private:
 	void		PlayMenuMusic (int Volume);
 	void		generateMenu();
-	void		STARTGAME();
+	void		STARTGAME(int i, bool b = false);
 
 	bool		m_bFullSize;
 	bool		m_bMusic;
 	bool		m_bSound;
+	bool		menuState;
 	SDL_Event	event;
 	CSprite		*m_pMenuBackground;
 	CSprite		*m_pMenubuttons;

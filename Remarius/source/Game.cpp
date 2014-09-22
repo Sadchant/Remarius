@@ -80,30 +80,24 @@ void CGame::Quit ()																								// Müll freigeben
 	TTF_CloseFont(pFont);
 	
 }
-void CGame::Run (bool Safegame)         // Hauptschleife des Spiels
+void CGame::Run (int save, bool Safegame)         // Hauptschleife des Spiels
 {
-	if (Safegame)
-	{
+	m_Savestate = save;
+	if (Safegame)	
 		Load();
+	while (m_bGameRun == true)													// Wenn es läuft...
+	{																			// Events bearbeiten	
+		g_pFramework->Update ();												// Framework updaten und Buffer löschen
+	
+		Rectmaster.Update();
+																				// Stachelsteinen rendern
+		FpsCounter ();
+	
+		ProcessEvents ();	
+		//pTrack_1->Play ();
+		g_pDebugscreen->Render();
+		g_pFramework->Render ();	
 	}
-	while (m_bGameRun == true)																		// Wenn es läuft...
-	{																			// Events bearbeiten
-	
-	g_pFramework->Update ();																		// Framework updaten und Buffer löschen
-
-
-	Rectmaster.Update();
-																									// Stachelsteinen rendern
-	FpsCounter ();
-
-	ProcessEvents ();	
-	//pTrack_1->Play ();
-	g_pDebugscreen->Render();
-	g_pFramework->Render ();	
-	
-
-  }
-
 }
 
 bool CGame::Load()

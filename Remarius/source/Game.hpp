@@ -16,7 +16,7 @@ class CGame
 	public:
 		CGame	();
 
-		void	Run     (bool Safegame);
+		void	Run     (int save, bool savegame = false);
 		void	Quit	();
 		void	Save    ();
 		bool	Load    ();
@@ -27,7 +27,6 @@ class CGame
 		void	Break			();			// Pausemenü
 		void	FpsCounter		();			//gibt FPS aus
 
-		
 		CSprite			*m_pMenubackground;		// Sprite des Menühintergrunds
 		CSprite			*m_pMenubuttons;		// Sprite der Menübuttons
 		CStuff			Rectmaster;				// Verwaltung von allem, was ein Rect hat
