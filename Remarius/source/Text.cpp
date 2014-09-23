@@ -36,9 +36,10 @@ CText& CText::operator = (const CText& other)
 	return *this;
 }
 
-CText::~CText ()																			// Surface des Sprites freigeben
+CText::~CText()																			// Surface des Sprites freigeben
 {
-	if (pSurface != NULL) SDL_FreeSurface (pSurface);
+	if (pSurface != NULL) SDL_FreeSurface(pSurface);
+	if (pTexture != NULL) SDL_DestroyTexture(pTexture);
 }
 
 // RGB-Wert der Farbe festlegen
