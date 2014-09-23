@@ -2,7 +2,6 @@
 #define MENUITEM_HPP
 
 #include "Text.hpp"
-#include "Sprite.hpp"
 #include "Util.hpp"
 #include <string>
 #include <functional>

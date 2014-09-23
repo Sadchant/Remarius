@@ -74,6 +74,10 @@ void CText::SetContent (string Content)
 // Surface erzeugen und in die Textur überführen
 void CText::createTexture()
 {	
+	if (pSurface != NULL)
+		SDL_FreeSurface(pSurface);
+	if (pTexture != NULL)
+		SDL_DestroyTexture(pTexture);
 	const char* pContent = Content.c_str();
 	if (!Content.empty())
 	{

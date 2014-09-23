@@ -2,7 +2,6 @@
 #define MENUPAGE_HPP
 
 #include "Text.hpp"
-#include "Sprite.hpp"
 #include "MenuItem.hpp"
 #include <vector>
 

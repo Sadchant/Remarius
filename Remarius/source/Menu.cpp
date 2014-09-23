@@ -77,8 +77,6 @@ void CMenu::generateMenu()
 }
 void CMenu::Run()
 {
-	cout << "Menu.Run aufgerufen" << endl;
-
 	while (menuState)
 	{
 		while (SDL_PollEvent(&event))
@@ -86,12 +84,9 @@ void CMenu::Run()
 			if (event.key.repeat == 0)
 			menuPages[menPageIndex].processEvent(event.key);
 		}
-		cout << menPageIndex << endl;
 		menuPages[menPageIndex].render();
 		g_pFramework->Render();
-		//cin >> menPageIndex;
 	}
-	//STARTGAME(1);
 
 }
 void CMenu::STARTGAME(int i, bool b)

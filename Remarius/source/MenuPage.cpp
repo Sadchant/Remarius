@@ -62,6 +62,7 @@ void CMenuPage::processEvent(SDL_KeyboardEvent &event)
 		{
 		case SDL_SCANCODE_RETURN:
 			items[selected].onactivate();
+			selected = 0;
 			break;
 		case SDL_SCANCODE_DOWN:
 			if (selected < items.size()-1) 
