@@ -54,6 +54,9 @@ void CMenu::generateMenu()
 	}
 	{
 		CMenuPage options(m_pMenuBackground, "Optionen", defaultFont);
+		CMenuItem fullscrbttn(m_pMenubuttons, "Vollbild", defaultFont);
+		fullscrbttn.setfunc([](){g_pFramework->Init_Video("Remarius Risation Indev 1.6", 1024, 768, true); });
+		options.addItem(fullscrbttn);
 		CMenuItem quitbttn(m_pMenubuttons, "Zurück", defaultFont);
 		quitbttn.setfunc(bind([](int& mpg){mpg = 0; }, ref(menPageIndex)));
 		options.addItem(quitbttn);

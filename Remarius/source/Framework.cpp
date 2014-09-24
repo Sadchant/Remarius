@@ -43,7 +43,10 @@ bool CFramework::Init_Video (char* name, int width, int height, bool bFullscreen
 	{
 		SDL_DestroyWindow(sdl_Window);
 	}
-
+	if (sdl_Renderer != NULL)					// sollte bereits ein Fenster vorhanden sein, zerstöre es
+	{
+		SDL_DestroyRenderer(sdl_Renderer);
+	}
 	
 	if (bFullscreen == true)					//erzeugt das Fenster im Fullscreen oder Fenstermodus
 	{		
