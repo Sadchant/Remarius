@@ -21,8 +21,10 @@
     <ClInclude Include="source\Hoover.hpp" />
     <ClInclude Include="source\main.h" />
     <ClInclude Include="source\Menu.hpp" />
+    <ClInclude Include="source\MenuButton.hpp" />
     <ClInclude Include="source\MenuItem.hpp" />
     <ClInclude Include="source\MenuPage.hpp" />
+    <ClInclude Include="source\MenuSlider.hpp" />
     <ClInclude Include="source\Monster.hpp" />
     <ClInclude Include="source\Music.hpp" />
     <ClInclude Include="source\Player.hpp" />
@@ -49,8 +51,10 @@
     <ClCompile Include="source\Hoover.cpp" />
     <ClCompile Include="source\main.cpp" />
     <ClCompile Include="source\Menu.cpp" />
+    <ClCompile Include="source\MenuButton.cpp" />
     <ClCompile Include="source\MenuItem.cpp" />
     <ClCompile Include="source\MenuPage.cpp" />
+    <ClCompile Include="source\MenuSlider.cpp" />
     <ClCompile Include="source\Monster.cpp" />
     <ClCompile Include="source\Music.cpp" />
     <ClCompile Include="source\Player.cpp" />

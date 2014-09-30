@@ -22,6 +22,8 @@ background(other.background), selected(other.selected)
 
 CMenuPage::~CMenuPage()
 {
+//	for (CMenuItem* i : items)
+//		delete i;
 	items.clear();
 	delete caption;
 }
@@ -40,7 +42,7 @@ CMenuPage& CMenuPage::operator = (const CMenuPage& other)
 	return *this;
 }
 
-void CMenuPage::addItem(CMenuItem& item)
+void CMenuPage::addItem(CMenuItem* item)
 {
 	items.push_back(item);
 }
@@ -51,7 +53,7 @@ void CMenuPage::render()
 	caption->Render();
 	for (unsigned int i = 0; i < items.size(); i++)
 	{
-		items[i].render(334, 274 + i * 100, (selected == i));	
+		items[i]->render(334, 274 + i * 100, (selected == i));	
 	}
 }
 
@@ -60,10 +62,6 @@ void CMenuPage::processEvent(SDL_KeyboardEvent &event)
 	if (event.type == SDL_KEYDOWN)
 		switch (event.keysym.scancode)
 		{
-		case SDL_SCANCODE_RETURN:
-			items[selected].onactivate();
-			selected = 0;
-			break;
 		case SDL_SCANCODE_DOWN:
 			if (selected < items.size()-1) 
 				selected++; 
@@ -73,6 +71,14 @@ void CMenuPage::processEvent(SDL_KeyboardEvent &event)
 				selected--;
 			break;
 		default:
+			items[selected]->processEvent(event);
+			selected = 0;
 			break;
 		}
+}
+
+void CMenuPage::freeItems()
+{
+	for (CMenuItem* i : items)
+		delete i;
 }

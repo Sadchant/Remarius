@@ -12,12 +12,13 @@ public:
 	CMenuPage(const CMenuPage& other);
 	~CMenuPage();
 	CMenuPage& operator = (const CMenuPage& other);
-	void addItem(CMenuItem& item);
+	void addItem(CMenuItem* item);
 	void render();
 	void processEvent(SDL_KeyboardEvent &event);
+	void freeItems();
 
 private:
-	vector<CMenuItem>	items;
+	vector<CMenuItem*>	items;
 	int					selected;
 	CSprite*			background;
 	CText*				caption;

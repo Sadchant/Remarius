@@ -3,6 +3,7 @@
 
 #include "Game.hpp"
 #include "MenuPage.hpp"
+#include "MenuButton.hpp"
 #include "windows.h"
 #include "Util.hpp"
 #include <functional>

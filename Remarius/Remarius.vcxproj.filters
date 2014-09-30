@@ -19,6 +19,9 @@
     <Filter Include="World\Monster">
       <UniqueIdentifier>{b558adc3-90c6-4036-b7a0-85638154ffdd}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Programflow\Menu">
+      <UniqueIdentifier>{bbe395a5-b298-4b5a-8f33-680eb7239e0d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="source\Explosion.hpp">
@@ -36,9 +39,6 @@
     <ClInclude Include="source\Shot.hpp">
       <Filter>World</Filter>
     </ClInclude>
-    <ClInclude Include="source\Menu.hpp">
-      <Filter>Programflow</Filter>
-    </ClInclude>
     <ClInclude Include="source\Game.hpp">
       <Filter>Programflow</Filter>
     </ClInclude>
@@ -46,12 +46,6 @@
       <Filter>Programflow</Filter>
     </ClInclude>
     <ClInclude Include="source\Debugscreen.hpp">
-      <Filter>Programflow</Filter>
-    </ClInclude>
-    <ClInclude Include="source\MenuItem.hpp">
-      <Filter>Programflow</Filter>
-    </ClInclude>
-    <ClInclude Include="source\MenuPage.hpp">
       <Filter>Programflow</Filter>
     </ClInclude>
     <ClInclude Include="source\Program.hpp">
@@ -99,6 +93,21 @@
     <ClInclude Include="source\Stachelstein.hpp">
       <Filter>World\Monster</Filter>
     </ClInclude>
+    <ClInclude Include="source\Menu.hpp">
+      <Filter>Programflow\Menu</Filter>
+    </ClInclude>
+    <ClInclude Include="source\MenuItem.hpp">
+      <Filter>Programflow\Menu</Filter>
+    </ClInclude>
+    <ClInclude Include="source\MenuPage.hpp">
+      <Filter>Programflow\Menu</Filter>
+    </ClInclude>
+    <ClInclude Include="source\MenuSlider.hpp">
+      <Filter>Programflow\Menu</Filter>
+    </ClInclude>
+    <ClInclude Include="source\MenuButton.hpp">
+      <Filter>Programflow\Menu</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="source\Hoover.cpp">
@@ -123,15 +132,6 @@
       <Filter>Programflow</Filter>
     </ClCompile>
     <ClCompile Include="source\main.cpp">
-      <Filter>Programflow</Filter>
-    </ClCompile>
-    <ClCompile Include="source\Menu.cpp">
-      <Filter>Programflow</Filter>
-    </ClCompile>
-    <ClCompile Include="source\MenuItem.cpp">
-      <Filter>Programflow</Filter>
-    </ClCompile>
-    <ClCompile Include="source\MenuPage.cpp">
       <Filter>Programflow</Filter>
     </ClCompile>
     <ClCompile Include="source\Program.cpp">
@@ -172,6 +172,21 @@
     </ClCompile>
     <ClCompile Include="source\Stachelstein.cpp">
       <Filter>World\Monster</Filter>
+    </ClCompile>
+    <ClCompile Include="source\Menu.cpp">
+      <Filter>Programflow\Menu</Filter>
+    </ClCompile>
+    <ClCompile Include="source\MenuItem.cpp">
+      <Filter>Programflow\Menu</Filter>
+    </ClCompile>
+    <ClCompile Include="source\MenuPage.cpp">
+      <Filter>Programflow\Menu</Filter>
+    </ClCompile>
+    <ClCompile Include="source\MenuSlider.cpp">
+      <Filter>Programflow\Menu</Filter>
+    </ClCompile>
+    <ClCompile Include="source\MenuButton.cpp">
+      <Filter>Programflow\Menu</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
