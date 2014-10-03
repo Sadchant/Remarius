@@ -14,7 +14,7 @@ public:
 	CMenuButton& operator = (const CMenuButton& other);
 
 	void render(int x, int y, bool b = false);
-	void processEvent(SDL_KeyboardEvent& event);
+	bool processEvent(SDL_KeyboardEvent& event);
 
 	void setfunc(function<void()> func){ onActivate = func; }
 

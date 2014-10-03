@@ -106,6 +106,6 @@ void CMenu::Quit ()
 	SAFE_DELETE(m_pSoundschieber);
 	SAFE_DELETE(m_pSoundbalken);
 	if (defaultFont != NULL) { TTF_CloseFont(defaultFont); defaultFont = NULL; }
-	for (CMenuPage p : menuPages)
-		p.freeItems();
+	for (int i = 0; i < menuPages.size(); i++)
+		menuPages[i].freeItems();
 }

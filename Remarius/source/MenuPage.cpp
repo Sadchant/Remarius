@@ -71,8 +71,8 @@ void CMenuPage::processEvent(SDL_KeyboardEvent &event)
 				selected--;
 			break;
 		default:
-			items[selected]->processEvent(event);
-			selected = 0;
+			if (items[selected]->processEvent(event))
+				selected = 0;
 			break;
 		}
 }
@@ -81,4 +81,5 @@ void CMenuPage::freeItems()
 {
 	for (CMenuItem* i : items)
 		delete i;
+	items.clear();
 }

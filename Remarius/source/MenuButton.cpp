@@ -42,7 +42,12 @@ void CMenuButton::render(int x, int y, bool b)
 	text->Render();
 }
 
-void CMenuButton::processEvent(SDL_KeyboardEvent& event)
+bool CMenuButton::processEvent(SDL_KeyboardEvent& event)
 {
-	onActivate();
+	if (event.type == SDL_KEYDOWN && event.keysym.scancode == SDL_SCANCODE_RETURN)
+	{
+		onActivate();
+		return true;
+	}
+	return false;
 }
