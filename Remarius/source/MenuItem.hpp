@@ -2,6 +2,8 @@
 #define MENUITEM_HPP
 
 #include <SDL.h>
+#define SAFE_DELETE(X) {if (X != NULL) { delete (X); X = NULL;} }
+
 
 class CMenuItem
 {

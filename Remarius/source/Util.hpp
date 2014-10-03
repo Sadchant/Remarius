@@ -1,7 +1,8 @@
-#define SAFE_DELETE(X) {if (X != NULL) { delete (X); X = NULL;} }
-
 #ifndef UTIL_HPP
 #define UTIL_HPP
+
+#define SAFE_DELETE(X) {if (X != NULL) { delete (X); X = NULL;} }
+
 
 #include <string>
 

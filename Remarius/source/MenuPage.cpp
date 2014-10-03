@@ -37,6 +37,7 @@ CMenuPage& CMenuPage::operator = (const CMenuPage& other)
 		items.push_back(other.items[i]);
 	}
 	background = other.background;
+	SAFE_DELETE(caption);
 	caption = new CText(*other.caption);
 
 	return *this;

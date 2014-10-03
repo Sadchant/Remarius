@@ -27,6 +27,7 @@ CMenuButton& CMenuButton::operator = (const CMenuButton& other)
 {
 	background = other.background;
 	onActivate = other.onActivate;
+	SAFE_DELETE(text);
 	text = new CText(*other.text);
 	return *this;
 }
