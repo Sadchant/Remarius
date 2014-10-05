@@ -34,6 +34,8 @@ void CMenu::generateMenu()
 		CMenuButton* quitbttn = new CMenuButton(m_pMenubuttons, "Beenden", defaultFont);
 		quitbttn->setfunc(bind([](bool& ms){ms = false; }, ref(menuState)));
 		mainmenu.addItem(quitbttn);
+		CMenuSlider* testslider = new CMenuSlider("test", defaultFont, 20);
+		mainmenu.addItem(testslider);
 		menuPages.push_back(mainmenu);
 	}
 	{
@@ -108,4 +110,5 @@ void CMenu::Quit ()
 	if (defaultFont != NULL) { TTF_CloseFont(defaultFont); defaultFont = NULL; }
 	for (int i = 0; i < menuPages.size(); i++)
 		menuPages[i].freeItems();
+	CMenuSlider::freeSprites();
 }
