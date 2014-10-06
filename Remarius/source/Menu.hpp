@@ -5,6 +5,7 @@
 #include "MenuPage.hpp"
 #include "MenuButton.hpp"
 #include "MenuSlider.hpp"
+#include "MenuCheckBox.hpp"
 #include "windows.h"
 #include "Util.hpp"
 #include <functional>

@@ -54,7 +54,7 @@ void CMenuPage::render()
 	caption->Render();
 	for (unsigned int i = 0; i < items.size(); i++)
 	{
-		items[i]->render(334, 274 + i * 100, (selected == i));	
+		items[i]->render(334, 174 + i * 100, (selected == i));	
 	}
 }
 

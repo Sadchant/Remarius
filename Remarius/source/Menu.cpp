@@ -34,8 +34,10 @@ void CMenu::generateMenu()
 		CMenuButton* quitbttn = new CMenuButton(m_pMenubuttons, "Beenden", defaultFont);
 		quitbttn->setfunc(bind([](bool& ms){ms = false; }, ref(menuState)));
 		mainmenu.addItem(quitbttn);
-		CMenuSlider* testslider = new CMenuSlider("test", defaultFont, 20);
+		CMenuSlider* testslider = new CMenuSlider("test slider", defaultFont, 20);
 		mainmenu.addItem(testslider);
+		CMenuCheckBox* testbox = new CMenuCheckBox("test checkbox", defaultFont);
+		mainmenu.addItem(testbox);
 		menuPages.push_back(mainmenu);
 	}
 	{
@@ -111,4 +113,5 @@ void CMenu::Quit ()
 	for (int i = 0; i < menuPages.size(); i++)
 		menuPages[i].freeItems();
 	CMenuSlider::freeSprites();
+	CMenuCheckBox::freeSprites();
 }

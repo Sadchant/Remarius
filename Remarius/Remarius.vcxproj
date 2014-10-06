@@ -22,6 +22,7 @@
     <ClInclude Include="source\main.h" />
     <ClInclude Include="source\Menu.hpp" />
     <ClInclude Include="source\MenuButton.hpp" />
+    <ClInclude Include="source\MenuCheckBox.hpp" />
     <ClInclude Include="source\MenuItem.hpp" />
     <ClInclude Include="source\MenuPage.hpp" />
     <ClInclude Include="source\MenuSlider.hpp" />
@@ -52,6 +53,7 @@
     <ClCompile Include="source\main.cpp" />
     <ClCompile Include="source\Menu.cpp" />
     <ClCompile Include="source\MenuButton.cpp" />
+    <ClCompile Include="source\MenuCheckBox.cpp" />
     <ClCompile Include="source\MenuItem.cpp" />
     <ClCompile Include="source\MenuPage.cpp" />
     <ClCompile Include="source\MenuSlider.cpp" />

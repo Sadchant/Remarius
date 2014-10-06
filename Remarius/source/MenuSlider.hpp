@@ -25,6 +25,7 @@ private:
 	static CSprite* buttons;
 
 	CText* text;												// text label for MenuSlider instance
+	string baselabel;
 	int state;
 	int max;
 };

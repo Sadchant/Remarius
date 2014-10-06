@@ -13,6 +13,7 @@ CMenuSlider::CMenuSlider(string label, TTF_Font* font, int range)
 	
 	max = range-1;
 	state = 0;
+	baselabel = label;
 
 	if (!bar) bar = new CSprite("Data/Soundbalken.png", 0, 140, 6);
 	if (!slider) slider = new CSprite("Data/Soundschieber.png", 0, 19, 29);
@@ -62,6 +63,11 @@ void CMenuSlider::render(int x, int y, bool b)
 		target/text color set depending on b
 		(true if menuSlider is selected in Menu)
 		See CMenuButton for reference			*/
+	text->SetContent(baselabel + ": " + to_string(state));
+	text->SetPos(x, y+20);
+	int c = b ? 255 : 180;
+	text->SetColor(c, c, c);
+	text->Render();
 	slider->SetPos(x + state * 10, y);
 	slider->Render();
 }
