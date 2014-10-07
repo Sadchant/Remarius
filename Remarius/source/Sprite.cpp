@@ -53,6 +53,7 @@ CSprite& CSprite::operator = (const CSprite& other)
 
 void CSprite::Load (const string sFilename)														// unanimierten Sprite laden
 {
+	pRenderer = g_pFramework->GetRenderer();
 	pTexture = IMG_LoadTexture (pRenderer, sFilename.c_str () );								// Bilddatei laden
 	if (pTexture == NULL)																// Prüfen, ob alles glatt ging
 	{
@@ -80,6 +81,7 @@ void CSprite::Load (const string sFilename)														// unanimierten Sprite 
 
 void CSprite::Load (const string sFilename, int NumFrames, int FrameWidth, int FrameHeight)		// animierten Sprite laden
 {
+	pRenderer = g_pFramework->GetRenderer();
 	Load (sFilename);																	// Bilddatei normal laden
 
 	this->NumFrames   = NumFrames;															// Rect für Animationsphase initialisieren
@@ -88,8 +90,8 @@ void CSprite::Load (const string sFilename, int NumFrames, int FrameWidth, int F
 	this->FrameRect.w = FrameWidth;
 	this->FrameRect.h = FrameHeight;
 	NumFramesX = width / FrameWidth;
-	Rect.w = FrameWidth;
-	Rect.h = this->FrameHeight;
+	Rect.w = FrameWidth/2;
+	Rect.h = this->FrameHeight/2;
 
 }
 

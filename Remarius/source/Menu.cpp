@@ -59,7 +59,8 @@ void CMenu::generateMenu()
 	{
 		CMenuPage options(m_pMenuBackground, "Optionen", defaultFont);
 		CMenuButton* fullscrbttn = new CMenuButton(m_pMenubuttons, "Vollbild", defaultFont);
-		fullscrbttn->setfunc([](){g_pFramework->Init_Video("Remarius Risation Indev 1.6", 1024, 768, true); });
+		fullscrbttn->setfunc(bind([](CMenu* menu){	g_pFramework->Init_Video("Remarius Risation Indev 1.6", 1024, 768, true);
+													menu->ReloadSprites(); }, this));
 		options.addItem(fullscrbttn);
 		CMenuButton* quitbttn = new CMenuButton(m_pMenubuttons, "Zurück", defaultFont);
 		quitbttn->setfunc(bind([](int& mpg){mpg = 0; }, ref(menPageIndex)));
@@ -101,6 +102,14 @@ void CMenu::STARTGAME(int i, bool b)
 	CGame Game;
 	Game.Run(i, b);
 	Game.Quit();
+}
+void CMenu::ReloadSprites()
+{
+	m_pMenuBackground->Load("Data/Menuhintergrund.png");
+	m_pMenubuttons->Load("Data/Hauptmenubuttons.png", 0, 356, 66);
+	m_pSoundbuttons->Load("Data/Soundbuttons.png", 2, 65, 65);
+	m_pSoundschieber->Load("Data/Soundschieber.png", 0, 19, 29);
+	m_pSoundbalken->Load("Data/Soundbalken.png", 0, 140, 6);
 }
 void CMenu::Quit ()
 {

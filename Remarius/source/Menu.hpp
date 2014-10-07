@@ -22,6 +22,7 @@ private:
 	void		PlayMenuMusic (int Volume);
 	void		generateMenu();
 	void		STARTGAME(int i, bool b = false);
+	void        ReloadSprites();
 
 	bool		m_bFullSize;
 	bool		m_bMusic;
