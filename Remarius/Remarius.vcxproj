@@ -54,7 +54,6 @@
     <ClCompile Include="source\Menu.cpp" />
     <ClCompile Include="source\MenuButton.cpp" />
     <ClCompile Include="source\MenuCheckBox.cpp" />
-    <ClCompile Include="source\MenuItem.cpp" />
     <ClCompile Include="source\MenuPage.cpp" />
     <ClCompile Include="source\MenuSlider.cpp" />
     <ClCompile Include="source\Monster.cpp" />

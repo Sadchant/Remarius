@@ -3,6 +3,7 @@
 
 #include "MenuItem.hpp"
 #include "Text.hpp"
+#include <functional>
 
 class CMenuSlider : public CMenuItem
 {
@@ -18,6 +19,7 @@ public:
 	bool processEvent(SDL_KeyboardEvent& event);
 	bool setState(int newstate) { if (newstate >= 0 && newstate <= max) { state = newstate; return true; } return false; }
 	int getState() { return state; }
+	void addListener(function<void(int)> func) { onChange = func; }
 
 private:
 	static CSprite* bar;										// static Sprite resource for all Sliders
@@ -28,6 +30,7 @@ private:
 	string baselabel;
 	int state;
 	int max;
+	function<void(int)> onChange;
 };
 
 

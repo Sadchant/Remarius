@@ -9,6 +9,7 @@
 #include "windows.h"
 #include "Util.hpp"
 #include <functional>
+#include "Music.hpp"
 
 class CMenu
 {
@@ -36,6 +37,7 @@ private:
 	CSprite		*m_pSoundbalken;
 	vector<CMenuPage> menuPages;
 	TTF_Font*	defaultFont;
+	CMusic*		menuMusic;
 	int			menPageIndex;
 	int			selectedSave;
 };

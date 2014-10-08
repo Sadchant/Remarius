@@ -18,6 +18,9 @@ CMenu::CMenu()
 
 	defaultFont = OpenFont("Data/verdana.ttf", 19);
 
+	menuMusic = new CMusic;
+	menuMusic->Load("Music/Track_1.mp3");
+
 	generateMenu();
 }
 void CMenu::generateMenu()
@@ -34,10 +37,6 @@ void CMenu::generateMenu()
 		CMenuButton* quitbttn = new CMenuButton(m_pMenubuttons, "Beenden", defaultFont);
 		quitbttn->setfunc(bind([](bool& ms){ms = false; }, ref(menuState)));
 		mainmenu.addItem(quitbttn);
-		CMenuSlider* testslider = new CMenuSlider("test slider", defaultFont, 20);
-		mainmenu.addItem(testslider);
-		CMenuCheckBox* testbox = new CMenuCheckBox("test checkbox", defaultFont);
-		mainmenu.addItem(testbox);
 		menuPages.push_back(mainmenu);
 	}
 	{
@@ -62,6 +61,11 @@ void CMenu::generateMenu()
 		fullscrbttn->setfunc(bind([](CMenu* menu){	g_pFramework->Init_Video("Remarius Risation Indev 1.6", 1024, 768, true);
 													menu->ReloadSprites(); }, this));
 		options.addItem(fullscrbttn);
+		CMenuSlider* testslider = new CMenuSlider("Lautstärke Musik", defaultFont, 16);
+		testslider->addListener(bind([](CMusic* mus, int vol){mus->SetVolume(vol*8); }, menuMusic, placeholders::_1));
+		options.addItem(testslider);
+		CMenuCheckBox* testbox = new CMenuCheckBox("test checkbox", defaultFont);
+		options.addItem(testbox);
 		CMenuButton* quitbttn = new CMenuButton(m_pMenubuttons, "Zurück", defaultFont);
 		quitbttn->setfunc(bind([](int& mpg){mpg = 0; }, ref(menPageIndex)));
 		options.addItem(quitbttn);
@@ -92,6 +96,7 @@ void CMenu::Run()
 			if (event.key.repeat == 0)
 			menuPages[menPageIndex].processEvent(event.key);
 		}
+		menuMusic->Play();
 		menuPages[menPageIndex].render();
 		g_pFramework->Render();
 	}
@@ -118,8 +123,9 @@ void CMenu::Quit ()
 	SAFE_DELETE(m_pSoundbuttons);
 	SAFE_DELETE(m_pSoundschieber);
 	SAFE_DELETE(m_pSoundbalken);
+	if (menuMusic != NULL) { menuMusic->StopMusic(); SAFE_DELETE(menuMusic); }
 	if (defaultFont != NULL) { TTF_CloseFont(defaultFont); defaultFont = NULL; }
-	for (int i = 0; i < menuPages.size(); i++)
+	for (unsigned i = 0; i < menuPages.size(); i++)
 		menuPages[i].freeItems();
 	CMenuSlider::freeSprites();
 	CMenuCheckBox::freeSprites();

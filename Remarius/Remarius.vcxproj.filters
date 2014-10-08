@@ -179,9 +179,6 @@
     <ClCompile Include="source\Menu.cpp">
       <Filter>Programflow\Menu</Filter>
     </ClCompile>
-    <ClCompile Include="source\MenuItem.cpp">
-      <Filter>Programflow\Menu</Filter>
-    </ClCompile>
     <ClCompile Include="source\MenuPage.cpp">
       <Filter>Programflow\Menu</Filter>
     </ClCompile>

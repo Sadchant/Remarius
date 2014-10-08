@@ -14,6 +14,7 @@ CMenuSlider::CMenuSlider(string label, TTF_Font* font, int range)
 	max = range-1;
 	state = 0;
 	baselabel = label;
+	onChange = function<void(int)>([](int m){});
 
 	if (!bar) bar = new CSprite("Data/Soundbalken.png", 0, 140, 6);
 	if (!slider) slider = new CSprite("Data/Soundschieber.png", 0, 19, 29);
@@ -49,9 +50,9 @@ bool CMenuSlider::processEvent(SDL_KeyboardEvent& event)
 	if (event.type == SDL_KEYDOWN)
 	{
 		if (event.keysym.scancode == SDL_SCANCODE_LEFT && state > 0)
-			state--;
+			onChange(--state);
 		if (event.keysym.scancode == SDL_SCANCODE_RIGHT && state < max)
-			state++;
+			onChange(++state);
 	}
 	return false;
 }
@@ -64,10 +65,10 @@ void CMenuSlider::render(int x, int y, bool b)
 		(true if menuSlider is selected in Menu)
 		See CMenuButton for reference			*/
 	text->SetContent(baselabel + ": " + to_string(state));
-	text->SetPos(x, y+20);
+	text->SetPos((float)x, (float)y+20);
 	int c = b ? 255 : 180;
 	text->SetColor(c, c, c);
 	text->Render();
-	slider->SetPos(x + state * 10, y);
+	slider->SetPos((float)x + state * 10, (float)y);
 	slider->Render();
 }
