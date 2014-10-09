@@ -311,9 +311,9 @@ bool CStuff::set_tiles()
 {
     int x = 0, y = 0;
     
-    std::ifstream map( "Map/Map1x1.map" );
+    ifstream map( "Map/Map1x1.map" );
     
-    if(! map == NULL )
+    if(!map.is_open())
     {
         for( int t = 0; t < TOTAL_TILES; t++ )
         {
@@ -356,63 +356,65 @@ bool CStuff::set_tiles()
                 y += TILE_HEIGHT;    
             }
         }
-    
-        map.close();
     }
+	map.close();
  
-        std::ifstream mapx2( "Map/Map1x2.map" );
-        if (!mapx2 != NULL)
-        {
-                int TileAmount;
-                int x,y,type;
+    map.open( "Map/Map1x2.map" );
+	if (map.is_open())
+    {
+		int TileAmount;
+        int x,y,type;
                 
-                mapx2>>TileAmount;
+        map>>TileAmount;
  
-                for(int i=0; i<TileAmount;i++)
-                {
-                        mapx2>>type;
-                        mapx2>>x;
-                        mapx2>>y;
-                        CTile Tile(x,y,type);
-                        tiles2.push_back(Tile);
-                }
-        }
- 
-        std::ifstream mapx3( "Map/Map1x3.map" );
-        if (!mapx3 != NULL)
+        for(int i=0; i<TileAmount;i++)
         {
-                int TileAmount;
-                int x,y,type;
-                
-                mapx3>>TileAmount;
- 
-                for(int i=0; i<TileAmount;i++)
-                {
-                        mapx3>>type;
-                        mapx3>>x;
-                        mapx3>>y;
-                        CTile Tile(x,y,type);
-                        tiles3.push_back(Tile);
-                }
+			map>>type;
+			map>>x;
+            map>>y;
+            CTile Tile(x,y,type);
+            tiles2.push_back(Tile);
         }
+	}
+	map.close();
  
-        std::ifstream mapx4( "Map/Map1x4.map" );
-        if (!mapx4 != NULL)
-        {
-                int TileAmount;
-                int x,y,type;
+	map.open( "Map/Map1x3.map" );
+	if (map.is_open())
+	{
+		int TileAmount;
+		int x,y,type;
                 
-                mapx4>>TileAmount;
+		map>>TileAmount;
  
-                for(int i=0; i<TileAmount;i++)
-                {
-                        mapx4>>type;
-                        mapx4>>x;
-                        mapx4>>y;
-                        CTile Tile(x,y,type);
-                        tiles4.push_back(Tile);
-                }
-        }
+		for(int i=0; i<TileAmount;i++)
+		{
+			map>>type;
+			map>>x;
+			map>>y;
+			CTile Tile(x,y,type);
+			tiles3.push_back(Tile);
+		}
+	}
+	map.close();
+ 
+	map.open( "Map/Map1x4.map" );
+	if (map.is_open())
+	{
+		int TileAmount;
+		int x,y,type;
+                
+		map>>TileAmount;
+ 
+		for(int i=0; i<TileAmount;i++)
+		{
+			map>>type;
+			map>>x;
+			map>>y;
+			CTile Tile(x,y,type);
+			tiles4.push_back(Tile);
+		}
+    }
+	map.close();
     
     return true;
 }
