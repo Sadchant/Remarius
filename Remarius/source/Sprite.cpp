@@ -90,8 +90,8 @@ void CSprite::Load (const string sFilename, int NumFrames, int FrameWidth, int F
 	this->FrameRect.w = FrameWidth;
 	this->FrameRect.h = FrameHeight;
 	NumFramesX = width / FrameWidth;
-	Rect.w = FrameWidth/2;
-	Rect.h = this->FrameHeight/2;
+	Rect.w = FrameWidth;
+	Rect.h = this->FrameHeight;
 
 }
 

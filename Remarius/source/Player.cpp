@@ -6,7 +6,9 @@ CPlayer::CPlayer ()													// Player initialisieren
 {
 	m_pSpriteMonster = NULL;												// Sprites Laden
 	m_pSpriteMonster = new CSprite;
-	m_pSpriteMonster->Load ("Data/Player.png", 48, 64, 64);
+	//m_pSpriteMonster->Load ("Data/Player.png", 48, 64, 64);
+	m_pSpriteMonster->Load("Data/Remarius.png", 56, 74, 100);
+
 
 	m_pSpriteShot = NULL;
 	m_pSpriteShot = new CSprite;
@@ -146,9 +148,9 @@ void CPlayer::ProcessMoving ()										// Spieler bewegen
 		
 		if (g_pFramework->KeyDown(SDL_SCANCODE_UP) || g_pFramework->KeyDown(SDL_SCANCODE_DOWN) || g_pFramework->KeyDown(SDL_SCANCODE_LEFT) || g_pFramework->KeyDown(SDL_SCANCODE_RIGHT))
 		{
-			m_fXPos += static_cast<float>(255.0f * sin(m_fDirection * 2 * M_PI) * g_pTimer->GetElapsed());
-			m_fYPos += static_cast<float>(255.0f * cos(m_fDirection * 2 * M_PI) * g_pTimer->GetElapsed());
-			m_fAnimPhase += 20.0f * g_pTimer->GetElapsed ();
+			m_fXPos += static_cast<float>(170.0f * sin(m_fDirection * 2 * M_PI) * g_pTimer->GetElapsed());
+			m_fYPos += static_cast<float>(170.0f * cos(m_fDirection * 2 * M_PI) * g_pTimer->GetElapsed());
+			m_fAnimPhase += 10.0f * g_pTimer->GetElapsed ();
 		}
 	}
 
@@ -299,7 +301,7 @@ void CPlayer::CheckPosition ()
       m_fYPos = 0.0f;
    else if (m_fYPos > (Map_Height))
       m_fYPos = static_cast<float>(Map_Height);
-   if   (m_fAnimPhase > 5.0f)
+   if   (m_fAnimPhase > 6.0f)
                 m_fAnimPhase = 0.0f;
    if   (m_fAnimPhase < 0.0f)
                 m_fAnimPhase = 0.0f;

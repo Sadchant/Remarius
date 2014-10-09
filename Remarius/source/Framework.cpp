@@ -11,7 +11,7 @@ bool CFramework::Init ()
 		Quit ();
 		return false;
 	}
-	if (Init_Video ("Remarius Risation Indev 1.6", 1024, 768, false) == false)		// an der Stelle Daten aus Datei einlesen!
+	if (Init_Video ("Remarius Risation Indev 1.6", 1280, 720, false) == false)		// an der Stelle Daten aus Datei einlesen!
 	{
 		cout << "SDL_Video konnte nicht initialisiert werden!" << endl;
 		cout << "Fehlermeldung: " << SDL_GetError () << endl;

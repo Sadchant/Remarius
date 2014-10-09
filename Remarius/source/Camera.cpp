@@ -7,8 +7,8 @@ CCamera::CCamera ()
 {
 	Camera.x = 0;
 	Camera.y = 0; 
-	Camera.w = 1024;
-	Camera.h = 768; 
+	Camera.w = 1280;
+	Camera.h = 720; 
 
 
 }
@@ -26,8 +26,8 @@ void CCamera::CorrectPos (int x, int y)
 	if (Camera.y < 0)
 		Camera.y = 0;
 
-	if (Camera.x > x - 1024)
-		Camera.x = x - 1024;
-	if (Camera.y > y - 768)
-		Camera.y = y - 768;
+	if (Camera.x > x - 1280)
+		Camera.x = x - 1280;
+	if (Camera.y > y - 720)
+		Camera.y = y - 720;
 }

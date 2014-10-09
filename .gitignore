@@ -15,7 +15,17 @@ menuaufbau.png
 
 Remarius/Debug/
 
+# main folder Saves
+
+Remarius/Debug/Save 1
+Remarius/Debug/Save 2
+Remarius/Debug/Save 3
+
 
 # main folder test stuff
 
 Remarius/source/Menu2.*
+Remarius/source/BrokenText.cpp
+Remarius/source/BrokenText.hpp
+
+
