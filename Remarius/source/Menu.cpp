@@ -96,7 +96,7 @@ void CMenu::Run()
 			if (event.key.repeat == 0)
 			menuPages[menPageIndex].processEvent(event.key);
 		}
-		menuMusic->Play();
+		//menuMusic->Play();
 		menuPages[menPageIndex].render();
 		g_pFramework->Render();
 	}

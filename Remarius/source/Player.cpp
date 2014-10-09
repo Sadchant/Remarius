@@ -95,7 +95,7 @@ void CPlayer::LifeRender ()											// Lebensanzeige rendern
 
 	for (int i = 1; i <= m_Life; i++)									// volle Herzen rendern
 	{
-		m_pSpriteLife->SetPos(static_cast<float>(-1+14*i), 10.0f);		
+		m_pSpriteLife->SetPos(static_cast<float>(-1+14*i), 13.0f);		
 		if (((i == m_Life-1) && (i%2 == 1)) || (i == m_Life))				// Wenn letzte Herzhälfte oder (vorletzte und ungerade)
 		{
 			if (m_fLifeAnimphase < 0.5f)										// Rendern nach AnimPhase
@@ -301,10 +301,11 @@ void CPlayer::CheckPosition ()
       m_fYPos = 0.0f;
    else if (m_fYPos > (Map_Height))
       m_fYPos = static_cast<float>(Map_Height);
-   if   (m_fAnimPhase > 6.0f)
+   if   (m_fAnimPhase > 6.9f)
                 m_fAnimPhase = 0.0f;
    if   (m_fAnimPhase < 0.0f)
                 m_fAnimPhase = 0.0f;
+   g_pDebugscreen->Set("Animphase: ", m_fAnimPhase);
  
 }
 

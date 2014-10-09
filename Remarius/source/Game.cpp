@@ -186,7 +186,7 @@ void CGame::ProcessEvents ()																				// Events bearbeiten
 	} 
 	if (g_pFramework->KeyDown(SDL_SCANCODE_K))
 	{
-		g_pDebugscreen->Set("Spielstand gespeichert", false);
+		g_pDebugscreen->Set("Spielstand gespeichert");
 		Save();
 	} 
 }
