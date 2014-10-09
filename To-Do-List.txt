@@ -1,0 +1,31 @@
+- Speichern: kleine Gebiete, (Spielfortschritt), Leben, Geld, Monster werden nicht gespeichert
+- Mapeditor, mehr Tiles
+- Bewegen, Kollision
+- Laden von Grafiken, Sounds pro Gebiet
+- Kampfsystem
+- NPCs, Dialoge
+- Mapwechsel
+- Monsterdropp
+- Geldsystem
+- ganze viele Eastereggs
+- Waffenwechsel
+- Interaktionen (Truhen, Fallen, Items, Schalter, Mechansimen
+- Inventar
+- Geschäfte, einkaufen
+- aktuellen Code reinigen und spülen
+
+
+Versionen:
+- wenn mit der Story angefangen werden kann startet die Beta
+
+
+To-Do-List für Alpha 1.0:
+
+- Menu neu machen [work in progress]
+
+- Typ fertig machen [done]
+
+- Warnings beheben
+- jeder sieht sich den Code an
+- überlegen wie wir alles strukturieren
+- Configdateien lesen/schreiben
