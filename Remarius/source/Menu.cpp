@@ -63,8 +63,11 @@ void CMenu::generateMenu()
 		options.addItem(fullscrbttn);
 		CMenuSlider* testslider = new CMenuSlider("Lautstärke Musik", defaultFont, 16);
 		testslider->addListener(bind([](CMusic* mus, int vol){mus->SetVolume(vol*8); }, menuMusic, placeholders::_1));
+		testslider->setState(8);
 		options.addItem(testslider);
-		CMenuCheckBox* testbox = new CMenuCheckBox("test checkbox", defaultFont);
+		CMenuCheckBox* testbox = new CMenuCheckBox("Musik aktivieren", defaultFont);
+		testbox->setListener(bind([](CMusic* mus, bool enable){mus->PauseMusic(enable);}, menuMusic, placeholders::_1));
+		testbox->setState(true);
 		options.addItem(testbox);
 		CMenuButton* quitbttn = new CMenuButton(m_pMenubuttons, "Zurück", defaultFont);
 		quitbttn->setfunc(bind([](int& mpg){mpg = 0; }, ref(menPageIndex)));
@@ -89,6 +92,7 @@ void CMenu::generateMenu()
 }
 void CMenu::Run()
 {
+	menuMusic->Play();
 	while (menuState)
 	{
 		while (SDL_PollEvent(&event))
@@ -96,7 +100,6 @@ void CMenu::Run()
 			if (event.key.repeat == 0)
 			menuPages[menPageIndex].processEvent(event.key);
 		}
-		menuMusic->Play();
 		menuPages[menPageIndex].render();
 		g_pFramework->Render();
 	}

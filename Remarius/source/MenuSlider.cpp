@@ -24,6 +24,7 @@ CMenuSlider::CMenuSlider(string label, TTF_Font* font, int range)
 CMenuSlider::CMenuSlider(const CMenuSlider& other)
 {
 	text = new CText(*other.text);
+	onChange = other.onChange;
 }
 
 CMenuSlider::~CMenuSlider()
@@ -35,6 +36,7 @@ CMenuSlider& CMenuSlider::operator = (const CMenuSlider& other)
 {
 	SAFE_DELETE(text);
 	text = new CText(*other.text);
+	onChange = other.onChange;
 	return *this;
 }
 

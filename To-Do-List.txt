@@ -7,9 +7,9 @@
 - Mapwechsel
 - Monsterdropp
 - Geldsystem
-- ganze viele Eastereggs
+- ganz viele Eastereggs
 - Waffenwechsel
-- Interaktionen (Truhen, Fallen, Items, Schalter, Mechansimen
+- Interaktionen (Truhen, Fallen, Items, Schalter, Mechansimen)
 - Inventar
 - Geschäfte, einkaufen
 - aktuellen Code reinigen und spülen

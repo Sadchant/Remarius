@@ -17,7 +17,7 @@ public:
 
 	void render(int x, int y, bool b = false);					// render MenuSlider instance at x/y; if b, instance is selected in Menu
 	bool processEvent(SDL_KeyboardEvent& event);
-	bool setState(int newstate) { if (newstate >= 0 && newstate <= max) { state = newstate; return true; } return false; }
+	bool setState(int newstate) { if (newstate >= 0 && newstate <= max) { state = newstate; onChange(state); return true; } return false; }
 	int getState() { return state; }
 	void addListener(function<void(int)> func) { onChange = func; }
 

@@ -43,11 +43,12 @@ void CMusic::SetVolume(int Volume)
 	Mix_VolumeMusic(Volume);
 }
 
-void CMusic::PauseMusic()
+void CMusic::PauseMusic(bool b)
 {
-	if (Mix_PlayingMusic() == 1)
+	if (Mix_PausedMusic() && b)
+		Mix_ResumeMusic();
+	else if (!Mix_PausedMusic() && !b)
 		Mix_PauseMusic();
-
 }
 
 void CMusic::StopMusic()
