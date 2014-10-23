@@ -62,8 +62,8 @@ void CMenu::generateMenu()
 													menu->ReloadSprites(); }, this));
 		options.addItem(fullscrbttn);
 		CMenuSlider* testslider = new CMenuSlider("Lautstärke Musik", defaultFont, 16);
-		testslider->addListener(bind([](CMusic* mus, int vol){mus->SetVolume(vol*8); }, menuMusic, placeholders::_1));
-		testslider->setState(8);
+		testslider->setListener(bind([](CMusic* mus, int vol){mus->SetVolume(vol*8); }, menuMusic, placeholders::_1));
+		testslider->setState(1);
 		options.addItem(testslider);
 		CMenuCheckBox* testbox = new CMenuCheckBox("Musik aktivieren", defaultFont);
 		testbox->setListener(bind([](CMusic* mus, bool enable){mus->PauseMusic(enable);}, menuMusic, placeholders::_1));

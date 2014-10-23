@@ -13,7 +13,8 @@ public:
 	~CMenuCheckBox();
 	CMenuCheckBox& operator = (const CMenuCheckBox& other);
 
-	void render(int x, int y, bool b = false);
+	void render(bool b = false);
+	void setPos(int x = -1, int y = -1);
 	bool processEvent(SDL_KeyboardEvent& event);
 
 	void setListener(function<void(bool)> func) { listener = func; }

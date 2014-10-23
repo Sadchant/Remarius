@@ -13,7 +13,8 @@ public:
 	~CMenuButton();
 	CMenuButton& operator = (const CMenuButton& other);
 
-	void render(int x, int y, bool b = false);
+	void render(bool b = false);
+	void setPos(int x, int y);
 	bool processEvent(SDL_KeyboardEvent& event);
 
 	void setfunc(function<void()> func){ onActivate = func; }

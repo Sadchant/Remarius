@@ -19,6 +19,8 @@ CMenuCheckBox::CMenuCheckBox(const CMenuCheckBox& other)
 {
 	text = new CText(*other.text);
 	selected = other.selected;
+	xPos = other.xPos;
+	yPos = other.yPos;
 
 	listener = other.listener;
 }
@@ -29,6 +31,8 @@ CMenuCheckBox& CMenuCheckBox:: operator = (const CMenuCheckBox& other)
 	text = new CText(*other.text);
 	selected = other.selected;
 	listener = other.listener;
+	xPos = other.xPos;
+	yPos = other.yPos;
 	return *this;
 }
 
@@ -37,13 +41,17 @@ CMenuCheckBox::~CMenuCheckBox()
 	SAFE_DELETE(text);
 }
 
-void CMenuCheckBox::render(int x, int y, bool b)
+void CMenuCheckBox::render(bool b)
 {
-	// test rendering, needs proper implementation
-	buttons->SetPos(x, y);
-	buttons->Render(b?1:0, !selected);
-	text->SetPos(x + 70, y);
+	buttons->SetPos((float)xPos, (float)yPos);
+	buttons->Render(b?1.0f:0.0f, !selected);
 	text->Render();
+}
+
+void CMenuCheckBox::setPos(int x, int y)
+{
+	CMenuItem::setPos(x, y);
+	text->SetPos((float)x + 70, (float)y);
 }
 
 bool CMenuCheckBox::processEvent(SDL_KeyboardEvent& event)

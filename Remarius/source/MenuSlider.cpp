@@ -24,6 +24,8 @@ CMenuSlider::CMenuSlider(string label, TTF_Font* font, int range)
 CMenuSlider::CMenuSlider(const CMenuSlider& other)
 {
 	text = new CText(*other.text);
+	xPos = other.xPos;
+	yPos = other.yPos;
 	onChange = other.onChange;
 }
 
@@ -37,6 +39,8 @@ CMenuSlider& CMenuSlider::operator = (const CMenuSlider& other)
 	SAFE_DELETE(text);
 	text = new CText(*other.text);
 	onChange = other.onChange;
+	xPos = other.xPos;
+	yPos = other.yPos;
 	return *this;
 }
 
@@ -59,7 +63,7 @@ bool CMenuSlider::processEvent(SDL_KeyboardEvent& event)
 	return false;
 }
 
-void CMenuSlider::render(int x, int y, bool b)
+void CMenuSlider::render(bool b)
 {
 	/*	rendering menuSlider at position x/y;
 		text needs to be repositioned and render
@@ -67,10 +71,15 @@ void CMenuSlider::render(int x, int y, bool b)
 		(true if menuSlider is selected in Menu)
 		See CMenuButton for reference			*/
 	text->SetContent(baselabel + ": " + to_string(state));
-	text->SetPos((float)x, (float)y+20);
 	int c = b ? 255 : 180;
 	text->SetColor(c, c, c);
 	text->Render();
-	slider->SetPos((float)x + state * 10, (float)y);
+	slider->SetPos((float)xPos + state * 10, (float)yPos);
 	slider->Render();
+}
+
+void CMenuSlider::setPos(int x, int y)
+{
+	CMenuItem::setPos(x, y);
+	text->SetPos((float)x, (float)y + 20);
 }
