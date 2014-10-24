@@ -15,11 +15,12 @@ public:
 
 	static void freeSprites();											// call to free static Sprite resource
 
-	void render(int x, int y, bool b = false);					// render MenuSlider instance at x/y; if b, instance is selected in Menu
+	void render(bool b = false);					// render MenuSlider instance at x/y; if b, instance is selected in Menu
+	void setPos(int x, int y);
 	bool processEvent(SDL_KeyboardEvent& event);
-	bool setState(int newstate) { if (newstate >= 0 && newstate <= max) { state = newstate; return true; } return false; }
+	bool setState(int newstate) { if (newstate >= 0 && newstate <= max) { state = newstate; onChange(state); return true; } return false; }
 	int getState() { return state; }
-	void addListener(function<void(int)> func) { onChange = func; }
+	void setListener(function<void(int)> func) { onChange = func; }
 
 private:
 	static CSprite* bar;										// static Sprite resource for all Sliders

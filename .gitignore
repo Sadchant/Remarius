@@ -10,6 +10,9 @@ Debug/
 *.opensdf
 menuaufbau.png
 
+# toplevel includes
+dev tools
+
 
 # main folder debug
 

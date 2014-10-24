@@ -12,7 +12,7 @@ public:
 	void		Load		(string sFilename);
 	void		Play		();
 	void		SetVolume	(int Volume);
-	void		PauseMusic();
+	void		PauseMusic(bool b = false);	// true to resume music, false (default) to pause music
 	void		StopMusic();
 
 private:

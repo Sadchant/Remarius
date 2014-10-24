@@ -100,8 +100,10 @@ void CMenu::Run()
 			if (event.key.repeat == 0)
 			menuPages[menPageIndex].processEvent(event.key);
 		}
-		menuMusic->Play();
-
+<<<<<<< HEAD
+		//menuMusic->Play();
+=======
+>>>>>>> bd8081643a661fb3b616abbc58555602270602f0
 		menuPages[menPageIndex].render();
 		g_pFramework->Render();
 	}

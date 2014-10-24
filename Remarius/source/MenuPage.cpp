@@ -45,6 +45,7 @@ CMenuPage& CMenuPage::operator = (const CMenuPage& other)
 
 void CMenuPage::addItem(CMenuItem* item)
 {
+	item->setPos(334, 174 + (items.size() * 100));
 	items.push_back(item);
 }
 
@@ -54,7 +55,7 @@ void CMenuPage::render()
 	caption->Render();
 	for (unsigned int i = 0; i < items.size(); i++)
 	{
-		items[i]->render(334, 174 + i * 100, (selected == i));	
+		items[i]->render(selected == i);	
 	}
 }
 
