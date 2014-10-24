@@ -3,6 +3,7 @@
 
 #include "MenuItem.hpp"
 #include "Text.hpp"
+#include "Sprite.hpp"
 #include <functional>
 
 class CMenuCheckBox : public CMenuItem

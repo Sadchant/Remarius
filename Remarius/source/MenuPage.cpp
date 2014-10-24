@@ -51,7 +51,7 @@ void CMenuPage::addItem(CMenuItem* item)
 
 void CMenuPage::render()
 {
-	background->Render();
+	background->CRenderable::Render();
 	caption->Render();
 	for (unsigned int i = 0; i < items.size(); i++)
 	{

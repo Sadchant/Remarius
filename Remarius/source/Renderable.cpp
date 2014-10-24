@@ -17,7 +17,7 @@ CRenderable::CRenderable(const CRenderable& other)
 }
 
 
-CRenderable::~CRenderable()																			// Surface des Sprites freigeben
+CRenderable::~CRenderable()																// Surface des Sprites freigeben
 {
 	SDL_DestroyTexture (pTexture);	
 }
@@ -38,7 +38,6 @@ void CRenderable::SetPos(float fXPos, float fYPos)											// Position des Spr
 	Rect.x = static_cast<int>(fXPos);											// Rect updaten
 	Rect.y = static_cast<int>(fYPos);
 }
-
 
 
 void CRenderable::Render()																	// Textur in den Renderer laden

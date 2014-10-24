@@ -18,6 +18,7 @@ class CSprite : public CRenderable
 		void		Load		(const string sFilename);
 		void		Load		(const string sFilename, int NumFrames, int FrameWidth, int FrameHeight);
 		void		SetScreenPos(float fXPos, float fYPos, float CameraX, float CameraY);
+		CRenderable::Render;
 		void		Render		(float fFrameNumber);
 		void		Render		(float fFrameNumber, int Direction);
 
