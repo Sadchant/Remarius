@@ -8,7 +8,7 @@ CMenuPage::CMenuPage(CSprite* bg, string label, TTF_Font* font)
 	caption->SetFont(font);
 	caption->SetColor(230, 230, 0);
 	caption->SetContent(label);
-	caption->SetPos((float)334, 70);
+	caption->SetPos(334, 70);
 }
 
 CMenuPage::CMenuPage(const CMenuPage& other) :

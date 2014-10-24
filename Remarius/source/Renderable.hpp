@@ -12,6 +12,7 @@ public:
 	CRenderable& operator = (const CRenderable& other);
 	~CRenderable();
 	void		SetPos(float fXPos, float fYPos);
+	void		SetPos(int XPos, int YPos);
 	void		Render();
 	SDL_Rect	GetRect(){ return Rect; };
 

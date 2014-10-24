@@ -199,7 +199,7 @@ void CGame::Break()
 		m_pMenubackground->Render (0);
 		m_pTextMenucaption->SetColor (230, 230, 0);
 		m_pTextMenucaption->SetContent ("Pause");
-		m_pTextMenucaption->SetPos(static_cast<float>((755 - m_pTextMenucaption->GetLength()) / 2 + 134), 200);
+		m_pTextMenucaption->SetPos(((755 - m_pTextMenucaption->GetLength()) / 2 + 134), 200);
 		m_pTextMenucaption->Render();
 
 		if (g_pFramework->KeyDown(SDL_SCANCODE_RETURN)==false)
@@ -357,7 +357,7 @@ void CGame::Break()
 						m_pMenubackground->Render (0);
 						m_pTextMenuSave->SetColor (230, 230, 0);
 						m_pTextMenuSave->SetContent ("Soll wirklich gespeichert werden?");
-						m_pTextMenucaption->SetPos(static_cast<float>((755 - m_pTextMenuSave->GetLength())/2+ 134), 240);
+						m_pTextMenucaption->SetPos(((755 - m_pTextMenuSave->GetLength())/2+ 134), 240);
 						m_pTextMenuSave->Render();
 
 						while (	m_bBreakLock2==false)
@@ -527,7 +527,7 @@ void CGame::Break()
 						m_pMenubackground->Render (0);
 						m_pTextMenuSave->SetColor (230, 230, 0);
 						m_pTextMenuSave->SetContent ("Soll wirklich beendet werden?");
-						m_pTextMenucaption->SetPos(static_cast<float>((755 - m_pTextMenuSave->GetLength())/2+ 134), 240);
+						m_pTextMenucaption->SetPos(((755 - m_pTextMenuSave->GetLength())/2+ 134), 240);
 						m_pTextMenuSave->Render();
 
 						while (	m_bBreakLock2==false)

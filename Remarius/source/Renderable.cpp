@@ -32,6 +32,11 @@ CRenderable& CRenderable::operator = (const CRenderable& other)
 	return *this;
 }
 
+void CRenderable::SetPos(int XPos, int YPos)											// Position des Sprites festlegen
+{
+	Rect.x = XPos;											// Rect updaten
+	Rect.y = YPos;
+}
 
 void CRenderable::SetPos(float fXPos, float fYPos)											// Position des Sprites festlegen
 {

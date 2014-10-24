@@ -116,7 +116,7 @@ void CStuff::Update()
 	m_pCamera->SetPos (static_cast<float>(m_pPlayer->GetX()) - 512, static_cast<float>(m_pPlayer->GetY()) - 384);
 	m_pCamera->CorrectPos (LEVEL_WIDTH, LEVEL_HEIGHT);
 	show();
-	m_pPlayer->Render(m_pCamera->GetCameraRect().x, m_pCamera->GetCameraRect().y);
+	m_pPlayer->Render((float)m_pCamera->GetCameraRect().x, (float)m_pCamera->GetCameraRect().y);
 	m_pPlayer->LifeRender();
 
 	list<CExplosion>::iterator ItEx = m_ExplosionList.begin();
@@ -284,7 +284,7 @@ void CStuff::RenderMonsters ()																			// Monster rendern und updaten
 	list<CHoover>::iterator ItH;
 	for (ItH = m_HooverList.begin(); ItH != m_HooverList.end(); ItH++)
 	{
-		ItH->Render(m_pCamera->GetCameraRect().x, m_pCamera->GetCameraRect().y);
+		ItH->Render((float)m_pCamera->GetCameraRect().x, (float)m_pCamera->GetCameraRect().y);
 		ItH->Update();
 	}
 
@@ -298,7 +298,7 @@ void CStuff::RenderMonsters ()																			// Monster rendern und updaten
    list<CExplosion>::iterator ItE;
    for (ItE = m_ExplosionList.begin(); ItE != m_ExplosionList.end(); ItE++)
    {
-      ItE->Render(m_pCamera->GetCameraRect().x, m_pCamera->GetCameraRect().y);
+	   ItE->Render((float)m_pCamera->GetCameraRect().x, (float)m_pCamera->GetCameraRect().y);
    }
    list<CSpider>::iterator ItS;
    for (ItS = m_SpiderList.begin(); ItS != m_SpiderList.end(); ItS++)
@@ -428,8 +428,9 @@ void CStuff::show()
  
                 if( CkRect( m_pCamera->GetCameraRect(), tiles[t]->GetRect() ) == true )
                 {
-                        m_pSpriteTile->SetScreenPos(tiles[t]->GetRect().x,tiles[t]->GetRect().y,
-                                        m_pCamera->GetCameraRect().x,m_pCamera->GetCameraRect().y);
+					m_pSpriteTile->SetScreenPos((float)tiles[t]->GetRect().x, (float)tiles[t]->GetRect().y,
+							(float)m_pCamera->GetCameraRect().x, 
+							(float)m_pCamera->GetCameraRect().y);
                         m_pSpriteTile->Render(static_cast<float>(type%4),static_cast<int>(type/4));
                 }
         }
@@ -438,8 +439,8 @@ void CStuff::show()
         for (ItTile2=tiles2.begin(); ItTile2!=tiles2.end(); ItTile2++ )
         {
                 type =ItTile2->get_type();
-                m_pSpriteTile->SetScreenPos(ItTile2->GetRect().x,ItTile2->GetRect().y,
-                                m_pCamera->GetCameraRect().x,m_pCamera->GetCameraRect().y);
+				m_pSpriteTile->SetScreenPos((float)ItTile2->GetRect().x, (float)ItTile2->GetRect().y,
+					(float)m_pCamera->GetCameraRect().x, (float)m_pCamera->GetCameraRect().y);
                 m_pSpriteTile->Render(static_cast<float>(type%4),static_cast<int>(type/4));
         }
  
@@ -447,16 +448,16 @@ void CStuff::show()
         for (ItTile3=tiles3.begin(); ItTile3!=tiles3.end(); ItTile3++ )
         {
                 type =ItTile3->get_type();
-                m_pSpriteTile->SetScreenPos(ItTile3->GetRect().x,ItTile3->GetRect().y,
-                                m_pCamera->GetCameraRect().x,m_pCamera->GetCameraRect().y);
+				m_pSpriteTile->SetScreenPos((float)ItTile3->GetRect().x, (float)ItTile3->GetRect().y,
+					(float)m_pCamera->GetCameraRect().x, (float)m_pCamera->GetCameraRect().y);
                 m_pSpriteTile->Render(static_cast<float>(type%4),static_cast<int>(type/4));
         }
 		list <CTile>::iterator ItTile4;
         for (ItTile4=tiles4.begin(); ItTile4!=tiles4.end(); ItTile4++ )
         {
                 type =ItTile4->get_type();
-                m_pSpriteWall->SetScreenPos(ItTile4->GetRect().x,ItTile4->GetRect().y,
-                                m_pCamera->GetCameraRect().x,m_pCamera->GetCameraRect().y);
+				m_pSpriteWall->SetScreenPos((float)ItTile4->GetRect().x, (float)ItTile4->GetRect().y,
+					(float)m_pCamera->GetCameraRect().x, (float)m_pCamera->GetCameraRect().y);
                 m_pSpriteWall->Render(static_cast<float>(type%4),static_cast<int>(type/4));
         }
 }   

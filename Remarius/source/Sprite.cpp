@@ -70,12 +70,6 @@ void CSprite::Load (const string sFilename)														// unanimierten Sprite 
 	Rect.y = 0;
 	Rect.w = width;
 	Rect.h = height;
-
-	//cout << sFilename.c_str() << ": " << endl;
-	//cout << "Breite: " << width << endl;
-	//cout << "Hoehe: " << height << endl;
-
-	//convertedImage = SDL_DisplayFormatAlpha (pImage);
 }
 
 void CSprite::Load (const string sFilename, int NumFrames, int FrameWidth, int FrameHeight)		// animierten Sprite laden

@@ -20,7 +20,7 @@ public:
 
 private:
 	vector<CMenuItem*>	items;
-	int					selected;
+	unsigned int		selected;
 	CSprite*			background;
 	CText*				caption;
 };
