@@ -14,7 +14,7 @@ CText::CText()
 }
 
 CText::CText(const CText& other) :
-CSprite(other), Size(0)
+CRenderable(other), Size(0)
 {
 	pFont = other.pFont;
 	pTexture = NULL;
@@ -26,7 +26,7 @@ CSprite(other), Size(0)
 
 CText& CText::operator = (const CText& other)
 {
-	CSprite::operator=(other);
+	CRenderable::operator=(other);
 	pFont = other.pFont;
 	pTexture = NULL;
 	pSurface = NULL;

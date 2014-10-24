@@ -111,6 +111,9 @@
     <ClInclude Include="source\MenuCheckBox.hpp">
       <Filter>Programflow\Menu</Filter>
     </ClInclude>
+    <ClInclude Include="source\Renderable.hpp">
+      <Filter>Resource/Frame\Rendering</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="source\Hoover.cpp">
@@ -190,6 +193,9 @@
     </ClCompile>
     <ClCompile Include="source\MenuCheckBox.cpp">
       <Filter>Programflow\Menu</Filter>
+    </ClCompile>
+    <ClCompile Include="source\Renderable.cpp">
+      <Filter>Resource/Frame\Rendering</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

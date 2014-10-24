@@ -33,7 +33,6 @@ CSprite::CSprite(const string sFilename, int NumFrames, int FrameWidth, int Fram
 
 CSprite::~CSprite ()																			// Surface des Sprites freigeben
 {
-	//SDL_FreeSurface (pImage);	
 }
 
 CSprite& CSprite::operator = (const CSprite& other)
@@ -95,12 +94,6 @@ void CSprite::Load (const string sFilename, int NumFrames, int FrameWidth, int F
 
 }
 
-void CSprite::SetPos (float fXPos, float fYPos)											// Position des Sprites festlegen
-{
-	Rect.x = static_cast<int>(fXPos);											// Rect updaten
-	Rect.y = static_cast<int>(fYPos);
-}
-
 void CSprite::SetScreenPos (float fXPos, float fYPos, float CameraX, float CameraY)		//schlechter Programmierstil!		
 {	
 	Rect.x = static_cast<int>(fXPos - CameraX);										
@@ -108,15 +101,6 @@ void CSprite::SetScreenPos (float fXPos, float fYPos, float CameraX, float Camer
 }
 
 
-
-void CSprite::Render ()																	// unanimierten Sprite rendern
-{
-	if (SDL_RenderCopy(pRenderer, pTexture, NULL, &Rect) < 0)				// Textur wird in der Renderer kopiert
-	{
-		cout << "Fehler beim Kopieren der Textur: " << SDL_GetError() << endl;
-		cout << pTexture << endl;
-	}
-}
 
 void CSprite::Render (float fFrameNumber)										// animiertes Sprite (Ausschnitt) rendern
 {
@@ -126,8 +110,6 @@ void CSprite::Render (float fFrameNumber)										// animiertes Sprite (Ausschn
 	FrameRect.x = Column * FrameWidth;
 	FrameRect.y = Row * FrameHeight;
 
-
-	//SDL_BlitSurface (convertedImage, &FrameRect, pScreen, &Rect);				// Ausschnitt rendern
 	SDL_RenderCopy(pRenderer, pTexture, &FrameRect, &Rect);
 }
 
@@ -140,7 +122,5 @@ void CSprite::Render (float fFrameNumber, int Direction)						// animiertes Spri
 	FrameRect.x = Column * FrameWidth;
 	FrameRect.y = Row * FrameHeight;
 
-
-	//SDL_BlitSurface (convertedImage, &FrameRect, pScreen, &Rect);				// Ausschnitt rendern
 	SDL_RenderCopy(pRenderer, pTexture, &FrameRect, &Rect);
 }

@@ -3,10 +3,10 @@
 
 
 #include "Framework.hpp"
-#include "Sprite.hpp"
+#include "Renderable.hpp"
 #include <string>
 
-class CText: public CSprite
+class CText: public CRenderable
 {
 	public:
 		CText ();

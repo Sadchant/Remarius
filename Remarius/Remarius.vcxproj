@@ -30,6 +30,7 @@
     <ClInclude Include="source\Music.hpp" />
     <ClInclude Include="source\Player.hpp" />
     <ClInclude Include="source\Program.hpp" />
+    <ClInclude Include="source\Renderable.hpp" />
     <ClInclude Include="source\Shot.hpp" />
     <ClInclude Include="source\Singleton.hpp" />
     <ClInclude Include="source\Sound.hpp" />
@@ -60,6 +61,7 @@
     <ClCompile Include="source\Music.cpp" />
     <ClCompile Include="source\Player.cpp" />
     <ClCompile Include="source\Program.cpp" />
+    <ClCompile Include="source\Renderable.cpp" />
     <ClCompile Include="source\Shot.cpp" />
     <ClCompile Include="source\Sound.cpp" />
     <ClCompile Include="source\Sprite.cpp" />
