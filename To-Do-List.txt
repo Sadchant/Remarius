@@ -24,8 +24,8 @@ To-Do-List für Alpha 1.0:
 - Menu neu machen [work in progress]
 
 - Typ fertig machen [done]
+- Warnings beheben [done]
 
-- Warnings beheben
 - jeder sieht sich den Code an
 - überlegen wie wir alles strukturieren
 - Configdateien lesen/schreiben
