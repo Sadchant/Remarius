@@ -20,7 +20,7 @@ CMenu::CMenu()
 
 	menuMusic = new CMusic;
 	menuMusic->Load("Music/Track_1.mp3");
-	menuMusic->PauseMusic(!g_pOptions->Music);
+	menuMusic->PauseMusic(g_pOptions->Music);
 	cout << g_pOptions->Music << endl;
 
 	generateMenu();
@@ -95,6 +95,7 @@ void CMenu::generateMenu()
 void CMenu::Run()
 {
 	menuMusic->Play();
+	menuMusic->PauseMusic(!g_pOptions->Music);
 	while (menuState)
 	{
 		while (SDL_PollEvent(&event))
