@@ -32,3 +32,6 @@ Remarius/source/BrokenText.cpp
 Remarius/source/BrokenText.hpp
 
 
+# main folder config
+
+Remarius/Config.xml
