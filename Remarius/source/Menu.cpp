@@ -59,7 +59,7 @@ void CMenu::generateMenu()
 		CMenuPage options(m_pMenuBackground, "Optionen", defaultFont);
 		CMenuButton* fullscrbttn = new CMenuButton(m_pMenubuttons, "Vollbild", defaultFont);
 		fullscrbttn->setfunc(bind([](CMenu* menu){	g_pOptions->Fullscreen ^= 1; g_pFramework->Init_Video("Remarius Risation Indev 1.6", 1024, 768, !g_pOptions->Fullscreen); 
-		menu->ReloadSprites(); menu->ReloadSprites(); }, this));
+													menu->ReloadSprites(); }, this));
 		options.addItem(fullscrbttn);
 		CMenuSlider* testslider = new CMenuSlider("Lautstärke Musik", defaultFont, 16);
 		testslider->setListener(bind([](CMusic* mus, int vol){mus->SetVolume(vol * 8); g_pOptions->Volume = vol; }, menuMusic, placeholders::_1));
