@@ -20,8 +20,6 @@ CMenu::CMenu()
 
 	menuMusic = new CMusic;
 	menuMusic->Load("Music/Track_1.mp3");
-	menuMusic->PauseMusic(g_pOptions->Music);
-	cout << g_pOptions->Music << endl;
 
 	generateMenu();
 }
@@ -60,15 +58,15 @@ void CMenu::generateMenu()
 	{
 		CMenuPage options(m_pMenuBackground, "Optionen", defaultFont);
 		CMenuButton* fullscrbttn = new CMenuButton(m_pMenubuttons, "Vollbild", defaultFont);
-		fullscrbttn->setfunc(bind([](CMenu* menu){	g_pOptions->Fullscreen ^= 1; menu->ReloadSprites();
-													g_pFramework->Init_Video("Remarius Risation Indev 1.6", 1024, 768, g_pOptions->Fullscreen); }, this));
+		fullscrbttn->setfunc(bind([](CMenu* menu){	g_pOptions->Fullscreen ^= 1; g_pFramework->Init_Video("Remarius Risation Indev 1.6", 1024, 768, !g_pOptions->Fullscreen); 
+		menu->ReloadSprites(); menu->ReloadSprites(); }, this));
 		options.addItem(fullscrbttn);
 		CMenuSlider* testslider = new CMenuSlider("Lautstärke Musik", defaultFont, 16);
 		testslider->setListener(bind([](CMusic* mus, int vol){mus->SetVolume(vol * 8); g_pOptions->Volume = vol; }, menuMusic, placeholders::_1));
 		testslider->setState(g_pOptions->Volume);
 		options.addItem(testslider);
 		CMenuCheckBox* testbox = new CMenuCheckBox("Musik aktivieren", defaultFont);
-		testbox->setListener(bind([](CMusic* mus, bool enable){mus->PauseMusic(g_pOptions->Music); g_pOptions->Music ^= 1; }, menuMusic, placeholders::_1));
+		testbox->setListener(bind([](CMusic* mus, bool enable){mus->PauseMusic(enable); g_pOptions->Music = enable; }, menuMusic, placeholders::_1));
 		testbox->setState(g_pOptions->Music);
 		options.addItem(testbox);
 		CMenuButton* quitbttn = new CMenuButton(m_pMenubuttons, "Zurück", defaultFont);
@@ -95,7 +93,7 @@ void CMenu::generateMenu()
 void CMenu::Run()
 {
 	menuMusic->Play();
-	menuMusic->PauseMusic(!g_pOptions->Music);
+	menuMusic->PauseMusic(g_pOptions->Music);
 	while (menuState)
 	{
 		while (SDL_PollEvent(&event))

@@ -67,10 +67,14 @@ void CMenuPage::processEvent(SDL_KeyboardEvent &event)
 		case SDL_SCANCODE_DOWN:
 			if (selected < items.size()-1) 
 				selected++; 
+			else if (selected >= items.size()-1)
+				selected = 0;
 			break;
 		case SDL_SCANCODE_UP:
 			if (selected > 0)
 				selected--;
+			else if (selected <= 1)
+				selected = items.size()-1;
 			break;
 		default:
 			if (items[selected]->processEvent(event))

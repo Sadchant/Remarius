@@ -1,10 +1,10 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Options>
     <Fullscreen>
-        <v>1</v>
+        <v>0</v>
     </Fullscreen>
     <Music>
-        <v>0</v>
+        <v>1</v>
     </Music>
     <Volume>
         <v>8</v>
