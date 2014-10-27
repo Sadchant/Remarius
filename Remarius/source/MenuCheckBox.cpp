@@ -44,7 +44,7 @@ CMenuCheckBox::~CMenuCheckBox()
 void CMenuCheckBox::render(bool b)
 {
 	buttons->SetPos((float)xPos, (float)yPos);
-	buttons->Render(b?1.0f:0.0f, !selected);
+	buttons->Render(b, !selected);
 	text->Render();
 }
 
@@ -59,6 +59,8 @@ bool CMenuCheckBox::processEvent(SDL_KeyboardEvent& event)
 	if (event.type == SDL_KEYDOWN && event.keysym.scancode == SDL_SCANCODE_RETURN)
 	{
 		selected = selected ^ true;
+		int c = selected ? 255 : 180;
+		text->SetColor(c, c, c);
 		listener(selected);
 	}
 	return false;
