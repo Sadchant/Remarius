@@ -3,6 +3,7 @@
 
 #include "Menu.hpp"
 #include "Text.hpp"
+#include "XMLhandler.hpp"
 
 class CProgram
 {

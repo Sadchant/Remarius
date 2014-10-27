@@ -28,6 +28,7 @@
     <ClInclude Include="source\MenuSlider.hpp" />
     <ClInclude Include="source\Monster.hpp" />
     <ClInclude Include="source\Music.hpp" />
+    <ClInclude Include="source\Options.hpp" />
     <ClInclude Include="source\Player.hpp" />
     <ClInclude Include="source\Program.hpp" />
     <ClInclude Include="source\Renderable.hpp" />
@@ -40,7 +41,9 @@
     <ClInclude Include="source\Text.hpp" />
     <ClInclude Include="source\Tile.hpp" />
     <ClInclude Include="source\Timer.hpp" />
+    <ClInclude Include="source\tinyxml2.h" />
     <ClInclude Include="source\Util.hpp" />
+    <ClInclude Include="source\XMLhandler.hpp" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="source\Bombo.cpp" />
@@ -59,6 +62,7 @@
     <ClCompile Include="source\MenuSlider.cpp" />
     <ClCompile Include="source\Monster.cpp" />
     <ClCompile Include="source\Music.cpp" />
+    <ClCompile Include="source\Options.cpp" />
     <ClCompile Include="source\Player.cpp" />
     <ClCompile Include="source\Program.cpp" />
     <ClCompile Include="source\Renderable.cpp" />
@@ -70,6 +74,8 @@
     <ClCompile Include="source\Text.cpp" />
     <ClCompile Include="source\Tile.cpp" />
     <ClCompile Include="source\Timer.cpp" />
+    <ClCompile Include="source\tinyxml2.cpp" />
+    <ClCompile Include="source\XMLhandler.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{BD6F4C14-37CD-4A77-9C28-AF1790638D11}</ProjectGuid>

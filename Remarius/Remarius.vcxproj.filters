@@ -114,6 +114,15 @@
     <ClInclude Include="source\Renderable.hpp">
       <Filter>Resource/Frame\Rendering</Filter>
     </ClInclude>
+    <ClInclude Include="source\tinyxml2.h">
+      <Filter>Programflow</Filter>
+    </ClInclude>
+    <ClInclude Include="source\XMLhandler.hpp">
+      <Filter>Programflow</Filter>
+    </ClInclude>
+    <ClInclude Include="source\Options.hpp">
+      <Filter>Resource/Frame</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="source\Hoover.cpp">
@@ -196,6 +205,15 @@
     </ClCompile>
     <ClCompile Include="source\Renderable.cpp">
       <Filter>Resource/Frame\Rendering</Filter>
+    </ClCompile>
+    <ClCompile Include="source\tinyxml2.cpp">
+      <Filter>Programflow</Filter>
+    </ClCompile>
+    <ClCompile Include="source\XMLhandler.cpp">
+      <Filter>Programflow</Filter>
+    </ClCompile>
+    <ClCompile Include="source\Options.cpp">
+      <Filter>Resource/Frame</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

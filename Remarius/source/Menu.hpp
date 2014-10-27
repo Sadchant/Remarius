@@ -10,6 +10,7 @@
 #include "Util.hpp"
 #include <functional>
 #include "Music.hpp"
+#include "XMLhandler.hpp"
 
 class CMenu
 {

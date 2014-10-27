@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Options>
+    <Fullscreen>
+        <v>1</v>
+    </Fullscreen>
+    <Music>
+        <v>1</v>
+    </Music>
+    <Volume>
+        <v>5</v>
+    </Volume>
+</Options>
