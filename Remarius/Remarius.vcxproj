@@ -62,7 +62,6 @@
     <ClCompile Include="source\MenuSlider.cpp" />
     <ClCompile Include="source\Monster.cpp" />
     <ClCompile Include="source\Music.cpp" />
-    <ClCompile Include="source\Options.cpp" />
     <ClCompile Include="source\Player.cpp" />
     <ClCompile Include="source\Program.cpp" />
     <ClCompile Include="source\Renderable.cpp" />

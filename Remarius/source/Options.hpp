@@ -8,7 +8,7 @@
 class COptions : public TSingleton<COptions>
 {
 public:
-	COptions();
+	COptions(){Fullscreen = false;	Music = true;	Volume = 5;	}
 	bool	Fullscreen;
 	bool	Music;
 	int		Volume;

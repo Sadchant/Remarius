@@ -14,11 +14,11 @@ bool CXMLhandler::readoptions()
 
 	XMLElement* titleelement = doc.FirstChildElement("Options")->FirstChildElement("Fullscreen")->FirstChildElement("v");
 	const char* title = titleelement->GetText();
-	g_pOptions->Fullscreen = bool(atoi(title));
+	g_pOptions->Fullscreen = (atoi(title)) ? true : false;
 
 	titleelement = doc.FirstChildElement("Options")->FirstChildElement("Music")->FirstChildElement("v");
 	title = titleelement->GetText();
-	g_pOptions->Music = bool(atoi(title));
+	g_pOptions->Music = (atoi(title))? true : false ;
 
 	titleelement = doc.FirstChildElement("Options")->FirstChildElement("Volume")->FirstChildElement("v");
 	title = titleelement->GetText();

@@ -212,8 +212,5 @@
     <ClCompile Include="source\XMLhandler.cpp">
       <Filter>Programflow</Filter>
     </ClCompile>
-    <ClCompile Include="source\Options.cpp">
-      <Filter>Resource/Frame</Filter>
-    </ClCompile>
   </ItemGroup>
 </Project>
