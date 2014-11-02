@@ -11,7 +11,7 @@ bool CFramework::Init ()
 		Quit ();
 		return false;
 	}
-	if (Init_Video ("Remarius Risation Indev 1.6", 1280, 720, false) == false)		// an der Stelle Daten aus Datei einlesen!
+	if (Init_Video("Remarius Risation Indev 1.6", window_Width, window_Height, false) == false)		// an der Stelle Daten aus Datei einlesen!
 	{
 		cout << "SDL_Video konnte nicht initialisiert werden!" << endl;
 		cout << "Fehlermeldung: " << SDL_GetError () << endl;
@@ -60,7 +60,7 @@ bool CFramework::Init_Video (char* name, int width, int height, bool bFullscreen
 	
 	if ((sdl_Window == NULL) || (sdl_Renderer == NULL))								// Prüfen, ob alles funktioniert hat
 	{
-		cout << "Videomodus konnte nicht gesetzt werden!" << endl;
+		cout << "Fehler beim Erzeugen des Fensters!" << endl;
 		cout << "Fehlermeldung: " << SDL_GetError () << endl;
 		Quit ();
 		return (false);
@@ -115,8 +115,14 @@ bool CFramework::KeyDown(Uint8 Key_ID)
 // rendert alles aus dem Renderer und reinigt ihn danach
 void CFramework::Render()
 {
+	if ((SDL_SetRenderTarget(sdl_Renderer, NULL)) < 0)
+	{
+		cout << "Fehler beim Setzen des Rendertargets im Framework: " << SDL_GetError() << endl;
+	}
 	SDL_RenderPresent(sdl_Renderer);
-	SDL_RenderClear(sdl_Renderer);
-	
+	if ((SDL_RenderClear(sdl_Renderer)) < 0)
+	{
+		cout << "Fehler beim Clearen des Renderers:" << SDL_GetError() << endl;
+	}	
 }
 

@@ -3,6 +3,7 @@
 
 
 #include "Framework.hpp"
+#include "Renderlayer.hpp"
 
 class CRenderable
 {
@@ -17,9 +18,11 @@ public:
 	SDL_Rect	GetRect(){ return Rect; };
 
 protected:
-	SDL_Renderer*	pRenderer;		// Zeiger auf den Renderer des Frameworks
-	SDL_Texture*	pTexture;		// Das eigentliche Bild des Sprites
+	SDL_Renderer*	Renderer;		// Zeiger auf den Renderer des Frameworks
+	SDL_Texture*	Texture;		// Das eigentliche Bild des Sprites
+	SDL_Texture*	TargetTexture;	// Die ZielTextur aus dem Renderlayer	
 	SDL_Rect		Rect;			// Rect des Sprites		
+	TextureLayers	TextureLayer;
 	int				width;			//die Breite des geladenen Bildes
 	int				height;			//die Höhe des geladenen Bildes
 

@@ -37,7 +37,7 @@ void CProgram::Run()
 	{
 		pText->Render();
 		g_pFramework->Update();		
-		g_pFramework->Render();
+		g_pRenderlayer->Render();
 		if (g_pFramework->KeyDown(SDL_SCANCODE_RETURN))
 		{
 			SDL_EventState(SDL_SYSWMEVENT, SDL_ENABLE);								// beachtet Systemevents wieder

@@ -9,12 +9,12 @@
 class CText: public CRenderable
 {
 	public:
-		CText ();
+		CText();
 		CText(const CText& other);
 		CText& operator = (const CText& other);
 		~CText ();
 
-		void		SetFont(TTF_Font* font){ pFont = font; }
+		void		SetFont(TTF_Font* font){ Font = font; }
 		void		SetColor	(int R, int G, int B);
 		void		SetAlpha	(int Alpha);
 		void		SetContent	(string Content);
@@ -25,8 +25,8 @@ class CText: public CRenderable
 	private:
 		void		CheckContent();
 		void		createTexture();
-		SDL_Surface*	pSurface;	// Der eigentliche Text auf dem Bildschirm
-		TTF_Font*		pFont;		// Schriftart
+		SDL_Surface*	Surface;	// Der eigentliche Text auf dem Bildschirm
+		TTF_Font*		Font;		// Schriftart
 		SDL_Color		Color;		// Farbe des Textes
 		string			Content;	// Inhalt des Textes
 		int				Size;		// Größe des Textes

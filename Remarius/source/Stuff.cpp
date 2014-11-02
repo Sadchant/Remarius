@@ -8,33 +8,26 @@ CStuff::CStuff ()														// Player und Stuffprites laden
 	m_pPlayer->Reset ();
 
 	m_pSpriteStachelstein = NULL;																				// Stachelsteinensprite erzeugen
-	m_pSpriteStachelstein = new CSprite;
-	m_pSpriteStachelstein->Load ("Data/Stacelstone.png", 0, 64, 44);
+	m_pSpriteStachelstein = new CSprite("Data/Stacelstone.png", ENTITY_LAYER, 64, 44);
 
 	m_pSpriteHoover = NULL;																				// Staubsaugersprite erzeugen
-	m_pSpriteHoover = new CSprite;
-	m_pSpriteHoover->Load ("Data/Spider.png", 7, 130, 97);
+	m_pSpriteHoover = new CSprite("Data/Spider.png", ENTITY_LAYER, 130, 97);
 
 	m_pSpriteBombo = NULL;																				// Bombosprite erzeugen
-	m_pSpriteBombo = new CSprite;
-	m_pSpriteBombo->Load ("Data/RoterSlime.png", 4, 86, 90);
+	m_pSpriteBombo = new CSprite("Data/RoterSlime.png", ENTITY_LAYER, 86, 90);
 
 	m_pSpriteExplosion = NULL;																				// Bombosprite erzeugen
-	m_pSpriteExplosion = new CSprite;
-	m_pSpriteExplosion->Load ("Data/Explosion.bmp", 10, 240, 240);
+	m_pSpriteExplosion = new CSprite("Data/Explosion.bmp", ENTITY_LAYER, 240, 240);
 
 	m_pSpriteSpider = NULL;																				// Hexaspidersprite erzeugen
-	m_pSpriteSpider = new CSprite;
-	m_pSpriteSpider->Load ("Data/Spider.png", 7, 130, 97);
+	m_pSpriteSpider = new CSprite("Data/Spider.png", ENTITY_LAYER, 130, 97);
 
 
 	m_pSpriteTile = NULL;
-	m_pSpriteTile = new CSprite;
-	m_pSpriteTile->Load("Data/Texturset1.png", 4, 45, 45);
+	m_pSpriteTile = new CSprite("Data/Texturset1.png", ENTITY_LAYER, 45, 45);
 
 	m_pSpriteWall=NULL;
-	m_pSpriteWall = new CSprite;
-    m_pSpriteWall->Load("Data/Wall.png", 0, 45, 45);
+	m_pSpriteWall = new CSprite("Data/Wall.png", ENTITY_LAYER, 45, 45);
 
 	m_pCamera = NULL;
 	m_pCamera = new CCamera;
@@ -428,10 +421,8 @@ void CStuff::show()
  
                 if( CkRect( m_pCamera->GetCameraRect(), tiles[t]->GetRect() ) == true )
                 {
-					m_pSpriteTile->SetScreenPos((float)tiles[t]->GetRect().x, (float)tiles[t]->GetRect().y,
-							(float)m_pCamera->GetCameraRect().x, 
-							(float)m_pCamera->GetCameraRect().y);
-                        m_pSpriteTile->Render(static_cast<float>(type%4),static_cast<int>(type/4));
+					m_pSpriteTile->SetPos(tiles[t]->GetRect().x - m_pCamera->GetCameraRect().x, tiles[t]->GetRect().y - m_pCamera->GetCameraRect().y);
+					m_pSpriteTile->Render(static_cast<float>(type%4),static_cast<int>(type/4));
                 }
         }
  
@@ -439,8 +430,7 @@ void CStuff::show()
         for (ItTile2=tiles2.begin(); ItTile2!=tiles2.end(); ItTile2++ )
         {
                 type =ItTile2->get_type();
-				m_pSpriteTile->SetScreenPos((float)ItTile2->GetRect().x, (float)ItTile2->GetRect().y,
-					(float)m_pCamera->GetCameraRect().x, (float)m_pCamera->GetCameraRect().y);
+				m_pSpriteTile->SetPos(ItTile2->GetRect().x - m_pCamera->GetCameraRect().x, ItTile2->GetRect().y - m_pCamera->GetCameraRect().y);
                 m_pSpriteTile->Render(static_cast<float>(type%4),static_cast<int>(type/4));
         }
  
@@ -448,16 +438,14 @@ void CStuff::show()
         for (ItTile3=tiles3.begin(); ItTile3!=tiles3.end(); ItTile3++ )
         {
                 type =ItTile3->get_type();
-				m_pSpriteTile->SetScreenPos((float)ItTile3->GetRect().x, (float)ItTile3->GetRect().y,
-					(float)m_pCamera->GetCameraRect().x, (float)m_pCamera->GetCameraRect().y);
+				m_pSpriteTile->SetPos(ItTile3->GetRect().x - m_pCamera->GetCameraRect().x, ItTile3->GetRect().y - m_pCamera->GetCameraRect().y);
                 m_pSpriteTile->Render(static_cast<float>(type%4),static_cast<int>(type/4));
         }
 		list <CTile>::iterator ItTile4;
         for (ItTile4=tiles4.begin(); ItTile4!=tiles4.end(); ItTile4++ )
         {
                 type =ItTile4->get_type();
-				m_pSpriteWall->SetScreenPos((float)ItTile4->GetRect().x, (float)ItTile4->GetRect().y,
-					(float)m_pCamera->GetCameraRect().x, (float)m_pCamera->GetCameraRect().y);
+				m_pSpriteWall->SetPos(ItTile4->GetRect().x - m_pCamera->GetCameraRect().x, ItTile4->GetRect().y - m_pCamera->GetCameraRect().y);
                 m_pSpriteWall->Render(static_cast<float>(type%4),static_cast<int>(type/4));
         }
 }   

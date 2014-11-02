@@ -27,7 +27,7 @@ void CShot::Render (float CameraX, float CameraY)																			// Schuss re
 {
 	if (m_bIsAlive == true)
 	{
-		m_pSpriteShot->SetScreenPos (m_fXPos, m_fYPos, CameraX, CameraY);
+		m_pSpriteShot->SetPos (m_fXPos - CameraX, m_fYPos - CameraY);
 		m_pSpriteShot->Render ();
 	}
 }

@@ -10,11 +10,11 @@ CMenu::CMenu()
 	m_bSound=false;
 	menuState = true;
 
-	m_pMenuBackground = new CSprite("Data/Menuhintergrund.png");
-	m_pMenubuttons = new CSprite("Data/Hauptmenubuttons.png", 0, 356, 66);													
-	m_pSoundbuttons = new CSprite("Data/Soundbuttons.png", 2, 65, 65);														
-	m_pSoundschieber = new CSprite("Data/Soundschieber.png", 0, 19, 29);														
-	m_pSoundbalken = new CSprite("Data/Soundbalken.png", 0, 140, 6);
+	m_pMenuBackground = new CSprite("Data/Menuhintergrund.png", MENU_LAYER, 1280, 720);
+	m_pMenubuttons = new CSprite("Data/Hauptmenubuttons.png", MENU_LAYER, 356, 66);
+	m_pSoundbuttons = new CSprite("Data/Soundbuttons.png", MENU_LAYER, 65, 65);
+	m_pSoundschieber = new CSprite("Data/Soundschieber.png", MENU_LAYER, 19, 29);
+	m_pSoundbalken = new CSprite("Data/Soundbalken.png", MENU_LAYER, 140, 6);
 
 	defaultFont = OpenFont("Data/verdana.ttf", 19);
 
@@ -104,7 +104,7 @@ void CMenu::Run()
 		menuMusic->Play();
 
 		menuPages[menPageIndex].render();
-		g_pFramework->Render();
+		g_pRenderlayer->Render();
 	}
 
 }
@@ -116,11 +116,11 @@ void CMenu::STARTGAME(int i, bool b)
 }
 void CMenu::ReloadSprites()
 {
-	m_pMenuBackground->Load("Data/Menuhintergrund.png");
-	m_pMenubuttons->Load("Data/Hauptmenubuttons.png", 0, 356, 66);
-	m_pSoundbuttons->Load("Data/Soundbuttons.png", 2, 65, 65);
-	m_pSoundschieber->Load("Data/Soundschieber.png", 0, 19, 29);
-	m_pSoundbalken->Load("Data/Soundbalken.png", 0, 140, 6);
+	m_pMenuBackground->Reload();
+	m_pMenubuttons->Reload();
+	m_pSoundbuttons->Reload();
+	m_pSoundschieber->Reload();
+	m_pSoundbalken->Reload();
 }
 void CMenu::Quit ()
 {

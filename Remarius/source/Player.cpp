@@ -5,18 +5,15 @@
 CPlayer::CPlayer ()													// Player initialisieren
 {
 	m_pSpriteMonster = NULL;												// Sprites Laden
-	m_pSpriteMonster = new CSprite;
-	//m_pSpriteMonster->Load ("Data/Player.png", 48, 64, 64);
-	m_pSpriteMonster->Load("Data/Remarius.png", 56, 74, 100);
+	m_pSpriteMonster = new CSprite("Data/Remarius.png", ENTITY_LAYER, 74, 100);
+
 
 
 	m_pSpriteShot = NULL;
-	m_pSpriteShot = new CSprite;
-	m_pSpriteShot->Load ("Data/Laser.bmp", 0, 64, 64);
+	m_pSpriteShot = new CSprite("Data/Laser.bmp", ENTITY_LAYER, 64, 64);
 
 	m_pSpriteLife = NULL;
-	m_pSpriteLife= new CSprite;
-	m_pSpriteLife->Load("Data/Herzleiste.png", 6, 14, 30);
+	m_pSpriteLife = new CSprite("Data/Herzleiste.png", GUI_LAYER, 14, 30);
 
 	Reset();
 }
@@ -64,7 +61,7 @@ void CPlayer::Reset ()												// "Spawnen"
 }
 void CPlayer::Render (float CameraX, float CameraY)												// Spieler und Schüsse rendern
 {
-	m_pSpriteMonster->SetScreenPos (m_fXPos, m_fYPos, CameraX, CameraY);// Spielersprite setzen
+	m_pSpriteMonster->SetPos (m_fXPos-CameraX, m_fYPos-CameraY);// Spielersprite setzen
 	m_SpriteDirection = static_cast<int>(m_fDirection * 8 + 0.5f) % 8;
 	m_pSpriteMonster->Render (m_fAnimPhase, m_SpriteDirection);
 	

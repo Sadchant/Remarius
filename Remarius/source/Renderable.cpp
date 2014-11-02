@@ -2,15 +2,18 @@
 
 CRenderable::CRenderable()																				// Zeiger auf Screen holen
 {
-	pRenderer = NULL;
-	pTexture = NULL;
-	pRenderer = g_pFramework->GetRenderer();
+	Renderer = NULL;
+	Texture = NULL;
+	Renderer = g_pFramework->GetRenderer();
+	Rect.x = 0;
+	Rect.y = 0;
 }
 
 CRenderable::CRenderable(const CRenderable& other)
 {
-	pRenderer = g_pFramework->GetRenderer();
-	pTexture = NULL;
+	Renderer = g_pFramework->GetRenderer();
+	Texture = NULL;
+	TargetTexture = g_pRenderlayer->GetTexture(other.TextureLayer);
 	width = other.width;
 	height = other.height;
 	Rect = other.Rect;
@@ -19,13 +22,14 @@ CRenderable::CRenderable(const CRenderable& other)
 
 CRenderable::~CRenderable()																// Surface des Sprites freigeben
 {
-	SDL_DestroyTexture (pTexture);	
+	SDL_DestroyTexture (Texture);	
 }
 
 CRenderable& CRenderable::operator = (const CRenderable& other)
 {
-	pRenderer = g_pFramework->GetRenderer();
-	pTexture = NULL;
+	Renderer = g_pFramework->GetRenderer();
+	TargetTexture = g_pRenderlayer->GetTexture(other.TextureLayer);
+	Texture = NULL;
 	width = other.width;
 	height = other.height;
 	Rect = other.Rect;
@@ -47,9 +51,12 @@ void CRenderable::SetPos(float fXPos, float fYPos)											// Position des Spr
 
 void CRenderable::Render()																	// Textur in den Renderer laden
 {
-	if (SDL_RenderCopy(pRenderer, pTexture, NULL, &Rect) < 0)				// Textur wird in der Renderer kopiert
+	if ((SDL_SetRenderTarget(Renderer, TargetTexture)) < 0)
+	{
+		cout << "Fehler beim Setzen des Rendertargets: " << SDL_GetError() << endl;
+	}
+	if (SDL_RenderCopy(Renderer, Texture, NULL, &Rect) < 0)				// Textur wird in der Renderer kopiert
 	{
 		cout << "Fehler beim Kopieren der Textur: " << SDL_GetError() << endl;
-		cout << pTexture << endl;
 	}
 }

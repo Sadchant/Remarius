@@ -69,7 +69,7 @@ void CMonster::Render (float CameraX, float CameraY)
 		m_bAnimFlipper = 1;
 	}
 
-	m_pSpriteMonster->SetScreenPos (m_fXPos, m_fYPos, CameraX, CameraY);
+	m_pSpriteMonster->SetPos(m_fXPos - CameraX, m_fYPos - CameraY);
 	m_pSpriteMonster->Render (m_fAnimPhase, m_SpriteDirection);
 }
 void CMonster::DoDamage(int Damage)

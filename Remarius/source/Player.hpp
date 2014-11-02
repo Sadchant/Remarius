@@ -2,6 +2,7 @@
 #define PLAYER_HPP
 
 #include <list>
+#include "Renderlayer.hpp"
 #include "Sprite.hpp"
 #include "Shot.hpp"
 #include "Monster.hpp"

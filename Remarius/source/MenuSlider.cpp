@@ -16,9 +16,9 @@ CMenuSlider::CMenuSlider(string label, TTF_Font* font, int range)
 	baselabel = label;
 	onChange = function<void(int)>([](int m){});
 
-	if (!bar) bar = new CSprite("Data/Soundbalken.png", 0, 140, 6);
-	if (!slider) slider = new CSprite("Data/Soundschieber.png", 0, 19, 29);
-	if (!buttons) buttons = new CSprite("Data/Soundbuttons.png", 2, 65, 65);
+	if (!bar) bar = new CSprite("Data/Soundbalken.png", MENU_LAYER, 140, 6);
+	if (!slider) slider = new CSprite("Data/Soundschieber.png", MENU_LAYER, 19, 29);
+	if (!buttons) buttons = new CSprite("Data/Soundbuttons.png", MENU_LAYER, 65, 65);
 }
 
 CMenuSlider::CMenuSlider(const CMenuSlider& other)

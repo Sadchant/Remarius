@@ -2,9 +2,11 @@
 
 CText::CText()
 {
-	pTexture = NULL;
-	pSurface = NULL;
-	pFont = NULL;
+	TextureLayer = TEXT_LAYER;
+	this->TargetTexture = g_pRenderlayer->GetTexture(TextureLayer);
+	Texture = NULL;
+	Surface = NULL;
+	Font = NULL;
 	Color.r = 0;
 	Color.g = 0;
 	Color.b = 0;
@@ -16,10 +18,10 @@ CText::CText()
 CText::CText(const CText& other) :
 CRenderable(other), Size(0)
 {
-	pFont = other.pFont;
-	pTexture = NULL;
-	pSurface = NULL;
-	pRenderer = g_pFramework->GetRenderer();
+	Font = other.Font;
+	Texture = NULL;
+	Surface = NULL;
+	Renderer = g_pFramework->GetRenderer();
 	Color = other.Color;
 	SetContent(string(other.Content));
 }
@@ -27,10 +29,10 @@ CRenderable(other), Size(0)
 CText& CText::operator = (const CText& other)
 {
 	CRenderable::operator=(other);
-	pFont = other.pFont;
-	pTexture = NULL;
-	pSurface = NULL;
-	pRenderer = g_pFramework->GetRenderer();
+	Font = other.Font;
+	Texture = NULL;
+	Surface = NULL;
+	Renderer = g_pFramework->GetRenderer();
 	Color = other.Color;
 	SetContent(string(other.Content));
 	return *this;
@@ -38,8 +40,8 @@ CText& CText::operator = (const CText& other)
 
 CText::~CText()																			// Surface des Sprites freigeben
 {
-	if (pSurface != NULL) SDL_FreeSurface(pSurface);
-	if (pTexture != NULL) SDL_DestroyTexture(pTexture);
+	if (Surface != NULL) SDL_FreeSurface(Surface);
+	if (Texture != NULL) SDL_DestroyTexture(Texture);
 }
 
 // RGB-Wert der Farbe festlegen
@@ -65,7 +67,7 @@ void CText::SetContent (string Content)
 	int w = 0;
 	this->Content = Content;
 	const char* pContent = Content.c_str();
-	if (TTF_SizeText(pFont, pContent, &width, &height))
+	if (TTF_SizeText(Font, pContent, &width, &height))
 		cout << TTF_GetError() << endl;		//ermittelt Breite und Höhe des Textes abhängig vom Inhalt
 	Rect.w = width;
 	Rect.h = height;
@@ -75,18 +77,18 @@ void CText::SetContent (string Content)
 // Surface erzeugen und in die Textur überführen
 void CText::createTexture()
 {	
-	if (pSurface != NULL)
-		SDL_FreeSurface(pSurface);
-	if (pTexture != NULL)
-		SDL_DestroyTexture(pTexture);
+	if (Surface != NULL)
+		SDL_FreeSurface(Surface);
+	if (Texture != NULL)
+		SDL_DestroyTexture(Texture);
 	const char* pContent = Content.c_str();
 	if (!Content.empty())
 	{
-		if ((pSurface = TTF_RenderText_Blended(pFont, pContent, Color)) == NULL)		// Surface wird gefüllt
+		if ((Surface = TTF_RenderText_Blended(Font, pContent, Color)) == NULL)		// Surface wird gefüllt
 		{
 			cout << "Fehler beim erstellen des Text-Surface: " << TTF_GetError() << endl;
 		}
-		if ((pTexture = SDL_CreateTextureFromSurface(pRenderer, pSurface)) == 0)	// Surface wird in Textur umgewandelt
+		if ((Texture = SDL_CreateTextureFromSurface(Renderer, Surface)) == 0)	// Surface wird in Textur umgewandelt
 		{
 			cout << "Fehler beim erstellen der Text-Textur: " << SDL_GetError() << endl;
 		}

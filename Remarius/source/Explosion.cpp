@@ -29,7 +29,7 @@ void CExplosion::Render (float CameraX, float CameraY)														// Explosion
 
 	if (m_StateExplosion < 10)
 	{
-		m_pSpriteExplosion->SetScreenPos (static_cast<float>(m_XPos), static_cast<float>(m_YPos), CameraX, CameraY);
+		m_pSpriteExplosion->SetPos (m_XPos - CameraX, m_YPos - CameraY);
 		m_pSpriteExplosion->Render (static_cast<float>(m_StateExplosion));
 		if (m_StateExplosion > 3) m_bActive = false;
 	} else m_bIsAlive = false;

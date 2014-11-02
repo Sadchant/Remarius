@@ -25,7 +25,7 @@ To-Do-List für Alpha 1.0:
 
 - Typ fertig machen [done]
 - Warnings beheben [done]
+- Configdateien lesen/schreiben [done]
 
 - jeder sieht sich den Code an
 - überlegen wie wir alles strukturieren
-- Configdateien lesen/schreiben

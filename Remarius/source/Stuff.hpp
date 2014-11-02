@@ -9,9 +9,13 @@
 #include "Explosion.hpp"
 #include "Tile.hpp"
 #include "Debugscreen.hpp"
+#include "Camera.hpp"
+#include "Renderlayer.hpp"
 #include <string>
 #include <fstream>
 #include <sstream>
+
+
 
 class CStuff
 {

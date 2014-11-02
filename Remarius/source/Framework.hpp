@@ -21,15 +21,20 @@ class CFramework : public TSingleton<CFramework>
 		void  Update	 ();
 		void  Render	 ();
 		bool  KeyDown	(Uint8 Key_ID);
-		SDL_Renderer*	GetRenderer() { return sdl_Renderer; }	
 		bool  Pressed	(SDL_Scancode e);
+		SDL_Renderer*	GetRenderer() { return sdl_Renderer; }	
+		SDL_Window*	GetWindow() { return sdl_Window; }
+		int			Get_window_Height(){ return window_Height; }
+		int			Get_window_Width(){ return window_Width; }
+	
 
 	private:
 		SDL_Window*		sdl_Window;						// Fenster, in dem alles stattfindet		
 		SDL_Renderer*	sdl_Renderer;					// Renderer, der alles rendert
 		SDL_Event		Event;
 		const Uint8*	pKeystate;						// Array für aktuellen Tastaturstatus
-		int				Size;
+		const int		window_Width = 1280;
+		const int		window_Height = 720;
 };
 
 #endif

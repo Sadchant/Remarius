@@ -60,7 +60,7 @@ void CHoover::Render (float CameraX, float CameraY)                             
 	}
 
 
-	m_pSpriteHoover->SetScreenPos (m_fXPos, m_fYPos, CameraX, CameraY);
+	m_pSpriteHoover->SetPos (m_fXPos - CameraX, m_fYPos - CameraY);
 	m_pSpriteHoover->Render (m_fAnimPhase, m_iSpriteDirection);
 
 }
