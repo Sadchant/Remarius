@@ -28,7 +28,7 @@ CTexture& CTexture::operator = (const CTexture& other)
 CTexture::~CTexture()																// Surface des Sprites freigeben
 {
 	SDL_DestroyTexture(sdl_texture);
-	//delete(sdl_texture);
+	sdl_texture = NULL;
 }
 
 // holt sich Zeiger auf den Renderer und läd Textur

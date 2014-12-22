@@ -8,7 +8,6 @@ CSprite::CSprite(CTexture* texture, Renderlayers renderlayer, int frameWidth, in
 	target_Rect.w = frameWidth;
 	target_Rect.h = frameHeight;		
 
-	// Sprite erbt von Texture, hier werden die Werte von der übergebenen Texture übertragen
 	this->texture = texture;
 
 	renderlayer = this->renderlayer = renderlayer;
