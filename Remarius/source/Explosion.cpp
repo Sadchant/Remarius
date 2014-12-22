@@ -8,8 +8,8 @@ CExplosion::CExplosion (CSprite *pSpriteExplosion, int XPos, int YPos)										
 
 	m_Rect.x = XPos;															// Rect erzeugen
 	m_Rect.y = YPos;
-	m_Rect.w = pSpriteExplosion->GetRect().w;
-	m_Rect.h = pSpriteExplosion->GetRect().h;
+	m_Rect.w = pSpriteExplosion->Get_targetRect().w;
+	m_Rect.h = pSpriteExplosion->Get_targetRect().h;
 
 	m_fDuration = 0.0f;
 	m_StateExplosion = 0;

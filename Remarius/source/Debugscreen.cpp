@@ -86,7 +86,7 @@ void CDebugscreen::Set(string Text, float Variable)
 		dVariable.pTextObject->SetFont(pFont);
 		dVariable.pTextObject->SetContent(Variable_Text);
 		dVariable.pTextObject->SetColor(255, 255, 255);
-		dVariable.pTextObject->SetPos(13 + Item.pTextObject->GetLength() + 5, 57 + 18 * Rows);
+		dVariable.pTextObject->SetPos(13 + Item.pTextObject->Get_length() + 5, 57 + 18 * Rows);
 		dVariable.visible = true;
 		dVariable.fTime = 0.0f;
 		dVariable.always = true;		

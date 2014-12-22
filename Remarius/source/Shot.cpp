@@ -8,8 +8,8 @@ CShot::CShot (CSprite *pSpriteShot, float fXPos, float fYPos)								// Schuss i
 
 	m_Rect.x = static_cast<int>(fXPos);													// Rect initialisieren
 	m_Rect.y = static_cast<int>(fYPos);
-	m_Rect.w = pSpriteShot->GetRect().w;
-	m_Rect.h = pSpriteShot->GetRect().h;
+	m_Rect.w = pSpriteShot->Get_targetRect().w;
+	m_Rect.h = pSpriteShot->Get_targetRect().h;
 
 	m_bIsAlive = true;
 }

@@ -10,8 +10,8 @@ CStachelstein::CStachelstein (CSprite *pSpriteStachelstein, float fXPos, float f
 
 	m_Rect.x = static_cast<int>(fXPos);														// Rect initialisieren
 	m_Rect.y = static_cast<int>(fYPos);
-	m_Rect.w = pSpriteStachelstein->GetRect().w;
-	m_Rect.h = pSpriteStachelstein->GetRect().h;
+	m_Rect.w = pSpriteStachelstein->Get_targetRect().w;
+	m_Rect.h = pSpriteStachelstein->Get_targetRect().h;
 
 	m_iDirections = 4096;																	// Integer-Wert, der durch 4 teilbar ist
 	m_fDirection = static_cast<float>(rand()%m_iDirections);

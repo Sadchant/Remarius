@@ -12,8 +12,8 @@ CSpider::CSpider (CSprite *pSpriteSpider, float fXPos, float fYPos, float *pPlyx
 
 	m_Rect.x = static_cast<int>(fXPos);														// Rect initialisieren
 	m_Rect.y = static_cast<int>(fYPos);
-	m_Rect.w = pSpriteSpider->GetRect().w;
-	m_Rect.h = pSpriteSpider->GetRect().h;
+	m_Rect.w = pSpriteSpider->Get_targetRect().w;
+	m_Rect.h = pSpriteSpider->Get_targetRect().h;
 
 	m_fAnimPhase = 0.0f;
 	m_bIsAlive = true;

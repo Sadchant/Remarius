@@ -57,6 +57,7 @@ bool CFramework::Init_Video (char* name, int width, int height, bool bFullscreen
 		sdl_Window = SDL_CreateWindow(name, SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, width, height, SDL_WINDOW_SHOWN);
 	}
 	sdl_Renderer = SDL_CreateRenderer(sdl_Window, -1, SDL_RENDERER_ACCELERATED);
+	SDL_SetRenderDrawBlendMode(sdl_Renderer, SDL_BLENDMODE_BLEND);
 	
 	if ((sdl_Window == NULL) || (sdl_Renderer == NULL))								// Prüfen, ob alles funktioniert hat
 	{
@@ -115,10 +116,10 @@ bool CFramework::KeyDown(Uint8 Key_ID)
 // rendert alles aus dem Renderer und reinigt ihn danach
 void CFramework::Render()
 {
-	if ((SDL_SetRenderTarget(sdl_Renderer, NULL)) < 0)
+	/*if ((SDL_SetRenderTarget(sdl_Renderer, NULL)) < 0)
 	{
 		cout << "Fehler beim Setzen des Rendertargets im Framework: " << SDL_GetError() << endl;
-	}
+	}*/
 	SDL_RenderPresent(sdl_Renderer);
 	if ((SDL_RenderClear(sdl_Renderer)) < 0)
 	{

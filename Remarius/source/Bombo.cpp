@@ -12,8 +12,8 @@ CBombo::CBombo (CSprite *pSpriteBombo, float fXPos, float fYPos, float *pPlayerX
 
 	m_Rect.x = static_cast<int>(fXPos);														// Rect initialisieren
 	m_Rect.y = static_cast<int>(fYPos);
-	m_Rect.w = pSpriteBombo->GetRect().w;
-	m_Rect.h = pSpriteBombo->GetRect().h;
+	m_Rect.w = pSpriteBombo->Get_targetRect().w;
+	m_Rect.h = pSpriteBombo->Get_targetRect().h;
 
 	m_fDirection = 0.0f;
 	m_fCircularMove = 0.0f;

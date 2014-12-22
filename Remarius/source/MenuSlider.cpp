@@ -6,7 +6,7 @@ CSprite* CMenuSlider::buttons = NULL;
 
 CMenuSlider::CMenuSlider(string label, TTF_Font* font, int range)
 {
-	text = new CText();
+	text = new CText(TEXT_LAYER);
 	text->SetFont(font);
 	text->SetContent(label);
 	text->SetColor(180, 180, 180);
@@ -16,9 +16,9 @@ CMenuSlider::CMenuSlider(string label, TTF_Font* font, int range)
 	baselabel = label;
 	onChange = function<void(int)>([](int m){});
 
-	if (!bar) bar = new CSprite("Data/Soundbalken.png", MENU_LAYER, 140, 6);
-	if (!slider) slider = new CSprite("Data/Soundschieber.png", MENU_LAYER, 19, 29);
-	if (!buttons) buttons = new CSprite("Data/Soundbuttons.png", MENU_LAYER, 65, 65);
+	if (!bar) bar = new CSprite(g_pLoader->GetTexture(SOUNDBALKEN), MENU_LAYER, 140, 6);
+	if (!slider) slider = new CSprite(g_pLoader->GetTexture(SOUNDSCHIEBER), MENU_LAYER, 19, 29);
+	if (!buttons) buttons = new CSprite(g_pLoader->GetTexture(SOUNDBUTTONS), MENU_LAYER, 65, 65);
 }
 
 CMenuSlider::CMenuSlider(const CMenuSlider& other)

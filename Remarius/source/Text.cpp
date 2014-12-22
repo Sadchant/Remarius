@@ -1,96 +1,123 @@
 #include "Text.hpp"
 
-CText::CText()
+CText::CText(Renderlayers renderlayer)
 {
-	TextureLayer = TEXT_LAYER;
-	this->TargetTexture = g_pRenderlayer->GetTexture(TextureLayer);
-	Texture = NULL;
-	Surface = NULL;
-	Font = NULL;
-	Color.r = 0;
-	Color.g = 0;
-	Color.b = 0;
-	Color.a = 0;
-	
-	Size = 0;
+	renderer = NULL;
+	texture = NULL;
+	surface = NULL;
+	font = NULL;
+	color = { 0 };
+	renderer = g_pFramework->GetRenderer();
+	this->renderlayer = renderlayer;
 }
 
 CText::CText(const CText& other) :
-CRenderable(other), Size(0)
+CRenderable(other)
 {
-	Font = other.Font;
-	Texture = NULL;
-	Surface = NULL;
-	Renderer = g_pFramework->GetRenderer();
-	Color = other.Color;
-	SetContent(string(other.Content));
+	renderer = NULL;
+	renderer = g_pFramework->GetRenderer();
+	surface = NULL;
+	texture = NULL;
+	font = other.font;	
+	color = other.color;
+	renderlayer = other.renderlayer;
+	SetContent(string(other.content));
 }
 
 CText& CText::operator = (const CText& other)
 {
 	CRenderable::operator=(other);
-	Font = other.Font;
-	Texture = NULL;
-	Surface = NULL;
-	Renderer = g_pFramework->GetRenderer();
-	Color = other.Color;
-	SetContent(string(other.Content));
+	renderer = NULL;
+	renderer = g_pFramework->GetRenderer();
+	surface = NULL;
+	texture = NULL;
+	font = other.font;	
+	color = other.color;
+	renderlayer = other.renderlayer;
+	SetContent(string(other.content));
 	return *this;
 }
 
 CText::~CText()																			// Surface des Sprites freigeben
 {
-	if (Surface != NULL) SDL_FreeSurface(Surface);
-	if (Texture != NULL) SDL_DestroyTexture(Texture);
+	if (surface != NULL)
+	{
+		SDL_FreeSurface(surface);
+	}
+	if (texture != NULL)
+	{
+		SDL_DestroyTexture(texture);
+	}
 }
 
+
 // RGB-Wert der Farbe festlegen
-void CText::SetColor (int R, int G, int B)										
+void CText::SetColor (int r, int g, int b)										
 {
-	Color.r = R;
-	Color.g = G;
-	Color.b = B;
+	color.r = r;
+	color.g = g;
+	color.b = b;
 	createTexture();
 }
+
 
 // Setzt den Alphawert der Farbe
 void CText::SetAlpha(int Alpha)
 {
-	Color.a = Alpha;
+	color.a = Alpha;
 	createTexture();
 }
 
+
 // Inhalt festlegen und Breite und Höhe ermitteln
-void CText::SetContent (string Content)
+void CText::SetContent (string content)
 {
-	int h = 0;
-	int w = 0;
-	this->Content = Content;
-	const char* pContent = Content.c_str();
-	if (TTF_SizeText(Font, pContent, &width, &height))
-		cout << TTF_GetError() << endl;		//ermittelt Breite und Höhe des Textes abhängig vom Inhalt
-	Rect.w = width;
-	Rect.h = height;
+	this->content = content;
+	if (TTF_SizeText(font, content.c_str(), &target_Rect.w, &target_Rect.h))//ermittelt Breite und Höhe des Textes abhängig vom Inhalt
+	{
+		cout << TTF_GetError() << endl;
+	}
 	createTexture();
 }
+
 
 // Surface erzeugen und in die Textur überführen
 void CText::createTexture()
 {	
-	if (Surface != NULL)
-		SDL_FreeSurface(Surface);
-	if (Texture != NULL)
-		SDL_DestroyTexture(Texture);
-	const char* pContent = Content.c_str();
-	if (!Content.empty())
+	if (surface != NULL)
 	{
-		if ((Surface = TTF_RenderText_Blended(Font, pContent, Color)) == NULL)		// Surface wird gefüllt
+		SDL_FreeSurface(surface);
+	}		
+	if (texture != NULL)
+	{
+		SDL_DestroyTexture(texture);
+	}
+		
+	const char* pContent = content.c_str();
+	if (!content.empty())
+	{
+		if ((surface = TTF_RenderText_Blended(font, pContent, color)) == NULL)		// Surface wird gefüllt
 		{
 			cout << "Fehler beim erstellen des Text-Surface: " << TTF_GetError() << endl;
 		}
-		if ((Texture = SDL_CreateTextureFromSurface(Renderer, Surface)) == 0)	// Surface wird in Textur umgewandelt
+		if ((texture = SDL_CreateTextureFromSurface(renderer, surface)) == 0)	// Surface wird in Textur umgewandelt
 		{
 			cout << "Fehler beim erstellen der Text-Textur: " << SDL_GetError() << endl;
 		}
 	}	
+}
+
+
+// Textur in den Renderer laden
+void CText::Render()
+{
+	g_pRenderlayer->add_Renderjob(this, renderlayer);
+}
+
+void CText::RenderYourself()
+{
+	if (SDL_RenderCopy(renderer, texture, NULL, &target_Rect) < 0)				// Textur wird in der Renderer kopiert
+	{
+		cout << "Fehler beim Kopieren der Textur: " << SDL_GetError() << endl;
+	}
 }

@@ -4,6 +4,7 @@
 #include "MenuItem.hpp"
 #include "Text.hpp"
 #include "Sprite.hpp"
+#include "Loader.hpp"
 #include <functional>
 
 class CMenuSlider : public CMenuItem

@@ -5,15 +5,15 @@
 CPlayer::CPlayer ()													// Player initialisieren
 {
 	m_pSpriteMonster = NULL;												// Sprites Laden
-	m_pSpriteMonster = new CSprite("Data/Remarius.png", ENTITY_LAYER, 74, 100);
+	m_pSpriteMonster = new CSprite(g_pLoader->GetTexture(REMARIUS), ENTITY_LAYER, 74, 100);
 
 
 
 	m_pSpriteShot = NULL;
-	m_pSpriteShot = new CSprite("Data/Laser.bmp", ENTITY_LAYER, 64, 64);
+	m_pSpriteShot = new CSprite(g_pLoader->GetTexture(LASER), ENTITY_LAYER, 64, 64);
 
 	m_pSpriteLife = NULL;
-	m_pSpriteLife = new CSprite("Data/Herzleiste.png", GUI_LAYER, 14, 30);
+	m_pSpriteLife = new CSprite(g_pLoader->GetTexture(HERZLEISTE), GUI_LAYER, 14, 30);
 
 	Reset();
 }

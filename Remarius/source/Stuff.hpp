@@ -11,6 +11,7 @@
 #include "Debugscreen.hpp"
 #include "Camera.hpp"
 #include "Renderlayer.hpp"
+#include "Loader.hpp"
 #include <string>
 #include <fstream>
 #include <sstream>

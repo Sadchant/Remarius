@@ -4,7 +4,7 @@ CMenuPage::CMenuPage(CSprite* bg, string label, TTF_Font* font)
 {
 	selected = 0;
 	background = bg;
-	caption = new CText();
+	caption = new CText(TEXT_LAYER);
 	caption->SetFont(font);
 	caption->SetColor(230, 230, 0);
 	caption->SetContent(label);
@@ -51,7 +51,7 @@ void CMenuPage::addItem(CMenuItem* item)
 
 void CMenuPage::render()
 {
-	background->CRenderable::Render();
+	background->Render();
 	caption->Render();
 	for (unsigned int i = 0; i < items.size(); i++)
 	{

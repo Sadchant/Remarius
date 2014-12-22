@@ -11,7 +11,7 @@ CProgram::CProgram ()
 	SDL_EventState(SDL_MOUSEBUTTONDOWN, SDL_DISABLE);
 	SDL_EventState(SDL_MOUSEBUTTONUP, SDL_DISABLE);*/
 	pText = NULL;
-	pText = new CText();
+	pText = new CText(TEXT_LAYER);
 	pFont = OpenFont("Data/verdana.ttf", 28);
 }
 

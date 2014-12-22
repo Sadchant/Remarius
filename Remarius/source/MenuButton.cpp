@@ -5,7 +5,7 @@ CMenuButton::CMenuButton(CSprite* bg, string label, TTF_Font* font)
 {
 	background = bg;
 	onActivate = function<void()>([](){});
-	text = new CText;
+	text = new CText(TEXT_LAYER);
 	text->SetFont(font);
 	text->SetContent(label);
 	text->SetColor(180, 180, 180);
@@ -48,8 +48,8 @@ void CMenuButton::render(bool b)
 void CMenuButton::setPos(int x, int y)
 {
 	CMenuItem::setPos(x, y);
-	text->SetPos((float)x + (float)(background->GetRect().w - text->GetLength()) / 2,
-		(float)y + (background->GetRect().h - text->GetHigh()) / 2);
+	text->SetPos((float)x + (float)(background->Get_targetRect().w - text->Get_length()) / 2,
+		(float)y + (background->Get_targetRect().h - text->Get_height()) / 2);
 }
 
 bool CMenuButton::processEvent(SDL_KeyboardEvent& event)

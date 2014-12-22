@@ -126,6 +126,15 @@
     <ClInclude Include="source\Renderlayer.hpp">
       <Filter>Resource/Frame\Rendering</Filter>
     </ClInclude>
+    <ClInclude Include="source\Loader.hpp">
+      <Filter>Resource/Frame</Filter>
+    </ClInclude>
+    <ClInclude Include="source\Texture.hpp">
+      <Filter>Resource/Frame\Rendering</Filter>
+    </ClInclude>
+    <ClInclude Include="source\SpriteObject.hpp">
+      <Filter>Resource/Frame\Rendering</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="source\Hoover.cpp">
@@ -216,6 +225,15 @@
       <Filter>Programflow</Filter>
     </ClCompile>
     <ClCompile Include="source\Renderlayer.cpp">
+      <Filter>Resource/Frame\Rendering</Filter>
+    </ClCompile>
+    <ClCompile Include="source\Loader.cpp">
+      <Filter>Resource/Frame</Filter>
+    </ClCompile>
+    <ClCompile Include="source\Texture.cpp">
+      <Filter>Resource/Frame\Rendering</Filter>
+    </ClCompile>
+    <ClCompile Include="source\SpriteObject.cpp">
       <Filter>Resource/Frame\Rendering</Filter>
     </ClCompile>
   </ItemGroup>

@@ -2,30 +2,26 @@
 #define SPRITE_HPP
 
 
-#include "Framework.hpp"
-#include "Renderable.hpp"
+
 #include "Renderlayer.hpp"
+#include "Loader.hpp"
 
-class CSprite : public CRenderable
+class CSprite : public CRenderable, public CTexture
 {
-	public:
-		CSprite(const string Filename, TextureLayers TextureLayer, int FrameWidth, int FrameHeight);
-		CSprite(const CSprite& other);
-		CSprite& operator = (const CSprite& other);
-		~CSprite ();
-		
-		void		Reload		();
-		CRenderable::Render;
-		void		Render		(float fFrameNumber);
-		void		Render		(float fFrameNumber, int Direction);
+public:
+	CSprite(); // Wird für SpriteObjekt benötigt, dass von Sprite erbt
+	CSprite(CTexture* temp_texture, Renderlayers renderlayer, int FrameWidth, int FrameHeight);
 
-	private:
-		void		Load();
+	void		Render();
+	void		Render		(float frameNumber);
+	void		Render		(float frameNumber, int direction);
+	void		RenderYourself();
 
-		SDL_Rect		ImageRect;		// repräsntiert den Ausschnitt aus dem geladenen Bild für richtige Animationsphase
-		int				NumFramesX;		// Anzahl der Animationsphasen in einer Reihe
-		string			Filename;
 
+protected:
+	SDL_Rect source_Rect;			// Ausschnitt aus der Textur
+	int numframesX;
+	
 };
 
 #endif

@@ -7,6 +7,7 @@
 #include "Shot.hpp"
 #include "Monster.hpp"
 #include "Debugscreen.hpp"
+#include "Loader.hpp"
 
 class CPlayer: public CMonster
 {

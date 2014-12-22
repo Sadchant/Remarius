@@ -5,10 +5,10 @@ CGame::CGame ()																									// Game initialisieren
 	pFont = OpenFont("Data/verdana.ttf", 19);
 
 	m_pMenubackground = NULL;																				// Pausemenühintergrund erzeugen
-	m_pMenubackground = new CSprite("Data/Pausemenuhintergrund.png", MENU_LAYER, 755, 570);
+	m_pMenubackground = new CSprite(g_pLoader->GetTexture(PAUSEMENUHINTERGRUND), MENU_LAYER, 755, 570);
 
 	m_pMenubuttons = NULL;																				// Staubsaugersprite erzeugen
-	m_pMenubuttons = new CSprite("Data/Menubuttons.png", MENU_LAYER, 301, 65);
+	m_pMenubuttons = new CSprite(g_pLoader->GetTexture(MENUBUTTONS), MENU_LAYER, 301, 65);
 
 //	m_pBaum = NULL;																				// Staubsaugersprite erzeugen
 //	m_pBaum = new CSprite;
@@ -18,15 +18,15 @@ CGame::CGame ()																									// Game initialisieren
 	m_bGameRun = true;
 
 	m_pTextMenucaption = NULL;
-	m_pTextMenucaption = new CText;
+	m_pTextMenucaption = new CText(TEXT_LAYER);
 	m_pTextMenucaption->SetFont (pFont);
 
 	m_pTextMenutext = NULL;
-	m_pTextMenutext = new CText;
+	m_pTextMenutext = new CText(TEXT_LAYER);
 	m_pTextMenutext->SetFont (pFont);
 
 	m_pTextMenuSave = NULL;
-	m_pTextMenuSave = new CText;
+	m_pTextMenuSave = new CText(TEXT_LAYER);
 	m_pTextMenuSave->SetFont (pFont);
 
 	pTrack_1 = NULL;
@@ -94,7 +94,7 @@ void CGame::Run (int save, bool Safegame)         // Hauptschleife des Spiels
 		ProcessEvents ();	
 		//pTrack_1->Play ();
 		g_pDebugscreen->Render();
-		g_pFramework->Render ();	
+		g_pRenderlayer->Render ();	
 	}
 }
 
@@ -197,7 +197,7 @@ void CGame::Break()
 		m_pMenubackground->Render (0);
 		m_pTextMenucaption->SetColor (230, 230, 0);
 		m_pTextMenucaption->SetContent ("Pause");
-		m_pTextMenucaption->SetPos(((755 - m_pTextMenucaption->GetLength()) / 2 + 134), 200);
+		m_pTextMenucaption->SetPos(((755 - m_pTextMenucaption->Get_length()) / 2 + 134), 200);
 		m_pTextMenucaption->Render();
 
 		if (g_pFramework->KeyDown(SDL_SCANCODE_RETURN)==false)
@@ -216,24 +216,24 @@ void CGame::Break()
 				m_pMenubuttons->Render (0, 1);
 				m_pTextMenutext->SetColor (255, 255, 255);
 				m_pTextMenutext->SetContent ("Fortsetzen");
-				m_pTextMenucaption->SetPos(static_cast<float>((301 - m_pTextMenutext->GetLength())/2+ 361),
-										static_cast<float>((65 - m_pTextMenutext->GetHigh())/2 + 274));
+				m_pTextMenucaption->SetPos(static_cast<float>((301 - m_pTextMenutext->Get_length())/2+ 361),
+										static_cast<float>((65 - m_pTextMenutext->Get_height())/2 + 274));
 				m_pTextMenutext->Render();
 
 				m_pMenubuttons->SetPos (361, 354);
 				m_pMenubuttons->Render (0, 0);
 				m_pTextMenutext->SetColor (180, 180, 180);
 				m_pTextMenutext->SetContent ("Speichern");
-				m_pTextMenucaption->SetPos(static_cast<float>((301 - m_pTextMenutext->GetLength())/2+ 361),
-										static_cast<float>((65 - m_pTextMenutext->GetHigh())/2 + 354));
+				m_pTextMenucaption->SetPos(static_cast<float>((301 - m_pTextMenutext->Get_length())/2+ 361),
+										static_cast<float>((65 - m_pTextMenutext->Get_height())/2 + 354));
 				m_pTextMenutext->Render();
 
 				m_pMenubuttons->SetPos (361, 434);
 				m_pMenubuttons->Render (0, 0);
 				m_pTextMenutext->SetColor (180, 180, 180);
 				m_pTextMenutext->SetContent ("Beenden");
-				m_pTextMenucaption->SetPos(static_cast<float>((301 - m_pTextMenutext->GetLength())/2+ 361),
-										static_cast<float>((65 - m_pTextMenutext->GetHigh())/2 + 434));
+				m_pTextMenucaption->SetPos(static_cast<float>((301 - m_pTextMenutext->Get_length())/2+ 361),
+										static_cast<float>((65 - m_pTextMenutext->Get_height())/2 + 434));
 				m_pTextMenutext->Render();
 
 			} break;
@@ -246,24 +246,24 @@ void CGame::Break()
 				m_pMenubuttons->Render (0, 0);
 				m_pTextMenutext->SetColor (180, 180, 180);
 				m_pTextMenutext->SetContent ("Fortsetzen");
-				m_pTextMenucaption->SetPos(static_cast<float>((301 - m_pTextMenutext->GetLength())/2+ 361),
-										static_cast<float>((65 - m_pTextMenutext->GetHigh())/2 + 274));
+				m_pTextMenucaption->SetPos(static_cast<float>((301 - m_pTextMenutext->Get_length())/2+ 361),
+					static_cast<float>((65 - m_pTextMenutext->Get_height()) / 2 + 274));
 				m_pTextMenutext->Render();
 
 				m_pMenubuttons->SetPos (361, 354);
 				m_pMenubuttons->Render (0, 1);
 				m_pTextMenutext->SetColor (255, 255, 255);
 				m_pTextMenutext->SetContent ("Speichern");
-				m_pTextMenucaption->SetPos(static_cast<float>((301 - m_pTextMenutext->GetLength())/2+ 361),
-										static_cast<float>((65 - m_pTextMenutext->GetHigh())/2 + 354));
+				m_pTextMenucaption->SetPos(static_cast<float>((301 - m_pTextMenutext->Get_length())/2+ 361),
+					static_cast<float>((65 - m_pTextMenutext->Get_height()) / 2 + 354));
 				m_pTextMenutext->Render();
 
 				m_pMenubuttons->SetPos (361, 434);
 				m_pMenubuttons->Render (0, 0);
 				m_pTextMenutext->SetColor (180, 180, 180);
 				m_pTextMenutext->SetContent ("Beenden");
-				m_pTextMenucaption->SetPos(static_cast<float>((301 - m_pTextMenutext->GetLength())/2+ 361),
-										static_cast<float>((65 - m_pTextMenutext->GetHigh())/2 + 434));
+				m_pTextMenucaption->SetPos(static_cast<float>((301 - m_pTextMenutext->Get_length())/2+ 361),
+										static_cast<float>((65 - m_pTextMenutext->Get_height())/2 + 434));
 				m_pTextMenutext->Render();
 
 			} break;
@@ -273,24 +273,24 @@ void CGame::Break()
 				m_pMenubuttons->Render (0, 0);
 				m_pTextMenutext->SetColor (180, 180, 180);
 				m_pTextMenutext->SetContent ("Fortsetzen");
-				m_pTextMenucaption->SetPos(static_cast<float>((301 - m_pTextMenutext->GetLength())/2+ 361),
-										static_cast<float>((65 - m_pTextMenutext->GetHigh())/2 + 274));
+				m_pTextMenucaption->SetPos(static_cast<float>((301 - m_pTextMenutext->Get_length())/2+ 361),
+										static_cast<float>((65 - m_pTextMenutext->Get_height())/2 + 274));
 				m_pTextMenutext->Render();
 
 				m_pMenubuttons->SetPos (361, 354);
 				m_pMenubuttons->Render (0, 0);
 				m_pTextMenutext->SetColor (180, 180, 180);
 				m_pTextMenutext->SetContent ("Speichern");
-				m_pTextMenucaption->SetPos(static_cast<float>((301 - m_pTextMenutext->GetLength())/2+ 361),
-										static_cast<float>((65 - m_pTextMenutext->GetHigh())/2 + 354));
+				m_pTextMenucaption->SetPos(static_cast<float>((301 - m_pTextMenutext->Get_length())/2+ 361),
+										static_cast<float>((65 - m_pTextMenutext->Get_height())/2 + 354));
 				m_pTextMenutext->Render();
 
 				m_pMenubuttons->SetPos (361, 434);
 				m_pMenubuttons->Render (0, 1);
 				m_pTextMenutext->SetColor (255, 255, 255);
 				m_pTextMenutext->SetContent ("Beenden");
-				m_pTextMenucaption->SetPos(static_cast<float>((301 - m_pTextMenutext->GetLength())/2+ 361),
-										static_cast<float>((65 - m_pTextMenutext->GetHigh())/2 + 434));
+				m_pTextMenucaption->SetPos(static_cast<float>((301 - m_pTextMenutext->Get_length())/2+ 361),
+										static_cast<float>((65 - m_pTextMenutext->Get_height())/2 + 434));
 				m_pTextMenutext->Render();
 			} break;
 				
@@ -355,7 +355,7 @@ void CGame::Break()
 						m_pMenubackground->Render (0);
 						m_pTextMenuSave->SetColor (230, 230, 0);
 						m_pTextMenuSave->SetContent ("Soll wirklich gespeichert werden?");
-						m_pTextMenucaption->SetPos(((755 - m_pTextMenuSave->GetLength())/2+ 134), 240);
+						m_pTextMenucaption->SetPos(((755 - m_pTextMenuSave->Get_length())/2+ 134), 240);
 						m_pTextMenuSave->Render();
 
 						while (	m_bBreakLock2==false)
@@ -373,16 +373,16 @@ void CGame::Break()
 								m_pMenubuttons->Render (0, 1);
 								m_pTextMenutext->SetColor (255, 255, 255);
 								m_pTextMenutext->SetContent ("Ja");
-								m_pTextMenucaption->SetPos(static_cast<float>((301 - m_pTextMenutext->GetLength())/2+ 361),
-														static_cast<float>((65 - m_pTextMenutext->GetHigh())/2 + 304));
+								m_pTextMenucaption->SetPos(static_cast<float>((301 - m_pTextMenutext->Get_length())/2+ 361),
+														static_cast<float>((65 - m_pTextMenutext->Get_height())/2 + 304));
 								m_pTextMenutext->Render();
 
 								m_pMenubuttons->SetPos (361, 394);
 								m_pMenubuttons->Render (0, 0);
 								m_pTextMenutext->SetColor (180, 180, 180);
 								m_pTextMenutext->SetContent ("Nein");
-								m_pTextMenucaption->SetPos(static_cast<float>((301 - m_pTextMenutext->GetLength())/2+ 361),
-														static_cast<float>((65 - m_pTextMenutext->GetHigh())/2 + 394));
+								m_pTextMenucaption->SetPos(static_cast<float>((301 - m_pTextMenutext->Get_length())/2+ 361),
+														static_cast<float>((65 - m_pTextMenutext->Get_height())/2 + 394));
 								m_pTextMenutext->Render();
 								break;
 
@@ -392,16 +392,16 @@ void CGame::Break()
 								m_pMenubuttons->Render (0, 0);
 								m_pTextMenutext->SetColor (180, 180, 180);
 								m_pTextMenutext->SetContent ("Ja");
-								m_pTextMenucaption->SetPos(static_cast<float>((301 - m_pTextMenutext->GetLength())/2+ 361),
-														static_cast<float>((65 - m_pTextMenutext->GetHigh())/2 + 304));
+								m_pTextMenucaption->SetPos(static_cast<float>((301 - m_pTextMenutext->Get_length())/2+ 361),
+														static_cast<float>((65 - m_pTextMenutext->Get_height())/2 + 304));
 								m_pTextMenutext->Render();
 
 								m_pMenubuttons->SetPos (361, 394);
 								m_pMenubuttons->Render (0, 1);
 								m_pTextMenutext->SetColor (255, 255, 255);
 								m_pTextMenutext->SetContent ("Nein");
-								m_pTextMenucaption->SetPos(static_cast<float>((301 - m_pTextMenutext->GetLength())/2+ 361),
-														static_cast<float>((65 - m_pTextMenutext->GetHigh())/2 + 394));
+								m_pTextMenucaption->SetPos(static_cast<float>((301 - m_pTextMenutext->Get_length())/2+ 361),
+														static_cast<float>((65 - m_pTextMenutext->Get_height())/2 + 394));
 								m_pTextMenutext->Render();
 								break;
 							}
@@ -525,7 +525,7 @@ void CGame::Break()
 						m_pMenubackground->Render (0);
 						m_pTextMenuSave->SetColor (230, 230, 0);
 						m_pTextMenuSave->SetContent ("Soll wirklich beendet werden?");
-						m_pTextMenucaption->SetPos(((755 - m_pTextMenuSave->GetLength())/2+ 134), 240);
+						m_pTextMenucaption->SetPos(((755 - m_pTextMenuSave->Get_length())/2+ 134), 240);
 						m_pTextMenuSave->Render();
 
 						while (	m_bBreakLock2==false)
@@ -543,16 +543,16 @@ void CGame::Break()
 								m_pMenubuttons->Render (0, 1);
 								m_pTextMenutext->SetColor (255, 255, 255);
 								m_pTextMenutext->SetContent ("Ja");
-								m_pTextMenucaption->SetPos(static_cast<float>((301 - m_pTextMenutext->GetLength())/2+ 361),
-														static_cast<float>((65 - m_pTextMenutext->GetHigh())/2 + 304));
+								m_pTextMenucaption->SetPos(static_cast<float>((301 - m_pTextMenutext->Get_length())/2+ 361),
+														static_cast<float>((65 - m_pTextMenutext->Get_height())/2 + 304));
 								m_pTextMenutext->Render();
 
 								m_pMenubuttons->SetPos (361, 394);
 								m_pMenubuttons->Render (0, 0);
 								m_pTextMenutext->SetColor (180, 180, 180);
 								m_pTextMenutext->SetContent ("Nein");
-								m_pTextMenucaption->SetPos(static_cast<float>((301 - m_pTextMenutext->GetLength())/2+ 361),
-														static_cast<float>((65 - m_pTextMenutext->GetHigh())/2 + 394));
+								m_pTextMenucaption->SetPos(static_cast<float>((301 - m_pTextMenutext->Get_length())/2+ 361),
+									static_cast<float>((65 - m_pTextMenutext->Get_height()) / 2 + 394));
 								m_pTextMenutext->Render();
 								break;
 
@@ -562,16 +562,16 @@ void CGame::Break()
 								m_pMenubuttons->Render (0, 0);
 								m_pTextMenutext->SetColor (180, 180, 180);
 								m_pTextMenutext->SetContent ("Ja");
-								m_pTextMenucaption->SetPos(static_cast<float>((301 - m_pTextMenutext->GetLength())/2+ 361),
-														static_cast<float>((65 - m_pTextMenutext->GetHigh())/2 + 304));
+								m_pTextMenucaption->SetPos(static_cast<float>((301 - m_pTextMenutext->Get_length())/2+ 361),
+									static_cast<float>((65 - m_pTextMenutext->Get_height()) / 2 + 304));
 								m_pTextMenutext->Render();
 
 								m_pMenubuttons->SetPos (361, 394);
 								m_pMenubuttons->Render (0, 1);
 								m_pTextMenutext->SetColor (255, 255, 255);
 								m_pTextMenutext->SetContent ("Nein");
-								m_pTextMenucaption->SetPos(static_cast<float>((301 - m_pTextMenutext->GetLength())/2+ 361),
-														static_cast<float>((65 - m_pTextMenutext->GetHigh())/2 + 394));
+								m_pTextMenucaption->SetPos(static_cast<float>((301 - m_pTextMenutext->Get_length())/2+ 361),
+									static_cast<float>((65 - m_pTextMenutext->Get_height()) / 2 + 394));
 								m_pTextMenutext->Render();
 								break;
 							}

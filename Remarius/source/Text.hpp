@@ -1,34 +1,37 @@
 #ifndef TEXT_HPP
 #define TEXT_HPP
 
-
-#include "Framework.hpp"
-#include "Renderable.hpp"
+#include "Renderlayer.hpp"
 #include <string>
 
 class CText: public CRenderable
 {
-	public:
-		CText();
-		CText(const CText& other);
-		CText& operator = (const CText& other);
-		~CText ();
+public:
+	CText(Renderlayers renderlayer);
+	CText(const CText& other);
+	CText& operator = (const CText& other);
+	~CText ();
 
-		void		SetFont(TTF_Font* font){ Font = font; }
-		void		SetColor	(int R, int G, int B);
-		void		SetAlpha	(int Alpha);
-		void		SetContent	(string Content);
-		string		GetContent() { return Content; }
-		int			GetHigh()	{ return height; }
-		int			GetLength()	{ return width; }
+	void		SetFont(TTF_Font* font){ this->font = font; }
+	void		SetColor	(int R, int G, int B);
+	void		SetAlpha	(int Alpha);
+	void		SetContent	(string Content);
+	void		Render();
+	void		RenderYourself();
+	string		Get_content() { return content; }
+	int			Get_length()	{ return target_Rect.w; }
+	int			Get_height()	{ return target_Rect.h; }
 
-	private:
-		void		CheckContent();
-		void		createTexture();
-		SDL_Surface*	Surface;	// Der eigentliche Text auf dem Bildschirm
-		TTF_Font*		Font;		// Schriftart
-		SDL_Color		Color;		// Farbe des Textes
-		string			Content;	// Inhalt des Textes
-		int				Size;		// Größe des Textes
+
+private:
+	void		CheckContent();
+	void		createTexture();
+	SDL_Renderer*	renderer;
+	SDL_Surface*	surface;	// da kommt der zu rendernde Text rein
+	SDL_Texture*	texture;	// da kommt das Surface rein
+	TTF_Font*		font;		// Schriftart, FREMDPOINTER
+	SDL_Color		color;		// Farbe des Textes
+	string			content;	// Inhalt des Textes
+	Renderlayers	renderlayer;
 };
 #endif

@@ -20,7 +20,7 @@ public:
 
 private:
 	struct DebugItem {
-		CText* pTextObject = new CText();				// das Text-Objekt, was dann auf den Bildschirm kommt
+		CText* pTextObject = new CText(TEXT_LAYER);				// das Text-Objekt, was dann auf den Bildschirm kommt
 		float fTime;									// die Zeit, die vergangen ist seitdem das Item gerendert wurde (zum Ausblenden)
 		bool visible = false;							// ob es sichtbar ist oder nicht (wird nach Ablaufen einer gewissen Zeit unsichtbar)
 		bool always;									// ob es jeden Tick gerendert werden soll
