@@ -6,25 +6,19 @@
 class CTexture
 {
 public:
-	CTexture() {}; //wird benötigt, da CSprite davon erbt ._.
 	CTexture(string filename);
 	CTexture(const CTexture& other);
 	CTexture& operator = (const CTexture& other);
 	~CTexture();
-	void Load();
-
-	SDL_Renderer*	Get_renderer()		{ return renderer; }
-	SDL_Texture*	Get_texture()		{ return texture; }
-
+	void Load();										// läd die Textur am gespeicherten Dateipfad
+	void unLoad();										// entläd die Textur
+	SDL_Texture* get();									// gibt die gespeicherte Textur zurück, läd neu falls NULL
+	
 protected:	
-	int				numFramesX;		// Anzahl der Animationsphasen in einer Reihe
-	SDL_Renderer*	renderer;		// Zeiger auf den Renderer des Frameworks
-	SDL_Texture*	texture;		// Das eigentliche Bild des Sprites
+	SDL_Texture*	texture;							// gesamte Bilddatei als Textur
 
 private:
 	string			filename;
-
-
 };
 
 #endif

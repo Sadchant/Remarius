@@ -1,20 +1,22 @@
 #include "Sprite.hpp"
 
-CSprite::CSprite(CTexture* temp_texture, Renderlayers renderlayer, int frameWidth, int frameHeight)
+SDL_Renderer* CSprite::renderer = NULL;
+
+CSprite::CSprite(CTexture* texture, Renderlayers renderlayer, int frameWidth, int frameHeight)
 {
+	if (renderer == NULL) renderer = g_pFramework->GetRenderer();
+
 	source_Rect = { 0 };
 	source_Rect.w = frameWidth;
 	source_Rect.h = frameHeight;
 	target_Rect.w = frameWidth;
 	target_Rect.h = frameHeight;		
 
-	// Sprite erbt von Texture, hier werden die Werte von der übergebenen Texture übertragen
-	renderer = temp_texture->Get_renderer();
-	texture = temp_texture->Get_texture();
+	this->texture = texture;
 
 	renderlayer = this->renderlayer = renderlayer;
 	int width, height;
-	SDL_QueryTexture(texture, NULL, NULL, &width, &height);
+	SDL_QueryTexture(texture->get(), NULL, NULL, &width, &height);
 	numFramesX = width / target_Rect.w;
 }
 
@@ -56,7 +58,7 @@ void CSprite::Render (float frameNumber, int direction)
 // Textur wird in den Renderer kopiert
 void CSprite::RenderYourself() 
 {
-	if ((SDL_RenderCopy(renderer, texture, &source_Rect, &target_Rect)) < 0)				// Textur wird in der Renderer kopiert
+	if ((SDL_RenderCopy(renderer, texture->get(), &source_Rect, &target_Rect)) < 0)				// Textur wird in der Renderer kopiert
 	{
 	cout << "Fehler beim Kopieren der Textur: " << SDL_GetError() << endl;
 	}
