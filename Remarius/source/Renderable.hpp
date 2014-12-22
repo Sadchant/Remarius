@@ -23,8 +23,8 @@ public:
 	void		SetPos(float fXPos, float fYPos);
 	void		SetPos(int XPos, int YPos);
 
-	virtual void Render() {};
-	virtual void RenderYourself() {};
+	virtual void Render() = 0;
+	virtual void RenderYourself() = 0;
 
 	SDL_Rect	Get_targetRect(){ return target_Rect; }
 	

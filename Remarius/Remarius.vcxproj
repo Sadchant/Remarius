@@ -38,7 +38,6 @@
     <ClInclude Include="source\Singleton.hpp" />
     <ClInclude Include="source\Sound.hpp" />
     <ClInclude Include="source\Sprite.hpp" />
-    <ClInclude Include="source\SpriteObject.hpp" />
     <ClInclude Include="source\Stachelstein.hpp" />
     <ClInclude Include="source\Stuff.hpp" />
     <ClInclude Include="source\Text.hpp" />
@@ -52,7 +51,6 @@
   <ItemGroup>
     <ClCompile Include="source\Bombo.cpp" />
     <ClCompile Include="source\Camera.cpp" />
-    <ClCompile Include="source\SpriteObject.cpp" />
     <ClCompile Include="source\Texture.cpp" />
     <ClCompile Include="source\Debugscreen.cpp" />
     <ClCompile Include="source\Explosion.cpp" />

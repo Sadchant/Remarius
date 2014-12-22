@@ -3,8 +3,9 @@
 
 #include "Framework.hpp"
 
-class CTexture
+class CTexture	
 {
+	friend class CSprite;
 public:
 	CTexture() {}; //wird benötigt, da CSprite davon erbt ._.
 	CTexture(string filename);
@@ -13,13 +14,9 @@ public:
 	~CTexture();
 	void Load();
 
-	SDL_Renderer*	Get_renderer()		{ return renderer; }
-	SDL_Texture*	Get_texture()		{ return texture; }
-
-protected:	
-	int				numFramesX;		// Anzahl der Animationsphasen in einer Reihe
-	SDL_Renderer*	renderer;		// Zeiger auf den Renderer des Frameworks
-	SDL_Texture*	texture;		// Das eigentliche Bild des Sprites
+protected:
+	SDL_Renderer*	sdl_renderer;		// Zeiger auf den Renderer des Frameworks
+	SDL_Texture*	sdl_texture;		// Das eigentliche Bild des Sprites
 
 private:
 	string			filename;

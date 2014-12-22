@@ -22,7 +22,7 @@ CSpriteObject::CSpriteObject(CTexture* temp_texture, Renderlayers renderlayer, i
 
 	int width, height;
 	SDL_QueryTexture(texture, NULL, NULL, &width, &height);
-	numFramesX = width / target_Rect.w;
+	numframesX = width / target_Rect.w;
 	this->groesse = groesse;
 	sprites.reserve(groesse); // setzt die Größe des Vectors auf die gebrauchte Länge
 	//fill(sprites.begin(), sprites.end(), NULL); // befüllt das gesamte Array mit NULL

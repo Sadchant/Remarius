@@ -6,7 +6,7 @@
 #include "Renderlayer.hpp"
 #include "Loader.hpp"
 
-class CSprite : public CRenderable, public CTexture
+class CSprite : public CRenderable
 {
 public:
 	CSprite(); // Wird für SpriteObjekt benötigt, dass von Sprite erbt
@@ -19,6 +19,7 @@ public:
 
 
 protected:
+	CTexture*	texture;
 	SDL_Rect source_Rect;			// Ausschnitt aus der Textur
 	int numframesX;
 	

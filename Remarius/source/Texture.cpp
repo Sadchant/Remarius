@@ -3,43 +3,40 @@
 CTexture::CTexture(string filename)
 {
 	this->filename = filename;
-	this->numFramesX = numFramesX;
-	renderer = NULL;
-	texture = NULL;
+	sdl_renderer = NULL;
+	sdl_texture = NULL;
 	Load();
 }
 
 CTexture::CTexture(const CTexture& other)
 {
 	filename = other.filename;
-	numFramesX = other.numFramesX;
-	renderer = NULL;
-	texture = NULL;
+	sdl_renderer = NULL;
+	sdl_texture = NULL;
 	Load();
 }
 
 CTexture& CTexture::operator = (const CTexture& other)
 {
 	filename = other.filename;
-	numFramesX = other.numFramesX;
-	renderer = NULL;
-	texture = NULL;
+	sdl_renderer = NULL;
+	sdl_texture = NULL;
 	Load();
 	return *this;
 }
 
 CTexture::~CTexture()																// Surface des Sprites freigeben
 {
-	SDL_DestroyTexture(texture);
-	//delete(texture);
+	SDL_DestroyTexture(sdl_texture);
+	//delete(sdl_texture);
 }
 
 // holt sich Zeiger auf den Renderer und läd Textur
 void CTexture::Load()
 {
-	renderer = g_pFramework->GetRenderer();
-	texture = IMG_LoadTexture(renderer, filename.c_str());
-	if (texture == NULL)																// Prüfen, ob alles glatt ging
+	sdl_renderer = g_pFramework->GetRenderer();
+	sdl_texture = IMG_LoadTexture(sdl_renderer, filename.c_str());
+	if (sdl_texture == NULL)																// Prüfen, ob alles glatt ging
 	{
 		cout << "Fehler beim Laden von: " << filename.c_str();
 		cout << endl;
