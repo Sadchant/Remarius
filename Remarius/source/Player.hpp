@@ -46,7 +46,7 @@ class CPlayer: public CMonster
 		list<CShot>		m_ShotList;						// Liste der Schüsse
 		SDL_Rect		m_AttackRect;					// Rect des Angriffs
 
-		float			m_fLifeAnimphase;				// Ausschnitt aus der Herz-Animtaion
+		float			lifeAnimphase;				// Ausschnitt aus der Herz-Animtaion
 		float			m_fAttackTimer;					// deaktiviert das Attackenrect nach einer Weile
 		int				m_maxLife;						// maximal mögliches Leben (in halben Herzen)
 		bool			m_bToolLock;					// Darf ein Hotkey verwendet werden (Schwert, Bogen, Zauber)

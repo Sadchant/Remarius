@@ -54,7 +54,7 @@ void CPlayer::Reset ()												// "Spawnen"
 	m_AttackRect.h = 0;
 
 	m_fAnimPhase = 0.0f;
-	m_fLifeAnimphase = 0.0f;
+	lifeAnimphase = 0;
 
 	m_bToolLock = false;												// Locks auflösen
 	m_bLifeLock = false;
@@ -80,7 +80,7 @@ void CPlayer::Render (float CameraX, float CameraY)												// Spieler und Sc
 }
 void CPlayer::LifeRender ()											// Lebensanzeige rendern
 {
-	m_fLifeAnimphase +=  g_pTimer->GetElapsed ();						// AnimPhase erhöhen/resetten
+	lifeAnimphase +=  g_pTimer->GetElapsed ();						// AnimPhase erhöhen/resetten
 	if (m_fLifeAnimphase > 1.0f)
 		m_fLifeAnimphase = 0.0f;
 
