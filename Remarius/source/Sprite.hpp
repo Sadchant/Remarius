@@ -19,10 +19,12 @@ public:
 
 
 protected:
-	CTexture*	texture;
+	static SDL_Renderer* renderer;
 	SDL_Rect source_Rect;			// Ausschnitt aus der Textur
-	int numframesX;
+	CTexture* texture;
+	int numFramesX;
 	
 };
 
 #endif
+

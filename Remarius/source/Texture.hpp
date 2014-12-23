@@ -19,8 +19,7 @@ protected:
 
 private:
 	string			filename;
-
-
 };
 
 #endif
+

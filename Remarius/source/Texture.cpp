@@ -31,6 +31,7 @@ CTexture::~CTexture()																// Surface des Sprites freigeben
 	sdl_texture = NULL;
 }
 
+
 // holt sich Zeiger auf den Renderer und läd Textur
 void CTexture::Load()
 {
@@ -45,3 +46,4 @@ void CTexture::Load()
 		exit(1);																		// Gesamtes Spiel beenden
 	}
 }
+
