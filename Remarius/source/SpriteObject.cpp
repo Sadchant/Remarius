@@ -8,13 +8,11 @@
 
 CSpriteObject::CSpriteObject(CTexture* texture, Renderlayers renderlayer, int frameWidth, int frameHeight, int groesse)
 {
-	if (texture == NULL)
-	{
-		cout << "Achtung texture ist NULL! (CSpriteObject::CSpriteObject)" << endl;
-	}
 	source_Rect = { 0 };
 	source_Rect.w = frameWidth;
 	source_Rect.h = frameHeight;
+	target_Rect.x = -100;
+	target_Rect.y = -100;
 	target_Rect.w = frameWidth;
 	target_Rect.h = frameHeight;
 
@@ -27,7 +25,9 @@ CSpriteObject::CSpriteObject(CTexture* texture, Renderlayers renderlayer, int fr
 	numFramesX = width / target_Rect.w;
 
 	this->groesse = groesse;
-	sprites.reserve(groesse); // setzt die Größe des Vectors auf die gebrauchte Länge
+	sprites.resize(groesse); // setzt die Größe des Vectors auf die gebrauchte Länge
+	CSprite* default_Sprite = new CSprite(texture, renderlayer, target_Rect.w, target_Rect.h);
+	fill(sprites.begin(), sprites.end(), default_Sprite);
 }
 
 void CSpriteObject::SetPos(int stelle, int x, int y)
@@ -36,12 +36,6 @@ void CSpriteObject::SetPos(int stelle, int x, int y)
 	{
 		cout << "Fehler: Groesse des SpriteObjects ueberschritten du Kloppi! (CSpriteObject::SetPos)" << endl;
 		return;
-	}
-	if (stelle >= (int)sprites.size())
-	{
-		CSprite* temp_Sprite = new CSprite(texture, renderlayer, target_Rect.w, target_Rect.h);
-		temp_Sprite->SetPos(x, y);
-		sprites.push_back(temp_Sprite);
 	}
 	else
 	{

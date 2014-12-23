@@ -21,7 +21,7 @@ CStachelstein::CStachelstein (CSprite *pSpriteStachelstein, float fXPos, float f
 	m_bIsAlive = true;
 	m_bAnimFlipper = 0;
 	m_fAnimCounter = 0.0f;
-	m_Life = 5;
+	life = 5;
 	m_MoveMode = 3;
 	m_fDamageTimer = 0.0f;
 }
