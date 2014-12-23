@@ -12,6 +12,8 @@
 #include "Camera.hpp"
 #include "Renderlayer.hpp"
 #include "Loader.hpp"
+
+#include "SpriteObject.hpp"
 #include <string>
 #include <fstream>
 #include <sstream>
@@ -59,10 +61,11 @@ class CStuff
 		static const int	TILE_WIDTH=45; 
 		static const int	TILE_HEIGHT=45; 
 		static const int	TOTAL_TILES=49284; 
+		//static const int	TOTAL_TILES = 100;
 		static const int	LEVEL_WIDTH=9990;  
 		static const int	LEVEL_HEIGHT=9990; 
 		static const int	TILE_SPRITES = 32; 
-        CSprite				*m_pSpriteTile;
+        CSpriteObject		*m_pSpriteTile;
         CTile				*tiles[ TOTAL_TILES ];
         list <CTile>		tiles2;
         list <CTile>		tiles3;

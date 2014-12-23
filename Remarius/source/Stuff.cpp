@@ -24,10 +24,10 @@ CStuff::CStuff ()														// Player und Stuffprites laden
 
 
 	m_pSpriteTile = NULL;
-	m_pSpriteTile = new CSprite(g_pLoader->GetTexture(TEXTURSET1), ENTITY_LAYER, 45, 45);
+	m_pSpriteTile = new CSpriteObject(g_pLoader->GetTexture(TEXTURSET1), TILE_LAYER1, 45, 45, 49284);
 
 	m_pSpriteWall=NULL;
-	m_pSpriteWall = new CSprite(g_pLoader->GetTexture(WALL), ENTITY_LAYER, 45, 45);
+	m_pSpriteWall = new CSprite(g_pLoader->GetTexture(WALL), TILE_LAYER2, 45, 45);
 
 	m_pCamera = NULL;
 	m_pCamera = new CCamera;
@@ -408,6 +408,13 @@ bool CStuff::set_tiles()
 		}
     }
 	map.close();
+
+	int type = 0;
+	for (int t = 0; t < TOTAL_TILES; t++)
+	{
+		type = (tiles[t]->get_type());
+		m_pSpriteTile->SetPos(t, tiles[t]->GetRect().x, tiles[t]->GetRect().y);
+	}
     
     return true;
 }
@@ -418,15 +425,14 @@ void CStuff::show()
         for (int t = 0; t < TOTAL_TILES; t++ )
 		{
                 type=(tiles[t]->get_type());
- 
                 if( CkRect( m_pCamera->GetCameraRect(), tiles[t]->GetRect() ) == true )
                 {
-					m_pSpriteTile->SetPos(tiles[t]->GetRect().x - m_pCamera->GetCameraRect().x, tiles[t]->GetRect().y - m_pCamera->GetCameraRect().y);
-					m_pSpriteTile->Render(static_cast<float>(type%4),static_cast<int>(type/4));
+					m_pSpriteTile->SetPos(t, tiles[t]->GetRect().x - m_pCamera->GetCameraRect().x, tiles[t]->GetRect().y - m_pCamera->GetCameraRect().y);
+					m_pSpriteTile->Render(t, static_cast<float>(type%4),static_cast<int>(type/4));
                 }
         }
  
-		list <CTile>::iterator ItTile2;
+		/*list <CTile>::iterator ItTile2;
         for (ItTile2=tiles2.begin(); ItTile2!=tiles2.end(); ItTile2++ )
         {
                 type =ItTile2->get_type();
@@ -447,7 +453,7 @@ void CStuff::show()
                 type =ItTile4->get_type();
 				m_pSpriteWall->SetPos(ItTile4->GetRect().x - m_pCamera->GetCameraRect().x, ItTile4->GetRect().y - m_pCamera->GetCameraRect().y);
                 m_pSpriteWall->Render(static_cast<float>(type%4),static_cast<int>(type/4));
-        }
+        }*/
 }   
 
 bool CStuff::CkRect(SDL_Rect a, SDL_Rect b)

@@ -37,7 +37,11 @@ void CLoader::SetTextureFiles()
 	all_Texture_Files[18] = "Data/Wall.png";
 }
 
+/*CTexture* GetTexture(Textures Texture)
+{
 
+
+}*/
 // läd alle Texturen neu
 void CLoader::Reload_Textures()
 {

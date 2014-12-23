@@ -6,11 +6,11 @@
 #include "Renderlayer.hpp"
 #include "Loader.hpp"
 
-class CSprite : public CRenderable
+class CSprite : public CRenderable, public CTexture
 {
 public:
-	CSprite(){}; // Wird für SpriteObjekt benötigt, dass von Sprite erbt
-	CSprite(CTexture* texture, Renderlayers renderlayer, int FrameWidth, int FrameHeight);
+	CSprite(); // Wird für SpriteObjekt benötigt, dass von Sprite erbt
+	CSprite(CTexture* temp_texture, Renderlayers renderlayer, int FrameWidth, int FrameHeight);
 
 	void		Render();
 	void		Render		(float frameNumber);
@@ -19,12 +19,9 @@ public:
 
 
 protected:
-	SDL_Renderer* renderer;
 	SDL_Rect source_Rect;			// Ausschnitt aus der Textur
-	CTexture* texture;
-	int numFramesX;
+	int numframesX;
 	
 };
 
 #endif
-

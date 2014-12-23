@@ -298,10 +298,10 @@ void CPlayer::CheckPosition ()
       m_fYPos = 0.0f;
    else if (m_fYPos > (Map_Height))
       m_fYPos = static_cast<float>(Map_Height);
-   if   (m_fAnimPhase > 6.9f)
-                m_fAnimPhase = 0.0f;
-   if   (m_fAnimPhase < 0.0f)
-                m_fAnimPhase = 0.0f;
+   if   (m_fAnimPhase >= 7)
+                m_fAnimPhase = 0;
+   if   (m_fAnimPhase < 0)
+                m_fAnimPhase = 0;
    g_pDebugscreen->Set("Animphase: ", m_fAnimPhase);
  
 }

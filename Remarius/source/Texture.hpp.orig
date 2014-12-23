@@ -6,7 +6,6 @@
 class CTexture	
 {
 	friend class CSprite;
-	friend class CSpriteObject;
 public:
 	CTexture(string filename);
 	CTexture(const CTexture& other);
@@ -15,7 +14,7 @@ public:
 	void Load();
 
 protected:
-	SDL_Renderer*	sdl_renderer;		// Zeiger auf den Renderer des Frameworks
+	static SDL_Renderer*	sdl_renderer;		// Zeiger auf den Renderer des Frameworks
 	SDL_Texture*	sdl_texture;		// Das eigentliche Bild des Sprites
 
 private:
@@ -23,4 +22,3 @@ private:
 };
 
 #endif
-

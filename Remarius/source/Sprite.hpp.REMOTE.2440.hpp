@@ -9,7 +9,6 @@
 class CSprite : public CRenderable
 {
 public:
-	CSprite(){}; // Wird für SpriteObjekt benötigt, dass von Sprite erbt
 	CSprite(CTexture* texture, Renderlayers renderlayer, int FrameWidth, int FrameHeight);
 
 	void		Render();
@@ -19,7 +18,7 @@ public:
 
 
 protected:
-	SDL_Renderer* renderer;
+	static SDL_Renderer* renderer;
 	SDL_Rect source_Rect;			// Ausschnitt aus der Textur
 	CTexture* texture;
 	int numFramesX;
@@ -27,4 +26,3 @@ protected:
 };
 
 #endif
-

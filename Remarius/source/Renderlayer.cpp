@@ -22,7 +22,7 @@ void CRenderlayer::Render()
 	{
 		for (unsigned j = 0; j < Renderables[i].size(); j++)
 		{
-			Renderables[i][j]->RenderYourself();
+			Renderables[i].at(j)->RenderYourself();
 			Renderables[i].erase(Renderables[i].begin()+j);
 		}
 	}
