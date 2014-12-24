@@ -11,8 +11,6 @@ CSpriteObject::CSpriteObject(CTexture* texture, Renderlayers renderlayer, int fr
 	source_Rect = { 0 };
 	source_Rect.w = frameWidth;
 	source_Rect.h = frameHeight;
-	target_Rect.x = -100;
-	target_Rect.y = -100;
 	target_Rect.w = frameWidth;
 	target_Rect.h = frameHeight;
 
@@ -26,8 +24,11 @@ CSpriteObject::CSpriteObject(CTexture* texture, Renderlayers renderlayer, int fr
 
 	this->groesse = groesse;
 	sprites.resize(groesse); // setzt die Größe des Vectors auf die gebrauchte Länge
-	CSprite* default_Sprite = new CSprite(texture, renderlayer, target_Rect.w, target_Rect.h);
-	fill(sprites.begin(), sprites.end(), default_Sprite);
+	for (int i = 0; i < groesse; i++)
+	{
+		CSprite* default_Sprite = new CSprite(texture, renderlayer, target_Rect.w, target_Rect.h);
+		sprites.push_back(default_Sprite);
+	}
 }
 
 void CSpriteObject::SetPos(int stelle, int x, int y)

@@ -40,7 +40,7 @@ class CMonster
 		bool		m_bIsAlive;				// "Lebt" das Monster noch?
 
 		float		m_fDamageTimer;			// Cooldown für eingehende Angriffe
-		int			m_Life;					// Leben
+		int			life;					// Leben
 		int			m_MoveMode;				// Bewegungsmodus, 1 ist Standart, 2 ist für Knockback
 		float		m_fKnockbackDuration;	// Variable für den Knockback
 		float		m_fDirection;			// Richtung des Movements als float, gegen den Uhrzeigersinn, 6 Uhr ist 0.0f bzw 1.0f

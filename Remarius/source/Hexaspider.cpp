@@ -19,7 +19,7 @@ CSpider::CSpider (CSprite *pSpriteSpider, float fXPos, float fYPos, float *pPlyx
 	m_bIsAlive = true;
 	m_bAnimFlipper = 0;
 	m_fAnimCounter = 0.0f;
-	m_Life = 10;
+	life = 10;
 	m_MoveMode = 3;
 	m_fDamageTimer = 0.0f;
 }

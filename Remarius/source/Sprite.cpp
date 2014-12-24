@@ -49,8 +49,6 @@ void CSprite::Render (float frameNumber)
 void CSprite::Render (float frameNumber, int direction)						
 {
 	int Column = static_cast<int>(frameNumber)%numFramesX;					// Ausschnitt der aktuellen Animationsphase berechnen
-	if (Column > 6)
-		cout << "AAAAAAchtung!!!" << endl;
 	int Row =  direction;
 
 	source_Rect.x = Column * target_Rect.w;

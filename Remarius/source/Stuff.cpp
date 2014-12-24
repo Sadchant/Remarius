@@ -23,8 +23,8 @@ CStuff::CStuff ()														// Player und Stuffprites laden
 	m_pSpriteSpider = new CSprite(g_pLoader->GetTexture(SPIDER), ENTITY_LAYER, 130, 97);
 
 
-	m_pSpriteTile = NULL;
-	m_pSpriteTile = new CSpriteObject(g_pLoader->GetTexture(TEXTURSET1), TILE_LAYER1, 45, 45, 49284);
+	/*m_pSpriteTile = NULL;
+	m_pSpriteTile = new CSpriteObject(g_pLoader->GetTexture(TEXTURSET1), TILE_LAYER1, 45, 45, 49284);*/
 
 	m_pSpriteWall=NULL;
 	m_pSpriteWall = new CSprite(g_pLoader->GetTexture(WALL), TILE_LAYER2, 45, 45);
@@ -407,21 +407,13 @@ bool CStuff::set_tiles()
 			tiles4.push_back(Tile);
 		}
     }
-	map.close();
-
-	int type = 0;
-	for (int t = 0; t < TOTAL_TILES; t++)
-	{
-		type = (tiles[t]->get_type());
-		m_pSpriteTile->SetPos(t, tiles[t]->GetRect().x, tiles[t]->GetRect().y);
-	}
-    
+	map.close();    
     return true;
 }
 
 void CStuff::show()
 {
-        int type;
+        /*int type;
         for (int t = 0; t < TOTAL_TILES; t++ )
 		{
                 type=(tiles[t]->get_type());
@@ -432,7 +424,7 @@ void CStuff::show()
                 }
         }
  
-		/*list <CTile>::iterator ItTile2;
+		list <CTile>::iterator ItTile2;
         for (ItTile2=tiles2.begin(); ItTile2!=tiles2.end(); ItTile2++ )
         {
                 type =ItTile2->get_type();

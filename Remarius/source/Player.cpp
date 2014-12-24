@@ -4,6 +4,7 @@
 
 CPlayer::CPlayer ()													// Player initialisieren
 {
+	maxLife = 16;
 	m_pSpriteMonster = NULL;												// Sprites Laden
 	m_pSpriteMonster = new CSprite(g_pLoader->GetTexture(REMARIUS), ENTITY_LAYER, 74, 100);
 
@@ -12,8 +13,8 @@ CPlayer::CPlayer ()													// Player initialisieren
 	m_pSpriteShot = NULL;
 	m_pSpriteShot = new CSprite(g_pLoader->GetTexture(LASER), ENTITY_LAYER, 64, 64);
 
-	m_pSpriteLife = NULL;
-	m_pSpriteLife = new CSprite(g_pLoader->GetTexture(HERZLEISTE), GUI_LAYER, 14, 30);
+	spriteLife = NULL;
+	spriteLife = new CSpriteObject(g_pLoader->GetTexture(HERZLEISTE), GUI_LAYER, 14, 30, maxLife);
 
 	Reset();
 }
@@ -26,10 +27,10 @@ void CPlayer::Quit ()												// Sprites freigeben
 		m_pSpriteMonster = NULL;
 	}
 	
-	if (m_pSpriteLife != NULL)
+	if (spriteLife != NULL)
 	{
-		delete (m_pSpriteLife);
-		m_pSpriteLife=NULL;
+		delete (spriteLife);
+		spriteLife = NULL;
 	}
 }
 
@@ -40,8 +41,8 @@ void CPlayer::Reset ()												// "Spawnen"
 	m_SpriteDirection = 0;
 	m_fDamageTimer = 1.0f;
 
-	m_maxLife = 16;														// Leben einstellen
-	m_Life = 6;
+	maxLife = 16;														// Leben einstellen
+	life = 6;
 
 	m_Rect.x = static_cast<int>(m_fXPos);								// Rect initialisieren
 	m_Rect.y = static_cast<int>(m_fYPos);
@@ -81,26 +82,36 @@ void CPlayer::Render (float CameraX, float CameraY)												// Spieler und Sc
 void CPlayer::LifeRender ()											// Lebensanzeige rendern
 {
 	lifeAnimphase +=  g_pTimer->GetElapsed ();						// AnimPhase erhöhen/resetten
-	if (m_fLifeAnimphase > 1.0f)
-		m_fLifeAnimphase = 0.0f;
+	if (lifeAnimphase > 1.0f)
+		lifeAnimphase = 0.0f;
 
-	for (int i = m_maxLife; i > m_Life; i--)							// leere Herzen rendern
+	for (int i = 0; i < life; i++)									// volle Herzen rendern
 	{
-		m_pSpriteLife->SetPos(static_cast<float>(-1+i*14), 13.0f);
-		m_pSpriteLife->Render(static_cast<float>(5-i%2));
-	}
-
-	for (int i = 1; i <= m_Life; i++)									// volle Herzen rendern
-	{
-		m_pSpriteLife->SetPos(static_cast<float>(-1+14*i), 13.0f);		
-		if (((i == m_Life-1) && (i%2 == 1)) || (i == m_Life))				// Wenn letzte Herzhälfte oder (vorletzte und ungerade)
+		spriteLife->SetPos(i, 13 + (14 * i), 13);
+		if ((i == life-1) || ((i == life-2) && (i%2 == 0)))				// Wenn letzte Herzhälfte oder (vorletzte und gerade)
 		{
-			if (m_fLifeAnimphase < 0.5f)										// Rendern nach AnimPhase
-				m_pSpriteLife->Render(static_cast<float>(1-i%2));
+			if (lifeAnimphase < 0.5f)								// Rendern nach AnimPhase
+			{
+				spriteLife->Render(i, static_cast<float>(2 + i % 2));
+			}
 			else
-				m_pSpriteLife->Render(static_cast<float>(3-i%2));
-		} else m_pSpriteLife->Render(static_cast<float>(1- i%2));			// Ansonsten unanimierte Herzhälfte rendern
+			{
+				spriteLife->Render(i, static_cast<float>(i%2));
+			}				
+		} 
+		else
+		{
+			spriteLife->Render(i, static_cast<float>(i % 2));			// Ansonsten unanimierte Herzhälfte rendern
+		}
 	}
+
+	for (int i = life; i < maxLife; i++)							// leere Herzen rendern
+	{
+		spriteLife->SetPos(i, 13 + (14 * i), 13);
+		spriteLife->Render(i, static_cast<float>(4+i%2));
+	}
+
+	
 }
 void CPlayer::Update ()												// Spieler updaten
 {
@@ -153,11 +164,11 @@ void CPlayer::ProcessMoving ()										// Spieler bewegen
 
 	if (g_pFramework->KeyDown(SDL_SCANCODE_LCTRL) && m_bLifeLock == false)								// Wenn Heiltaste
 		{
-			if (m_Life<m_maxLife) {m_Life++;}
+			if (life<maxLife) {life++;}
 			m_bLifeLock = true;
 		} else if (g_pFramework->KeyDown(SDL_SCANCODE_RCTRL) && m_bLifeLock == false)					// ansonsten Wenn Schadenstaste
 		{
-			if (m_Life>5) {m_Life--;}
+			if (life>5) {life--;}
 			m_bLifeLock = true;
 		} 
 		if (g_pFramework->KeyDown(SDL_SCANCODE_LCTRL)==false && g_pFramework->KeyDown(SDL_SCANCODE_RCTRL)==false)
@@ -199,11 +210,11 @@ void CPlayer::ProcessMoving (float Speed)										// Spieler bewegen
 
 	if (g_pFramework->KeyDown(SDL_SCANCODE_LCTRL) && m_bLifeLock == false)								// Wenn Heiltaste
 		{
-			if (m_Life<m_maxLife) {m_Life++;}
+			if (life<maxLife) {life++;}
 			m_bLifeLock = true;
 		} else if (g_pFramework->KeyDown(SDL_SCANCODE_RCTRL) && m_bLifeLock == false)					// ansonsten Wenn Schadenstaste
 		{
-			if (m_Life>5) {m_Life--;}
+			if (life>5) {life--;}
 			m_bLifeLock = true;
 		} 
 		if (g_pFramework->KeyDown(SDL_SCANCODE_LCTRL)==false && g_pFramework->KeyDown(SDL_SCANCODE_RCTRL)==false)
@@ -308,8 +319,8 @@ void CPlayer::CheckPosition ()
 
 void CPlayer::LifeDec()												// Leben reduzieren
 {
-	if (m_Life > 0)
-		m_Life--;
-	if (m_Life < 0)
+	if (life > 0)
+		life--;
+	if (life < 0)
 		Reset();
 }

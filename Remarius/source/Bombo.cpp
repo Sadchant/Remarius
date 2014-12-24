@@ -24,7 +24,7 @@ CBombo::CBombo (CSprite *pSpriteBombo, float fXPos, float fYPos, float *pPlayerX
 	m_MoveMode = 2;
 	m_fCountdown = 0.0f;
 	m_fDistance = 0.0f;
-	m_Life = 10;
+	life = 10;
 	m_fDamageTimer = 0.0f;
 }
 void CBombo::Move3 ()
