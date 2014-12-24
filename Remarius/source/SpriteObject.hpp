@@ -3,7 +3,7 @@
 
 #include "Sprite.hpp"
 
-class CSpriteObject : public CSprite
+class CSpriteObject
 {
 public:
 

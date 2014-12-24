@@ -3,7 +3,6 @@
 CRenderlayer::CRenderlayer()
 {
 	Renderer = g_pFramework->GetRenderer();
-	cout << "g_pRenderlayer erzeugt" << endl;
 }
 
 CRenderlayer::~CRenderlayer()

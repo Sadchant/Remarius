@@ -39,7 +39,7 @@ class CPlayer: public CMonster
 		void	ProcessMoving	();
 		void	ProcessTools	();
 		void	CheckPosition	();
-		void	OnDeath			(){Reset(); cout << "resetted" << endl;}
+		void	OnDeath			(){Reset();}
 
 		CSprite			*m_pSpriteShot;					// Sprite für Laserschüsse
 		CSpriteObject	*spriteLife;					// Sprite für Herzleiste

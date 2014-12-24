@@ -36,7 +36,7 @@ public:
 	CLoader();
 	~CLoader();
 	void Reload_Textures();
-	CTexture* GetTexture(Textures Texture) { cout << Texture << endl; return all_Textures[Texture]; }
+	CTexture* GetTexture(Textures Texture) { return all_Textures[Texture]; }
 
 private:
 	void SetTextureFiles();

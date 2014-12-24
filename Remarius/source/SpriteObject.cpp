@@ -8,25 +8,12 @@
 
 CSpriteObject::CSpriteObject(CTexture* texture, Renderlayers renderlayer, int frameWidth, int frameHeight, int groesse)
 {
-	source_Rect = { 0 };
-	source_Rect.w = frameWidth;
-	source_Rect.h = frameHeight;
-	target_Rect.w = frameWidth;
-	target_Rect.h = frameHeight;
-
-	this->texture = texture;
-	renderer = texture->sdl_renderer;
-
-	renderlayer = this->renderlayer = renderlayer;
-	int width, height;
-	SDL_QueryTexture(texture->sdl_texture, NULL, NULL, &width, &height);
-	numFramesX = width / target_Rect.w;
-
 	this->groesse = groesse;
-	sprites.resize(groesse); // setzt die Größe des Vectors auf die gebrauchte Länge
+
+	sprites.reserve(groesse); // setzt die Größe des Vectors auf die gebrauchte Länge
 	for (int i = 0; i < groesse; i++)
 	{
-		CSprite* default_Sprite = new CSprite(texture, renderlayer, target_Rect.w, target_Rect.h);
+		CSprite* default_Sprite = new CSprite(texture, renderlayer, frameWidth, frameHeight);
 		sprites.push_back(default_Sprite);
 	}
 }
