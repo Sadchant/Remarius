@@ -9,7 +9,7 @@
 class CMenuButton : public CMenuItem
 {
 public:
-	CMenuButton(CSprite* bg, string label, TTF_Font* font);
+	CMenuButton(string label, TTF_Font* font);
 	CMenuButton(const CMenuButton& other);
 	~CMenuButton();
 	CMenuButton& operator = (const CMenuButton& other);

@@ -1,9 +1,9 @@
 #include "MenuButton.hpp"
 
 
-CMenuButton::CMenuButton(CSprite* bg, string label, TTF_Font* font)
+CMenuButton::CMenuButton(string label, TTF_Font* font)
 {
-	background = bg;
+	background = new CSprite(g_pLoader->GetTexture(HAUPTMENUBUTTONS), MENUBUTTON_LAYER, 356, 66);
 	onActivate = function<void()>([](){});
 	text = new CText(TEXT_LAYER);
 	text->SetFont(font);
@@ -22,7 +22,8 @@ CMenuButton::CMenuButton(const CMenuButton& other)
 
 CMenuButton::~CMenuButton()
 {
-	delete text;
+	SAFE_DELETE(text);
+	SAFE_DELETE(background);
 }
 
 CMenuButton& CMenuButton::operator = (const CMenuButton& other)
