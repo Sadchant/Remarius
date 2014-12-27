@@ -4,56 +4,36 @@
 #include "Framework.hpp"
 #include "Singleton.hpp"
 #include "Texture.hpp"
+#include <map>
+#include <fstream>
+#include <string>
 
 #define g_pLoader CLoader::Get()
-
-enum Textures
-{
-	BAUM_1,
-	BOMBO,
-	EXPLOSION,
-	HAUPTMENUBUTTONS,
-	HERZLEISTE,
-	LASER,
-	MENUBUTTONS,
-	MENUCHECKBOX,
-	MENUHINTERGRUND,
-	PAUSEMENUHINTERGRUND,
-	PLAYER,
-	REMARIUS,
-	SOUNDBALKEN,
-	SOUNDBUTTONS,
-	SOUNDSCHIEBER,
-	SPIDER,
-	STACELSTONE,
-	TEXTURSET1,
-	WALL
-};
 
 class CLoader : public TSingleton<CLoader>
 {
 public:
 	CLoader();
 	~CLoader();
-	void Reload_Textures();
-	CTexture* GetTexture(Textures Texture) { return all_Textures[Texture]; }
+	CTexture* getTexture(string id) { return textures[id].texture; }
+
+	void load(string id);											// erzeugt für id eine CTexture-Instanz
+	
+	void loadAll();													// erzeugt für alle id's eine CTexture-Instanz
+	void reloadTextures();											// Läd Texturen neu (bei Änderungen im Renderer)
 
 private:
-	struct TextureKonstruktor
+	struct TextureWrapper
 	{
 		string filename;
 		Renderlayers renderlayer;
 		int frameWidth;
 		int frameHeight;
+		CTexture* texture;
 	};
-	void SetTextureFiles();
-	void LoadTextures();
-	static const int NUMTEXTURES = 19;
-
-	CTexture* all_Textures[NUMTEXTURES];
-	TextureKonstruktor all_Texture_Files[NUMTEXTURES];
-	int all_Texture_NUMFRAMES[NUMTEXTURES];
-
+	map<string, TextureWrapper> textures;
+	static void splitstr(string line, string* result);				// Zerteilt Line bei jedem ' ' und schreibt die Stücke in result
+	static Renderlayers decodeRenderlayer(string rl);				// Gibt zu einem String das passende Renderlayer-Enum zurück (Textlayer bei keinem match)
 };
 
 #endif

@@ -3,7 +3,7 @@
 
 CMenuButton::CMenuButton(string label, TTF_Font* font)
 {
-	background = new CSprite(g_pLoader->GetTexture(HAUPTMENUBUTTONS));
+	background = new CSprite(g_pLoader->getTexture("T_HAUPTMENUBUTTONS"));
 	onActivate = function<void()>([](){});
 	text = new CText(TEXT_LAYER);
 	text->SetFont(font);

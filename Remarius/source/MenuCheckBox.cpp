@@ -12,7 +12,7 @@ CMenuCheckBox::CMenuCheckBox(string label, TTF_Font* font)
 
 	listener = function<void(bool)>([](bool b){});
 
-	if (!buttons) buttons = new CSprite(g_pLoader->GetTexture(MENUCHECKBOX));
+	if (!buttons) buttons = new CSprite(g_pLoader->getTexture("T_MENUCHECKBOX"));
 }
 
 CMenuCheckBox::CMenuCheckBox(const CMenuCheckBox& other)

@@ -6,15 +6,15 @@ CPlayer::CPlayer ()													// Player initialisieren
 {
 	maxLife = 16;
 	m_pSpriteMonster = NULL;												// Sprites Laden
-	m_pSpriteMonster = new CSprite(g_pLoader->GetTexture(REMARIUS));
+	m_pSpriteMonster = new CSprite(g_pLoader->getTexture("T_REMARIUS"));
 
 
 
 	m_pSpriteShot = NULL;
-	m_pSpriteShot = new CSprite(g_pLoader->GetTexture(LASER));
+	m_pSpriteShot = new CSprite(g_pLoader->getTexture("T_LASER"));
 
 	spriteLife = NULL;
-	spriteLife = new CSpriteObject(g_pLoader->GetTexture(HERZLEISTE), maxLife);
+	spriteLife = new CSpriteObject(g_pLoader->getTexture("T_HERZLEISTE"), maxLife);
 
 	Reset();
 }

@@ -17,12 +17,14 @@ dev tools
 # main folder debug
 
 Remarius/Debug/
+Remarius/Remarius.exe
 
 # main folder Saves
 
 Remarius/Debug/Save 1
 Remarius/Debug/Save 2
 Remarius/Debug/Save 3
+Remarius/Save 1
 
 
 # main folder test stuff

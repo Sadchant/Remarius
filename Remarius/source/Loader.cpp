@@ -2,64 +2,89 @@
 
 CLoader::CLoader()
 {
-	SetTextureFiles();
-	LoadTextures();
+	ifstream fis("Data/meta.txt");
+	if (fis.is_open())
+	{
+		string line;
+		while (!fis.eof())
+		{
+			getline(fis, line);
+			string values[5];
+			//splitstr(line, values);
+			string* result = values;
+			int pos = line.find(' ');
+			while (pos != string::npos)
+			{
+				*result = line.substr(0, pos);
+				result++;
+				line = line.substr(pos + 1, line.length() - 1);
+				pos = line.find(' ');
+			}
+			*result = line;
+			//splitstr end (Linkerfehler bei Funktionsaufruf?)
+			TextureWrapper tx = {
+				values[1],							// Dateipfad
+				decodeRenderlayer(values[2]),		// Renderlayer
+				stoi(values[3]),					// Frame-Breite
+				stoi(values[4]),					// Frame-Höhe
+				NULL };								// CTexture-Pointer
+			textures.insert(pair<string, TextureWrapper>(values[0], tx));
+		}
+		fis.close();
+	}
+	loadAll();
 }
 
 CLoader::~CLoader()
 {
-	for (int i = 0; i < NUMTEXTURES; i++)
+}
+
+void CLoader::load(string id)
+{
+	TextureWrapper tx = textures[id];
+	if (tx.texture == NULL)
+		textures[id].texture = new CTexture(tx.filename, tx.renderlayer, tx.frameWidth, tx.frameHeight);
+}
+
+void CLoader::loadAll()
+{
+	for (map<string, TextureWrapper>::iterator it = textures.begin(); it != textures.end(); it++)
 	{
-		all_Textures[i]->~CTexture();
+		load(it->first);
 	}
 }
 
-void CLoader::SetTextureFiles()
+void CLoader::reloadTextures()
 {
-	all_Texture_Files[0] = { "Data/Baum_1.png", ENTITY_LAYER, 260, 244 };
-
-	all_Texture_Files[1] = { "Data/Bombo.png", ENTITY_LAYER, 86, 90 };
-	all_Texture_Files[2] = { "Data/Explosion.bmp", ENTITY_LAYER, 240, 240 };
-	all_Texture_Files[3] = { "Data/Hauptmenubuttons.png", MENUBUTTON_LAYER, 356, 66 };
-	all_Texture_Files[4] = { "Data/Herzleiste.png", GUI_LAYER, 14, 30 };
-	all_Texture_Files[5] = { "Data/Laser.bmp", ENTITY_LAYER, 64, 64 };
-	all_Texture_Files[6] = { "Data/Menubuttons.png", MENUBUTTON_LAYER, 301, 65 };
-	all_Texture_Files[7] = { "Data/MenuCheckBox.png", MENUBUTTON_LAYER, 65, 65 };
-	all_Texture_Files[8] = { "Data/Menuhintergrund.png", MENU_LAYER, 1280, 720 };
-	all_Texture_Files[9] = { "Data/Pausemenuhintergrund.png", MENU_LAYER, 755, 570 };
-	all_Texture_Files[10] = { "Data/Player.png", ENTITY_LAYER, 64, 64 };
-	all_Texture_Files[11] = { "Data/Remarius.png", ENTITY_LAYER, 74, 100 };
-	all_Texture_Files[12] = { "Data/Soundbalken.png", MENUBUTTON_LAYER, 140, 6 };
-	all_Texture_Files[13] = { "Data/Soundbuttons.png", MENUBUTTON_LAYER, 65, 65 };
-	all_Texture_Files[14] = { "Data/Soundschieber.png", MENUBUTTON_LAYER, 19, 29 };
-	all_Texture_Files[15] = { "Data/Spider.png", ENTITY_LAYER, 130, 97 };
-	all_Texture_Files[16] = { "Data/Stacelstone.png", ENTITY_LAYER, 64, 44 };
-	all_Texture_Files[17] = { "Data/Texturset_1.png", TILE_LAYER1, 45, 45 };
-	all_Texture_Files[18] = { "Data/Wall.png", TILE_LAYER2, 45, 45 };
-}
-
-/*CTexture* GetTexture(Textures Texture)
-{
-
-
-}*/
-// läd alle Texturen neu
-void CLoader::Reload_Textures()
-{
-	for (int i = 0; i < NUMTEXTURES; i++)
+	for (map<string, TextureWrapper>::iterator it = textures.begin(); it != textures.end(); it++)
 	{
-		all_Textures[i]->Load();
+		if (it->second.texture != NULL)
+			it->second.texture->Load();
 	}
 }
 
-// erzeugt alle Textur-Objekte
-void CLoader::LoadTextures()
+void splitstr(string line, string* result)
 {
-	for (int i = 0; i < NUMTEXTURES; i++)
+	int pos = line.find(' ');
+	while (pos != string::npos)
 	{
-		all_Textures[i] = new CTexture(all_Texture_Files[i].filename, 
-			all_Texture_Files[i].renderlayer,
-			all_Texture_Files[i].frameWidth,
-			all_Texture_Files[i].frameHeight);
+		*result = line.substr(0, pos);
+		result++;
+		line = line.substr(pos + 1, line.length() - 1);
+		pos = line.find(' ');
 	}
+	*result = line;
+}
+
+Renderlayers CLoader::decodeRenderlayer(string rl)
+{
+	if (rl == "TILE_LAYER1") return TILE_LAYER1;
+	if (rl == "TILE_LAYER2") return TILE_LAYER2;
+	if (rl == "ENTITY_LAYER") return ENTITY_LAYER;
+	if (rl == "INGAMETEXT_LAYER") return INGAMETEXT_LAYER;
+	if (rl == "GUI_LAYER") return GUI_LAYER;
+	if (rl == "MENU_LAYER") return MENU_LAYER;
+	if (rl == "MENUBUTTON_LAYER") return MENUBUTTON_LAYER;
+	if (rl == "TEXT_LAYER") return TEXT_LAYER;
+	return TEXT_LAYER;
 }

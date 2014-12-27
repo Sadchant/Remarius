@@ -45,6 +45,11 @@ CTexture::~CTexture()																// Surface des Sprites freigeben
 void CTexture::Load()
 {
 	sdl_renderer = g_pFramework->GetRenderer();
+	if (sdl_texture != NULL)
+	{
+		SDL_DestroyTexture(sdl_texture);
+		sdl_texture = NULL;
+	}
 	sdl_texture = IMG_LoadTexture(sdl_renderer, filename.c_str());
 	if (sdl_texture == NULL)																// Prüfen, ob alles glatt ging
 	{

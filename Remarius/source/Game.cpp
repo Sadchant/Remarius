@@ -5,10 +5,10 @@ CGame::CGame ()																									// Game initialisieren
 	pFont = OpenFont("Data/verdana.ttf", 19);
 
 	m_pMenubackground = NULL;																				// Pausemenühintergrund erzeugen
-	m_pMenubackground = new CSprite(g_pLoader->GetTexture(PAUSEMENUHINTERGRUND));
+	m_pMenubackground = new CSprite(g_pLoader->getTexture("T_PAUSEMENUHINTERGRUND"));
 
 	m_pMenubuttons = NULL;																				// Staubsaugersprite erzeugen
-	m_pMenubuttons = new CSprite(g_pLoader->GetTexture(MENUBUTTONS));
+	m_pMenubuttons = new CSprite(g_pLoader->getTexture("T_MENUBUTTONS"));
 
 //	m_pBaum = NULL;																				// Staubsaugersprite erzeugen
 //	m_pBaum = new CSprite;
