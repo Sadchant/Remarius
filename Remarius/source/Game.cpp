@@ -240,8 +240,6 @@ void CGame::Break()
 
 		case (2):
 			{
-				
-				cout<<"Speichern"<<endl;
 				m_pMenubuttons->SetPos (361, 274);
 				m_pMenubuttons->Render (0, 0);
 				m_pTextMenutext->SetColor (180, 180, 180);
@@ -350,7 +348,6 @@ void CGame::Break()
 						m_bEnterLock=true;
 						m_State2=1;
 						m_bBreakLock2=false;
-						cout<<"Wirklich speichern?"<<endl;
 						m_pMenubackground->SetPos (134, 99);
 						m_pMenubackground->Render (0);
 						m_pTextMenuSave->SetColor (230, 230, 0);
@@ -368,7 +365,6 @@ void CGame::Break()
 							switch (m_State2)
 							{
 							case(1):
-								cout<<"Ja"<<endl; 
 								m_pMenubuttons->SetPos (361, 304);
 								m_pMenubuttons->Render (0, 1);
 								m_pTextMenutext->SetColor (255, 255, 255);
@@ -387,7 +383,6 @@ void CGame::Break()
 								break;
 
 							case(2):
-								cout<<"Nein"<<endl;
 								m_pMenubuttons->SetPos (361, 304);
 								m_pMenubuttons->Render (0, 0);
 								m_pTextMenutext->SetColor (180, 180, 180);
@@ -418,7 +413,6 @@ void CGame::Break()
 									if (m_bEnterLock==false)
 									{
 										Save ();
-										cout<<"Spiel wurde gespeichert"<<endl;
 										m_bBreakLock2=true;
 										m_bEnterLock=true;
 									}
@@ -520,7 +514,6 @@ void CGame::Break()
 						m_bEnterLock=true;
 						m_State2=1;
 						m_bBreakLock2=false;
-						cout<<"Wirklich beenden?"<<endl;
 						m_pMenubackground->SetPos (134, 99);
 						m_pMenubackground->Render (0);
 						m_pTextMenuSave->SetColor (230, 230, 0);
@@ -538,7 +531,6 @@ void CGame::Break()
 							switch (m_State2)
 							{
 							case(1):
-								cout<<"Ja"<<endl; 
 								m_pMenubuttons->SetPos (361, 304);
 								m_pMenubuttons->Render (0, 1);
 								m_pTextMenutext->SetColor (255, 255, 255);
@@ -557,7 +549,6 @@ void CGame::Break()
 								break;
 
 							case(2):
-								cout<<"Nein"<<endl;
 								m_pMenubuttons->SetPos (361, 304);
 								m_pMenubuttons->Render (0, 0);
 								m_pTextMenutext->SetColor (180, 180, 180);

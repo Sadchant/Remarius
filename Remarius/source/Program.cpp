@@ -23,7 +23,6 @@ void CProgram::Run()
 		g_pFramework->Init_Video("Remarius Risation Indev 1.6", 1024, 768, true);
 
 	CMenu Menu;
-	cout<<"Druecke Enter"<<endl;
 	pText->SetFont(pFont);
 	
 	pText->SetContent ("Drücke Enter!");
