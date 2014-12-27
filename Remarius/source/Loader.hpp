@@ -39,12 +39,19 @@ public:
 	CTexture* GetTexture(Textures Texture) { return all_Textures[Texture]; }
 
 private:
+	struct TextureKonstruktor
+	{
+		string filename;
+		Renderlayers renderlayer;
+		int frameWidth;
+		int frameHeight;
+	};
 	void SetTextureFiles();
 	void LoadTextures();
 	static const int NUMTEXTURES = 19;
 
 	CTexture* all_Textures[NUMTEXTURES];
-	string all_Texture_Files[NUMTEXTURES];
+	TextureKonstruktor all_Texture_Files[NUMTEXTURES];
 	int all_Texture_NUMFRAMES[NUMTEXTURES];
 
 };

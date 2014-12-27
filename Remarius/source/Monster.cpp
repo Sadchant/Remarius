@@ -74,7 +74,6 @@ void CMonster::Render (float CameraX, float CameraY)
 }
 void CMonster::DoDamage(int Damage)
 {
-	cout << life << endl;
 	if (life - Damage >= 0)
 		if (m_fDamageTimer <= 0.0f)
 		{

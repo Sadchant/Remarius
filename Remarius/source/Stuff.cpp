@@ -8,26 +8,26 @@ CStuff::CStuff ()														// Player und Stuffprites laden
 	m_pPlayer->Reset ();
 
 	m_pSpriteStachelstein = NULL;																				// Stachelsteinensprite erzeugen
-	m_pSpriteStachelstein = new CSprite(g_pLoader->GetTexture(STACELSTONE),ENTITY_LAYER, 64, 44);
+	m_pSpriteStachelstein = new CSprite(g_pLoader->GetTexture(STACELSTONE));
 
 	m_pSpriteHoover = NULL;																				// Staubsaugersprite erzeugen
-	m_pSpriteHoover = new CSprite(g_pLoader->GetTexture(SPIDER), ENTITY_LAYER, 130, 97);
+	m_pSpriteHoover = new CSprite(g_pLoader->GetTexture(SPIDER));
 
 	m_pSpriteBombo = NULL;																				// Bombosprite erzeugen
-	m_pSpriteBombo = new CSprite(g_pLoader->GetTexture(BOMBO), ENTITY_LAYER, 86, 90);
+	m_pSpriteBombo = new CSprite(g_pLoader->GetTexture(BOMBO));
 
 	m_pSpriteExplosion = NULL;																				// Bombosprite erzeugen
-	m_pSpriteExplosion = new CSprite(g_pLoader->GetTexture(EXPLOSION), ENTITY_LAYER, 240, 240);
+	m_pSpriteExplosion = new CSprite(g_pLoader->GetTexture(EXPLOSION));
 
 	m_pSpriteSpider = NULL;																				// Hexaspidersprite erzeugen
-	m_pSpriteSpider = new CSprite(g_pLoader->GetTexture(SPIDER), ENTITY_LAYER, 130, 97);
+	m_pSpriteSpider = new CSprite(g_pLoader->GetTexture(SPIDER));
 
 
 	m_pSpriteTile = NULL;
-	m_pSpriteTile = new CSpriteObject(g_pLoader->GetTexture(TEXTURSET1), TILE_LAYER1, 45, 45, 49284);
+	m_pSpriteTile = new CSpriteObject(g_pLoader->GetTexture(TEXTURSET1), 49284);
 
 	m_pSpriteWall=NULL;
-	m_pSpriteWall = new CSprite(g_pLoader->GetTexture(WALL), TILE_LAYER2, 45, 45);
+	m_pSpriteWall = new CSprite(g_pLoader->GetTexture(WALL));
 
 	m_pCamera = NULL;
 	m_pCamera = new CCamera;

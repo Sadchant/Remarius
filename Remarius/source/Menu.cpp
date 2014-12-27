@@ -10,11 +10,11 @@ CMenu::CMenu()
 	m_bSound=false;
 	menuState = true;
 
-	m_pMenuBackground = new CSprite(g_pLoader->GetTexture(MENUHINTERGRUND), MENU_LAYER, 1280, 720);
-	m_pMenubuttons = new CSprite(g_pLoader->GetTexture(HAUPTMENUBUTTONS), MENU_LAYER, 356, 66);
-	m_pSoundbuttons = new CSprite(g_pLoader->GetTexture(SOUNDBUTTONS), MENU_LAYER, 65, 65);
-	m_pSoundschieber = new CSprite(g_pLoader->GetTexture(SOUNDSCHIEBER), MENU_LAYER, 19, 29);
-	m_pSoundbalken = new CSprite(g_pLoader->GetTexture(SOUNDBALKEN), MENU_LAYER, 140, 6);
+	m_pMenuBackground = new CSprite(g_pLoader->GetTexture(MENUHINTERGRUND));
+	m_pMenubuttons = new CSprite(g_pLoader->GetTexture(HAUPTMENUBUTTONS));
+	m_pSoundbuttons = new CSprite(g_pLoader->GetTexture(SOUNDBUTTONS));
+	m_pSoundschieber = new CSprite(g_pLoader->GetTexture(SOUNDSCHIEBER));
+	m_pSoundbalken = new CSprite(g_pLoader->GetTexture(SOUNDBALKEN));
 
 	defaultFont = OpenFont("Data/verdana.ttf", 19);
 

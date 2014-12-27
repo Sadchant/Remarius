@@ -7,7 +7,7 @@ class CSpriteObject
 {
 public:
 
-	CSpriteObject(CTexture* texture, Renderlayers renderlayer, int frameWidth, int frameHeight, int groesse);
+	CSpriteObject(CTexture* texture, int groesse);
 	void		SetPos(int stelle, int x, int y); // setzt Position des SpriteObjekts an stelle
 	void		SetPos(int stelle, float x, float y);
 	void		Render(int stelle);

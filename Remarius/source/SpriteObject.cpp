@@ -6,14 +6,14 @@
 	
 	*/
 
-CSpriteObject::CSpriteObject(CTexture* texture, Renderlayers renderlayer, int frameWidth, int frameHeight, int groesse)
+CSpriteObject::CSpriteObject(CTexture* texture, int groesse)
 {
 	this->groesse = groesse;
 
 	sprites.reserve(groesse); // setzt die Größe des Vectors auf die gebrauchte Länge
 	for (int i = 0; i < groesse; i++)
 	{
-		CSprite* default_Sprite = new CSprite(texture, renderlayer, frameWidth, frameHeight);
+		CSprite* default_Sprite = new CSprite(texture);
 		sprites.push_back(default_Sprite);
 	}
 }

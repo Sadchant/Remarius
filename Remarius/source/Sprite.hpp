@@ -10,7 +10,7 @@ class CSprite : public CRenderable
 {
 public:
 	CSprite(){}; // Wird für SpriteObjekt benötigt, dass von Sprite erbt
-	CSprite(CTexture* texture, Renderlayers renderlayer, int FrameWidth, int FrameHeight);
+	CSprite(CTexture* texture);
 
 	void		Render();
 	void		Render		(float frameNumber);

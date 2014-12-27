@@ -1,8 +1,11 @@
 #include "Texture.hpp"
 
-CTexture::CTexture(string filename)
+CTexture::CTexture(string filename, Renderlayers renderlayer, int frameWidth, int frameHeight)
 {
 	this->filename = filename;
+	this->renderlayer = renderlayer;
+	this->frameWidth = frameWidth;
+	this->frameHeight = frameHeight;
 	sdl_renderer = NULL;
 	sdl_texture = NULL;
 	Load();
@@ -11,6 +14,9 @@ CTexture::CTexture(string filename)
 CTexture::CTexture(const CTexture& other)
 {
 	filename = other.filename;
+	renderlayer = other.renderlayer;
+	frameWidth = other.frameWidth;
+	frameHeight = other.frameHeight;
 	sdl_renderer = NULL;
 	sdl_texture = NULL;
 	Load();
@@ -19,6 +25,9 @@ CTexture::CTexture(const CTexture& other)
 CTexture& CTexture::operator = (const CTexture& other)
 {
 	filename = other.filename;
+	renderlayer = other.renderlayer;
+	frameWidth = other.frameWidth;
+	frameHeight = other.frameHeight;
 	sdl_renderer = NULL;
 	sdl_texture = NULL;
 	Load();

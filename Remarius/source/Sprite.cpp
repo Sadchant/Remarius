@@ -1,17 +1,14 @@
 #include "Sprite.hpp"
 
-CSprite::CSprite(CTexture* texture, Renderlayers renderlayer, int frameWidth, int frameHeight)
+CSprite::CSprite(CTexture* texture)
 {
-	if (texture == NULL)
-	{
-		cout << "ACHTUNG: Textur ist NULL! (CSprite::CSprite)" << endl;
-		return;
-	}
+	renderlayer = texture->renderlayer;
+
 	source_Rect = { 0 };
-	source_Rect.w = frameWidth;
-	source_Rect.h = frameHeight;
-	target_Rect.w = frameWidth;
-	target_Rect.h = frameHeight;
+	source_Rect.w = texture->frameWidth;
+	source_Rect.h = texture->frameHeight;
+	target_Rect.w = texture->frameWidth;
+	target_Rect.h = texture->frameHeight;
 
 	this->texture = texture;
 	renderer = g_pFramework->GetRenderer();
