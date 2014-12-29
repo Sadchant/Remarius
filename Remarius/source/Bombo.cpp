@@ -17,7 +17,7 @@ CBombo::CBombo (CSprite *pSpriteBombo, float fXPos, float fYPos, float *pPlayerX
 
 	m_fDirection = 0.0f;
 	m_fCircularMove = 0.0f;
-	m_fAnimPhase = 0.0f;
+	animPhase = 0;
 	m_bIsAlive = true;
 	m_bAnimFlipper = 0;
 	m_fAnimCounter = 0.0f;

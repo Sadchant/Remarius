@@ -54,6 +54,7 @@ class CPlayer: public CMonster
 		bool			m_bBlock;						// Blockiert die Steuerung?
 		int				Map_Width;
         int				Map_Height;
+		float			fAnimphase;
  
 };
 

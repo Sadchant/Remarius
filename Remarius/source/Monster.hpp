@@ -46,7 +46,7 @@ class CMonster
 		float		m_fDirection;			// Richtung des Movements als float, gegen den Uhrzeigersinn, 6 Uhr ist 0.0f bzw 1.0f
 		int			m_SpriteDirection;		// Richtung des Sprites, als Int, 6 Uhr ist 0 bzw 8
 
-		float		m_fAnimPhase;			// Akt. Animationsphase des Monsters
+		int			animPhase;				// Akt. Animationsphase des Monsters
 		bool		m_bAnimFlipper;			// hochzählen oder runterzählen
 		float		m_fAnimCounter;			// Bei bestimmten Wert Animationsphase rendern
 

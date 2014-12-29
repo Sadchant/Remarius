@@ -16,7 +16,7 @@ class CHoover
 	  float			m_fYPos;				// Y-Position des Staubsaugers
 	  float			m_fDirection;			// Richtung; nach unten ist 0 (=1), gegen den Uhrzeigersinn
 	  int			m_iSpriteDirection;		// Richtung des Sprites (0 = unten, gegen den Uhrzeigersinn, 7 = unten links)
-	  float			m_fAnimPhase;			// Akt. Animationsphase des Staubsaugers
+	  int			animPhase;			// Akt. Animationsphase des Staubsaugers
 	  bool			m_AnimFlipper;			// hochzählen oder runterzählen
 	  float			m_fAnimCounter;			// Bei bestimmten Wert Animationsphase rendern
 };

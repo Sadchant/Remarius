@@ -15,7 +15,7 @@ CSpider::CSpider (CSprite *pSpriteSpider, float fXPos, float fYPos, float *pPlyx
 	m_Rect.w = pSpriteSpider->Get_targetRect().w;
 	m_Rect.h = pSpriteSpider->Get_targetRect().h;
 
-	m_fAnimPhase = 0.0f;
+	animPhase = 0;
 	m_bIsAlive = true;
 	m_bAnimFlipper = 0;
 	m_fAnimCounter = 0.0f;

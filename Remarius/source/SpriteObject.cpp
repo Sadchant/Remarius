@@ -45,6 +45,10 @@ void CSpriteObject::Render(int stelle)
 	}
 	else
 	{
+		if (sprites.at(stelle) == NULL)
+		{
+			cout << "ACHTUNG HIER LAEUFT WAS SCHIEF!!!" << endl;
+		}
 		sprites.at(stelle)->Render();
 	}
 }

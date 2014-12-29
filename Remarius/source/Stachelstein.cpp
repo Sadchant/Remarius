@@ -17,7 +17,7 @@ CStachelstein::CStachelstein (CSprite *pSpriteStachelstein, float fXPos, float f
 	m_fDirection = static_cast<float>(rand()%m_iDirections);
 	m_fDirection /= m_iDirections;															// Eine der [m_iDirections] Richtungen
 	m_iDChanger = 30;																		// Richtungs-Halte-Variable (Je höher, desto geringer ein Wechsel)
-	m_fAnimPhase = 0.0f;
+	animPhase = 0;
 	m_bIsAlive = true;
 	m_bAnimFlipper = 0;
 	m_fAnimCounter = 0.0f;

@@ -29,10 +29,10 @@ void CSprite::Render()
 
 
 // animiertes Sprite-Objekt an den Renderlayer geben
-void CSprite::Render (float frameNumber)										
+void CSprite::Render (int frameNumber)										
 {
-	int Column = static_cast<int>(frameNumber) % numFramesX;					// Ausschnitt der aktuellen Animationsphase berechnen
-	int Row = static_cast<int>(frameNumber) / numFramesX;
+	int Column = frameNumber % numFramesX;					// Ausschnitt der aktuellen Animationsphase berechnen
+	int Row = frameNumber / numFramesX;
 
 	source_Rect.x = Column * target_Rect.w;
 	source_Rect.y = Row * target_Rect.h;
@@ -43,9 +43,9 @@ void CSprite::Render (float frameNumber)
 
 
 // animiertes Sprite-Objekt an den Renderlayer geben
-void CSprite::Render (float frameNumber, int direction)						
+void CSprite::Render (int frameNumber, int direction)						
 {
-	int Column = static_cast<int>(frameNumber)%numFramesX;					// Ausschnitt der aktuellen Animationsphase berechnen
+	int Column = frameNumber % numFramesX;					// Ausschnitt der aktuellen Animationsphase berechnen
 	int Row =  direction;
 
 	source_Rect.x = Column * target_Rect.w;

@@ -54,7 +54,8 @@ void CPlayer::Reset ()												// "Spawnen"
 	m_AttackRect.w = 0;
 	m_AttackRect.h = 0;
 
-	m_fAnimPhase = 0.0f;
+	animPhase = 0;
+	fAnimphase = 0;
 	lifeAnimphase = 0;
 
 	m_bToolLock = false;												// Locks auflösen
@@ -64,7 +65,7 @@ void CPlayer::Render (float CameraX, float CameraY)												// Spieler und Sc
 {
 	m_pSpriteMonster->SetPos (m_fXPos-CameraX, m_fYPos-CameraY);// Spielersprite setzen
 	m_SpriteDirection = static_cast<int>(m_fDirection * 8 + 0.5f) % 8;
-	m_pSpriteMonster->Render (m_fAnimPhase, m_SpriteDirection);
+	m_pSpriteMonster->Render ((int)fAnimphase, m_SpriteDirection);
 	
 	list<CShot>::iterator it = m_ShotList.begin ();						// Iterator für Schüsse
 	while (it != m_ShotList.end ())
@@ -158,7 +159,7 @@ void CPlayer::ProcessMoving ()										// Spieler bewegen
 		{
 			m_fXPos += static_cast<float>(170.0f * sin(m_fDirection * 2 * M_PI) * g_pTimer->GetElapsed());
 			m_fYPos += static_cast<float>(170.0f * cos(m_fDirection * 2 * M_PI) * g_pTimer->GetElapsed());
-			m_fAnimPhase += 10.0f * g_pTimer->GetElapsed ();
+			fAnimphase += 10.0f * g_pTimer->GetElapsed();
 		}
 	}
 
@@ -204,7 +205,7 @@ void CPlayer::ProcessMoving (float Speed)										// Spieler bewegen
 		{
 			m_fXPos += static_cast<float>(Speed * sin(m_fDirection * 2 * M_PI) * g_pTimer->GetElapsed());
 			m_fYPos += static_cast<float>(Speed * cos(m_fDirection * 2 * M_PI) * g_pTimer->GetElapsed());
-			m_fAnimPhase += 20.0f * g_pTimer->GetElapsed ();
+			fAnimphase += 10.0f * g_pTimer->GetElapsed();
 		}
 	}
 
@@ -309,11 +310,16 @@ void CPlayer::CheckPosition ()
       m_fYPos = 0.0f;
    else if (m_fYPos > (Map_Height))
       m_fYPos = static_cast<float>(Map_Height);
-   if   (m_fAnimPhase >= 7)
-                m_fAnimPhase = 0;
-   if   (m_fAnimPhase < 0)
-                m_fAnimPhase = 0;
-   g_pDebugscreen->Set("Animphase: ", m_fAnimPhase);
+   if (fAnimphase >= 7)
+   {
+	   fAnimphase = 0;
+   }
+               
+   if (fAnimphase < 0)
+   {
+	   fAnimphase = 0;
+   }
+   g_pDebugscreen->Set("fAnimphase: ", fAnimphase);
  
 }
 
