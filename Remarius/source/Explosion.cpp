@@ -21,7 +21,8 @@ void CExplosion::Render (float CameraX, float CameraY)														// Explosion
 	m_fDuration += g_pTimer->GetElapsed();
 
 
-	if (m_fDuration >= 0.05f)
+	//if (m_fDuration >= 0.05f)
+	if (m_fDuration >= 0.08f)
 	{
 		m_fDuration = 0.0f;
 		m_StateExplosion++;

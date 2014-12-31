@@ -17,12 +17,12 @@ void CRenderlayer::add_Renderjob(CRenderable* Renderable, Renderlayers Renderlay
 
 void CRenderlayer::Render()
 {
-	for (int i = 0; i < NUM_LAYERS; i++)
+	for (int i = 0; i < NUM_LAYERS; i++) // geht durchs Array
 	{
-		for (unsigned j = 0; j < Renderables[i].size(); j++)
+		while( Renderables[i].size() > 0) // geht durch eine liste
 		{
-			Renderables[i].at(j)->RenderYourself();
-			Renderables[i].erase(Renderables[i].begin()+j);
+			Renderables[i].front()->RenderYourself();
+			Renderables[i].pop_front();
 		}
 	}
 	g_pFramework->Render();

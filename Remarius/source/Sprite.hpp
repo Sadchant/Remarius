@@ -16,9 +16,6 @@ public:
 	void		Render		(int frameNumber, int direction);
 	void		RenderYourself();
 
-	void SetPos(int x, int y);
-	void SetPos(float x, float y);
-
 
 protected:
 	SDL_Renderer* renderer;

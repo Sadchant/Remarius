@@ -1,4 +1,6 @@
 #include "Stuff.hpp"
+#include <windows.h>
+
 
 
 CStuff::CStuff ()														// Player und Stuffprites laden
@@ -24,7 +26,7 @@ CStuff::CStuff ()														// Player und Stuffprites laden
 
 
 	m_pSpriteTile = NULL;
-	m_pSpriteTile = new CSpriteObject(g_pLoader->getTexture("T_TEXTURSET1"), 49284);
+	m_pSpriteTile = new CSpriteObject(g_pLoader->getTexture("T_TEXTURSET1"), TOTAL_TILES);
 
 	m_pSpriteWall=NULL;
 	m_pSpriteWall = new CSprite(g_pLoader->getTexture("T_WALL"));
@@ -413,17 +415,18 @@ bool CStuff::set_tiles()
 
 void CStuff::show()
 {
-        int type;
-        for (int t = 0; t < TOTAL_TILES; t++ )
+	//Sleep(300);
+	int type;
+	for (int t = 0; t < TOTAL_TILES; t++ )
+	{
+		type=(tiles[t]->get_type());
+		if( CkRect( m_pCamera->GetCameraRect(), tiles[t]->GetRect() ) == true )
 		{
-                type=(tiles[t]->get_type());
-                if( CkRect( m_pCamera->GetCameraRect(), tiles[t]->GetRect() ) == true )
-                {
-					m_pSpriteTile->SetPos(t, tiles[t]->GetRect().x - m_pCamera->GetCameraRect().x, tiles[t]->GetRect().y - m_pCamera->GetCameraRect().y);
-					m_pSpriteTile->Render(t, static_cast<float>(type%4),static_cast<int>(type/4));
-                }
-        }
- 
+			m_pSpriteTile->SetPos(t, tiles[t]->GetRect().x - m_pCamera->GetCameraRect().x, tiles[t]->GetRect().y - m_pCamera->GetCameraRect().y);
+			m_pSpriteTile->Render(t, type%4,static_cast<int>(type/4));
+		}
+	}
+	
 		/*list <CTile>::iterator ItTile2;
         for (ItTile2=tiles2.begin(); ItTile2!=tiles2.end(); ItTile2++ )
         {
@@ -450,10 +453,10 @@ void CStuff::show()
 
 bool CStuff::CkRect(SDL_Rect a, SDL_Rect b)
 {
-	if (a.y < b.y + b.h &&
-		a.y + a.h > b.y &&
-		a.x < b.x + b.w &&
-		a.x + a.w > b.x)
+	if (a.y < (b.y + b.h) &&
+		(a.y + a.h) > b.y &&
+		a.x < (b.x + b.w) &&
+		(a.x + a.w) > b.x)
 		return true;
 	else return false;
 }

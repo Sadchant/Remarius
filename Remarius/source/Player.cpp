@@ -4,7 +4,7 @@
 
 CPlayer::CPlayer ()													// Player initialisieren
 {
-	maxLife = 16;
+	maxLife = 6;
 	m_pSpriteMonster = NULL;												// Sprites Laden
 	m_pSpriteMonster = new CSprite(g_pLoader->getTexture("T_REMARIUS"));
 
@@ -41,7 +41,7 @@ void CPlayer::Reset ()												// "Spawnen"
 	m_SpriteDirection = 0;
 	m_fDamageTimer = 1.0f;
 
-	maxLife = 16;														// Leben einstellen
+	maxLife = 6;														// Leben einstellen
 	life = 6;
 
 	m_Rect.x = static_cast<int>(m_fXPos);								// Rect initialisieren
@@ -93,23 +93,23 @@ void CPlayer::LifeRender ()											// Lebensanzeige rendern
 		{
 			if (lifeAnimphase < 0.5f)								// Rendern nach AnimPhase
 			{
-				spriteLife->Render(i, static_cast<float>(2 + i % 2));
+				spriteLife->Render(i, (2 + i % 2));
 			}
 			else
 			{
-				spriteLife->Render(i, static_cast<float>(i%2));
+				spriteLife->Render(i, (i%2));
 			}				
 		} 
 		else
 		{
-			spriteLife->Render(i, static_cast<float>(i % 2));			// Ansonsten unanimierte Herzhälfte rendern
+			spriteLife->Render(i, (i % 2));			// Ansonsten unanimierte Herzhälfte rendern
 		}
 	}
 
 	for (int i = life; i < maxLife; i++)							// leere Herzen rendern
 	{
 		spriteLife->SetPos(i, 13 + (14 * i), 13);
-		spriteLife->Render(i, static_cast<float>(4+i%2));
+		spriteLife->Render(i, (4+i%2));
 	}
 
 	

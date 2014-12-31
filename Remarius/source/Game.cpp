@@ -80,6 +80,7 @@ void CGame::Quit ()																								// Müll freigeben
 }
 void CGame::Run (int save, bool Safegame)         // Hauptschleife des Spiels
 {
+	int ticks = 0;
 	m_Savestate = save;
 	if (Safegame)	
 		Load();
@@ -94,7 +95,13 @@ void CGame::Run (int save, bool Safegame)         // Hauptschleife des Spiels
 		ProcessEvents ();	
 		//pTrack_1->Play ();
 		g_pDebugscreen->Render();
-		g_pRenderlayer->Render ();	
+		g_pRenderlayer->Render ();
+		/*if (ticks == 0)
+		{
+			while (true){}
+			cout << ":)";
+		}*/
+		ticks += 1;
 	}
 }
 

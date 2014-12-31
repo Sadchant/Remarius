@@ -2,7 +2,7 @@
 #define RENDERLAYER_HPP
 
 #include "Renderable.hpp"
-#include <vector>
+#include <list>
 
 #define g_pRenderlayer CRenderlayer::Get()
 
@@ -27,7 +27,7 @@ private:
 	vector<CRenderable*>	Text_Layer_8;*/
 	static const int NUM_LAYERS = 8;
 
-	vector<CRenderable*>	Renderables[NUM_LAYERS];
+	list<CRenderable*>	Renderables[NUM_LAYERS]; // Array von Vectoren
 };
 
 
