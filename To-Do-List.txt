@@ -41,7 +41,8 @@ To-Do-List für Alpha 1.1
 
 - Stuff + Game neu strukturieren (lany)
 - alle Monster sind zu sehen (Bugfix) (lany)
-- Menulayout schön machen (Bugfix) (lany)
 
+- Fußboden sieht schön aus (Bugfix) (sad)
+- Menulayout schön machen (Bugfix) (sad)
 - Zaun-Textur (sad)
 - Sterbesound für Remarius (sad)
