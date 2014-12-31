@@ -61,7 +61,7 @@ class CStuff
 		static const int	TILE_WIDTH=45; 
 		static const int	TILE_HEIGHT=45; 
 		static const int	TOTAL_TILES=49284; 
-		//static const int	TOTAL_TILES = 100;
+		//static const int	TOTAL_TILES = 1000;
 		static const int	LEVEL_WIDTH=9990;  
 		static const int	LEVEL_HEIGHT=9990; 
 		static const int	TILE_SPRITES = 32; 

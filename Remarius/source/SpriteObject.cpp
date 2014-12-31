@@ -38,7 +38,7 @@ void CSpriteObject::SetPos(int stelle, float x, float y)
 
 void CSpriteObject::Render(int stelle)
 {
-	if ((stelle >= groesse) || (stelle >= (int)sprites.size())) // <-- Diese Abfrage kann später, wenns was bringt und alles klappt weg
+	if (stelle >= groesse) // <-- Diese Abfrage kann später, wenns was bringt und alles klappt weg
 	{
 		cout << "Fehler: An der Stelle gibts kein SpriteObject du Kloppi! (CSpriteObject::Render)" << endl;
 		return;
@@ -53,9 +53,9 @@ void CSpriteObject::Render(int stelle)
 	}
 }
 
-void CSpriteObject::Render(int stelle, float frameNumber)
+void CSpriteObject::Render(int stelle, int frameNumber)
 {
-	if (stelle >= groesse || stelle >= (int)sprites.size()) // <-- Diese Abfrage kann später, wenns was bringt und alles klappt weg
+	if (stelle >= groesse) // <-- Diese Abfrage kann später, wenns was bringt und alles klappt weg
 	{
 		cout << "Fehler: An der Stelle gibts kein SpriteObject du Kloppi! (CSpriteObject::Render)" << endl;
 		return;
@@ -66,9 +66,9 @@ void CSpriteObject::Render(int stelle, float frameNumber)
 	}
 }
 
-void CSpriteObject::Render(int stelle, float frameNumber, int direction)
+void CSpriteObject::Render(int stelle, int frameNumber, int direction)
 {
-	if (stelle >= groesse || stelle >= (int)sprites.size()) // <-- Diese Abfrage kann später, wenns was bringt und alles klappt weg
+	if (stelle >= groesse) // <-- Diese Abfrage kann später, wenns was bringt und alles klappt weg
 	{
 		cout << "Fehler: An der Stelle gibts kein SpriteObject du Kloppi! (CSpriteObject::Render)" << endl;
 		return;

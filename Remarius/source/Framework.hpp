@@ -24,8 +24,9 @@ class CFramework : public TSingleton<CFramework>
 		bool  Pressed	(SDL_Scancode e);
 		SDL_Renderer*	GetRenderer() { return sdl_Renderer; }	
 		SDL_Window*	GetWindow() { return sdl_Window; }
-		int			Get_window_Height(){ return window_Height; }
-		int			Get_window_Width(){ return window_Width; }
+		int			Get_window_Width(){ return WINDOW_WIDTH; }
+		int			Get_window_Height(){ return WINDOW_HEIGHT; }
+		
 	
 
 	private:
@@ -33,8 +34,8 @@ class CFramework : public TSingleton<CFramework>
 		SDL_Renderer*	sdl_Renderer;					// Renderer, der alles rendert
 		SDL_Event		Event;
 		const Uint8*	pKeystate;						// Array für aktuellen Tastaturstatus
-		const int		window_Width = 1280;
-		const int		window_Height = 720;
+		const int		WINDOW_WIDTH = 1280;
+		const int		WINDOW_HEIGHT = 720;
 };
 
 #endif
