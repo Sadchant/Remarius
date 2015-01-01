@@ -60,6 +60,6 @@ void CSprite::RenderYourself()
 {
 	if ((SDL_RenderCopy(texture->sdl_renderer, texture->sdl_texture, &source_Rect, &target_Rect)) < 0)				// Textur wird in der Renderer kopiert
 	{
-	cout << "Fehler beim Kopieren der Textur: " << SDL_GetError() << endl;
+		cout << "CSprite::RenderYourself: Fehler beim Kopieren der Textur: " << SDL_GetError() << endl;
 	}
 }

@@ -7,6 +7,7 @@
 #include "SDL_image.h"
 #include "SDL_ttf.h"
 #include "SDL_mixer.h"
+#include "Options.hpp"
 
 using namespace std;
 
@@ -36,6 +37,7 @@ class CFramework : public TSingleton<CFramework>
 		const Uint8*	pKeystate;						// Array für aktuellen Tastaturstatus
 		const int		WINDOW_WIDTH = 1280;
 		const int		WINDOW_HEIGHT = 720;
+		char*			window_name = "Remarius Risation Alpha 1.0";
 };
 
 #endif

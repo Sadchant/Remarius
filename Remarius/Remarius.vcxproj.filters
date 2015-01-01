@@ -135,6 +135,9 @@
     <ClInclude Include="source\SpriteObject.hpp">
       <Filter>Resource/Frame\Rendering</Filter>
     </ClInclude>
+    <ClInclude Include="source\PauseMenu.hpp">
+      <Filter>Programflow</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="source\Hoover.cpp">
@@ -235,6 +238,9 @@
     </ClCompile>
     <ClCompile Include="source\SpriteObject.cpp">
       <Filter>Resource/Frame\Rendering</Filter>
+    </ClCompile>
+    <ClCompile Include="source\PauseMenu.cpp">
+      <Filter>Programflow</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

@@ -7,7 +7,7 @@ CText::CText(Renderlayers renderlayer)
 	surface = NULL;
 	font = NULL;
 	color = { 0 };
-	renderer = g_pFramework->GetRenderer();
+
 	this->renderlayer = renderlayer;
 }
 
@@ -92,7 +92,7 @@ void CText::createTexture()
 	{
 		SDL_DestroyTexture(texture);
 	}
-		
+	renderer = g_pFramework->GetRenderer();
 	const char* pContent = content.c_str();
 	if (!content.empty())
 	{
@@ -118,6 +118,6 @@ void CText::RenderYourself()
 {
 	if (SDL_RenderCopy(renderer, texture, NULL, &target_Rect) < 0)				// Textur wird in der Renderer kopiert
 	{
-		cout << "Fehler beim Kopieren der Textur: " << SDL_GetError() << endl;
+		cout << "CText::RenderYourself:Fehler beim Kopieren der Textur: " << SDL_GetError() << endl;
 	}
 }

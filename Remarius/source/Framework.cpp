@@ -11,7 +11,8 @@ bool CFramework::Init ()
 		Quit ();
 		return false;
 	}
-	if (Init_Video("Remarius Risation Indev 1.6", WINDOW_WIDTH, WINDOW_HEIGHT, false) == false)		// an der Stelle Daten aus Datei einlesen!
+
+	if (Init_Video(window_name, WINDOW_WIDTH, WINDOW_HEIGHT, g_pOptions->Fullscreen) == false)		// an der Stelle Daten aus Datei einlesen!
 	{
 		cout << "SDL_Video konnte nicht initialisiert werden!" << endl;
 		cout << "Fehlermeldung: " << SDL_GetError () << endl;
@@ -37,13 +38,12 @@ bool CFramework::Init ()
 
 // erzeugt ein SDL_Window mit den übergebenen Werten und einen SDL_Renderer
 bool CFramework::Init_Video (char* name, int width, int height, bool bFullscreen)
-{
-	
+{	
 	if (sdl_Window != NULL)						// sollte bereits ein Fenster vorhanden sein, zerstöre es
 	{
 		SDL_DestroyWindow(sdl_Window);
 	}
-	if (sdl_Renderer != NULL)					// sollte bereits ein Fenster vorhanden sein, zerstöre es
+	if (sdl_Renderer != NULL)					// sollte bereits ein Renderer vorhanden sein, zerstöre ihn
 	{
 		SDL_DestroyRenderer(sdl_Renderer);
 	}

@@ -16,11 +16,7 @@ CProgram::CProgram ()
 }
 
 void CProgram::Run()
-{	
-	CXMLhandler XMLhandler;
-	XMLhandler.readoptions();
-	if (!g_pOptions->Fullscreen)
-		g_pFramework->Init_Video("Remarius Risation Indev 1.6", 1024, 768, true);
+{
 
 	CMenu Menu;
 	pText->SetFont(pFont);
