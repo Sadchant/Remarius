@@ -10,12 +10,6 @@ CMenu::CMenu()
 	m_bSound=false;
 	menuState = true;
 
-	m_pMenuBackground = new CSprite(g_pLoader->getTexture("T_MENUHINTERGRUND"));
-	m_pMenubuttons = new CSprite(g_pLoader->getTexture("T_HAUPTMENUBUTTONS"));
-	m_pSoundbuttons = new CSprite(g_pLoader->getTexture("T_SOUNDBUTTONS"));
-	m_pSoundschieber = new CSprite(g_pLoader->getTexture("T_SOUNDSCHIEBER"));
-	m_pSoundbalken = new CSprite(g_pLoader->getTexture("T_SOUNDBALKEN"));
-
 	defaultFont = OpenFont("Data/verdana.ttf", 19);
 
 	menuMusic = new CMusic;
@@ -27,7 +21,7 @@ void CMenu::generateMenu()
 {
 	menuPages.clear();
 	{	// Main menu [0]
-		CMenuPage mainmenu(m_pMenuBackground, "Hauptmenü", defaultFont);
+		CMenuPage mainmenu("Hauptmenü", defaultFont);
 		CMenuButton* playbttn = new CMenuButton("Spielen", defaultFont);
 		playbttn->setfunc(bind([](int& mpg){mpg = 1;}, ref(menPageIndex)));
 		mainmenu.addItem(playbttn);
@@ -40,7 +34,7 @@ void CMenu::generateMenu()
 		menuPages.push_back(mainmenu);
 	}
 	{
-		CMenuPage saveselect(m_pMenuBackground, "Spielstand wählen", defaultFont);
+		CMenuPage saveselect("Spielstand wählen", defaultFont);
 		CMenuButton* savestatebttn1 = new CMenuButton("Spielstand 1", defaultFont);
 		savestatebttn1->setfunc(bind([](int& mpg, int& slcsave){mpg = 3; slcsave = 1; }, ref(menPageIndex), ref(selectedSave)));
 		saveselect.addItem(savestatebttn1);
@@ -56,12 +50,12 @@ void CMenu::generateMenu()
 		menuPages.push_back(saveselect);
 	}
 	{
-		CMenuPage options(m_pMenuBackground, "Optionen", defaultFont);
+		CMenuPage options("Optionen", defaultFont);
 		CMenuButton* fullscrbttn = new CMenuButton("Vollbild", defaultFont);
 		fullscrbttn->setfunc(bind([](CMenu* menu){	g_pOptions->Fullscreen ^= 1; g_pFramework->Init_Video("Remarius Risation Indev 1.6", 1024, 768, !g_pOptions->Fullscreen); 
 													menu->ReloadSprites(); }, this));
 		options.addItem(fullscrbttn);
-		CMenuSlider* testslider = new CMenuSlider("Lautstärke Musik", defaultFont, 16);
+		CMenuSlider* testslider = new CMenuSlider("Musik", defaultFont, 16);
 		testslider->setListener(bind([](CMusic* mus, int vol){mus->SetVolume(vol * 8); g_pOptions->Volume = vol; }, menuMusic, placeholders::_1));
 		testslider->setState(g_pOptions->Volume);
 		options.addItem(testslider);
@@ -75,7 +69,7 @@ void CMenu::generateMenu()
 		menuPages.push_back(options);
 	}
 	{
-		CMenuPage loadsave(m_pMenuBackground, "Spiel starten", defaultFont);
+		CMenuPage loadsave("Spiel starten", defaultFont);
 		CMenuButton* loadbttn = new CMenuButton("Spiel fortsetzen", defaultFont);
 		loadbttn->setfunc(bind([](int& slcsave){	CGame Game;
 								Game.Run(slcsave);
@@ -120,15 +114,8 @@ void CMenu::ReloadSprites()
 }
 void CMenu::Quit ()
 {
-	SAFE_DELETE(m_pMenuBackground);
-	SAFE_DELETE(m_pMenubuttons);
-	SAFE_DELETE(m_pSoundbuttons);
-	SAFE_DELETE(m_pSoundschieber);
-	SAFE_DELETE(m_pSoundbalken);
 	if (menuMusic != NULL) { menuMusic->StopMusic(); SAFE_DELETE(menuMusic); }
 	if (defaultFont != NULL) { TTF_CloseFont(defaultFont); defaultFont = NULL; }
 	for (unsigned i = 0; i < menuPages.size(); i++)
 		menuPages[i].freeItems();
-	CMenuSlider::freeSprites();
-	CMenuCheckBox::freeSprites();
 }

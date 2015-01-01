@@ -8,7 +8,7 @@ CGame::CGame ()																									// Game initialisieren
 	m_pMenubackground = new CSprite(g_pLoader->getTexture("T_PAUSEMENUHINTERGRUND"));
 
 	m_pMenubuttons = NULL;																				// Staubsaugersprite erzeugen
-	m_pMenubuttons = new CSprite(g_pLoader->getTexture("T_MENUBUTTONS"));
+	m_pMenubuttons = new CSprite(g_pLoader->getTexture("T_MENUBUTTONSMALL"));
 
 //	m_pBaum = NULL;																				// Staubsaugersprite erzeugen
 //	m_pBaum = new CSprite;

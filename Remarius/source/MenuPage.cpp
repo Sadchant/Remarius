@@ -1,20 +1,27 @@
 #include "MenuPage.hpp"
 
-CMenuPage::CMenuPage(CSprite* bg, string label, TTF_Font* font)
+TTF_Font* CMenuPage::captionFont = NULL;
+const SDL_Color CMenuPage::captionColor = { 230, 230, 0, 0 };
+const int CMenuPage::captionXPos = 640;
+const int CMenuPage::captionYPos = 70;
+
+CMenuPage::CMenuPage(string label, TTF_Font* font)
 {
+	if (!captionFont) captionFont = OpenFont("Data/verdana.ttf", 25);
 	selected = 0;
-	background = bg;
+	background = new CSprite(g_pLoader->getTexture("T_MENUBG"));
 	caption = new CText(TEXT_LAYER);
-	caption->SetFont(font);
-	caption->SetColor(230, 230, 0);
+	caption->SetFont(captionFont);
+	caption->SetColor(captionColor.r, captionColor.g, captionColor.b);
 	caption->SetContent(label);
-	caption->SetPos(334, 70);
+	caption->SetPos(captionXPos - caption->Get_length()/2, captionYPos - caption->Get_height()/2);
 }
 
 CMenuPage::CMenuPage(const CMenuPage& other) :
 background(other.background), selected(other.selected)
 {
 	caption = new CText(*other.caption);
+	background = new CSprite(*other.background);
 	for (unsigned int i = 0; i < other.items.size(); i++)
 		items.push_back(other.items[i]);
 
@@ -22,10 +29,9 @@ background(other.background), selected(other.selected)
 
 CMenuPage::~CMenuPage()
 {
-//	for (CMenuItem* i : items)
-//		delete i;
 	items.clear();
 	delete caption;
+	delete background;
 }
 
 CMenuPage& CMenuPage::operator = (const CMenuPage& other)
@@ -36,7 +42,8 @@ CMenuPage& CMenuPage::operator = (const CMenuPage& other)
 	{
 		items.push_back(other.items[i]);
 	}
-	background = other.background;
+	SAFE_DELETE(background);
+	background = new CSprite(*other.background);
 	SAFE_DELETE(caption);
 	caption = new CText(*other.caption);
 
@@ -45,7 +52,7 @@ CMenuPage& CMenuPage::operator = (const CMenuPage& other)
 
 void CMenuPage::addItem(CMenuItem* item)
 {
-	item->setPos(334, 174 + (items.size() * 100));
+	item->setPos(captionXPos, captionYPos + 120 + (items.size() * 100));
 	items.push_back(item);
 }
 

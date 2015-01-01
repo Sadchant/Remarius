@@ -15,16 +15,15 @@ public:
 	CMenuCheckBox& operator = (const CMenuCheckBox& other);
 
 	void render(bool b = false);
-	void setPos(int x = -1, int y = -1);
+	void setPos(int x, int y);
 	bool processEvent(SDL_KeyboardEvent& event);
 
 	void setListener(function<void(bool)> func) { listener = func; }
 	void setState(bool b) { selected = b; listener(selected); }
 
-	static void freeSprites();
-
 private:
-	static CSprite*	buttons;
+	CSprite*		button;
+	CSprite*		panel;
 	CText*			text;
 	bool			selected;
 	function<void(bool)> listener;

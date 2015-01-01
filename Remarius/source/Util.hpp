@@ -22,4 +22,8 @@ static TTF_Font* OpenFont(string filename, int size, bool bold = false, bool ita
 	return font;
 }
 
+struct point {
+	int x; int y;
+};
+
 #endif
