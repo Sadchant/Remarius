@@ -16,8 +16,7 @@ CSprite::CSprite(CTexture* texture)
 	renderlayer = this->renderlayer = renderlayer;
 	int width, height = 0;
 	SDL_QueryTexture(this->texture->sdl_texture, NULL, NULL, &width, &height);
-	numFramesX = width / target_Rect.w;
-	
+	numFramesX = width / target_Rect.w;	
 }
 
 // Sprite-Objekt an den Renderlayer geben
@@ -62,4 +61,11 @@ void CSprite::RenderYourself()
 	{
 		cout << "CSprite::RenderYourself: Fehler beim Kopieren der Textur: " << SDL_GetError() << endl;
 	}
+}
+
+Point CSprite::GetTextureDimensions()
+{
+	Point dimensions;
+	SDL_QueryTexture(texture->sdl_texture, NULL, NULL, &dimensions.x, &dimensions.y);
+	return dimensions;
 }

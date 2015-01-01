@@ -6,6 +6,7 @@
 #include "Renderlayer.hpp"
 #include "Loader.hpp"
 
+
 class CSprite : public CRenderable
 {
 public:
@@ -15,7 +16,7 @@ public:
 	void		Render		(int frameNumber);
 	void		Render		(int frameNumber, int direction);
 	void		RenderYourself();
-
+	Point		GetTextureDimensions();
 
 protected:
 	SDL_Renderer* renderer;

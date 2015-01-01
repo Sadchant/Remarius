@@ -4,6 +4,7 @@
 #include "Framework.hpp"
 #include "Singleton.hpp"
 #include "Texture.hpp"
+#include "Util.hpp"
 #include <map>
 #include <fstream>
 #include <string>
