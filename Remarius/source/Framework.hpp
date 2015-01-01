@@ -17,7 +17,7 @@ class CFramework : public TSingleton<CFramework>
 {
 	public:
 		bool  Init		 ();
-		bool  Init_Video (char* name, int window_width, int window_height, bool bFullscreen);
+		bool  Init_Video (string name, int window_width, int window_height, bool bFullscreen);
 		void  Quit		 ();
 		void  Update	 ();
 		void  Render	 ();

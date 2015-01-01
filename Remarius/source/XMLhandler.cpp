@@ -34,7 +34,7 @@ bool CXMLhandler::readoptions()
 
 	titleelement = doc.FirstChildElement("Options")->FirstChildElement("WindowName")->FirstChildElement("v");
 	title = titleelement->GetText();
-	//g_pOptions->window_name = title;
+	g_pOptions->window_name = title;
 
 	return true;
 }

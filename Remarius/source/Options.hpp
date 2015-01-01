@@ -14,6 +14,6 @@ public:
 	int		volume = 5;
 	int		window_width = 1280;
 	int		window_height = 720;
-	char*	window_name = "Remarius Risation";
+	std::string	window_name = "Remarius Risation";
 };
 #endif

@@ -40,8 +40,9 @@ bool CFramework::Init ()
 }
 
 // erzeugt ein SDL_Window mit den übergebenen Werten und einen SDL_Renderer
-bool CFramework::Init_Video (char* name, int width, int height, bool bFullscreen)
+bool CFramework::Init_Video (string name, int width, int height, bool bFullscreen)
 {	
+	const char* pName = name.c_str();
 	if (sdl_Window != NULL)						// sollte bereits ein Fenster vorhanden sein, zerstöre es
 	{
 		SDL_DestroyWindow(sdl_Window);
@@ -53,11 +54,11 @@ bool CFramework::Init_Video (char* name, int width, int height, bool bFullscreen
 	
 	if (bFullscreen == true)					//erzeugt das Fenster im Fullscreen oder Fenstermodus
 	{		
-		sdl_Window = SDL_CreateWindow(name, SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, width, height, SDL_WINDOW_FULLSCREEN);
+		sdl_Window = SDL_CreateWindow(pName, SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, width, height, SDL_WINDOW_FULLSCREEN);
 	}
 	else
 	{		
-		sdl_Window = SDL_CreateWindow(name, SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, width, height, SDL_WINDOW_SHOWN);
+		sdl_Window = SDL_CreateWindow(pName, SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, width, height, SDL_WINDOW_SHOWN);
 	}
 	sdl_Renderer = SDL_CreateRenderer(sdl_Window, -1, SDL_RENDERER_ACCELERATED);
 	//SDL_SetRenderDrawBlendMode(sdl_Renderer, SDL_BLENDMODE_BLEND);
