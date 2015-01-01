@@ -12,7 +12,10 @@ bool CFramework::Init ()
 		return false;
 	}
 
-	if (Init_Video(window_name, WINDOW_WIDTH, WINDOW_HEIGHT, g_pOptions->Fullscreen) == false)		// an der Stelle Daten aus Datei einlesen!
+	if (Init_Video(g_pOptions->window_name, 
+					g_pOptions->window_width, 
+					g_pOptions->window_height, 
+					g_pOptions->fullscreen) == false)
 	{
 		cout << "SDL_Video konnte nicht initialisiert werden!" << endl;
 		cout << "Fehlermeldung: " << SDL_GetError () << endl;

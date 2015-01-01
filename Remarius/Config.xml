@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Options>
     <Fullscreen>
-        <v>1</v>
+        <v>0</v>
     </Fullscreen>
     <Music>
         <v>0</v>
@@ -9,4 +9,15 @@
     <Volume>
         <v>8</v>
     </Volume>
+    <Resolution>
+        <width>
+            <v>1280</v>
+        </width>
+        <height>
+            <v>720</v>
+        </height>
+    </Resolution>
+    <WindowName>
+        <v>Remarius Risation Alpha 1.0</v>
+    </WindowName>
 </Options>

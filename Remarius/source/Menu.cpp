@@ -52,16 +52,19 @@ void CMenu::generateMenu()
 	{
 		CMenuPage options("Optionen", defaultFont);
 		CMenuButton* fullscrbttn = new CMenuButton("Vollbild", defaultFont);
-		fullscrbttn->setfunc(bind([](CMenu* menu){	g_pOptions->Fullscreen ^= 1; g_pFramework->Init_Video("Remarius Risation Alpha 1.0", g_pFramework->Get_window_Width(), g_pFramework->Get_window_Height(), !g_pOptions->Fullscreen);
+		fullscrbttn->setfunc(bind([](CMenu* menu){	g_pOptions->fullscreen ^= 1; g_pFramework->Init_Video(g_pOptions->window_name,
+																											g_pOptions->window_width,
+																											g_pOptions->window_height,
+																											!g_pOptions->fullscreen);
 													menu->ReloadSprites(); }, this));
 		options.addItem(fullscrbttn);
 		CMenuSlider* testslider = new CMenuSlider("Musik", defaultFont, 16);
-		testslider->setListener(bind([](CMusic* mus, int vol){mus->SetVolume(vol * 8); g_pOptions->Volume = vol; }, menuMusic, placeholders::_1));
-		testslider->setState(g_pOptions->Volume);
+		testslider->setListener(bind([](CMusic* mus, int vol){mus->SetVolume(vol * 8); g_pOptions->volume = vol; }, menuMusic, placeholders::_1));
+		testslider->setState(g_pOptions->volume);
 		options.addItem(testslider);
 		CMenuCheckBox* testbox = new CMenuCheckBox("Musik aktivieren", defaultFont);
-		testbox->setListener(bind([](CMusic* mus, bool enable){mus->PauseMusic(enable); g_pOptions->Music = enable; }, menuMusic, placeholders::_1));
-		testbox->setState(g_pOptions->Music);
+		testbox->setListener(bind([](CMusic* mus, bool enable){mus->PauseMusic(enable); g_pOptions->music = enable; }, menuMusic, placeholders::_1));
+		testbox->setState(g_pOptions->music);
 		options.addItem(testbox);
 		CMenuButton* quitbttn = new CMenuButton("Zurück", defaultFont);
 		quitbttn->setfunc(bind([](int& mpg){CXMLhandler xml; xml.writeoptions(); mpg = 0;  }, ref(menPageIndex)));
@@ -87,7 +90,7 @@ void CMenu::generateMenu()
 void CMenu::Run()
 {
 	menuMusic->Play();
-	menuMusic->PauseMusic(g_pOptions->Music);
+	menuMusic->PauseMusic(g_pOptions->music);
 	while (menuState)
 	{
 		while (SDL_PollEvent(&event))

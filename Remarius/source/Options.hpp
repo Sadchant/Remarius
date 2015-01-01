@@ -2,15 +2,18 @@
 #define OPTIONS_HPP
 
 #include "Singleton.hpp"
+#include <string>
 
 #define g_pOptions COptions::Get()
 
 class COptions : public TSingleton<COptions>
 {
 public:
-	COptions(){Fullscreen = false;	Music = true;	Volume = 5;	}
-	bool	Fullscreen;
-	bool	Music;
-	int		Volume;
+	bool	fullscreen = false;
+	bool	music = true;
+	int		volume = 5;
+	int		window_width = 1280;
+	int		window_height = 720;
+	char*	window_name = "Remarius Risation";
 };
 #endif
