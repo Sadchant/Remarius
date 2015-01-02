@@ -59,7 +59,7 @@ void CLoader::reloadTextures()
 	for (map<string, TextureWrapper>::iterator it = textures.begin(); it != textures.end(); it++)
 	{
 		if (it->second.texture != NULL)
-			it->second.texture->Load();
+			it->second.texture->reLoad();
 	}
 }
 

@@ -40,16 +40,33 @@ CTexture::~CTexture()																// Surface des Sprites freigeben
 	sdl_texture = NULL;
 }
 
+/* Warum sind Load und reLoad so komisch?
+   ---> Weil die SDL verbuggt ist!
+*/
 
-// holt sich Zeiger auf den Renderer und läd Textur
+// löscht eventuell vorhandene Textur und läd sie dann in reLoad()
 void CTexture::Load()
 {
-	sdl_renderer = g_pFramework->GetRenderer();
-	if (sdl_texture != NULL)
+	if (sdl_texture != NULL) //sollte eine Textur versehentlich erneut geladen werden
 	{
 		SDL_DestroyTexture(sdl_texture);
+		cout << SDL_GetError();
+		cout << "Diese Textur gibt es schon! Sie sollte nicht erneut geladen werden! (CTexture::Load)" << endl;		
 		sdl_texture = NULL;
 	}
+	reLoad();
+}
+
+// holt sich Zeiger auf den Renderer und läd Textur, sollte nur nach Destroyen des Renderers aufgerufen werden!
+void CTexture::reLoad()
+{
+	sdl_renderer = g_pFramework->GetRenderer();
+
+	/* an dieser Stelle wird nicht die alte Textur destroyed,
+	da Texturen schon beim Destroyen des Renderers zerstört werden,
+	dabei aber NICHT!! auf NULL gesetzte werden
+	*/
+
 	sdl_texture = IMG_LoadTexture(sdl_renderer, filename.c_str());
 	if (sdl_texture == NULL)																// Prüfen, ob alles glatt ging
 	{

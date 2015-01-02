@@ -110,10 +110,10 @@ void CPlayer::LifeRender ()											// Lebensanzeige rendern
 	{
 		spriteLife->SetPos(i, 13 + (14 * i), 13);
 		spriteLife->Render(i, (4+i%2));
-	}
-
-	
+	}	
 }
+
+
 void CPlayer::Update ()												// Spieler updaten
 {
 	ProcessMoving ();													// Bewegen
@@ -128,7 +128,7 @@ void CPlayer::Update ()												// Spieler updaten
 	ProcessTools ();													// Prüfen, ob geschossen wurde
 
 	CheckPosition ();													// Position und Animationsphase überprüfen
-	g_pDebugscreen->Set("x-Position: ", m_fXPos);
+	//g_pDebugscreen->Set("x-Position: ", m_fXPos);
 }
 void CPlayer::ProcessMoving ()										// Spieler bewegen
 {
@@ -319,7 +319,7 @@ void CPlayer::CheckPosition ()
    {
 	   fAnimphase = 0;
    }
-   g_pDebugscreen->Set("fAnimphase: ", fAnimphase);
+   //g_pDebugscreen->Set("fAnimphase: ", fAnimphase);
  
 }
 

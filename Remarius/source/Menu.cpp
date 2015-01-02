@@ -55,7 +55,7 @@ void CMenu::generateMenu()
 		fullscrbttn->setfunc(bind([](CMenu* menu){	g_pOptions->fullscreen ^= 1; g_pFramework->Init_Video(g_pOptions->window_name,
 																											g_pOptions->window_width,
 																											g_pOptions->window_height,
-																											!g_pOptions->fullscreen);
+																											g_pOptions->fullscreen);
 													menu->ReloadSprites(); }, this));
 		options.addItem(fullscrbttn);
 		CMenuSlider* testslider = new CMenuSlider("Musik", defaultFont, 16);
@@ -114,6 +114,7 @@ void CMenu::STARTGAME(int i, bool b)
 void CMenu::ReloadSprites()
 {
 	g_pLoader->reloadTextures();
+	CText::ReCreateAll();
 }
 void CMenu::Quit ()
 {

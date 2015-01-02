@@ -2,8 +2,7 @@
 
 // initialisiert die benötigten SDL-Teile und ruft Init_Video auf
 bool CFramework::Init ()
-{
-	
+{	
 	if (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_TIMER | SDL_INIT_AUDIO) == -1)		// Alle benötigten Systeme der SDL initialisieren
 	{
 		cout << "SDL konnte nicht initialisiert werden!" << endl;
@@ -43,14 +42,15 @@ bool CFramework::Init ()
 bool CFramework::Init_Video (string name, int width, int height, bool bFullscreen)
 {	
 	const char* pName = name.c_str();
-	if (sdl_Window != NULL)						// sollte bereits ein Fenster vorhanden sein, zerstöre es
-	{
-		SDL_DestroyWindow(sdl_Window);
-	}
-	if (sdl_Renderer != NULL)					// sollte bereits ein Renderer vorhanden sein, zerstöre ihn
+
+	if (sdl_Renderer != NULL)					// sollte bereits ein Renderer vorhanden sein, zerstöre ihn (ein Renderer besitzt intern ein Window, also erst den Renderer destroyen)
 	{
 		SDL_DestroyRenderer(sdl_Renderer);
 	}
+	if (sdl_Window != NULL)						// sollte bereits ein Fenster vorhanden sein, zerstöre es
+	{
+		SDL_DestroyWindow(sdl_Window);
+	}	
 	
 	if (bFullscreen == true)					//erzeugt das Fenster im Fullscreen oder Fenstermodus
 	{		
@@ -59,10 +59,10 @@ bool CFramework::Init_Video (string name, int width, int height, bool bFullscree
 	else
 	{		
 		sdl_Window = SDL_CreateWindow(pName, SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, width, height, SDL_WINDOW_SHOWN);
+		
 	}
 	sdl_Renderer = SDL_CreateRenderer(sdl_Window, -1, SDL_RENDERER_ACCELERATED);
-	//SDL_SetRenderDrawBlendMode(sdl_Renderer, SDL_BLENDMODE_BLEND);
-	
+
 	if ((sdl_Window == NULL) || (sdl_Renderer == NULL))								// Prüfen, ob alles funktioniert hat
 	{
 		cout << "Fehler beim Erzeugen des Fensters!" << endl;
@@ -120,14 +120,11 @@ bool CFramework::KeyDown(Uint8 Key_ID)
 // rendert alles aus dem Renderer und reinigt ihn danach
 void CFramework::Render()
 {
-	/*if ((SDL_SetRenderTarget(sdl_Renderer, NULL)) < 0)
-	{
-		cout << "Fehler beim Setzen des Rendertargets im Framework: " << SDL_GetError() << endl;
-	}*/
 	SDL_RenderPresent(sdl_Renderer);
 	if ((SDL_RenderClear(sdl_Renderer)) < 0)
 	{
 		cout << "Fehler beim Clearen des Renderers:" << SDL_GetError() << endl;
 	}
 }
+
 
