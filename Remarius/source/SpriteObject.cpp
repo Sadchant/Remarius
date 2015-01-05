@@ -16,6 +16,8 @@ CSpriteObject::CSpriteObject(CTexture* texture, int groesse)
 		CSprite* default_Sprite = new CSprite(texture);
 		sprites.push_back(default_Sprite);
 	}
+	textureDimensions.x = texture->frameWidth;
+	textureDimensions.y = texture->frameHeight;
 }
 
 void CSpriteObject::SetPos(int stelle, int x, int y)

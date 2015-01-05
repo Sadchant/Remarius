@@ -33,3 +33,7 @@ Code:
 Texturen:
 
 Funktionalität:
+- MenuButtons jetzt zentral mit schönen Überschriften
+
+BugFixes:
+- Vollbild funktioniert jetzt

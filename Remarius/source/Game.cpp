@@ -22,7 +22,7 @@ void CGame::Quit ()																								// Müll freigeben
 {
 	Rectmaster.Quit ();
 
-	if (pTrack_1 != NULL)																			// Staubsaugersprite freigeben
+	if (pTrack_1 != NULL)																			
 	{
 		pTrack_1->StopMusic ();
 		delete pTrack_1;

@@ -25,8 +25,8 @@ CStuff::CStuff ()														// Player und Stuffprites laden
 	m_pSpriteSpider = new CSprite(g_pLoader->getTexture("T_SPIDER"));
 
 
-	m_pSpriteTile = NULL;
-	m_pSpriteTile = new CSpriteObject(g_pLoader->getTexture("T_TEXTURSET1"), TOTAL_TILES);
+	spriteTile = NULL;
+	spriteTile = new CSpriteObject(g_pLoader->getTexture("T_TEXTURSET1"), TOTAL_TILES);
 
 	m_pSpriteWall=NULL;
 	m_pSpriteWall = new CSprite(g_pLoader->getTexture("T_WALL"));
@@ -83,10 +83,10 @@ void CStuff::Quit ()																								// Müll freigeben
 		m_pSpriteExplosion = NULL;
 	}
 	
-	if (m_pSpriteTile != NULL)
+	if (spriteTile != NULL)
     {
-       delete (m_pSpriteTile);
-       m_pSpriteTile = NULL;
+       delete (spriteTile);
+       spriteTile = NULL;
     }
 	if (m_pCamera != NULL)																			// Staubsaugersprite freigeben
 	{
@@ -308,7 +308,7 @@ bool CStuff::set_tiles()
     
     ifstream map( "Map/Map1x1.map" );
     
-    if(!map.is_open())
+    if(!map.is_open()) //sollte es einen Fehler beim Laden gegeben haben
     {
         for( int t = 0; t < TOTAL_TILES; t++ )
         {
@@ -318,8 +318,7 @@ bool CStuff::set_tiles()
  
             if( x >= LEVEL_WIDTH )
             {
-                x = 0;
- 
+                x = 0; 
                 y += TILE_HEIGHT;    
             }
         }
@@ -413,7 +412,7 @@ bool CStuff::set_tiles()
     return true;
 }
 
-void CStuff::show()
+void CStuff::RenderTiles()
 {
 	//Sleep(300);
 	int type;
@@ -422,8 +421,8 @@ void CStuff::show()
 		type=(tiles[t]->get_type());
 		if( CkRect( m_pCamera->GetCameraRect(), tiles[t]->GetRect() ) == true )
 		{
-			m_pSpriteTile->SetPos(t, tiles[t]->GetRect().x - m_pCamera->GetCameraRect().x, tiles[t]->GetRect().y - m_pCamera->GetCameraRect().y);
-			m_pSpriteTile->Render(t, type%4,static_cast<int>(type/4));
+			spriteTile->SetPos(t, tiles[t]->GetRect().x - m_pCamera->GetCameraRect().x, tiles[t]->GetRect().y - m_pCamera->GetCameraRect().y);
+			spriteTile->Render(t, type%4,static_cast<int>(type/4));
 		}
 	}
 	

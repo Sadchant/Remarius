@@ -15,8 +15,7 @@
 
 #include "SpriteObject.hpp"
 #include <string>
-#include <fstream>
-#include <sstream>
+
 
 
 
@@ -28,7 +27,7 @@ class CStuff
 		void	Quit		();
 		void	Update		();
 		void	SetPlayer	(int Life, float X, float Y);
-		void    show            ();
+		void    RenderTiles ();
         bool    set_tiles       ();
 		int		GetPlayerX		(){return m_pPlayer->GetX();}
 		int		GetPlayerY		(){return m_pPlayer->GetY();}
@@ -58,14 +57,8 @@ class CStuff
 
 		CCamera				*m_pCamera;
 		bool				m_bSpawnLock;			// Spawnlock für CommandSpawns();
-		static const int	TILE_WIDTH=45; 
-		static const int	TILE_HEIGHT=45; 
-		static const int	TOTAL_TILES=49284; 
-		//static const int	TOTAL_TILES = 1000;
-		static const int	LEVEL_WIDTH=9990;  
-		static const int	LEVEL_HEIGHT=9990; 
-		static const int	TILE_SPRITES = 32; 
-        CSpriteObject		*m_pSpriteTile;
+		
+        CSpriteObject		*spriteTile;
         CTile				*tiles[ TOTAL_TILES ];
         list <CTile>		tiles2;
         list <CTile>		tiles3;

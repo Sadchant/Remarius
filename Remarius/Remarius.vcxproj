@@ -42,6 +42,7 @@
     <ClInclude Include="source\SpriteObject.hpp" />
     <ClInclude Include="source\Stachelstein.hpp" />
     <ClInclude Include="source\Stuff.hpp" />
+    <ClInclude Include="source\Terrain.hpp" />
     <ClInclude Include="source\Text.hpp" />
     <ClInclude Include="source\Texture.hpp" />
     <ClInclude Include="source\Tile.hpp" />
@@ -55,6 +56,7 @@
     <ClCompile Include="source\Camera.cpp" />
     <ClCompile Include="source\PauseMenu.cpp" />
     <ClCompile Include="source\SpriteObject.cpp" />
+    <ClCompile Include="source\Terrain.cpp" />
     <ClCompile Include="source\Texture.cpp" />
     <ClCompile Include="source\Debugscreen.cpp" />
     <ClCompile Include="source\Explosion.cpp" />

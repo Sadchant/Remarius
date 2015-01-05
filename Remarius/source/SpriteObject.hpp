@@ -14,10 +14,12 @@ public:
 	void		Render(int stelle);
 	void		Render(int stelle, int frameNumber); //muss nach SetPos aufgerufen werden
 	void		Render(int stelle, int frameNumber, int direction);
+	Point		GetTextureDimensions(){ return textureDimensions; }
 
 private:
 	vector<CSprite*> sprites;
 	int groesse;
+	Point textureDimensions;
 };
 
 

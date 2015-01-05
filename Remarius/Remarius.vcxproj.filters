@@ -138,6 +138,9 @@
     <ClInclude Include="source\PauseMenu.hpp">
       <Filter>Programflow</Filter>
     </ClInclude>
+    <ClInclude Include="source\Terrain.hpp">
+      <Filter>Programflow</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="source\Hoover.cpp">
@@ -240,6 +243,9 @@
       <Filter>Resource/Frame\Rendering</Filter>
     </ClCompile>
     <ClCompile Include="source\PauseMenu.cpp">
+      <Filter>Programflow</Filter>
+    </ClCompile>
+    <ClCompile Include="source\Terrain.cpp">
       <Filter>Programflow</Filter>
     </ClCompile>
   </ItemGroup>
