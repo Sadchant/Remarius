@@ -6,7 +6,7 @@
 class CMonster
 {
 	public:
-		//CMonster(CSprite pSpriteMonster, float fXPos, float fYPos);
+		CMonster();
 		virtual	void		Update		();
 		virtual	void		Render		(float CameraX, float CameraY);
 		virtual void		Render		(int CameraX, int CameraY){Render(static_cast<float>(CameraX), static_cast<float>(CameraY));};
@@ -33,7 +33,7 @@ class CMonster
 		virtual	void		OnDeath(){m_bIsAlive = false;}
 
 
-		CSprite		*m_pSpriteMonster;		// Zeiger auf Monster-Sprite
+		CSprite		monsterSprite;		// Zeiger auf Monster-Sprite
 		SDL_Rect	m_Rect;					// Rect des Monsters
 		float		m_fXPos;				// X-Position des Monsters
 		float		m_fYPos;				// Y-Position des Monsters

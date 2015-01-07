@@ -9,22 +9,6 @@ CStuff::CStuff ()														// Player und Stuffprites laden
 	m_pPlayer = new CPlayer;
 	m_pPlayer->Reset ();
 
-	m_pSpriteStachelstein = NULL;																				// Stachelsteinensprite erzeugen
-	m_pSpriteStachelstein = new CSprite(g_pLoader->getTexture("T_STACELSTONE"));
-
-	m_pSpriteHoover = NULL;																				// Staubsaugersprite erzeugen
-	m_pSpriteHoover = new CSprite(g_pLoader->getTexture("T_SPIDER"));
-
-	m_pSpriteBombo = NULL;																				// Bombosprite erzeugen
-	m_pSpriteBombo = new CSprite(g_pLoader->getTexture("T_BOMBO"));
-
-	m_pSpriteExplosion = NULL;																				// Bombosprite erzeugen
-	m_pSpriteExplosion = new CSprite(g_pLoader->getTexture("T_EXPLOSION"));
-
-	m_pSpriteSpider = NULL;																				// Hexaspidersprite erzeugen
-	m_pSpriteSpider = new CSprite(g_pLoader->getTexture("T_SPIDER"));
-
-
 	m_pSpriteTile = NULL;
 	m_pSpriteTile = new CSpriteObject(g_pLoader->getTexture("T_TEXTURSET1"), TOTAL_TILES);
 
@@ -51,36 +35,6 @@ void CStuff::Quit ()																								// Müll freigeben
 		m_pPlayer->Quit ();
 		delete (m_pPlayer);
 		m_pPlayer = NULL ;
-	}
-
-	if (m_pSpriteStachelstein != NULL)																		// Stachelsteinensprite freigeben
-	{
-		delete (m_pSpriteStachelstein);
-		m_pSpriteStachelstein = NULL;
-	}
-
-	if (m_pSpriteHoover != NULL)																			// Staubsaugersprite freigeben
-	{
-		delete (m_pSpriteHoover);
-		m_pSpriteHoover = NULL;
-	}
-
-	if (m_pSpriteBombo != NULL)																			// Staubsaugersprite freigeben
-	{
-		delete (m_pSpriteBombo);
-		m_pSpriteBombo = NULL;
-	}
-
-	if (m_pSpriteSpider != NULL)																			// Staubsaugersprite freigeben
-	{
-		delete (m_pSpriteSpider);
-		m_pSpriteSpider = NULL;
-	}
-
-	if (m_pSpriteExplosion != NULL)																			// Staubsaugersprite freigeben
-	{
-		delete (m_pSpriteExplosion);
-		m_pSpriteExplosion = NULL;
 	}
 	
 	if (m_pSpriteTile != NULL)
@@ -136,7 +90,7 @@ void CStuff::CommandSpawns()																					// Per Tastendruck Monster erze
 	if (g_pFramework->KeyDown(SDL_SCANCODE_H) && m_bSpawnLock == false)
 	{
 		CHoover Hoover;
-		Hoover.Init(m_pSpriteHoover);
+		Hoover.Init();
 		m_HooverList.push_back (Hoover);
 		m_bSpawnLock = true;
 		g_pDebugscreen->Set("Hoover gespawnt");
@@ -145,7 +99,7 @@ void CStuff::CommandSpawns()																					// Per Tastendruck Monster erze
 	{
 		int XPos = rand()%800;																		// Zufällige Position
 		int YPos = rand()%600;
-		CBombo Bombo(m_pSpriteBombo, static_cast<float>(XPos), static_cast<float>(YPos), m_pPlayer->pGetX(), m_pPlayer->pGetY());
+		CBombo Bombo(static_cast<float>(XPos), static_cast<float>(YPos), m_pPlayer->pGetX(), m_pPlayer->pGetY());
 		m_BomboList.push_back (Bombo);
 		m_bSpawnLock = true;
 
@@ -154,7 +108,7 @@ void CStuff::CommandSpawns()																					// Per Tastendruck Monster erze
 	{
 		int XPos = rand()%800;																		// Zufällige Position
 		int YPos = rand()%600;
-		CStachelstein Stachelstein(m_pSpriteStachelstein, static_cast<float>(XPos), static_cast<float>(YPos));	// Neuer Stachelstein
+		CStachelstein Stachelstein(static_cast<float>(XPos), static_cast<float>(YPos));	// Neuer Stachelstein
 		m_StachelsteinList.push_back (Stachelstein);														// Stachelstein in Liste einfügen
 		m_bSpawnLock = true;
 	}
@@ -162,7 +116,7 @@ void CStuff::CommandSpawns()																					// Per Tastendruck Monster erze
 	{
 		int XPos = rand()%1024;																		// Zufällige Position
 		int YPos = rand()%768;
-		CSpider Spider(m_pSpriteSpider, static_cast<float>(XPos), static_cast<float>(YPos), m_pPlayer->pGetX(), m_pPlayer->pGetY());
+		CSpider Spider(static_cast<float>(XPos), static_cast<float>(YPos), m_pPlayer->pGetX(), m_pPlayer->pGetY());
 		m_SpiderList.push_back (Spider);														// Spider in Liste einfügen
 		m_bSpawnLock = true;
 	}
@@ -206,7 +160,7 @@ void CStuff::CheckCollisions ()																					// Kollisionen prüfen
 		if (ItBombo->GetMode() == 5)
 		{
 			ItBombo->SetAlive(false);
-			CExplosion Explosion(m_pSpriteExplosion, static_cast<int>(ItBombo->GetX()-77.0f), static_cast<int>(ItBombo->GetY()-75.0f));
+			CExplosion Explosion(static_cast<int>(ItBombo->GetX()-77.0f), static_cast<int>(ItBombo->GetY()-75.0f));
 			m_ExplosionList.push_back(Explosion);
 		}
 		if (ItBombo->IsAlive())

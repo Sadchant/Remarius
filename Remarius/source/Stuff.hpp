@@ -48,12 +48,6 @@ class CStuff
 
 		CPlayer				*m_pPlayer;
 
-		CSprite				*m_pSpritePlayer;		// Sprite für Spieler
-		CSprite				*m_pSpriteStachelstein;	// Sprite für Stachelstein
-		CSprite				*m_pSpriteBombo;		// Sprite für Bombo
-		CSprite				*m_pSpriteExplosion;	// Sprite für Explosion
-		CSprite				*m_pSpriteHoover;		// Sprite für Staubsauger
-		CSprite				*m_pSpriteSpider;		// Sprite für die Hexaspider
 		CSprite				*m_pSpriteWall;
 
 		CCamera				*m_pCamera;

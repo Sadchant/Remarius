@@ -2,16 +2,10 @@
 #define _USE_MATH_DEFINES
 #include <cmath>
 
-CPlayer::CPlayer ()													// Player initialisieren
+CPlayer::CPlayer ()												// Player initialisieren
 {
 	maxLife = 6;
-	m_pSpriteMonster = NULL;												// Sprites Laden
-	m_pSpriteMonster = new CSprite(g_pLoader->getTexture("T_REMARIUS"));
-
-
-
-	m_pSpriteShot = NULL;
-	m_pSpriteShot = new CSprite(g_pLoader->getTexture("T_LASER"));
+	monsterSprite = CSprite(g_pLoader->getTexture("T_REMARIUS"));
 
 	spriteLife = NULL;
 	spriteLife = new CSpriteObject(g_pLoader->getTexture("T_HERZLEISTE"), maxLife);
@@ -21,12 +15,6 @@ CPlayer::CPlayer ()													// Player initialisieren
 
 void CPlayer::Quit ()												// Sprites freigeben
 {
-	if (m_pSpriteMonster != NULL)
-	{
-		delete (m_pSpriteMonster);
-		m_pSpriteMonster = NULL;
-	}
-	
 	if (spriteLife != NULL)
 	{
 		delete (spriteLife);
@@ -63,9 +51,9 @@ void CPlayer::Reset ()												// "Spawnen"
 }
 void CPlayer::Render (float CameraX, float CameraY)												// Spieler und Schüsse rendern
 {
-	m_pSpriteMonster->SetPos (m_fXPos-CameraX, m_fYPos-CameraY);// Spielersprite setzen
+	monsterSprite.SetPos (m_fXPos-CameraX, m_fYPos-CameraY);// Spielersprite setzen
 	m_SpriteDirection = static_cast<int>(m_fDirection * 8 + 0.5f) % 8;
-	m_pSpriteMonster->Render ((int)fAnimphase, m_SpriteDirection);
+	monsterSprite.Render ((int)fAnimphase, m_SpriteDirection);
 	
 	list<CShot>::iterator it = m_ShotList.begin ();						// Iterator für Schüsse
 	while (it != m_ShotList.end ())
@@ -231,7 +219,7 @@ void CPlayer::ProcessTools ()									// Schießen
 		m_bToolLock = true;
 		if (g_pFramework->KeyDown(SDL_SCANCODE_C))
 		{
-			CShot Shot(m_pSpriteShot, m_fXPos, m_fYPos);
+			CShot Shot(m_fXPos, m_fYPos);
 			m_ShotList.push_back (Shot);
 		}
 		else if (g_pFramework->KeyDown(SDL_SCANCODE_X))

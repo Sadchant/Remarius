@@ -41,7 +41,6 @@ class CPlayer: public CMonster
 		void	CheckPosition	();
 		void	OnDeath			(){Reset();}
 
-		CSprite			*m_pSpriteShot;					// Sprite für Laserschüsse
 		CSpriteObject	*spriteLife;					// Sprite für Herzleiste
 		list<CShot>		m_ShotList;						// Liste der Schüsse
 		SDL_Rect		m_AttackRect;					// Rect des Angriffs

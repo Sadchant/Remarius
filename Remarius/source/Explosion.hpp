@@ -6,7 +6,7 @@
 class CExplosion
 {
   public:
-	  CExplosion	(CSprite *pSpriteExplosion, int XPos, int YPos);
+	  CExplosion	(int XPos, int YPos);
 	  void		Render	(float CameraX, float CameraY);
 	  SDL_Rect	GetRect	(){return m_Rect;}
 	  bool		IsAlive	(){return m_bIsAlive;}
@@ -15,7 +15,7 @@ class CExplosion
 	  int		GetY	(){return m_YPos;}
  
   private:
-	  CSprite		*m_pSpriteExplosion;	// Zeiger auf Explosions-Sprite
+	  CSprite		explosionSprite;	// Zeiger auf Explosions-Sprite
 	  int			m_XPos;				// X-Position der Explosion
 	  int			m_YPos;				// Y-Position der Explosion
 	  SDL_Rect		m_Rect;					// Rect des Staubsaugers

@@ -2,9 +2,9 @@
 #define _USE_MATH_DEFINES
 #include <cmath>
 
-CSpider::CSpider (CSprite *pSpriteSpider, float fXPos, float fYPos, float *pPlyx, float *pPlyy)							// Hexaspider initialisieren
+CSpider::CSpider (float fXPos, float fYPos, float *pPlyx, float *pPlyy)							// Hexaspider initialisieren
 {
-	m_pSpriteMonster = pSpriteSpider;														// Zeiger auf Sprite kopieren und Koordinaten setzen
+	monsterSprite = CSprite(g_pLoader->getTexture("T_SPIDER"));												// Zeiger auf Sprite kopieren und Koordinaten setzen
 	m_fXPos = fXPos;
 	m_fYPos = fYPos;
 	m_pfPlyx = pPlyx;
@@ -12,8 +12,8 @@ CSpider::CSpider (CSprite *pSpriteSpider, float fXPos, float fYPos, float *pPlyx
 
 	m_Rect.x = static_cast<int>(fXPos);														// Rect initialisieren
 	m_Rect.y = static_cast<int>(fYPos);
-	m_Rect.w = pSpriteSpider->Get_targetRect().w;
-	m_Rect.h = pSpriteSpider->Get_targetRect().h;
+	m_Rect.w = monsterSprite.Get_targetRect().w;
+	m_Rect.h = monsterSprite.Get_targetRect().h;
 
 	animPhase = 0;
 	m_bIsAlive = true;
