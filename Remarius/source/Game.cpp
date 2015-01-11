@@ -1,13 +1,7 @@
 #include "Game.hpp"
 
-CGame::CGame ()																									// Game initialisieren
+CGame::CGame():terrain("Map/Map1x1.map", &camera), Rectmaster(&camera, terrain.Get_Width(), terrain.Get_Height())																						// Game initialisieren
 {
-
-//	m_pBaum = NULL;																				// Staubsaugersprite erzeugen
-//	m_pBaum = new CSprite;
-//	m_pBaum->Load ("Data/Baum_1klein.png", 4, 260, 244);
-
-
 	m_bGameRun = true;
 
 	pTrack_1 = NULL;
@@ -45,6 +39,7 @@ void CGame::Run (int save, bool Safegame)         // Hauptschleife des Spiels
 	
 		ProcessEvents ();	
 		//pTrack_1->Play ();
+		terrain.Render();
 		g_pDebugscreen->Render();
 		g_pRenderlayer->Render ();
 		/*if (ticks == 0)

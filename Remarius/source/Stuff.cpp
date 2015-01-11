@@ -3,8 +3,11 @@
 
 
 
-CStuff::CStuff ()														// Player und Stuffprites laden
+CStuff::CStuff (fSDL_Rect *camera, int level_width, int level_height)														// Player und Stuffprites laden
 {
+	this->camera = camera;
+	this->level_width = level_width;
+	this->level_height = level_height;
 	m_pPlayer = NULL;																						// Spieler erzeugen
 	m_pPlayer = new CPlayer;
 	m_pPlayer->Reset ();
@@ -24,25 +27,10 @@ CStuff::CStuff ()														// Player und Stuffprites laden
 	m_pSpriteSpider = NULL;																				// Hexaspidersprite erzeugen
 	m_pSpriteSpider = new CSprite(g_pLoader->getTexture("T_SPIDER"));
 
-
-	spriteTile = NULL;
-	spriteTile = new CSpriteObject(g_pLoader->getTexture("T_TEXTURSET1"), TOTAL_TILES);
-
-	m_pSpriteWall=NULL;
-	m_pSpriteWall = new CSprite(g_pLoader->getTexture("T_WALL"));
-
-	m_pCamera = NULL;
-	m_pCamera = new CCamera;
-
 	m_bSpawnLock = false;
 
-	m_pPlayer->Set_Map(LEVEL_WIDTH,LEVEL_HEIGHT);
+	m_pPlayer->Set_Map(level_width, level_height);
         
-    for( int t = 0; t < TOTAL_TILES; t++ )
-    {
-       tiles[t]=NULL;
-    }
-    set_tiles();
 }
 void CStuff::Quit ()																								// Müll freigeben
 {
@@ -82,36 +70,25 @@ void CStuff::Quit ()																								// Müll freigeben
 		delete (m_pSpriteExplosion);
 		m_pSpriteExplosion = NULL;
 	}
-	
-	if (spriteTile != NULL)
-    {
-       delete (spriteTile);
-       spriteTile = NULL;
-    }
-	if (m_pCamera != NULL)																			// Staubsaugersprite freigeben
-	{
-		delete (m_pCamera);
-		m_pCamera = NULL;
-	}
-	
- 
-    for( int t = 0; t < TOTAL_TILES; t++ )
-    {
-		delete tiles[ t ];    
-    }
- 
-	tiles2.clear();
-	tiles3.clear();
-	tiles4.clear();
 }
 
 void CStuff::Update()
 {
 	m_pPlayer->Update();
-	m_pCamera->SetPos (static_cast<float>(m_pPlayer->GetX()) - 512, static_cast<float>(m_pPlayer->GetY()) - 384);
-	m_pCamera->CorrectPos (LEVEL_WIDTH, LEVEL_HEIGHT);
-	show();
-	m_pPlayer->Render((float)m_pCamera->GetCameraRect().x, (float)m_pCamera->GetCameraRect().y);
+	camera->x = m_pPlayer->GetX() - camera->w / 2;
+	camera->y = m_pPlayer->GetY() - camera->h / 2;
+
+	if (camera->x < 0)
+		camera->x = 0;
+	if (camera->y < 0)
+		camera->y = 0;
+
+	if (camera->x > level_width - camera->w)
+		camera->x -= camera->w;
+	if (camera->y > level_height - camera->h)
+		camera->y -= camera->h;
+
+	m_pPlayer->Render(camera->x, camera->y);
 	m_pPlayer->LifeRender();
 
 	list<CExplosion>::iterator ItEx = m_ExplosionList.begin();
@@ -257,14 +234,14 @@ void CStuff::CheckCollisions ()																					// Kollisionen prüfen
 	}
 	// Hexaspiders
 
-	list <CTile>::iterator ItTile4;
+	/*list <CTile>::iterator ItTile4;
 	for (ItTile4=tiles4.begin(); ItTile4!=tiles4.end(); ItTile4++)
 	{
 		if (CkRect(ItTile4->GetRect(), m_pPlayer->GetRect())==true)
 		{
 			m_pPlayer->ProcessMoving(-255.0f);
 		}
-	}
+	}*/
 
 }
 void CStuff::RenderMonsters ()																			// Monster rendern und updaten	
@@ -272,183 +249,36 @@ void CStuff::RenderMonsters ()																			// Monster rendern und updaten
 	list<CStachelstein>::iterator It;																	// Iterator für die Monster-Liste
 	for (It = m_StachelsteinList.begin (); It != m_StachelsteinList.end (); ++It)							// Monster-Liste durchlaufen
 	{
-		It->Render (m_pCamera->GetCameraRect().x, m_pCamera->GetCameraRect().y);																				// Monster rendern und updaten
+		It->Render (camera->x, camera->y);																				// Monster rendern und updaten
 		It->Update ();
 	}
 
 	list<CHoover>::iterator ItH;
 	for (ItH = m_HooverList.begin(); ItH != m_HooverList.end(); ItH++)
 	{
-		ItH->Render((float)m_pCamera->GetCameraRect().x, (float)m_pCamera->GetCameraRect().y);
+		ItH->Render(camera->x, camera->y);
 		ItH->Update();
 	}
 
 	list<CBombo>::iterator ItB;
    for (ItB = m_BomboList.begin(); ItB != m_BomboList.end(); ItB++)
    {
-      ItB->Render(m_pCamera->GetCameraRect().x, m_pCamera->GetCameraRect().y);
+	   ItB->Render(camera->x, camera->y);
       ItB->Update();
    }
 
    list<CExplosion>::iterator ItE;
    for (ItE = m_ExplosionList.begin(); ItE != m_ExplosionList.end(); ItE++)
    {
-	   ItE->Render((float)m_pCamera->GetCameraRect().x, (float)m_pCamera->GetCameraRect().y);
+	   ItE->Render(camera->x, camera->y);
    }
    list<CSpider>::iterator ItS;
    for (ItS = m_SpiderList.begin(); ItS != m_SpiderList.end(); ItS++)
    {
-	   ItS->Render(m_pCamera->GetCameraRect().x, m_pCamera->GetCameraRect().y);
+	   ItS->Render(camera->x, camera->y);
 	   ItS->Update();
    }
-}
-bool CStuff::set_tiles()
-{
-    int x = 0, y = 0;
-    
-    ifstream map( "Map/Map1x1.map" );
-    
-    if(!map.is_open()) //sollte es einen Fehler beim Laden gegeben haben
-    {
-        for( int t = 0; t < TOTAL_TILES; t++ )
-        {
-            tiles[ t ] = new CTile( x, y, rand()%4);
- 
-            x += TILE_WIDTH;
- 
-            if( x >= LEVEL_WIDTH )
-            {
-                x = 0; 
-                y += TILE_HEIGHT;    
-            }
-        }
-    }
-    else
-    {
-        for( int t = 0; t < TOTAL_TILES; t++ )
-        {
-            int tileType = -1;
- 
-            map >> tileType;
- 
-            if( ( tileType >= 0 ) && ( tileType < TILE_SPRITES ) )
-            {
-                tiles[ t ] = new CTile( x, y, tileType );    
-            }
-            else 
-            {
-                map.close();
-                return false;
-            }
-        
-            x += TILE_WIDTH;
-        
-            if( x >= LEVEL_WIDTH )
-            {
-                x = 0;
-            
-                y += TILE_HEIGHT;    
-            }
-        }
-    }
-	map.close();
- 
-    map.open( "Map/Map1x2.map" );
-	if (map.is_open())
-    {
-		int TileAmount;
-        int x,y,type;
-                
-        map>>TileAmount;
- 
-        for(int i=0; i<TileAmount;i++)
-        {
-			map>>type;
-			map>>x;
-            map>>y;
-            CTile Tile(x,y,type);
-            tiles2.push_back(Tile);
-        }
-	}
-	map.close();
- 
-	map.open( "Map/Map1x3.map" );
-	if (map.is_open())
-	{
-		int TileAmount;
-		int x,y,type;
-                
-		map>>TileAmount;
- 
-		for(int i=0; i<TileAmount;i++)
-		{
-			map>>type;
-			map>>x;
-			map>>y;
-			CTile Tile(x,y,type);
-			tiles3.push_back(Tile);
-		}
-	}
-	map.close();
- 
-	map.open( "Map/Map1x4.map" );
-	if (map.is_open())
-	{
-		int TileAmount;
-		int x,y,type;
-                
-		map>>TileAmount;
- 
-		for(int i=0; i<TileAmount;i++)
-		{
-			map>>type;
-			map>>x;
-			map>>y;
-			CTile Tile(x,y,type);
-			tiles4.push_back(Tile);
-		}
-    }
-	map.close();    
-    return true;
-}
-
-void CStuff::RenderTiles()
-{
-	//Sleep(300);
-	int type;
-	for (int t = 0; t < TOTAL_TILES; t++ )
-	{
-		type=(tiles[t]->get_type());
-		if( CkRect( m_pCamera->GetCameraRect(), tiles[t]->GetRect() ) == true )
-		{
-			spriteTile->SetPos(t, tiles[t]->GetRect().x - m_pCamera->GetCameraRect().x, tiles[t]->GetRect().y - m_pCamera->GetCameraRect().y);
-			spriteTile->Render(t, type%4,static_cast<int>(type/4));
-		}
-	}
-	
-		/*list <CTile>::iterator ItTile2;
-        for (ItTile2=tiles2.begin(); ItTile2!=tiles2.end(); ItTile2++ )
-        {
-                type =ItTile2->get_type();
-				m_pSpriteTile->SetPos(ItTile2->GetRect().x - m_pCamera->GetCameraRect().x, ItTile2->GetRect().y - m_pCamera->GetCameraRect().y);
-                m_pSpriteTile->Render(static_cast<float>(type%4),static_cast<int>(type/4));
-        }
- 
-        list <CTile>::iterator ItTile3;
-        for (ItTile3=tiles3.begin(); ItTile3!=tiles3.end(); ItTile3++ )
-        {
-                type =ItTile3->get_type();
-				m_pSpriteTile->SetPos(ItTile3->GetRect().x - m_pCamera->GetCameraRect().x, ItTile3->GetRect().y - m_pCamera->GetCameraRect().y);
-                m_pSpriteTile->Render(static_cast<float>(type%4),static_cast<int>(type/4));
-        }
-		list <CTile>::iterator ItTile4;
-        for (ItTile4=tiles4.begin(); ItTile4!=tiles4.end(); ItTile4++ )
-        {
-                type =ItTile4->get_type();
-				m_pSpriteWall->SetPos(ItTile4->GetRect().x - m_pCamera->GetCameraRect().x, ItTile4->GetRect().y - m_pCamera->GetCameraRect().y);
-                m_pSpriteWall->Render(static_cast<float>(type%4),static_cast<int>(type/4));
-        }*/
-}   
+} 
 
 bool CStuff::CkRect(SDL_Rect a, SDL_Rect b)
 {

@@ -19,7 +19,7 @@ Versionen:
 - wenn mit der Story angefangen werden kann startet die Beta
 
 
-Chnage-Log für Alpha 1.0:
+Change-Log für Alpha 1.0:
 
 - Menu neu machen [DONE]
 
@@ -45,3 +45,4 @@ To-Do-List für Alpha 1.1
 
 - Zaun-Textur (sad)
 - Sterbesound für Remarius (sad)
+- besseren Fußboden-Renderer

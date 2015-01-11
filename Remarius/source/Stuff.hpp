@@ -9,7 +9,6 @@
 #include "Explosion.hpp"
 #include "Tile.hpp"
 #include "Debugscreen.hpp"
-#include "Camera.hpp"
 #include "Renderlayer.hpp"
 #include "Loader.hpp"
 
@@ -22,7 +21,7 @@
 class CStuff
 {
 	public:
-		CStuff	();
+		CStuff	(fSDL_Rect *camera, int level_width, int level_y);
 
 		void	Quit		();
 		void	Update		();
@@ -34,6 +33,8 @@ class CStuff
 		int		GetPlayerLife	(){return m_pPlayer->GetLife();}
 
 	private:
+		int level_width;
+		int level_height;
 		void	RenderMonsters	();
 		void	CheckCollisions	();
 		void	CommandSpawns	();
@@ -53,16 +54,9 @@ class CStuff
 		CSprite				*m_pSpriteExplosion;	// Sprite für Explosion
 		CSprite				*m_pSpriteHoover;		// Sprite für Staubsauger
 		CSprite				*m_pSpriteSpider;		// Sprite für die Hexaspider
-		CSprite				*m_pSpriteWall;
 
-		CCamera				*m_pCamera;
+		fSDL_Rect*			camera;
 		bool				m_bSpawnLock;			// Spawnlock für CommandSpawns();
-		
-        CSpriteObject		*spriteTile;
-        CTile				*tiles[ TOTAL_TILES ];
-        list <CTile>		tiles2;
-        list <CTile>		tiles3;
-        list <CTile>		tiles4;
 };
 
 #endif

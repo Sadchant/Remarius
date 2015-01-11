@@ -3,6 +3,7 @@
 
 #include "Debugscreen.hpp"
 #include "Stuff.hpp"
+#include "Terrain.hpp"
 #include "Text.hpp"
 #include "Sound.hpp"
 #include "Music.hpp"
@@ -15,7 +16,6 @@ class CGame
 {
 	public:
 		CGame	();
-
 		void	Run     (int save, bool savegame = false);
 		void	Quit	();
 		void	Save    ();
@@ -29,6 +29,8 @@ class CGame
 
 		
 		CStuff			Rectmaster;				// Verwaltung von allem, was ein Rect hat
+		CTerrain terrain;
+		fSDL_Rect camera;
 		bool			m_bGameRun;				// Läuft das Spiel noch?
 		int				Framecounter;
 		float			Timecounter;

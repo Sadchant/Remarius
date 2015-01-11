@@ -98,7 +98,7 @@ void CText::createTexture()
 	if (texture != NULL)
 	{
 		SDL_DestroyTexture(texture);
-		cout << SDL_GetError() << endl;
+		//cout << SDL_GetError() << endl;
 		texture = NULL;
 	}
 	renderer = g_pFramework->GetRenderer();

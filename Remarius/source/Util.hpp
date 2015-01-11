@@ -26,4 +26,11 @@ struct Point {
 	int x; int y;
 };
 
+struct fSDL_Rect { // das selbe wie ein SDL_Rect, nur dass die Position ein float ist
+	float x; 
+	float y; 
+	int w; 
+	int h;
+};
+
 #endif
