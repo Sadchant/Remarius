@@ -1,15 +1,15 @@
 #include "Shot.hpp"
 
-CShot::CShot (CSprite *pSpriteShot, float fXPos, float fYPos)								// Schuss initialisieren
+CShot::CShot (float fXPos, float fYPos):								// Schuss initialisieren
+shotSprite(g_pLoader->getTexture("T_LASER"))
 {
-	m_pSpriteShot = pSpriteShot;														// Parameter übernehmen
 	m_fXPos = fXPos;
 	m_fYPos = fYPos;
 
 	m_Rect.x = static_cast<int>(fXPos);													// Rect initialisieren
 	m_Rect.y = static_cast<int>(fYPos);
-	m_Rect.w = pSpriteShot->Get_targetRect().w;
-	m_Rect.h = pSpriteShot->Get_targetRect().h;
+	m_Rect.w = shotSprite.Get_targetRect().w;
+	m_Rect.h = shotSprite.Get_targetRect().h;
 
 	m_bIsAlive = true;
 }
@@ -27,7 +27,7 @@ void CShot::Render (float CameraX, float CameraY)																			// Schuss re
 {
 	if (m_bIsAlive == true)
 	{
-		m_pSpriteShot->SetPos (m_fXPos - CameraX, m_fYPos - CameraY);
-		m_pSpriteShot->Render ();
+		shotSprite.SetPos (m_fXPos - CameraX, m_fYPos - CameraY);
+		shotSprite.Render ();
 	}
 }

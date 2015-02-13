@@ -2,9 +2,13 @@
 #define _USE_MATH_DEFINES
 #include <cmath>
  
-void CHoover::Init (CSprite *pSpriteHoover)						// Staubsauger Initialisieren
+CHoover::CHoover() :
+hooverSprite(g_pLoader->getTexture("T_SPIDER"))
 {
-	m_pSpriteHoover = pSpriteHoover;								// Sprite übernehmen, Startposition setzen
+}
+
+void CHoover::Init ()						// Staubsauger Initialisieren
+{
 	m_fXPos = 360.0f;
 	m_fYPos = 10.0f;
  
@@ -60,7 +64,7 @@ void CHoover::Render (float CameraX, float CameraY)                             
 	}
 
 
-	m_pSpriteHoover->SetPos (m_fXPos - CameraX, m_fYPos - CameraY);
-	m_pSpriteHoover->Render (animPhase, m_iSpriteDirection);
+	hooverSprite.SetPos (m_fXPos - CameraX, m_fYPos - CameraY);
+	hooverSprite.Render (animPhase, m_iSpriteDirection);
 
 }

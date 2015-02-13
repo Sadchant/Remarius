@@ -2,9 +2,10 @@
 #define _USE_MATH_DEFINES
 #include <cmath>
  
-/*CMonster::CMonster(CSprite pSpriteMonster, float fXPos, float fYPos)
+CMonster::CMonster() :
+monsterSprite(g_pLoader->getTexture("T_PLAYER"))
 {
-}*/
+}
 void CMonster::Update ()
 {
 	if (m_fDamageTimer > 0.0f) m_fDamageTimer -= g_pTimer->GetElapsed();
@@ -69,8 +70,8 @@ void CMonster::Render (float CameraX, float CameraY)
 		m_bAnimFlipper = 1;
 	}
 
-	m_pSpriteMonster->SetPos(m_fXPos - CameraX, m_fYPos - CameraY);
-	m_pSpriteMonster->Render (animPhase, m_SpriteDirection);
+	monsterSprite.SetPos(m_fXPos - CameraX, m_fYPos - CameraY);
+	monsterSprite.Render (animPhase, m_SpriteDirection);
 }
 void CMonster::DoDamage(int Damage)
 {

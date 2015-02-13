@@ -6,12 +6,13 @@
 class CHoover
 {
   public:
-	  void		Init	(CSprite *pSpriteHoover);
+	  CHoover();
+	  void		Init	();
 	  void		Update	();
 	  void		Render	(float CameraX, float CameraY);
  
   private:
-	  CSprite		*m_pSpriteHoover;		// Zeiger auf Staubsauger-Sprite
+	  CSprite		hooverSprite;		// Zeiger auf Staubsauger-Sprite
 	  float			m_fXPos;				// X-Position des Staubsaugers
 	  float			m_fYPos;				// Y-Position des Staubsaugers
 	  float			m_fDirection;			// Richtung; nach unten ist 0 (=1), gegen den Uhrzeigersinn

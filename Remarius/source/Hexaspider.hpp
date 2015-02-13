@@ -7,7 +7,7 @@
 class CSpider: public CMonster
 {
 	public:
-		CSpider		(CSprite *pSpriteSpider, float fXPos, float fYPos, float *pPlyx, float *pPlyy);
+		CSpider		(float fXPos, float fYPos, float *pPlyx, float *pPlyy);
  
 	private:
 		void		Move3();				// normale Verfolgung
