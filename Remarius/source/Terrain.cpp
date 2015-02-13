@@ -44,28 +44,29 @@ CTerrain::~CTerrain()
 
 void CTerrain::Render()
 {
-	int index_x, // x-Position im zweidimensionalen Array
-		index_y, // y-Position im zweidimensionalen Array
+	
+	int index_1, // erste Position im zweidimensionalen Tile-Array, repräsentiert y
+		index_2, // zweite Position im zweidimensionalen Tile-Array, repräsentiert x
 		index, // Position im eindimensionalen Array
 		temp_x, // tatsächliche x-Position
 		temp_y; // tatsächliche y-Position
 
 	for (int i = 0; i < (camera->h/tile_height)+1; i++) // geht über die Anzahl der Tiles in y-Richtung
 	{
-		for (int j = 0; j < (camera->w / tile_width) + 1; j++) // geht über die Anzahl der Tiles in x-Richtung
+		for (int j = 0; j < (camera->w / tile_width) + 2; j++) // geht über die Anzahl der Tiles in x-Richtung
 		{
-			index_x = (camera->x / tile_width) + j;
-			index_y = i;
-			index = (index_y * map_width) + index_y;
-			temp_x = (index_y * map_width * tile_width) + (index_x * tile_width);
-			temp_y = index_y*tile_height;
+			index_1 = i + camera->y/tile_height;
+			index_2 = j + camera->x/tile_width;
+			index = (index_1 * map_width/tile_width) + index_2;
+			temp_x = index_2 * tile_width;
+			temp_y = index_1*tile_height;
 			lowerSpriteTile->SetPos(index, temp_x - camera->x, temp_y - camera->y);
 			lowerSpriteTile->Render(index, (terrain[index].lowerTileType) % 4, (terrain[index].lowerTileType) / 4);
-			cout << (terrain[index].lowerTileType) % 4 << " " << (terrain[index].lowerTileType) / 4 << "    ";
+			//cout << (terrain[index].lowerTileType) % 4 << " " << (terrain[index].lowerTileType) / 4 << "    ";
 			//upperSpriteTile->SetPos(index, temp_x - camera->x, temp_y - camera->y); // einkommentieren, wenn das neue Mapformat fertig ist!			
 			//upperSpriteTile->Render(index, (terrain[index]->lowerTileType) % 4, (terrain[index]->upperTileType) / 4)
-			index_x = -1;
-			index_y = -1;
+			index_1 = -1;
+			index_2 = -1;
 			index = -1;
 			temp_x = -1;
 			temp_y = -1;

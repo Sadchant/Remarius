@@ -3,11 +3,8 @@
 
 
 
-CStuff::CStuff (fSDL_Rect *camera, int level_width, int level_height)														// Player und Stuffprites laden
-{
-	this->camera = camera;
-	this->level_width = level_width;
-	this->level_height = level_height;
+CStuff::CStuff ()														// Player und Stuffprites laden
+{	
 	m_pPlayer = NULL;																						// Spieler erzeugen
 	m_pPlayer = new CPlayer;
 	m_pPlayer->Reset ();
@@ -27,10 +24,16 @@ CStuff::CStuff (fSDL_Rect *camera, int level_width, int level_height)											
 	m_pSpriteSpider = NULL;																				// Hexaspidersprite erzeugen
 	m_pSpriteSpider = new CSprite(g_pLoader->getTexture("T_SPIDER"));
 
-	m_bSpawnLock = false;
-
-	m_pPlayer->Set_Map(level_width, level_height);
+	m_bSpawnLock = false;	
         
+}
+
+void CStuff::init(fSDL_Rect *camera, int level_width, int level_height) // da der Konstruktor in der Initialisierungsliste zu einem unerwünschten Zeitpunkt aufgerufen wird...
+{
+	this->camera = camera;
+	this->level_width = level_width;
+	this->level_height = level_height;
+	m_pPlayer->Set_Map(level_width, level_height);
 }
 void CStuff::Quit ()																								// Müll freigeben
 {
@@ -75,8 +78,9 @@ void CStuff::Quit ()																								// Müll freigeben
 void CStuff::Update()
 {
 	m_pPlayer->Update();
-	camera->x = m_pPlayer->GetX() - camera->w / 2;
-	camera->y = m_pPlayer->GetY() - camera->h / 2;
+	camera->x = m_pPlayer->GetX() - ((float)camera->w / 2);
+	camera->y = m_pPlayer->GetY() - ((float)camera->h / 2);
+	
 
 	if (camera->x < 0)
 		camera->x = 0;

@@ -94,7 +94,10 @@ void CText::SetContent (string content)
 
 // Surface erzeugen und in die Textur überführen
 void CText::createTexture()
-{		
+{
+	Uint32 startTime = SDL_GetTicks();
+	//cout << "start: " << startTime << endl;
+
 	if (texture != NULL)
 	{
 		SDL_DestroyTexture(texture);
@@ -105,6 +108,7 @@ void CText::createTexture()
 	const char* pContent = content.c_str();
 	if (!content.empty())
 	{
+		//cout << "XXX: ";
 		SDL_Surface* surface = NULL;
 		if ((surface = TTF_RenderText_Blended(font, pContent, color)) == NULL)		// Surface wird gefüllt
 		{
@@ -115,7 +119,8 @@ void CText::createTexture()
 			cout << "Fehler beim erstellen der Text-Textur: " << SDL_GetError() << endl;
 		}
 		SDL_FreeSurface(surface);
-	}	
+	}
+	//cout << "ende: " << SDL_GetTicks()-startTime << endl;
 }
 
 

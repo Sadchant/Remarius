@@ -133,7 +133,10 @@ void CPlayer::Update ()												// Spieler updaten
 void CPlayer::ProcessMoving ()										// Spieler bewegen
 {
 	if ((g_pFramework->KeyDown(SDL_SCANCODE_UP) && g_pFramework->KeyDown(SDL_SCANCODE_DOWN)) || (g_pFramework->KeyDown(SDL_SCANCODE_LEFT) && (g_pFramework->KeyDown(SDL_SCANCODE_RIGHT))))
+	{
 		m_bBlock = true;
+	}
+		
 	else m_bBlock = false;
 
 	if (!m_bBlock)
@@ -158,6 +161,7 @@ void CPlayer::ProcessMoving ()										// Spieler bewegen
 		if (g_pFramework->KeyDown(SDL_SCANCODE_UP) || g_pFramework->KeyDown(SDL_SCANCODE_DOWN) || g_pFramework->KeyDown(SDL_SCANCODE_LEFT) || g_pFramework->KeyDown(SDL_SCANCODE_RIGHT))
 		{
 			m_fXPos += static_cast<float>(170.0f * sin(m_fDirection * 2 * M_PI) * g_pTimer->GetElapsed());
+			g_pDebugscreen->Set("Player x-Pos:", m_fXPos);
 			m_fYPos += static_cast<float>(170.0f * cos(m_fDirection * 2 * M_PI) * g_pTimer->GetElapsed());
 			fAnimphase += 10.0f * g_pTimer->GetElapsed();
 		}
@@ -302,14 +306,27 @@ void CPlayer::ProcessTools ()									// Schieﬂen
 
 void CPlayer::CheckPosition ()
 {
-   if (m_fXPos < 0.0f)  
-      m_fXPos = 0.0f;
-   else if (m_fXPos > Map_Width)
-      m_fXPos = static_cast<float>(Map_Width);
-   if (m_fYPos < 0.0f)  
-      m_fYPos = 0.0f;
-   else if (m_fYPos > (Map_Height))
-      m_fYPos = static_cast<float>(Map_Height);
+	if (m_fXPos < 0.0f)
+	{
+		m_fXPos = 0.0f;
+		g_pDebugscreen->Set("korrigiert: X < 0");
+	}     
+	else if (m_fXPos > Map_Width)
+	{
+		m_fXPos = static_cast<float>(Map_Width);
+		g_pDebugscreen->Set("korrigiert: x > Karte");
+	}      
+	if (m_fYPos < 0.0f)
+	{
+		m_fYPos = 0.0f;
+		g_pDebugscreen->Set("korrigiert");
+	}      
+	else if (m_fYPos >(Map_Height))
+	{
+		m_fYPos = static_cast<float>(Map_Height);
+		g_pDebugscreen->Set("korrigiert");
+	}
+      
    if (fAnimphase >= 7)
    {
 	   fAnimphase = 0;

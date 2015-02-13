@@ -21,8 +21,8 @@
 class CStuff
 {
 	public:
-		CStuff	(fSDL_Rect *camera, int level_width, int level_y);
-
+		CStuff	();
+		void	init(fSDL_Rect *camera, int level_width, int level_y);
 		void	Quit		();
 		void	Update		();
 		void	SetPlayer	(int Life, float X, float Y);

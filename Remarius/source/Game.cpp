@@ -1,7 +1,12 @@
 #include "Game.hpp"
 
-CGame::CGame():terrain("Map/Map1x1.map", &camera), Rectmaster(&camera, terrain.Get_Width(), terrain.Get_Height())																						// Game initialisieren
+CGame::CGame():terrain("Map/Map1x1.map", &camera), Rectmaster()																						// Game initialisieren
 {
+	camera.x = 0;
+	camera.y = 0;
+	camera.w = g_pOptions->window_width;
+	camera.h = g_pOptions->window_height;
+
 	m_bGameRun = true;
 
 	pTrack_1 = NULL;
@@ -11,6 +16,7 @@ CGame::CGame():terrain("Map/Map1x1.map", &camera), Rectmaster(&camera, terrain.G
 	Framecounter = 0;
 	Timecounter = 0;
 
+	Rectmaster.init(&camera, terrain.Get_Width(), terrain.Get_Height());
 }
 void CGame::Quit ()																								// Müll freigeben
 {
