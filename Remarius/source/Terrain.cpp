@@ -53,7 +53,7 @@ void CTerrain::Render()
 
 	for (int i = 0; i < (camera->h/tile_height)+1; i++) // geht über die Anzahl der Tiles in y-Richtung
 	{
-		for (int j = 0; j < (camera->w / tile_width) + 2; j++) // geht über die Anzahl der Tiles in x-Richtung
+		for (int j = 0; j < (camera->w / tile_width) + 2; j++) // geht über die Anzahl der Tiles in x-Richtung, hier + 2, da rundungsfehler ausgefangen werden müssen
 		{
 			index_1 = i + camera->y/tile_height;
 			index_2 = j + camera->x/tile_width;
@@ -62,7 +62,6 @@ void CTerrain::Render()
 			temp_y = index_1*tile_height;
 			lowerSpriteTile->SetPos(index, temp_x - camera->x, temp_y - camera->y);
 			lowerSpriteTile->Render(index, (terrain[index].lowerTileType) % 4, (terrain[index].lowerTileType) / 4);
-			//cout << (terrain[index].lowerTileType) % 4 << " " << (terrain[index].lowerTileType) / 4 << "    ";
 			//upperSpriteTile->SetPos(index, temp_x - camera->x, temp_y - camera->y); // einkommentieren, wenn das neue Mapformat fertig ist!			
 			//upperSpriteTile->Render(index, (terrain[index]->lowerTileType) % 4, (terrain[index]->upperTileType) / 4)
 			index_1 = -1;

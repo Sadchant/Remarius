@@ -26,7 +26,6 @@ class CStuff
 		void	Quit		();
 		void	Update		();
 		void	SetPlayer	(int Life, float X, float Y);
-		void    RenderTiles ();
         bool    set_tiles       ();
 		int		GetPlayerX		(){return m_pPlayer->GetX();}
 		int		GetPlayerY		(){return m_pPlayer->GetY();}
@@ -48,16 +47,12 @@ class CStuff
 
 		CPlayer				*m_pPlayer;
 
-<<<<<<< HEAD
 		CSprite				*m_pSpritePlayer;		// Sprite für Spieler
 		CSprite				*m_pSpriteStachelstein;	// Sprite für Stachelstein
 		CSprite				*m_pSpriteBombo;		// Sprite für Bombo
 		CSprite				*m_pSpriteExplosion;	// Sprite für Explosion
 		CSprite				*m_pSpriteHoover;		// Sprite für Staubsauger
 		CSprite				*m_pSpriteSpider;		// Sprite für die Hexaspider
-=======
-		CSprite				*m_pSpriteWall;
->>>>>>> origin/master
 
 		fSDL_Rect*			camera;
 		bool				m_bSpawnLock;			// Spawnlock für CommandSpawns();

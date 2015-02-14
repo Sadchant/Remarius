@@ -58,9 +58,9 @@ void CStuff::Update()
 		camera->y = 0;
 
 	if (camera->x > level_width - camera->w)
-		camera->x -= camera->w;
+		camera->x = level_width - camera->w;
 	if (camera->y > level_height - camera->h)
-		camera->y -= camera->h;
+		camera->y = level_height - camera->h;
 
 	m_pPlayer->Render(camera->x, camera->y);
 	m_pPlayer->LifeRender();

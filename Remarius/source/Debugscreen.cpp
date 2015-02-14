@@ -31,8 +31,8 @@ CDebugscreen::~CDebugscreen()
 }
 
 // erzeugt ein DebugItem für die Map und macht es bei erneutem Aufruf wieder sichtbar
-void CDebugscreen::Set(string Text)	
-{	
+void CDebugscreen::Set(string Text)
+{
 	itMessages = Messages.find(Text);
 	if (itMessages != Messages.end())										// Wenn sie schon in der Map, war, wird visible auf "true" gesetzt
 	{
@@ -111,7 +111,7 @@ void CDebugscreen::Set(string text, string variable)
 	if (itMessages != Messages.end())															// Wird die Variable in der Map gefunden, muss bei erneutem Aufruf von Set nur der Wert geupdatet werden
 	{
 		itMessages->second.pTextObject->SetContent(Variable_Text);
-	}	
+	}
 }
 
 
