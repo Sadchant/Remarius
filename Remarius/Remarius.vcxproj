@@ -30,7 +30,6 @@
     <ClInclude Include="source\Music.hpp" />
     <ClInclude Include="source\Player.hpp" />
     <ClInclude Include="source\Program.hpp" />
-    <ClInclude Include="source\Renderable.h" />
     <ClInclude Include="source\Shot.hpp" />
     <ClInclude Include="source\Singleton.hpp" />
     <ClInclude Include="source\Sound.hpp" />
@@ -61,7 +60,6 @@
     <ClCompile Include="source\Music.cpp" />
     <ClCompile Include="source\Player.cpp" />
     <ClCompile Include="source\Program.cpp" />
-    <ClCompile Include="source\Renderable.cpp" />
     <ClCompile Include="source\Shot.cpp" />
     <ClCompile Include="source\Sound.cpp" />
     <ClCompile Include="source\Sprite.cpp" />
@@ -119,7 +117,7 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>D:\C++ und SDL\SDL2-devel-2.0.3-VC\SDL2-2.0.3\lib\x86;D:\C++ und SDL\SDL2_ttf-devel-2.0.12-VC\SDL2_ttf-2.0.12\lib\x86;D:\C++ und SDL\SDL2_mixer-devel-2.0.0-VC\SDL2_mixer-2.0.0\lib\x86;D:\C++ und SDL\SDL2_image-devel-2.0.0-VC\SDL2_image-2.0.0\lib\x86;C:\Users\Matthias Beusch\Informatik\SDL 2\SDL2_ttf-devel-2.0.12-VC\SDL2_ttf-2.0.12\lib\x86;C:\Users\Matthias Beusch\Informatik\SDL 2\SDL2_mixer-devel-2.0.0-VC\SDL2_mixer-2.0.0\lib\x86;C:\Users\Matthias Beusch\Informatik\SDL 2\SDL2-devel-2.0.3-VC\SDL2-2.0.3\lib\x86;C:\Users\Matthias Beusch\Informatik\SDL 2\SDL2_image-devel-2.0.0-VC\SDL2_image-2.0.0\lib\x86;C:\Users\Karufel\SDL\SDL2-2.0.3\lib\x86;C:\Users\Karufel\SDL\SDL2_ttf-2.0.12\lib\x86;C:\Users\Karufel\SDL\SDL2_mixer-2.0.0\lib\x86;C:\Users\Karufel\SDL\SDL2_image-2.0.0\lib\x86;C:\Users\Lanyovan\Files\Remarius\dev tools\SDL2-2.0.3\lib\x86;C:\Users\Lanyovan\Files\Remarius\dev tools\SDL2_ttf-2.0.12\lib\x86;C:\Users\Lanyovan\Files\Remarius\dev tools\SDL2_mixer-2.0.0\lib\x86;C:\Users\Lanyovan\Files\Remarius\dev tools\SDL2_image-2.0.0\lib\x86;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>D:\C++ und SDL\SDL2-devel-2.0.3-VC\SDL2-2.0.3\lib\x86;D:\C++ und SDL\SDL2_ttf-devel-2.0.12-VC\SDL2_ttf-2.0.12\lib\x86;D:\C++ und SDL\SDL2_mixer-devel-2.0.0-VC\SDL2_mixer-2.0.0\lib\x86;D:\C++ und SDL\SDL2_image-devel-2.0.0-VC\SDL2_image-2.0.0\lib\x86;C:\Users\Matthias Beusch\Informatik\SDL 2\SDL2_ttf-devel-2.0.12-VC\SDL2_ttf-2.0.12\lib\x86;C:\Users\Matthias Beusch\Informatik\SDL 2\SDL2_mixer-devel-2.0.0-VC\SDL2_mixer-2.0.0\lib\x86;C:\Users\Matthias Beusch\Informatik\SDL 2\SDL2_image-devel-2.0.0-VC\SDL2_image-2.0.0\lib\x86;C:\Users\Karufel\SDL\SDL2-2.0.3\lib\x86;C:\Users\Karufel\SDL\SDL2_ttf-2.0.12\lib\x86;C:\Users\Karufel\SDL\SDL2_mixer-2.0.0\lib\x86;C:\Users\Karufel\SDL\SDL2_image-2.0.0\lib\x86;C:\Users\Lanyovan\Files\Remarius\dev tools\SDL2-2.0.3\lib\x86;C:\Users\Lanyovan\Files\Remarius\dev tools\SDL2_ttf-2.0.12\lib\x86;C:\Users\Lanyovan\Files\Remarius\dev tools\SDL2_mixer-2.0.0\lib\x86;C:\Users\Lanyovan\Files\Remarius\dev tools\SDL2_image-2.0.0\lib\x86;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>SDL2_image.lib;SDL2_mixer.lib;SDL2_ttf.lib;SDL2.lib;SDL2main.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
