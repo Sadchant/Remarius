@@ -111,6 +111,36 @@
     <ClInclude Include="source\MenuCheckBox.hpp">
       <Filter>Programflow\Menu</Filter>
     </ClInclude>
+    <ClInclude Include="source\Renderable.hpp">
+      <Filter>Resource/Frame\Rendering</Filter>
+    </ClInclude>
+    <ClInclude Include="source\tinyxml2.h">
+      <Filter>Programflow</Filter>
+    </ClInclude>
+    <ClInclude Include="source\XMLhandler.hpp">
+      <Filter>Programflow</Filter>
+    </ClInclude>
+    <ClInclude Include="source\Options.hpp">
+      <Filter>Resource/Frame</Filter>
+    </ClInclude>
+    <ClInclude Include="source\Renderlayer.hpp">
+      <Filter>Resource/Frame\Rendering</Filter>
+    </ClInclude>
+    <ClInclude Include="source\Loader.hpp">
+      <Filter>Resource/Frame</Filter>
+    </ClInclude>
+    <ClInclude Include="source\Texture.hpp">
+      <Filter>Resource/Frame\Rendering</Filter>
+    </ClInclude>
+    <ClInclude Include="source\SpriteObject.hpp">
+      <Filter>Resource/Frame\Rendering</Filter>
+    </ClInclude>
+    <ClInclude Include="source\PauseMenu.hpp">
+      <Filter>Programflow</Filter>
+    </ClInclude>
+    <ClInclude Include="source\Terrain.hpp">
+      <Filter>Programflow</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="source\Hoover.cpp">
@@ -190,6 +220,33 @@
     </ClCompile>
     <ClCompile Include="source\MenuCheckBox.cpp">
       <Filter>Programflow\Menu</Filter>
+    </ClCompile>
+    <ClCompile Include="source\Renderable.cpp">
+      <Filter>Resource/Frame\Rendering</Filter>
+    </ClCompile>
+    <ClCompile Include="source\tinyxml2.cpp">
+      <Filter>Programflow</Filter>
+    </ClCompile>
+    <ClCompile Include="source\XMLhandler.cpp">
+      <Filter>Programflow</Filter>
+    </ClCompile>
+    <ClCompile Include="source\Renderlayer.cpp">
+      <Filter>Resource/Frame\Rendering</Filter>
+    </ClCompile>
+    <ClCompile Include="source\Loader.cpp">
+      <Filter>Resource/Frame</Filter>
+    </ClCompile>
+    <ClCompile Include="source\Texture.cpp">
+      <Filter>Resource/Frame\Rendering</Filter>
+    </ClCompile>
+    <ClCompile Include="source\SpriteObject.cpp">
+      <Filter>Resource/Frame\Rendering</Filter>
+    </ClCompile>
+    <ClCompile Include="source\PauseMenu.cpp">
+      <Filter>Programflow</Filter>
+    </ClCompile>
+    <ClCompile Include="source\Terrain.cpp">
+      <Filter>Programflow</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

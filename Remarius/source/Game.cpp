@@ -1,35 +1,13 @@
 #include "Game.hpp"
 
-CGame::CGame ()																									// Game initialisieren
+CGame::CGame():terrain("Map/Map1x1.map", &camera), Rectmaster()																						// Game initialisieren
 {
-	pFont = OpenFont("Data/verdana.ttf", 19);
-
-	m_pMenubackground = NULL;																				// Pausemenühintergrund erzeugen
-	m_pMenubackground = new CSprite;
-	m_pMenubackground->Load ("Data/Pausemenuhintergrund.png", 0, 755, 570);
-
-	m_pMenubuttons = NULL;																				// Staubsaugersprite erzeugen
-	m_pMenubuttons = new CSprite;
-	m_pMenubuttons->Load ("Data/Menubuttons.png", 0, 301, 65);
-
-//	m_pBaum = NULL;																				// Staubsaugersprite erzeugen
-//	m_pBaum = new CSprite;
-//	m_pBaum->Load ("Data/Baum_1klein.png", 4, 260, 244);
-
+	camera.x = 0;
+	camera.y = 0;
+	camera.w = g_pOptions->window_width;
+	camera.h = g_pOptions->window_height;
 
 	m_bGameRun = true;
-
-	m_pTextMenucaption = NULL;
-	m_pTextMenucaption = new CText;
-	m_pTextMenucaption->SetFont (pFont);
-
-	m_pTextMenutext = NULL;
-	m_pTextMenutext = new CText;
-	m_pTextMenutext->SetFont (pFont);
-
-	m_pTextMenuSave = NULL;
-	m_pTextMenuSave = new CText;
-	m_pTextMenuSave->SetFont (pFont);
 
 	pTrack_1 = NULL;
 	pTrack_1 = new CMusic;
@@ -38,50 +16,23 @@ CGame::CGame ()																									// Game initialisieren
 	Framecounter = 0;
 	Timecounter = 0;
 
+	Rectmaster.init(&camera, terrain.Get_Width(), terrain.Get_Height());
 }
 void CGame::Quit ()																								// Müll freigeben
 {
 	Rectmaster.Quit ();
 
-	if (m_pMenubackground != NULL)																			// Staubsaugersprite freigeben
-	{
-		delete (m_pMenubackground);
-		m_pMenubackground = NULL;
-	}
-
-	if (m_pMenubuttons != NULL)																			// Staubsaugersprite freigeben
-	{
-		delete (m_pMenubuttons);
-		m_pMenubuttons = NULL;
-	}
-
-	if (m_pTextMenucaption != NULL)																			// Staubsaugersprite freigeben
-	{
-		delete (m_pTextMenucaption);
-		m_pTextMenucaption = NULL;
-	}
-
-	if (m_pTextMenutext != NULL)																			// Staubsaugersprite freigeben
-	{
-		delete (m_pTextMenutext);
-		m_pTextMenutext = NULL;
-	}
-	if (m_pTextMenuSave != NULL)																			// Staubsaugersprite freigeben
-	{
-		delete (m_pTextMenuSave);
-		m_pTextMenuSave = NULL;
-	}
-	if (pTrack_1 != NULL)																			// Staubsaugersprite freigeben
+	if (pTrack_1 != NULL)																			
 	{
 		pTrack_1->StopMusic ();
 		delete pTrack_1;
 		pTrack_1 = NULL;
 	}
-	TTF_CloseFont(pFont);
 	
 }
 void CGame::Run (int save, bool Safegame)         // Hauptschleife des Spiels
 {
+	int ticks = 0;
 	m_Savestate = save;
 	if (Safegame)	
 		Load();
@@ -90,13 +41,19 @@ void CGame::Run (int save, bool Safegame)         // Hauptschleife des Spiels
 		g_pFramework->Update ();												// Framework updaten und Buffer löschen
 	
 		Rectmaster.Update();
-																				// Stachelsteinen rendern
 		FpsCounter ();
 	
 		ProcessEvents ();	
 		//pTrack_1->Play ();
+		terrain.Render();
 		g_pDebugscreen->Render();
-		g_pFramework->Render ();	
+		g_pRenderlayer->Render ();
+		/*if (ticks == 0)
+		{
+			while (true){}
+			cout << ":)";
+		}*/
+		ticks += 1;
 	}
 }
 
@@ -173,9 +130,7 @@ void CGame::ProcessEvents ()																				// Events bearbeiten
 
 	if (g_pFramework->KeyDown (SDL_SCANCODE_ESCAPE))																// Wurde Escape gedrückt?
 	{
-		g_pDebugscreen->Set("Escape wurde gedrückt");
-		m_State=1;																			// Auswahl auf "Spiel fortsetzen" setzen
-		m_bBreakLock=false;
+		g_pDebugscreen->Set("Escape wurde gedrückt");																			// Auswahl auf "Spiel fortsetzen" setzen
 		Break ();																			// Pausemenü laufen lassen	
 	}
 
@@ -186,505 +141,12 @@ void CGame::ProcessEvents ()																				// Events bearbeiten
 	} 
 	if (g_pFramework->KeyDown(SDL_SCANCODE_K))
 	{
-		g_pDebugscreen->Set("Spielstand gespeichert", false);
+		g_pDebugscreen->Set("Spielstand gespeichert");
 		Save();
 	} 
 }
+
 void CGame::Break()
 {
-	m_bEscapeLock=true;
-	while (m_bBreakLock==false)	
-	{
-		m_pMenubackground->SetPos (134, 99);
-		m_pMenubackground->Render (0);
-		m_pTextMenucaption->SetColor (230, 230, 0);
-		m_pTextMenucaption->SetContent ("Pause");
-		m_pTextMenucaption->SetPos(static_cast<float>((755 - m_pTextMenucaption->GetLength()) / 2 + 134), 200);
-		m_pTextMenucaption->Render();
 
-		if (g_pFramework->KeyDown(SDL_SCANCODE_RETURN)==false)
-			m_bEnterLock=false;
-		if (g_pFramework->KeyDown(SDL_SCANCODE_UP)==false && g_pFramework->KeyDown(SDL_SCANCODE_DOWN)==false)
-			m_bStateLock=false;																			
-		if (g_pFramework->KeyDown(SDL_SCANCODE_ESCAPE)==false)
-			m_bEscapeLock=false;
-
-			
-		switch (m_State)
-		{
-		case (1):
-			{
-				m_pMenubuttons->SetPos (361, 274);
-				m_pMenubuttons->Render (0, 1);
-				m_pTextMenutext->SetColor (255, 255, 255);
-				m_pTextMenutext->SetContent ("Fortsetzen");
-				m_pTextMenucaption->SetPos(static_cast<float>((301 - m_pTextMenutext->GetLength())/2+ 361),
-										static_cast<float>((65 - m_pTextMenutext->GetHigh())/2 + 274));
-				m_pTextMenutext->Render();
-
-				m_pMenubuttons->SetPos (361, 354);
-				m_pMenubuttons->Render (0, 0);
-				m_pTextMenutext->SetColor (180, 180, 180);
-				m_pTextMenutext->SetContent ("Speichern");
-				m_pTextMenucaption->SetPos(static_cast<float>((301 - m_pTextMenutext->GetLength())/2+ 361),
-										static_cast<float>((65 - m_pTextMenutext->GetHigh())/2 + 354));
-				m_pTextMenutext->Render();
-
-				m_pMenubuttons->SetPos (361, 434);
-				m_pMenubuttons->Render (0, 0);
-				m_pTextMenutext->SetColor (180, 180, 180);
-				m_pTextMenutext->SetContent ("Beenden");
-				m_pTextMenucaption->SetPos(static_cast<float>((301 - m_pTextMenutext->GetLength())/2+ 361),
-										static_cast<float>((65 - m_pTextMenutext->GetHigh())/2 + 434));
-				m_pTextMenutext->Render();
-
-			} break;
-
-		case (2):
-			{
-				
-				cout<<"Speichern"<<endl;
-				m_pMenubuttons->SetPos (361, 274);
-				m_pMenubuttons->Render (0, 0);
-				m_pTextMenutext->SetColor (180, 180, 180);
-				m_pTextMenutext->SetContent ("Fortsetzen");
-				m_pTextMenucaption->SetPos(static_cast<float>((301 - m_pTextMenutext->GetLength())/2+ 361),
-										static_cast<float>((65 - m_pTextMenutext->GetHigh())/2 + 274));
-				m_pTextMenutext->Render();
-
-				m_pMenubuttons->SetPos (361, 354);
-				m_pMenubuttons->Render (0, 1);
-				m_pTextMenutext->SetColor (255, 255, 255);
-				m_pTextMenutext->SetContent ("Speichern");
-				m_pTextMenucaption->SetPos(static_cast<float>((301 - m_pTextMenutext->GetLength())/2+ 361),
-										static_cast<float>((65 - m_pTextMenutext->GetHigh())/2 + 354));
-				m_pTextMenutext->Render();
-
-				m_pMenubuttons->SetPos (361, 434);
-				m_pMenubuttons->Render (0, 0);
-				m_pTextMenutext->SetColor (180, 180, 180);
-				m_pTextMenutext->SetContent ("Beenden");
-				m_pTextMenucaption->SetPos(static_cast<float>((301 - m_pTextMenutext->GetLength())/2+ 361),
-										static_cast<float>((65 - m_pTextMenutext->GetHigh())/2 + 434));
-				m_pTextMenutext->Render();
-
-			} break;
-		case (3):
-			{
-				m_pMenubuttons->SetPos (361, 274);
-				m_pMenubuttons->Render (0, 0);
-				m_pTextMenutext->SetColor (180, 180, 180);
-				m_pTextMenutext->SetContent ("Fortsetzen");
-				m_pTextMenucaption->SetPos(static_cast<float>((301 - m_pTextMenutext->GetLength())/2+ 361),
-										static_cast<float>((65 - m_pTextMenutext->GetHigh())/2 + 274));
-				m_pTextMenutext->Render();
-
-				m_pMenubuttons->SetPos (361, 354);
-				m_pMenubuttons->Render (0, 0);
-				m_pTextMenutext->SetColor (180, 180, 180);
-				m_pTextMenutext->SetContent ("Speichern");
-				m_pTextMenucaption->SetPos(static_cast<float>((301 - m_pTextMenutext->GetLength())/2+ 361),
-										static_cast<float>((65 - m_pTextMenutext->GetHigh())/2 + 354));
-				m_pTextMenutext->Render();
-
-				m_pMenubuttons->SetPos (361, 434);
-				m_pMenubuttons->Render (0, 1);
-				m_pTextMenutext->SetColor (255, 255, 255);
-				m_pTextMenutext->SetContent ("Beenden");
-				m_pTextMenucaption->SetPos(static_cast<float>((301 - m_pTextMenutext->GetLength())/2+ 361),
-										static_cast<float>((65 - m_pTextMenutext->GetHigh())/2 + 434));
-				m_pTextMenutext->Render();
-			} break;
-				
-		}
-
-		g_pFramework->Render ();
-
-		SDL_EventState(SDL_SYSWMEVENT, SDL_IGNORE);	
-		SDL_WaitEvent(&event);
-
-		switch (m_State)
-		{
-			case (1):
-			{
-				if (g_pFramework->KeyDown(SDL_SCANCODE_RETURN))
-				{
-					if (m_bEnterLock == false)
-					{
-						m_bBreakLock = true;
-					}
-				}
-				if (g_pFramework->KeyDown(SDL_SCANCODE_DOWN))
-				{
-					if (m_bStateLock == false)
-					{
-						m_State = 2;
-						m_bStateLock = true;
-					}
-				}
-				if (g_pFramework->KeyDown(SDL_SCANCODE_UP))
-				{
-					if (m_bStateLock == false)
-					{
-						m_State = 3;
-						m_bStateLock = true;
-					}
-				}
-				if (g_pFramework->KeyDown(SDL_SCANCODE_ESCAPE))
-				{
-					if (m_bEscapeLock == false)
-					{
-						m_bBreakLock = true;
-					}
-				}
-			}break;
-		
-	
-
-		case (2):
-		{
-			switch (event.key.keysym.sym)
-			{
-				case (SDL_SCANCODE_RETURN):
-				{
-					if (m_bEnterLock==false)
-					{
-						m_bEnterLock=true;
-						m_State2=1;
-						m_bBreakLock2=false;
-						cout<<"Wirklich speichern?"<<endl;
-						m_pMenubackground->SetPos (134, 99);
-						m_pMenubackground->Render (0);
-						m_pTextMenuSave->SetColor (230, 230, 0);
-						m_pTextMenuSave->SetContent ("Soll wirklich gespeichert werden?");
-						m_pTextMenucaption->SetPos(static_cast<float>((755 - m_pTextMenuSave->GetLength())/2+ 134), 240);
-						m_pTextMenuSave->Render();
-
-						while (	m_bBreakLock2==false)
-						{
-							if (g_pFramework->KeyDown(SDL_SCANCODE_RETURN)==false)
-								m_bEnterLock=false;
-							if (g_pFramework->KeyDown(SDL_SCANCODE_UP)==false && g_pFramework->KeyDown(SDL_SCANCODE_DOWN)==false)
-								m_bStateLock=false;
-
-							switch (m_State2)
-							{
-							case(1):
-								cout<<"Ja"<<endl; 
-								m_pMenubuttons->SetPos (361, 304);
-								m_pMenubuttons->Render (0, 1);
-								m_pTextMenutext->SetColor (255, 255, 255);
-								m_pTextMenutext->SetContent ("Ja");
-								m_pTextMenucaption->SetPos(static_cast<float>((301 - m_pTextMenutext->GetLength())/2+ 361),
-														static_cast<float>((65 - m_pTextMenutext->GetHigh())/2 + 304));
-								m_pTextMenutext->Render();
-
-								m_pMenubuttons->SetPos (361, 394);
-								m_pMenubuttons->Render (0, 0);
-								m_pTextMenutext->SetColor (180, 180, 180);
-								m_pTextMenutext->SetContent ("Nein");
-								m_pTextMenucaption->SetPos(static_cast<float>((301 - m_pTextMenutext->GetLength())/2+ 361),
-														static_cast<float>((65 - m_pTextMenutext->GetHigh())/2 + 394));
-								m_pTextMenutext->Render();
-								break;
-
-							case(2):
-								cout<<"Nein"<<endl;
-								m_pMenubuttons->SetPos (361, 304);
-								m_pMenubuttons->Render (0, 0);
-								m_pTextMenutext->SetColor (180, 180, 180);
-								m_pTextMenutext->SetContent ("Ja");
-								m_pTextMenucaption->SetPos(static_cast<float>((301 - m_pTextMenutext->GetLength())/2+ 361),
-														static_cast<float>((65 - m_pTextMenutext->GetHigh())/2 + 304));
-								m_pTextMenutext->Render();
-
-								m_pMenubuttons->SetPos (361, 394);
-								m_pMenubuttons->Render (0, 1);
-								m_pTextMenutext->SetColor (255, 255, 255);
-								m_pTextMenutext->SetContent ("Nein");
-								m_pTextMenucaption->SetPos(static_cast<float>((301 - m_pTextMenutext->GetLength())/2+ 361),
-														static_cast<float>((65 - m_pTextMenutext->GetHigh())/2 + 394));
-								m_pTextMenutext->Render();
-								break;
-							}
-							g_pFramework->Render ();
-
-							SDL_WaitEvent(&event);
-							switch (m_State2)
-							{
-							case (1):
-							{
-								switch (event.key.keysym.sym)
-								{
-								case (SDL_SCANCODE_RETURN):
-									if (m_bEnterLock==false)
-									{
-										Save ();
-										cout<<"Spiel wurde gespeichert"<<endl;
-										m_bBreakLock2=true;
-										m_bEnterLock=true;
-									}
-								break;
-								case (SDL_SCANCODE_DOWN):
-									if (m_bStateLock==false)
-									{
-										m_State2=2;
-										m_bStateLock=true;
-									}
-								break;
-								case (SDL_SCANCODE_UP):
-									if (m_bStateLock==false)
-									{
-										m_State2=2;
-										m_bStateLock=true;
-									}
-								break;
-								case (SDL_SCANCODE_ESCAPE):
-									if (m_bEscapeLock==false)
-									{
-										m_bBreakLock2=true;
-										m_bEscapeLock=true;
-									}
-								break;
-								}
-							} break;
-							case (2):
-							{
-								switch (event.key.keysym.sym)
-								{
-								case (SDL_SCANCODE_RETURN):
-									if (m_bEnterLock==false)
-									{
-										m_bBreakLock2=true;
-										m_bEnterLock=true;
-									}
-								break;
-								case (SDL_SCANCODE_DOWN):
-									if (m_bStateLock==false)
-									{
-										m_State2=1;
-										m_bStateLock=true;
-									}
-								break;
-								case (SDL_SCANCODE_UP):
-									if (m_bStateLock==false)
-									{
-										m_State2=1;
-										m_bStateLock=true;
-									}
-								break;
-								case (SDL_SCANCODE_ESCAPE):
-									if (m_bEscapeLock==false)
-									{
-										m_bBreakLock2=true;
-										m_bEscapeLock=true;
-									}
-								break;
-								}
-							} break;
-							}
-						}
-					}
-				} break;
-				case (SDL_SCANCODE_DOWN):
-				{
-				if (m_bStateLock==false)
-				{
-					m_State=3;
-					m_bStateLock=true;
-				}
-				} break;
-
-				case (SDL_SCANCODE_UP):
-				{
-				if (m_bStateLock==false)
-				{
-					m_State=1;
-					m_bStateLock=true;
-				}
-				} break;
-
-				case (SDL_SCANCODE_ESCAPE):
-				{
-				if (m_bEscapeLock==false)															
-					m_bBreakLock=true;
-				} break;
-			}
-		} break;
-
-		case (3):
-		{
-			switch (event.key.keysym.sym)
-			{
-			case (SDL_SCANCODE_RETURN):
-				if (m_bEnterLock==false)
-					{
-						m_bEnterLock=true;
-						m_State2=1;
-						m_bBreakLock2=false;
-						cout<<"Wirklich beenden?"<<endl;
-						m_pMenubackground->SetPos (134, 99);
-						m_pMenubackground->Render (0);
-						m_pTextMenuSave->SetColor (230, 230, 0);
-						m_pTextMenuSave->SetContent ("Soll wirklich beendet werden?");
-						m_pTextMenucaption->SetPos(static_cast<float>((755 - m_pTextMenuSave->GetLength())/2+ 134), 240);
-						m_pTextMenuSave->Render();
-
-						while (	m_bBreakLock2==false)
-						{
-							if (g_pFramework->KeyDown(SDL_SCANCODE_RETURN)==false)
-								m_bEnterLock=false;
-							if (g_pFramework->KeyDown(SDL_SCANCODE_UP)==false && g_pFramework->KeyDown(SDL_SCANCODE_DOWN)==false)
-								m_bStateLock=false;
-
-							switch (m_State2)
-							{
-							case(1):
-								cout<<"Ja"<<endl; 
-								m_pMenubuttons->SetPos (361, 304);
-								m_pMenubuttons->Render (0, 1);
-								m_pTextMenutext->SetColor (255, 255, 255);
-								m_pTextMenutext->SetContent ("Ja");
-								m_pTextMenucaption->SetPos(static_cast<float>((301 - m_pTextMenutext->GetLength())/2+ 361),
-														static_cast<float>((65 - m_pTextMenutext->GetHigh())/2 + 304));
-								m_pTextMenutext->Render();
-
-								m_pMenubuttons->SetPos (361, 394);
-								m_pMenubuttons->Render (0, 0);
-								m_pTextMenutext->SetColor (180, 180, 180);
-								m_pTextMenutext->SetContent ("Nein");
-								m_pTextMenucaption->SetPos(static_cast<float>((301 - m_pTextMenutext->GetLength())/2+ 361),
-														static_cast<float>((65 - m_pTextMenutext->GetHigh())/2 + 394));
-								m_pTextMenutext->Render();
-								break;
-
-							case(2):
-								cout<<"Nein"<<endl;
-								m_pMenubuttons->SetPos (361, 304);
-								m_pMenubuttons->Render (0, 0);
-								m_pTextMenutext->SetColor (180, 180, 180);
-								m_pTextMenutext->SetContent ("Ja");
-								m_pTextMenucaption->SetPos(static_cast<float>((301 - m_pTextMenutext->GetLength())/2+ 361),
-														static_cast<float>((65 - m_pTextMenutext->GetHigh())/2 + 304));
-								m_pTextMenutext->Render();
-
-								m_pMenubuttons->SetPos (361, 394);
-								m_pMenubuttons->Render (0, 1);
-								m_pTextMenutext->SetColor (255, 255, 255);
-								m_pTextMenutext->SetContent ("Nein");
-								m_pTextMenucaption->SetPos(static_cast<float>((301 - m_pTextMenutext->GetLength())/2+ 361),
-														static_cast<float>((65 - m_pTextMenutext->GetHigh())/2 + 394));
-								m_pTextMenutext->Render();
-								break;
-							}
-							g_pFramework->Render ();
-
-							SDL_WaitEvent(&event);
-							switch (m_State2)
-							{
-							case (1):
-							{
-								switch (event.key.keysym.sym)
-								{
-								case (SDL_SCANCODE_RETURN):
-									if (m_bEnterLock==false)
-									{
-										SDL_EventState(SDL_SYSWMEVENT, SDL_ENABLE);
-										m_bBreakLock=true;
-										m_bGameRun=false;
-										m_bBreakLock2=true;
-										m_bEnterLock=true;
-										pTrack_1->PauseMusic ();
-									}
-								break;
-								case (SDL_SCANCODE_DOWN):
-									if (m_bStateLock==false)
-									{
-										m_State2=2;
-										m_bStateLock=true;
-									}
-								break;
-								case (SDL_SCANCODE_UP):
-									if (m_bStateLock==false)
-									{
-										m_State2=2;
-										m_bStateLock=true;
-									}
-								break;
-								case (SDL_SCANCODE_ESCAPE):
-									if (m_bEscapeLock==false)
-									{
-										m_bBreakLock2=true;
-										m_bEscapeLock=true;
-									}
-								break;
-								}
-							} break;
-							case (2):
-							{
-								switch (event.key.keysym.sym)
-								{
-								case (SDL_SCANCODE_RETURN):
-									if (m_bEnterLock==false)
-									{
-										m_bBreakLock2=true;
-										m_bEnterLock=true;
-									}
-								break;
-								case (SDL_SCANCODE_DOWN):
-									if (m_bStateLock==false)
-									{
-										m_State2=1;
-										m_bStateLock=true;
-									}
-								break;
-								case (SDL_SCANCODE_UP):
-									if (m_bStateLock==false)
-									{
-										m_State2=1;
-										m_bStateLock=true;
-									}
-								break;
-								case (SDL_SCANCODE_ESCAPE):
-									if (m_bEscapeLock==false)
-									{
-										m_bBreakLock2=true;
-										m_bEscapeLock=true;
-									}
-								break;
-								}
-							} break;
-							}
-						}
-					}
-			break;
-			case (SDL_SCANCODE_DOWN):
-			{
-				if (m_bStateLock==false)
-				{
-					m_State=1;
-					m_bStateLock=true;
-				}
-			} break;
-
-			case (SDL_SCANCODE_UP):
-			{
-				if (m_bStateLock==false)
-				{
-					m_State=2;
-					m_bStateLock=true;
-				}
-			} break;
-
-			case (SDL_SCANCODE_ESCAPE):	
-			{
-				if (m_bEscapeLock==false)															
-					m_bBreakLock=true;
-			} break;
-			}
-		} break;
-		}
-		g_pFramework->Update ();
-	}
-	
 }

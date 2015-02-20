@@ -1,0 +1,47 @@
+Programmablauf
+
+[main]:
+Framework wird initialisert
+neues Program wird erzeugt
+Program.Run wird aufgerufen
+
+	[Program Run]:
+	(hier könnte vorher noch das Intro abgespielt werden)
+	neues Menu, Pausemenu wird erzeugt
+	Zeiger auf Menu, Pausemenu oder Game
+	Zeiger.Tick()
+	Framework wird geupdated
+	Fps werden gezählt
+
+		[Menu.Tick]:	
+		Optionen einstellen
+		Spielstand auswählen
+		neues Spiel
+		--> neues Game in Program wird erzeugt, Zeiger auf Game gesetzt
+
+		[Game.Tick]:
+		(Hauptgameschleife)
+		Tastendrucke (Events) werden registriert
+			- Player wird geupdated
+			- Camera wird neu positioniert
+			- bei Tastendruck werden Monster gespawnt
+			- kann ins Pausemenu wechseln, setzt Zeiger in Program aufs Pausemenu
+		Dinge werden berechnet
+			- Kollisionen werden abgefragt
+		Musik wird abgespielt
+		Sound wird abgespielt
+		Renderlayer.Render()
+
+		[Pausemenu.Tick]:
+		Optionen einstellen
+		beenden
+		-->setzt Zeiger aufs Menu
+		
+						
+						
+
+
+
+
+		
+	

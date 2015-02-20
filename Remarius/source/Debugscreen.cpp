@@ -31,8 +31,8 @@ CDebugscreen::~CDebugscreen()
 }
 
 // erzeugt ein DebugItem für die Map und macht es bei erneutem Aufruf wieder sichtbar
-void CDebugscreen::Set(string Text)	
-{	
+void CDebugscreen::Set(string Text)
+{
 	itMessages = Messages.find(Text);
 	if (itMessages != Messages.end())										// Wenn sie schon in der Map, war, wird visible auf "true" gesetzt
 	{
@@ -55,14 +55,27 @@ void CDebugscreen::Set(string Text)
 	}	
 }
 
-// SetFunktion mit zusätzlicher Variable, die ausgegeben werden kann
-void CDebugscreen::Set(string Text, float Variable)
+void CDebugscreen::Set(string text, int variable)
 {
-	string vText = "V" + Text;												// Name für die Variable in der Map
-	string sVariable = to_string(Variable);
+	string sVariable = to_string(variable);
+	Set(text, sVariable);
+}
+
+void CDebugscreen::Set(string text, float variable)
+{
+	string sVariable = to_string(variable);
+	Set(text, sVariable);
+}
+
+
+// SetFunktion mit zusätzlicher Variable, die von Set(string, int) oder Set(string, float) in einen String umgewandelt wurde
+void CDebugscreen::Set(string text, string variable)
+{
+	string vText = "V" + text;												// Name für die Variable in der Map
+	string sVariable = variable;
 	const char* Variable_Text = sVariable.c_str();
 
-	itMessages = Messages.find(Text);
+	itMessages = Messages.find(text);
 	if (itMessages != Messages.end())
 	{
 		itMessages->second.visible = true;
@@ -73,20 +86,20 @@ void CDebugscreen::Set(string Text, float Variable)
 	{
 		DebugItem Item;
 		Item.pTextObject->SetFont(pFont);
-		const char* pText = Text.c_str();
+		const char* pText = text.c_str();
 		Item.pTextObject->SetContent(pText);
 		Item.pTextObject->SetColor(255, 255, 255);
 		Item.pTextObject->SetPos(13, 57 + 18 * Rows);
 		Item.visible = true;
 		Item.fTime = 0.0f;		
 		Item.always = true;
-		Messages[Text] = Item;
+		Messages[text] = Item;
 
 		DebugItem dVariable;																	// Die Variable wird als DebugItem erzeugt und in die Map gelegt
 		dVariable.pTextObject->SetFont(pFont);
 		dVariable.pTextObject->SetContent(Variable_Text);
 		dVariable.pTextObject->SetColor(255, 255, 255);
-		dVariable.pTextObject->SetPos(13 + Item.pTextObject->GetLength() + 5, 57 + 18 * Rows);
+		dVariable.pTextObject->SetPos(13 + Item.pTextObject->Get_length() + 5, 57 + 18 * Rows);
 		dVariable.visible = true;
 		dVariable.fTime = 0.0f;
 		dVariable.always = true;		
@@ -98,8 +111,10 @@ void CDebugscreen::Set(string Text, float Variable)
 	if (itMessages != Messages.end())															// Wird die Variable in der Map gefunden, muss bei erneutem Aufruf von Set nur der Wert geupdatet werden
 	{
 		itMessages->second.pTextObject->SetContent(Variable_Text);
-	}	
+	}
 }
+
+
 
 // bringt bei jedem Aufruf der Funktion die aktuelle FPS-Zahl in die Map
 void CDebugscreen::FPS(int FPS)																	

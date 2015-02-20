@@ -2,9 +2,13 @@
 #define _USE_MATH_DEFINES
 #include <cmath>
  
-void CHoover::Init (CSprite *pSpriteHoover)						// Staubsauger Initialisieren
+CHoover::CHoover() :
+hooverSprite(g_pLoader->getTexture("T_SPIDER"))
 {
-	m_pSpriteHoover = pSpriteHoover;								// Sprite übernehmen, Startposition setzen
+}
+
+void CHoover::Init ()						// Staubsauger Initialisieren
+{
 	m_fXPos = 360.0f;
 	m_fYPos = 10.0f;
  
@@ -13,7 +17,7 @@ void CHoover::Init (CSprite *pSpriteHoover)						// Staubsauger Initialisieren
 	m_AnimFlipper = 0;
 	m_fAnimCounter = 0;
  
-	m_fAnimPhase = 0.0f;
+	animPhase = 0;
 }
 void CHoover::Update ()											// Staubsauger bewegen
 {
@@ -37,30 +41,30 @@ void CHoover::Render (float CameraX, float CameraY)                             
 		m_fAnimCounter -= 15.0f * g_pTimer->GetElapsed ();
 
 	if ((m_fAnimCounter > 0.0f) && (m_fAnimCounter <=1.0f))
-		m_fAnimPhase = 0;
+		animPhase = 0;
 
 
 	if ((m_fAnimCounter <= 0.0f))
 		m_AnimFlipper = 0;
 
 	if ((m_fAnimCounter >1.0f) && (m_fAnimCounter <=3.0f))
-		m_fAnimPhase = 1;
+		animPhase = 1;
 
 	if ((m_fAnimCounter >3.0f) && (m_fAnimCounter <=5.0f))
-		m_fAnimPhase = 2;
+		animPhase = 2;
 
 	if ((m_fAnimCounter >5.0f) && (m_fAnimCounter <=6.0f))
-		m_fAnimPhase = 3;
+		animPhase = 3;
 
 
 	if ((m_fAnimCounter > 6.0f))
 	{
-		m_fAnimPhase = 3;
+		animPhase = 3;
 		m_AnimFlipper = 1;
 	}
 
 
-	m_pSpriteHoover->SetScreenPos (m_fXPos, m_fYPos, CameraX, CameraY);
-	m_pSpriteHoover->Render (m_fAnimPhase, m_iSpriteDirection);
+	hooverSprite.SetPos (m_fXPos - CameraX, m_fYPos - CameraY);
+	hooverSprite.Render (animPhase, m_iSpriteDirection);
 
 }

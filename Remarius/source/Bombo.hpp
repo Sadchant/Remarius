@@ -7,7 +7,7 @@
 class CBombo: public CMonster
 {
 	public:
-		CBombo		(CSprite *pSpriteBombo, float fXPos, float fYPos, float *pPlayerXPos, float *pPlayerYPos);
+		CBombo		(float fXPos, float fYPos, float *pPlayerXPos, float *pPlayerYPos);
 		int			GetMode		(){return m_MoveMode;}
 		float		GetDistance	(){return m_fDistance;}
  

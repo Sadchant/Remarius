@@ -1,12 +1,8 @@
 #include "MenuSlider.hpp"
 
-CSprite* CMenuSlider::bar = NULL;
-CSprite* CMenuSlider::slider = NULL;
-CSprite* CMenuSlider::buttons = NULL;
-
 CMenuSlider::CMenuSlider(string label, TTF_Font* font, int range)
 {
-	text = new CText();
+	text = new CText(TEXT_LAYER);
 	text->SetFont(font);
 	text->SetContent(label);
 	text->SetColor(180, 180, 180);
@@ -16,35 +12,54 @@ CMenuSlider::CMenuSlider(string label, TTF_Font* font, int range)
 	baselabel = label;
 	onChange = function<void(int)>([](int m){});
 
-	if (!bar) bar = new CSprite("Data/Soundbalken.png", 0, 140, 6);
-	if (!slider) slider = new CSprite("Data/Soundschieber.png", 0, 19, 29);
-	if (!buttons) buttons = new CSprite("Data/Soundbuttons.png", 2, 65, 65);
+	bar = new CSprite(g_pLoader->getTexture("T_MENUSLIDERBAR"));
+	slider = new CSprite(g_pLoader->getTexture("T_MENUSLIDER"));
+	buttonL = new CSprite(g_pLoader->getTexture("T_MENUSLIDERBUTTON"));
+	buttonR = new CSprite(g_pLoader->getTexture("T_MENUSLIDERBUTTON"));
+	panel = new CSprite(g_pLoader->getTexture("T_MENUSLIDERPANEL"));
 }
 
 CMenuSlider::CMenuSlider(const CMenuSlider& other)
 {
 	text = new CText(*other.text);
+	xPos = other.xPos;
+	yPos = other.yPos;
 	onChange = other.onChange;
+	bar = new CSprite(*other.bar);
+	slider = new CSprite(*other.slider);
+	buttonL = new CSprite(*other.buttonL);
+	buttonR = new CSprite(*other.buttonR);
+	panel = new CSprite(*other.panel);
 }
 
 CMenuSlider::~CMenuSlider()
 {
-	delete text;
+	SAFE_DELETE(text);
+	SAFE_DELETE(bar);
+	SAFE_DELETE(slider);
+	SAFE_DELETE(buttonL);
+	SAFE_DELETE(buttonR);
+	SAFE_DELETE(panel);
 }
 
 CMenuSlider& CMenuSlider::operator = (const CMenuSlider& other)
 {
 	SAFE_DELETE(text);
-	text = new CText(*other.text);
-	onChange = other.onChange;
-	return *this;
-}
-
-void CMenuSlider::freeSprites()
-{
 	SAFE_DELETE(bar);
 	SAFE_DELETE(slider);
-	SAFE_DELETE(buttons);
+	SAFE_DELETE(buttonL);
+	SAFE_DELETE(buttonR);
+	SAFE_DELETE(panel);
+	text = new CText(*other.text);
+	bar = new CSprite(*other.bar);
+	slider = new CSprite(*other.slider);
+	buttonL = new CSprite(*other.buttonL);
+	buttonR = new CSprite(*other.buttonR);
+	panel = new CSprite(*other.panel);
+	onChange = other.onChange;
+	xPos = other.xPos;
+	yPos = other.yPos;
+	return *this;
 }
 
 bool CMenuSlider::processEvent(SDL_KeyboardEvent& event)
@@ -59,18 +74,27 @@ bool CMenuSlider::processEvent(SDL_KeyboardEvent& event)
 	return false;
 }
 
-void CMenuSlider::render(int x, int y, bool b)
+void CMenuSlider::render(bool b)
 {
-	/*	rendering menuSlider at position x/y;
-		text needs to be repositioned and render
-		target/text color set depending on b
-		(true if menuSlider is selected in Menu)
-		See CMenuButton for reference			*/
-	text->SetContent(baselabel + ": " + to_string(state));
-	text->SetPos((float)x, (float)y+20);
+	panel->Render(b);
+	text->SetContent(baselabel + ": " + to_string((int)(100 * state/max)));
+	text->SetPos(xPos - (106 + 65 + 65 + 120) / 2 + 106 / 2 - text->Get_length() / 2, yPos - text->Get_height() / 2);
 	int c = b ? 255 : 180;
 	text->SetColor(c, c, c);
 	text->Render();
-	slider->SetPos((float)x + state * 10, (float)y);
+	bar->Render();
+	slider->SetPos(xPos - (106 + 65 + 65 + 120) / 2 + 106 + 65 - 10 + state * 140/max - 19 / 2, yPos - 29 / 2);
 	slider->Render();
+	buttonL->Render(b);
+	buttonR->Render(2 + b);
+}
+
+void CMenuSlider::setPos(int x, int y)
+{
+	CMenuItem::setPos(x, y);
+	panel->SetPos(x - (106 + 65 + 65 + 120) / 2, y - 66 / 2);		// x - (107 + 65 + 65 + 120) / 2 ist linke obere Ecke
+	text->SetPos(x - (106 + 65 + 65 + 120) / 2 + 106/2 - (text->Get_length() + 30)/2, y - text->Get_height()/2);
+	buttonL->SetPos(x - (106 + 65 + 65 + 120) / 2 + 106, y - 65 / 2);
+	buttonR->SetPos(x - (106 + 65 + 65 + 120) / 2 + 106 + 65 + 120, y - 65 / 2);// 120 sind Breite des Balkens minus 10px Überlappung vom linken Button
+	bar->SetPos(x - (106 + 65 + 65 + 120) / 2 + 106 + 65 - 10, y - 6 / 2);	// -10 weil Überlappung
 }

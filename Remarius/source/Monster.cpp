@@ -2,9 +2,10 @@
 #define _USE_MATH_DEFINES
 #include <cmath>
  
-/*CMonster::CMonster(CSprite pSpriteMonster, float fXPos, float fYPos)
+CMonster::CMonster() :
+monsterSprite(g_pLoader->getTexture("T_PLAYER"))
 {
-}*/
+}
 void CMonster::Update ()
 {
 	if (m_fDamageTimer > 0.0f) m_fDamageTimer -= g_pTimer->GetElapsed();
@@ -47,38 +48,37 @@ void CMonster::Render (float CameraX, float CameraY)
 		m_fAnimCounter -= 15.0f * g_pTimer->GetElapsed ();
 
 	if ((m_fAnimCounter > 0.0f) && (m_fAnimCounter <=1.0f))
-		m_fAnimPhase = 0;
+		animPhase = 0;
 
 
 	if ((m_fAnimCounter <= 0.0f))
 		m_bAnimFlipper = 0;
 
 	if ((m_fAnimCounter >1.0f) && (m_fAnimCounter <=3.0f))
-		m_fAnimPhase = 1;
+		animPhase = 1;
 
 	if ((m_fAnimCounter >3.0f) && (m_fAnimCounter <=5.0f))
-		m_fAnimPhase = 2;
+		animPhase = 2;
 
 	if ((m_fAnimCounter >5.0f) && (m_fAnimCounter <=6.0f))
-		m_fAnimPhase = 3;
+		animPhase = 3;
 
 
 	if ((m_fAnimCounter > 6.0f))
 	{
-		m_fAnimPhase = 3;
+		animPhase = 3;
 		m_bAnimFlipper = 1;
 	}
 
-	m_pSpriteMonster->SetScreenPos (m_fXPos, m_fYPos, CameraX, CameraY);
-	m_pSpriteMonster->Render (m_fAnimPhase, m_SpriteDirection);
+	monsterSprite.SetPos(m_fXPos - CameraX, m_fYPos - CameraY);
+	monsterSprite.Render (animPhase, m_SpriteDirection);
 }
 void CMonster::DoDamage(int Damage)
 {
-	cout << m_Life << endl;
-	if (m_Life - Damage >= 0)
+	if (life - Damage >= 0)
 		if (m_fDamageTimer <= 0.0f)
 		{
-			m_Life -= Damage;
+			life -= Damage;
 			m_fDamageTimer = 0.2f;
 		} else {}
 	else OnDeath();

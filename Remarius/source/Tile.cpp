@@ -2,15 +2,15 @@
  
 CTile::CTile( int x, int y, int tileType )
 {
-    //Get the offsets
+    // Position setzen
     box.x = x;
     box.y = y;
     
-    //Set the collision box
+    // Breite und Höhe setzen
     box.w = 45;
     box.h = 45;
     
-    //Get the tile type
+    // den Typ festlegen
     type = tileType;
  
 }

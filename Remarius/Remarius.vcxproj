@@ -19,6 +19,7 @@
     <ClInclude Include="source\Game.hpp" />
     <ClInclude Include="source\Hexaspider.hpp" />
     <ClInclude Include="source\Hoover.hpp" />
+    <ClInclude Include="source\Loader.hpp" />
     <ClInclude Include="source\main.h" />
     <ClInclude Include="source\Menu.hpp" />
     <ClInclude Include="source\MenuButton.hpp" />
@@ -28,28 +29,42 @@
     <ClInclude Include="source\MenuSlider.hpp" />
     <ClInclude Include="source\Monster.hpp" />
     <ClInclude Include="source\Music.hpp" />
+    <ClInclude Include="source\Options.hpp" />
+    <ClInclude Include="source\PauseMenu.hpp" />
     <ClInclude Include="source\Player.hpp" />
     <ClInclude Include="source\Program.hpp" />
+    <ClInclude Include="source\Renderable.hpp" />
+    <ClInclude Include="source\Renderlayer.hpp" />
     <ClInclude Include="source\Shot.hpp" />
     <ClInclude Include="source\Singleton.hpp" />
     <ClInclude Include="source\Sound.hpp" />
     <ClInclude Include="source\Sprite.hpp" />
+    <ClInclude Include="source\SpriteObject.hpp" />
     <ClInclude Include="source\Stachelstein.hpp" />
     <ClInclude Include="source\Stuff.hpp" />
+    <ClInclude Include="source\Terrain.hpp" />
     <ClInclude Include="source\Text.hpp" />
+    <ClInclude Include="source\Texture.hpp" />
     <ClInclude Include="source\Tile.hpp" />
     <ClInclude Include="source\Timer.hpp" />
+    <ClInclude Include="source\tinyxml2.h" />
     <ClInclude Include="source\Util.hpp" />
+    <ClInclude Include="source\XMLhandler.hpp" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="source\Bombo.cpp" />
     <ClCompile Include="source\Camera.cpp" />
+    <ClCompile Include="source\PauseMenu.cpp" />
+    <ClCompile Include="source\SpriteObject.cpp" />
+    <ClCompile Include="source\Terrain.cpp" />
+    <ClCompile Include="source\Texture.cpp" />
     <ClCompile Include="source\Debugscreen.cpp" />
     <ClCompile Include="source\Explosion.cpp" />
     <ClCompile Include="source\Framework.cpp" />
     <ClCompile Include="source\Game.cpp" />
     <ClCompile Include="source\Hexaspider.cpp" />
     <ClCompile Include="source\Hoover.cpp" />
+    <ClCompile Include="source\Loader.cpp" />
     <ClCompile Include="source\main.cpp" />
     <ClCompile Include="source\Menu.cpp" />
     <ClCompile Include="source\MenuButton.cpp" />
@@ -60,6 +75,8 @@
     <ClCompile Include="source\Music.cpp" />
     <ClCompile Include="source\Player.cpp" />
     <ClCompile Include="source\Program.cpp" />
+    <ClCompile Include="source\Renderable.cpp" />
+    <ClCompile Include="source\Renderlayer.cpp" />
     <ClCompile Include="source\Shot.cpp" />
     <ClCompile Include="source\Sound.cpp" />
     <ClCompile Include="source\Sprite.cpp" />
@@ -68,6 +85,8 @@
     <ClCompile Include="source\Text.cpp" />
     <ClCompile Include="source\Tile.cpp" />
     <ClCompile Include="source\Timer.cpp" />
+    <ClCompile Include="source\tinyxml2.cpp" />
+    <ClCompile Include="source\XMLhandler.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{BD6F4C14-37CD-4A77-9C28-AF1790638D11}</ProjectGuid>
@@ -117,7 +136,7 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>D:\C++ und SDL\SDL2-devel-2.0.3-VC\SDL2-2.0.3\lib\x86;D:\C++ und SDL\SDL2_ttf-devel-2.0.12-VC\SDL2_ttf-2.0.12\lib\x86;D:\C++ und SDL\SDL2_mixer-devel-2.0.0-VC\SDL2_mixer-2.0.0\lib\x86;D:\C++ und SDL\SDL2_image-devel-2.0.0-VC\SDL2_image-2.0.0\lib\x86;C:\Users\Matthias Beusch\Informatik\SDL 2\SDL2_ttf-devel-2.0.12-VC\SDL2_ttf-2.0.12\lib\x86;C:\Users\Matthias Beusch\Informatik\SDL 2\SDL2_mixer-devel-2.0.0-VC\SDL2_mixer-2.0.0\lib\x86;C:\Users\Matthias Beusch\Informatik\SDL 2\SDL2_image-devel-2.0.0-VC\SDL2_image-2.0.0\lib\x86;C:\Users\Karufel\SDL\SDL2-2.0.3\lib\x86;C:\Users\Karufel\SDL\SDL2_ttf-2.0.12\lib\x86;C:\Users\Karufel\SDL\SDL2_mixer-2.0.0\lib\x86;C:\Users\Karufel\SDL\SDL2_image-2.0.0\lib\x86;C:\Users\Lanyovan\Files\Remarius\dev tools\SDL2-2.0.3\lib\x86;C:\Users\Lanyovan\Files\Remarius\dev tools\SDL2_ttf-2.0.12\lib\x86;C:\Users\Lanyovan\Files\Remarius\dev tools\SDL2_mixer-2.0.0\lib\x86;C:\Users\Lanyovan\Files\Remarius\dev tools\SDL2_image-2.0.0\lib\x86;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>C:\Users\Matthias Beusch\Informatik\SDL 2\SDL2-devel-2.0.3-VC\SDL2-2.0.3\lib\x86;D:\C++ und SDL\SDL2-devel-2.0.3-VC\SDL2-2.0.3\lib\x86;D:\C++ und SDL\SDL2_ttf-devel-2.0.12-VC\SDL2_ttf-2.0.12\lib\x86;D:\C++ und SDL\SDL2_mixer-devel-2.0.0-VC\SDL2_mixer-2.0.0\lib\x86;D:\C++ und SDL\SDL2_image-devel-2.0.0-VC\SDL2_image-2.0.0\lib\x86;C:\Users\Matthias Beusch\Informatik\SDL 2\SDL2_ttf-devel-2.0.12-VC\SDL2_ttf-2.0.12\lib\x86;C:\Users\Matthias Beusch\Informatik\SDL 2\SDL2_mixer-devel-2.0.0-VC\SDL2_mixer-2.0.0\lib\x86;C:\Users\Matthias Beusch\Informatik\SDL 2\SDL2_image-devel-2.0.0-VC\SDL2_image-2.0.0\lib\x86;C:\Users\Karufel\SDL\SDL2-2.0.3\lib\x86;C:\Users\Karufel\SDL\SDL2_ttf-2.0.12\lib\x86;C:\Users\Karufel\SDL\SDL2_mixer-2.0.0\lib\x86;C:\Users\Karufel\SDL\SDL2_image-2.0.0\lib\x86;C:\Users\Lanyovan\Files\Remarius\dev tools\SDL2-2.0.3\lib\x86;C:\Users\Lanyovan\Files\Remarius\dev tools\SDL2_ttf-2.0.12\lib\x86;C:\Users\Lanyovan\Files\Remarius\dev tools\SDL2_mixer-2.0.0\lib\x86;C:\Users\Lanyovan\Files\Remarius\dev tools\SDL2_image-2.0.0\lib\x86;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>SDL2_image.lib;SDL2_mixer.lib;SDL2_ttf.lib;SDL2.lib;SDL2main.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>

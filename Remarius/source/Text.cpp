@@ -1,94 +1,171 @@
 #include "Text.hpp"
 
-CText::CText()
+
+// Initialisierung von static-Variablen
+map<int, CText*> CText::allTexts;
+int CText::id_counter = 0;
+
+CText::CText(Renderlayers renderlayer)
 {
-	pTexture = NULL;
-	pSurface = NULL;
-	pFont = NULL;
-	Color.r = 0;
-	Color.g = 0;
-	Color.b = 0;
-	Color.a = 0;
+	renderer = NULL;
+	texture = NULL;
+	font = NULL;
+	color = { 0 };
+	this->renderlayer = renderlayer;
+	if (!allTexts.size())
+		id_counter = 0;	
+	else
+		id_counter++;
 	
-	Size = 0;
+	id = id_counter;
+	allTexts[id] = this;		
 }
 
 CText::CText(const CText& other) :
-CSprite(other), Size(0)
+CRenderable(other)
 {
-	pFont = other.pFont;
-	pTexture = NULL;
-	pSurface = NULL;
-	pRenderer = g_pFramework->GetRenderer();
-	Color = other.Color;
-	SetContent(string(other.Content));
+	renderer = NULL;
+	renderer = g_pFramework->GetRenderer();
+	texture = NULL;
+	font = other.font;	
+	color = other.color;
+	renderlayer = other.renderlayer;
+	SetContent(string(other.content));
+	id_counter++;
+	id = id_counter;
+	allTexts[id] = this;
 }
 
 CText& CText::operator = (const CText& other)
 {
-	CSprite::operator=(other);
-	pFont = other.pFont;
-	pTexture = NULL;
-	pSurface = NULL;
-	pRenderer = g_pFramework->GetRenderer();
-	Color = other.Color;
-	SetContent(string(other.Content));
+	CRenderable::operator=(other);
+	renderer = NULL;
+	renderer = g_pFramework->GetRenderer();
+	texture = NULL;
+	font = other.font;	
+	color = other.color;
+	renderlayer = other.renderlayer;
+	SetContent(string(other.content));
+	id_counter++;
+	id = id_counter;
+	allTexts[id] = this;
 	return *this;
 }
 
 CText::~CText()																			// Surface des Sprites freigeben
 {
-	if (pSurface != NULL) SDL_FreeSurface(pSurface);
-	if (pTexture != NULL) SDL_DestroyTexture(pTexture);
+	if (texture != NULL)
+	{
+		SDL_DestroyTexture(texture);
+	}
+	allTexts.erase(id);
 }
 
+
 // RGB-Wert der Farbe festlegen
-void CText::SetColor (int R, int G, int B)										
+void CText::SetColor (int r, int g, int b)										
 {
-	Color.r = R;
-	Color.g = G;
-	Color.b = B;
+	color.r = r;
+	color.g = g;
+	color.b = b;
 	createTexture();
 }
+
 
 // Setzt den Alphawert der Farbe
 void CText::SetAlpha(int Alpha)
 {
-	Color.a = Alpha;
+	color.a = Alpha;
 	createTexture();
 }
 
+
 // Inhalt festlegen und Breite und Höhe ermitteln
-void CText::SetContent (string Content)
+void CText::SetContent (string content)
 {
-	int h = 0;
-	int w = 0;
-	this->Content = Content;
-	const char* pContent = Content.c_str();
-	if (TTF_SizeText(pFont, pContent, &width, &height))
-		cout << TTF_GetError() << endl;		//ermittelt Breite und Höhe des Textes abhängig vom Inhalt
-	Rect.w = width;
-	Rect.h = height;
+	this->content = content;
+	if (TTF_SizeText(font, content.c_str(), &target_Rect.w, &target_Rect.h))//ermittelt Breite und Höhe des Textes abhängig vom Inhalt
+	{
+		cout << TTF_GetError() << endl;
+	}
 	createTexture();
 }
+
 
 // Surface erzeugen und in die Textur überführen
 void CText::createTexture()
-{	
-	if (pSurface != NULL)
-		SDL_FreeSurface(pSurface);
-	if (pTexture != NULL)
-		SDL_DestroyTexture(pTexture);
-	const char* pContent = Content.c_str();
-	if (!Content.empty())
+{
+	Uint32 startTime = SDL_GetTicks();
+	//cout << "start: " << startTime << endl;
+
+	if (texture != NULL)
 	{
-		if ((pSurface = TTF_RenderText_Blended(pFont, pContent, Color)) == NULL)		// Surface wird gefüllt
+		SDL_DestroyTexture(texture);
+		//cout << SDL_GetError() << endl;
+		texture = NULL;
+	}
+	renderer = g_pFramework->GetRenderer();
+	const char* pContent = content.c_str();
+	if (!content.empty())
+	{
+		//cout << "XXX: ";
+		SDL_Surface* surface = NULL;
+		if ((surface = TTF_RenderText_Blended(font, pContent, color)) == NULL)		// Surface wird gefüllt
 		{
 			cout << "Fehler beim erstellen des Text-Surface: " << TTF_GetError() << endl;
 		}
-		if ((pTexture = SDL_CreateTextureFromSurface(pRenderer, pSurface)) == 0)	// Surface wird in Textur umgewandelt
+		if ((texture = SDL_CreateTextureFromSurface(renderer, surface)) == 0)	// Surface wird in Textur umgewandelt
 		{
 			cout << "Fehler beim erstellen der Text-Textur: " << SDL_GetError() << endl;
 		}
-	}	
+		SDL_FreeSurface(surface);
+	}
+	//cout << "ende: " << SDL_GetTicks()-startTime << endl;
+}
+
+
+// Textur in den Renderer laden
+void CText::Render()
+{
+	g_pRenderlayer->add_Renderjob(this, renderlayer);
+}
+
+void CText::RenderYourself()
+{
+	if (SDL_RenderCopy(renderer, texture, NULL, &target_Rect) < 0)				// Textur wird in der Renderer kopiert
+	{
+		cout << "CText::RenderYourself: Fehler beim Kopieren der Textur: " << SDL_GetError() << endl;
+	}
+}
+
+
+// läd Text neu, (nur von ReCreateAll aus aufrufen!)
+void CText::reCreateTexture()
+{
+	renderer = g_pFramework->GetRenderer();
+	const char* pContent = content.c_str();
+	if (!content.empty())
+	{
+		SDL_Surface* surface = NULL;
+		if ((surface = TTF_RenderText_Blended(font, pContent, color)) == NULL)		// Surface wird gefüllt
+		{
+			cout << "CText::reCreateTexture: Fehler beim erstellen des Text-Surface: " << TTF_GetError() << endl;
+		}
+		if ((texture = SDL_CreateTextureFromSurface(renderer, surface)) == 0)	// Surface wird in Textur umgewandelt
+		{
+			cout << "CText::reCreateTexture: Fehler beim erstellen der Text-Textur: " << SDL_GetError() << endl;
+		}
+		SDL_FreeSurface(surface);
+	}
+}
+
+
+// läd alle Texte neu (aufrufen, nachdem der Renderer zerstört wurde!)
+void CText::ReCreateAll()
+{
+	map<int, CText*>::iterator it_allTexts;
+	for (it_allTexts = allTexts.begin(); it_allTexts != allTexts.end(); it_allTexts++)
+	{
+		it_allTexts->second->reCreateTexture();
+	}
 }

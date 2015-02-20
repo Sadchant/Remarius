@@ -3,17 +3,19 @@
 
 #include "MenuItem.hpp"
 #include "Text.hpp"
+#include "Sprite.hpp"
 #include <functional>
 
 class CMenuButton : public CMenuItem
 {
 public:
-	CMenuButton(CSprite* bg, string label, TTF_Font* font);
+	CMenuButton(string label, TTF_Font* font);
 	CMenuButton(const CMenuButton& other);
 	~CMenuButton();
 	CMenuButton& operator = (const CMenuButton& other);
 
-	void render(int x, int y, bool b = false);
+	void render(bool b = false);
+	void setPos(int x, int y);
 	bool processEvent(SDL_KeyboardEvent& event);
 
 	void setfunc(function<void()> func){ onActivate = func; }

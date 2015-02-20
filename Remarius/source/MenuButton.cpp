@@ -1,11 +1,11 @@
 #include "MenuButton.hpp"
 
 
-CMenuButton::CMenuButton(CSprite* bg, string label, TTF_Font* font)
+CMenuButton::CMenuButton(string label, TTF_Font* font)
 {
-	background = bg;
+	background = new CSprite(g_pLoader->getTexture("T_MENUBUTTON"));
 	onActivate = function<void()>([](){});
-	text = new CText;
+	text = new CText(TEXT_LAYER);
 	text->SetFont(font);
 	text->SetContent(label);
 	text->SetColor(180, 180, 180);
@@ -13,34 +13,45 @@ CMenuButton::CMenuButton(CSprite* bg, string label, TTF_Font* font)
 
 CMenuButton::CMenuButton(const CMenuButton& other)
 {
-	background = other.background;
+	background = new CSprite(*other.background);
 	onActivate = other.onActivate;
 	text = new CText(*other.text);
+	xPos = other.xPos;
+	yPos = other.yPos;
 }
 
 CMenuButton::~CMenuButton()
 {
-	delete text;
+	SAFE_DELETE(text);
+	SAFE_DELETE(background);
 }
 
 CMenuButton& CMenuButton::operator = (const CMenuButton& other)
 {
-	background = other.background;
 	onActivate = other.onActivate;
+	SAFE_DELETE(background);
 	SAFE_DELETE(text);
 	text = new CText(*other.text);
+	background = new CSprite(*other.background);
+	xPos = other.xPos;
+	yPos = other.yPos;
 	return *this;
 }
 
-void CMenuButton::render(int x, int y, bool b)
+void CMenuButton::render(bool b)
 {
-	background->SetPos((float)x, (float)y);
-	background->Render(0, (b) ? 1 : 0);
+	background->Render(b);
 	int color = (b) ? 255 : 180;
 	text->SetColor(color, color, color);
-	text->SetPos((float)x + (float)(background->GetRect().w - text->GetLength()) / 2,
-		(float)y + (background->GetRect().h - text->GetHigh()) / 2);
 	text->Render();
+}
+
+void CMenuButton::setPos(int x, int y)
+{
+
+	CMenuItem::setPos(x, y);
+	background->SetPos((float)xPos - 178, (float)yPos - 33);		// texturgröße/2, bitte getter anbieten
+	text->SetPos((float)x - text->Get_length()/2, (float)y - text->Get_height()/2);
 }
 
 bool CMenuButton::processEvent(SDL_KeyboardEvent& event)

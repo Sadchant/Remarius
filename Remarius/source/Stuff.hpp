@@ -9,25 +9,31 @@
 #include "Explosion.hpp"
 #include "Tile.hpp"
 #include "Debugscreen.hpp"
+#include "Renderlayer.hpp"
+#include "Loader.hpp"
+
+#include "SpriteObject.hpp"
 #include <string>
-#include <fstream>
-#include <sstream>
+
+
+
 
 class CStuff
 {
 	public:
 		CStuff	();
-
+		void	init(fSDL_Rect *camera, int level_width, int level_y);
 		void	Quit		();
 		void	Update		();
 		void	SetPlayer	(int Life, float X, float Y);
-		void    show            ();
         bool    set_tiles       ();
 		int		GetPlayerX		(){return m_pPlayer->GetX();}
 		int		GetPlayerY		(){return m_pPlayer->GetY();}
 		int		GetPlayerLife	(){return m_pPlayer->GetLife();}
 
 	private:
+		int level_width;
+		int level_height;
 		void	RenderMonsters	();
 		void	CheckCollisions	();
 		void	CommandSpawns	();
@@ -47,21 +53,9 @@ class CStuff
 		CSprite				*m_pSpriteExplosion;	// Sprite für Explosion
 		CSprite				*m_pSpriteHoover;		// Sprite für Staubsauger
 		CSprite				*m_pSpriteSpider;		// Sprite für die Hexaspider
-		CSprite				*m_pSpriteWall;
 
-		CCamera				*m_pCamera;
+		fSDL_Rect*			camera;
 		bool				m_bSpawnLock;			// Spawnlock für CommandSpawns();
-		static const int	TILE_WIDTH=45; 
-		static const int	TILE_HEIGHT=45; 
-		static const int	TOTAL_TILES=49284; 
-		static const int	LEVEL_WIDTH=9990;  
-		static const int	LEVEL_HEIGHT=9990; 
-		static const int	TILE_SPRITES = 32; 
-        CSprite				*m_pSpriteTile;
-        CTile				*tiles[ TOTAL_TILES ];
-        list <CTile>		tiles2;
-        list <CTile>		tiles3;
-        list <CTile>		tiles4;
 };
 
 #endif

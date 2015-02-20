@@ -1,0 +1,39 @@
+Alpha 1.0:
+	
+Code:
+- Menu vollkommen erneuert
+- Renderprinzip erneuert (ready for sort)
+- Loader läd Texturen
+- Verarbeitung von XML-Dateien
+- keine Warnings mehr (außer die eine Default-Warning -_-)
+
+Texturen:
+- Textur für Remarius
+- neue Bombo-Textur
+- neue Explosions-Textur
+- neuer Hauptmenu-Hintergrund
+- Textur für Monstertod
+
+Funktionalität:
+- Auflösung geändert auf 1280x720
+- Debugscreen zeigt FPS und Debug-Infos an
+- Optionen können gespeichert werden und werden automatisch geladen
+
+bekannte Bugs:
+- es wird immer nur ein Monster angezeigt
+- Pausemenu nicht sichtbar/verbuggt
+- Vollbild verbuggt (nicht aktivieren!!!)
+
+______________________________________________________________________________
+
+Alpha 1.1:
+
+Code:
+
+Texturen:
+
+Funktionalität:
+- MenuButtons jetzt zentral mit schönen Überschriften
+
+BugFixes:
+- Vollbild funktioniert jetzt

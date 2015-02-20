@@ -2,49 +2,35 @@
 #define _USE_MATH_DEFINES
 #include <cmath>
 
-CPlayer::CPlayer ()													// Player initialisieren
+CPlayer::CPlayer ()												// Player initialisieren
 {
-	m_pSpriteMonster = NULL;												// Sprites Laden
-	m_pSpriteMonster = new CSprite;
-	//m_pSpriteMonster->Load ("Data/Player.png", 48, 64, 64);
-	m_pSpriteMonster->Load("Data/Remarius.png", 56, 74, 100);
+	maxLife = 6;
+	monsterSprite = CSprite(g_pLoader->getTexture("T_REMARIUS"));
 
-
-	m_pSpriteShot = NULL;
-	m_pSpriteShot = new CSprite;
-	m_pSpriteShot->Load ("Data/Laser.bmp", 0, 64, 64);
-
-	m_pSpriteLife = NULL;
-	m_pSpriteLife= new CSprite;
-	m_pSpriteLife->Load("Data/Herzleiste.png", 6, 14, 30);
+	spriteLife = NULL;
+	spriteLife = new CSpriteObject(g_pLoader->getTexture("T_HERZLEISTE"), maxLife);
 
 	Reset();
 }
 
 void CPlayer::Quit ()												// Sprites freigeben
 {
-	if (m_pSpriteMonster != NULL)
+	if (spriteLife != NULL)
 	{
-		delete (m_pSpriteMonster);
-		m_pSpriteMonster = NULL;
-	}
-	
-	if (m_pSpriteLife != NULL)
-	{
-		delete (m_pSpriteLife);
-		m_pSpriteLife=NULL;
+		delete (spriteLife);
+		spriteLife = NULL;
 	}
 }
 
 void CPlayer::Reset ()												// "Spawnen"
 {
-	m_fXPos = 376.0f;													// Startposition des Spielers
+	m_fXPos = 9000.0f;													// Startposition des Spielers
 	m_fYPos = 520.0f;
 	m_SpriteDirection = 0;
 	m_fDamageTimer = 1.0f;
 
-	m_maxLife = 16;														// Leben einstellen
-	m_Life = 6;
+	maxLife = 6;														// Leben einstellen
+	life = 6;
 
 	m_Rect.x = static_cast<int>(m_fXPos);								// Rect initialisieren
 	m_Rect.y = static_cast<int>(m_fYPos);
@@ -56,17 +42,18 @@ void CPlayer::Reset ()												// "Spawnen"
 	m_AttackRect.w = 0;
 	m_AttackRect.h = 0;
 
-	m_fAnimPhase = 0.0f;
-	m_fLifeAnimphase = 0.0f;
+	animPhase = 0;
+	fAnimphase = 0;
+	lifeAnimphase = 0;
 
 	m_bToolLock = false;												// Locks auflˆsen
 	m_bLifeLock = false;
 }
 void CPlayer::Render (float CameraX, float CameraY)												// Spieler und Sch¸sse rendern
 {
-	m_pSpriteMonster->SetScreenPos (m_fXPos, m_fYPos, CameraX, CameraY);// Spielersprite setzen
+	monsterSprite.SetPos (m_fXPos-CameraX, m_fYPos-CameraY);// Spielersprite setzen
 	m_SpriteDirection = static_cast<int>(m_fDirection * 8 + 0.5f) % 8;
-	m_pSpriteMonster->Render (m_fAnimPhase, m_SpriteDirection);
+	monsterSprite.Render ((int)fAnimphase, m_SpriteDirection);
 	
 	list<CShot>::iterator it = m_ShotList.begin ();						// Iterator f¸r Sch¸sse
 	while (it != m_ShotList.end ())
@@ -83,28 +70,38 @@ void CPlayer::Render (float CameraX, float CameraY)												// Spieler und Sc
 }
 void CPlayer::LifeRender ()											// Lebensanzeige rendern
 {
-	m_fLifeAnimphase +=  g_pTimer->GetElapsed ();						// AnimPhase erhˆhen/resetten
-	if (m_fLifeAnimphase > 1.0f)
-		m_fLifeAnimphase = 0.0f;
+	lifeAnimphase +=  g_pTimer->GetElapsed ();						// AnimPhase erhˆhen/resetten
+	if (lifeAnimphase > 1.0f)
+		lifeAnimphase = 0.0f;
 
-	for (int i = m_maxLife; i > m_Life; i--)							// leere Herzen rendern
+	for (int i = 0; i < life; i++)									// volle Herzen rendern
 	{
-		m_pSpriteLife->SetPos(static_cast<float>(-1+i*14), 13.0f);
-		m_pSpriteLife->Render(static_cast<float>(5-i%2));
-	}
-
-	for (int i = 1; i <= m_Life; i++)									// volle Herzen rendern
-	{
-		m_pSpriteLife->SetPos(static_cast<float>(-1+14*i), 10.0f);		
-		if (((i == m_Life-1) && (i%2 == 1)) || (i == m_Life))				// Wenn letzte Herzh‰lfte oder (vorletzte und ungerade)
+		spriteLife->SetPos(i, 13 + (14 * i), 13);
+		if ((i == life-1) || ((i == life-2) && (i%2 == 0)))				// Wenn letzte Herzh‰lfte oder (vorletzte und gerade)
 		{
-			if (m_fLifeAnimphase < 0.5f)										// Rendern nach AnimPhase
-				m_pSpriteLife->Render(static_cast<float>(1-i%2));
+			if (lifeAnimphase < 0.5f)								// Rendern nach AnimPhase
+			{
+				spriteLife->Render(i, (2 + i % 2));
+			}
 			else
-				m_pSpriteLife->Render(static_cast<float>(3-i%2));
-		} else m_pSpriteLife->Render(static_cast<float>(1- i%2));			// Ansonsten unanimierte Herzh‰lfte rendern
+			{
+				spriteLife->Render(i, (i%2));
+			}				
+		} 
+		else
+		{
+			spriteLife->Render(i, (i % 2));			// Ansonsten unanimierte Herzh‰lfte rendern
+		}
 	}
+
+	for (int i = life; i < maxLife; i++)							// leere Herzen rendern
+	{
+		spriteLife->SetPos(i, 13 + (14 * i), 13);
+		spriteLife->Render(i, (4+i%2));
+	}	
 }
+
+
 void CPlayer::Update ()												// Spieler updaten
 {
 	ProcessMoving ();													// Bewegen
@@ -119,12 +116,15 @@ void CPlayer::Update ()												// Spieler updaten
 	ProcessTools ();													// Pr¸fen, ob geschossen wurde
 
 	CheckPosition ();													// Position und Animationsphase ¸berpr¸fen
-	g_pDebugscreen->Set("x-Position: ", m_fXPos);
+	//g_pDebugscreen->Set("x-Position: ", m_fXPos);
 }
 void CPlayer::ProcessMoving ()										// Spieler bewegen
 {
 	if ((g_pFramework->KeyDown(SDL_SCANCODE_UP) && g_pFramework->KeyDown(SDL_SCANCODE_DOWN)) || (g_pFramework->KeyDown(SDL_SCANCODE_LEFT) && (g_pFramework->KeyDown(SDL_SCANCODE_RIGHT))))
+	{
 		m_bBlock = true;
+	}
+		
 	else m_bBlock = false;
 
 	if (!m_bBlock)
@@ -149,18 +149,19 @@ void CPlayer::ProcessMoving ()										// Spieler bewegen
 		if (g_pFramework->KeyDown(SDL_SCANCODE_UP) || g_pFramework->KeyDown(SDL_SCANCODE_DOWN) || g_pFramework->KeyDown(SDL_SCANCODE_LEFT) || g_pFramework->KeyDown(SDL_SCANCODE_RIGHT))
 		{
 			m_fXPos += static_cast<float>(170.0f * sin(m_fDirection * 2 * M_PI) * g_pTimer->GetElapsed());
+			g_pDebugscreen->Set("Player x-Pos:", m_fXPos);
 			m_fYPos += static_cast<float>(170.0f * cos(m_fDirection * 2 * M_PI) * g_pTimer->GetElapsed());
-			m_fAnimPhase += 10.0f * g_pTimer->GetElapsed ();
+			fAnimphase += 10.0f * g_pTimer->GetElapsed();
 		}
 	}
 
 	if (g_pFramework->KeyDown(SDL_SCANCODE_LCTRL) && m_bLifeLock == false)								// Wenn Heiltaste
 		{
-			if (m_Life<m_maxLife) {m_Life++;}
+			if (life<maxLife) {life++;}
 			m_bLifeLock = true;
 		} else if (g_pFramework->KeyDown(SDL_SCANCODE_RCTRL) && m_bLifeLock == false)					// ansonsten Wenn Schadenstaste
 		{
-			if (m_Life>5) {m_Life--;}
+			if (life>5) {life--;}
 			m_bLifeLock = true;
 		} 
 		if (g_pFramework->KeyDown(SDL_SCANCODE_LCTRL)==false && g_pFramework->KeyDown(SDL_SCANCODE_RCTRL)==false)
@@ -196,17 +197,17 @@ void CPlayer::ProcessMoving (float Speed)										// Spieler bewegen
 		{
 			m_fXPos += static_cast<float>(Speed * sin(m_fDirection * 2 * M_PI) * g_pTimer->GetElapsed());
 			m_fYPos += static_cast<float>(Speed * cos(m_fDirection * 2 * M_PI) * g_pTimer->GetElapsed());
-			m_fAnimPhase += 20.0f * g_pTimer->GetElapsed ();
+			fAnimphase += 10.0f * g_pTimer->GetElapsed();
 		}
 	}
 
 	if (g_pFramework->KeyDown(SDL_SCANCODE_LCTRL) && m_bLifeLock == false)								// Wenn Heiltaste
 		{
-			if (m_Life<m_maxLife) {m_Life++;}
+			if (life<maxLife) {life++;}
 			m_bLifeLock = true;
 		} else if (g_pFramework->KeyDown(SDL_SCANCODE_RCTRL) && m_bLifeLock == false)					// ansonsten Wenn Schadenstaste
 		{
-			if (m_Life>5) {m_Life--;}
+			if (life>5) {life--;}
 			m_bLifeLock = true;
 		} 
 		if (g_pFramework->KeyDown(SDL_SCANCODE_LCTRL)==false && g_pFramework->KeyDown(SDL_SCANCODE_RCTRL)==false)
@@ -222,7 +223,7 @@ void CPlayer::ProcessTools ()									// Schieﬂen
 		m_bToolLock = true;
 		if (g_pFramework->KeyDown(SDL_SCANCODE_C))
 		{
-			CShot Shot(m_pSpriteShot, m_fXPos, m_fYPos);
+			CShot Shot(m_fXPos, m_fYPos);
 			m_ShotList.push_back (Shot);
 		}
 		else if (g_pFramework->KeyDown(SDL_SCANCODE_X))
@@ -293,25 +294,44 @@ void CPlayer::ProcessTools ()									// Schieﬂen
 
 void CPlayer::CheckPosition ()
 {
-   if (m_fXPos < 0.0f)  
-      m_fXPos = 0.0f;
-   else if (m_fXPos > Map_Width)
-      m_fXPos = static_cast<float>(Map_Width);
-   if (m_fYPos < 0.0f)  
-      m_fYPos = 0.0f;
-   else if (m_fYPos > (Map_Height))
-      m_fYPos = static_cast<float>(Map_Height);
-   if   (m_fAnimPhase > 6.0f)
-                m_fAnimPhase = 0.0f;
-   if   (m_fAnimPhase < 0.0f)
-                m_fAnimPhase = 0.0f;
+	if (m_fXPos < 0.0f)
+	{
+		m_fXPos = 0.0f;
+		g_pDebugscreen->Set("korrigiert: X < 0");
+	}     
+	else if (m_fXPos > Map_Width)
+	{
+		m_fXPos = static_cast<float>(Map_Width);
+		g_pDebugscreen->Set("korrigiert: x > Karte");
+	}      
+	if (m_fYPos < 0.0f)
+	{
+		m_fYPos = 0.0f;
+		g_pDebugscreen->Set("korrigiert");
+	}      
+	else if (m_fYPos >(Map_Height))
+	{
+		m_fYPos = static_cast<float>(Map_Height);
+		g_pDebugscreen->Set("korrigiert");
+	}
+      
+   if (fAnimphase >= 7)
+   {
+	   fAnimphase = 0;
+   }
+               
+   if (fAnimphase < 0)
+   {
+	   fAnimphase = 0;
+   }
+   //g_pDebugscreen->Set("fAnimphase: ", fAnimphase);
  
 }
 
 void CPlayer::LifeDec()												// Leben reduzieren
 {
-	if (m_Life > 0)
-		m_Life--;
-	if (m_Life < 0)
+	if (life > 0)
+		life--;
+	if (life < 0)
 		Reset();
 }

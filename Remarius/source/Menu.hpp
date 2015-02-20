@@ -10,6 +10,7 @@
 #include "Util.hpp"
 #include <functional>
 #include "Music.hpp"
+#include "XMLhandler.hpp"
 
 class CMenu
 {
@@ -30,11 +31,6 @@ private:
 	bool		m_bSound;
 	bool		menuState;
 	SDL_Event	event;
-	CSprite		*m_pMenuBackground;
-	CSprite		*m_pMenubuttons;
-	CSprite		*m_pSoundbuttons;
-	CSprite		*m_pSoundschieber;
-	CSprite		*m_pSoundbalken;
 	vector<CMenuPage> menuPages;
 	TTF_Font*	defaultFont;
 	CMusic*		menuMusic;

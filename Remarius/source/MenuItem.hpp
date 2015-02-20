@@ -9,8 +9,12 @@ class CMenuItem
 {
 public:
 	virtual ~CMenuItem() {};
-	virtual void render(int x, int y, bool b = false) = 0;
+	virtual void render(bool b = false) = 0;
 	virtual bool processEvent(SDL_KeyboardEvent& event) = 0;
+	virtual void setPos(int x, int y) { xPos = x; yPos = y;	}
+
+protected:
+	int xPos; int yPos;
 };
 
 #endif

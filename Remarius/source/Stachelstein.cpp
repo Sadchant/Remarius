@@ -2,26 +2,26 @@
 #define _USE_MATH_DEFINES
 #include <cmath>
 
-CStachelstein::CStachelstein (CSprite *pSpriteStachelstein, float fXPos, float fYPos)										// Stachelsteinen initialisieren
+CStachelstein::CStachelstein (float fXPos, float fYPos)										// Stachelsteinen initialisieren
 {
-	m_pSpriteMonster = pSpriteStachelstein;													// Zeiger auf Sprite kopieren und Koordinaten setzen
+	monsterSprite = CSprite(g_pLoader->getTexture("T_STACELSTONE"));												// Zeiger auf Sprite kopieren und Koordinaten setzen
 	m_fXPos = fXPos;
 	m_fYPos = fYPos;
 
 	m_Rect.x = static_cast<int>(fXPos);														// Rect initialisieren
 	m_Rect.y = static_cast<int>(fYPos);
-	m_Rect.w = pSpriteStachelstein->GetRect().w;
-	m_Rect.h = pSpriteStachelstein->GetRect().h;
+	m_Rect.w = monsterSprite.Get_targetRect().w;
+	m_Rect.h = monsterSprite.Get_targetRect().h;
 
 	m_iDirections = 4096;																	// Integer-Wert, der durch 4 teilbar ist
 	m_fDirection = static_cast<float>(rand()%m_iDirections);
 	m_fDirection /= m_iDirections;															// Eine der [m_iDirections] Richtungen
 	m_iDChanger = 30;																		// Richtungs-Halte-Variable (Je höher, desto geringer ein Wechsel)
-	m_fAnimPhase = 0.0f;
+	animPhase = 0;
 	m_bIsAlive = true;
 	m_bAnimFlipper = 0;
 	m_fAnimCounter = 0.0f;
-	m_Life = 5;
+	life = 5;
 	m_MoveMode = 3;
 	m_fDamageTimer = 0.0f;
 }

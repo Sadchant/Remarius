@@ -2,8 +2,7 @@
 
 // initialisiert die benötigten SDL-Teile und ruft Init_Video auf
 bool CFramework::Init ()
-{
-	
+{	
 	if (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_TIMER | SDL_INIT_AUDIO) == -1)		// Alle benötigten Systeme der SDL initialisieren
 	{
 		cout << "SDL konnte nicht initialisiert werden!" << endl;
@@ -11,7 +10,11 @@ bool CFramework::Init ()
 		Quit ();
 		return false;
 	}
-	if (Init_Video ("Remarius Risation Indev 1.6", 1280, 720, false) == false)		// an der Stelle Daten aus Datei einlesen!
+
+	if (Init_Video(g_pOptions->window_name, 
+					g_pOptions->window_width, 
+					g_pOptions->window_height, 
+					g_pOptions->fullscreen) == false)
 	{
 		cout << "SDL_Video konnte nicht initialisiert werden!" << endl;
 		cout << "Fehlermeldung: " << SDL_GetError () << endl;
@@ -36,31 +39,33 @@ bool CFramework::Init ()
 }
 
 // erzeugt ein SDL_Window mit den übergebenen Werten und einen SDL_Renderer
-bool CFramework::Init_Video (char* name, int width, int height, bool bFullscreen)
-{
-	
-	if (sdl_Window != NULL)						// sollte bereits ein Fenster vorhanden sein, zerstöre es
-	{
-		SDL_DestroyWindow(sdl_Window);
-	}
-	if (sdl_Renderer != NULL)					// sollte bereits ein Fenster vorhanden sein, zerstöre es
+bool CFramework::Init_Video (string name, int width, int height, bool bFullscreen)
+{	
+	const char* pName = name.c_str();
+
+	if (sdl_Renderer != NULL)					// sollte bereits ein Renderer vorhanden sein, zerstöre ihn (ein Renderer besitzt intern ein Window, also erst den Renderer destroyen)
 	{
 		SDL_DestroyRenderer(sdl_Renderer);
 	}
+	if (sdl_Window != NULL)						// sollte bereits ein Fenster vorhanden sein, zerstöre es
+	{
+		SDL_DestroyWindow(sdl_Window);
+	}	
 	
 	if (bFullscreen == true)					//erzeugt das Fenster im Fullscreen oder Fenstermodus
 	{		
-		sdl_Window = SDL_CreateWindow(name, SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, width, height, SDL_WINDOW_FULLSCREEN);
+		sdl_Window = SDL_CreateWindow(pName, SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, width, height, SDL_WINDOW_FULLSCREEN);
 	}
 	else
 	{		
-		sdl_Window = SDL_CreateWindow(name, SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, width, height, SDL_WINDOW_SHOWN);
+		sdl_Window = SDL_CreateWindow(pName, SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, width, height, SDL_WINDOW_SHOWN);
+		
 	}
 	sdl_Renderer = SDL_CreateRenderer(sdl_Window, -1, SDL_RENDERER_ACCELERATED);
-	
+
 	if ((sdl_Window == NULL) || (sdl_Renderer == NULL))								// Prüfen, ob alles funktioniert hat
 	{
-		cout << "Videomodus konnte nicht gesetzt werden!" << endl;
+		cout << "Fehler beim Erzeugen des Fensters!" << endl;
 		cout << "Fehlermeldung: " << SDL_GetError () << endl;
 		Quit ();
 		return (false);
@@ -116,7 +121,10 @@ bool CFramework::KeyDown(Uint8 Key_ID)
 void CFramework::Render()
 {
 	SDL_RenderPresent(sdl_Renderer);
-	SDL_RenderClear(sdl_Renderer);
-	
+	if ((SDL_RenderClear(sdl_Renderer)) < 0)
+	{
+		cout << "Fehler beim Clearen des Renderers:" << SDL_GetError() << endl;
+	}
 }
+
 

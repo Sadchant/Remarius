@@ -3,6 +3,8 @@
 
 #include "MenuItem.hpp"
 #include "Text.hpp"
+#include "Sprite.hpp"
+#include "Loader.hpp"
 #include <functional>
 
 class CMenuSlider : public CMenuItem
@@ -13,19 +15,19 @@ public:
 	~CMenuSlider();
 	CMenuSlider& operator = (const CMenuSlider& other);
 
-	static void freeSprites();											// call to free static Sprite resource
-
-	void render(int x, int y, bool b = false);					// render MenuSlider instance at x/y; if b, instance is selected in Menu
+	void render(bool b = false);					// render MenuSlider instance at x/y; if b, instance is selected in Menu
+	void setPos(int x, int y);
 	bool processEvent(SDL_KeyboardEvent& event);
 	bool setState(int newstate) { if (newstate >= 0 && newstate <= max) { state = newstate; onChange(state); return true; } return false; }
 	int getState() { return state; }
-	void addListener(function<void(int)> func) { onChange = func; }
+	void setListener(function<void(int)> func) { onChange = func; }
 
 private:
-	static CSprite* bar;										// static Sprite resource for all Sliders
-	static CSprite* slider;
-	static CSprite* buttons;
-
+	CSprite* bar;
+	CSprite* slider;
+	CSprite* buttonL;
+	CSprite* buttonR;
+	CSprite* panel;
 	CText* text;												// text label for MenuSlider instance
 	string baselabel;
 	int state;

@@ -19,13 +19,30 @@ Versionen:
 - wenn mit der Story angefangen werden kann startet die Beta
 
 
-To-Do-List für Alpha 1.0:
+Change-Log für Alpha 1.0:
 
-- Menu neu machen [work in progress]
+- Menu neu machen [DONE]
 
 - Typ fertig machen [done]
+- Warnings beheben [done]
+- Configdateien lesen/schreiben [done]
+- neue Renderengine[done]
+- Loader anfangen[done]
+- Debugscreen [done]
+- neue Bombo-textur BLABLA
 
-- Warnings beheben
 - jeder sieht sich den Code an
 - überlegen wie wir alles strukturieren
-- Configdateien lesen/schreiben
+
+
+To-Do-List für Alpha 1.1
+- Program komplett neu (MVC) (rufl)
+- Pausemenu soll wieder funktionieren + neue Program (bugfix) (rufl)
+
+- Stuff + Game neu strukturieren (lany)
+- alle Monster sind zu sehen (Bugfix) (lany)
+- Menulayout schön machen (Bugfix) (lany)
+
+- Zaun-Textur (sad)
+- Sterbesound für Remarius (sad)
+- besseren Fußboden-Renderer

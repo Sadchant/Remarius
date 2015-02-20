@@ -1,0 +1,36 @@
+Wie hat Rendering bisher funktioniert?
+
+Alle Objekte, die gleich aussahen (zB alle Bombos) haben sich das selbe Sprite-Objekt geteilt. Beim Rendern hat jedes Objekt
+die Position des einen Sprite-Objekts verändert (SetPos) und den Bildausschnitt (Render). Dann wurde das
+Sprite über SDL_RenderCopy(...) in den Renderer geschoben, und was die anderen Bombos danach mit der Sprite
+-Instanz gemacht haben, hat am gerenderten Bild nichts mehr geändert, da sich der Renderer jedes über RenderCopy hereingegebene 
+Bild gemerkt und im nächsten Frame dann alle hineingegebenen Sprites gerendert hat.
+Ein Sprite wurde also ganz oft in den Renderer kopiert.
+
+Warum war das doof? Weil keine Möglichkeit existiert hat, die Reihenfolge durch Logik zu verändern. Welche 
+Renderfunktion zuerst irgendwo im Code aufgerufen wurde, hat auch zuallererst das Zeug in den Renderer kopiert.
+Wenn wir nicht wollen, dass die Bäume aus Remarius Kopf herauswachsen können und ihm Bombos im Gesicht stehen,
+müssen wir die Objekte sortieren. Außerdem sollten wir verhindern, dass durch unglückliche Code-Aufrufe die Monster
+über die Herzleiste laufen.
+
+Deswegen werden sämtliche Objekte, die auf den Bildschirm kommen, ab jetzt ein eigenes Sprite besitzen.
+Diese Sprites werden in der Renderlayer-Klasse verwaltet. Jedes Sprite (und jeder Text), (erben beide von Renderable)
+hat außerdem einen renderlayer-wert, der die Ebene repräsentiert.
+Bei Sprite::Render() wird jetzt nicht mehr die RenderCopy-Methode aufgerufen, sondern ein Zeiger auf eben dieses Sprite-Objekt
+an den Renderlayer gegeben. Der sortiert alles in die richtigen Renderlayer ein und hat dann die Möglichkeit, die relevanten
+Sprite-Zeiger zu sortieren (tut er noch nicht!).
+Danach ruft er für alle Sprite-Objekte in seiner Liste die RenderCopy-Funktion auf und macht die Liste wieder leer.
+
+Da es aber etwas umständlich ist, große Mengen an Sprites, die sich trotzdem alle das selbe Bild teilen zu verwalten, gibt
+es hierfür jetzt die SpriteObjekt-Klasse, die intern nichts anderes als ein vector von Sprites ist. Will man die Position
+eines der Sprites in dieser SpriteObjekt-Instanz verändern, ruft man ganz normal die SetPos() auf, muss allerdings angeben, das
+weivielte Sprite man verändern möchte.
+
+Was bedeutet das nun?
+- Jedes kleine Bildchen auf dem Bildschirm hat ein eigenes Sprite
+- Wer sich dazu berufen fühlt, darf auch die SpriteObjekt-Klasse benutzen(die ist scheiße und frisst etwas Performance :(),
+	dafür muss man kein eigenes Array jedes Mal anlegen :P
+
+- der Sprite-Konstruktor hat sich geändert
+- alles Rendering läuft nun über den renderlayer
+- SetPos/Render-Funktionen sind vom Aufruf her gleich geblieben

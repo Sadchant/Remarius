@@ -2,10 +2,12 @@
 #define PLAYER_HPP
 
 #include <list>
-#include "Sprite.hpp"
+#include "Renderlayer.hpp"
+#include "SpriteObject.hpp"
 #include "Shot.hpp"
 #include "Monster.hpp"
 #include "Debugscreen.hpp"
+#include "Loader.hpp"
 
 class CPlayer: public CMonster
 {
@@ -21,9 +23,9 @@ class CPlayer: public CMonster
 
 		list<CShot>		*GetShotList	(){return &m_ShotList;}
 		SDL_Rect		GetAttackRect	(){return m_AttackRect;}
-		void            SetLife			(int Life){m_Life = Life;}
+		void            SetLife			(int Life){life = Life;}
 		bool			IsAttack		(){if (m_fAttackTimer > 0) return true; else return false;}
-		int				GetLife			(){return m_Life;}
+		int				GetLife			(){return life;}
 		float			*pGetX			(){return &m_fXPos;}
 		float			*pGetY			(){return &m_fYPos;}
 		int				GetX			(){return static_cast<int>(m_fXPos);}
@@ -37,21 +39,21 @@ class CPlayer: public CMonster
 		void	ProcessMoving	();
 		void	ProcessTools	();
 		void	CheckPosition	();
-		void	OnDeath			(){Reset(); cout << "resetted" << endl;}
+		void	OnDeath			(){Reset();}
 
-		CSprite			*m_pSpriteShot;					// Sprite für Laserschüsse
-		CSprite			*m_pSpriteLife;					// Sprite für Herzleiste
+		CSpriteObject	*spriteLife;					// Sprite für Herzleiste
 		list<CShot>		m_ShotList;						// Liste der Schüsse
 		SDL_Rect		m_AttackRect;					// Rect des Angriffs
 
-		float			m_fLifeAnimphase;				// Ausschnitt aus der Herz-Animtaion
+		float			lifeAnimphase;				// Ausschnitt aus der Herz-Animtaion
 		float			m_fAttackTimer;					// deaktiviert das Attackenrect nach einer Weile
-		int				m_maxLife;						// maximal mögliches Leben (in halben Herzen)
+		int				maxLife;						// maximal mögliches Leben (in halben Herzen)
 		bool			m_bToolLock;					// Darf ein Hotkey verwendet werden (Schwert, Bogen, Zauber)
 		bool			m_bLifeLock;					// Darf ein Herz gefüllt/geleert werden?
 		bool			m_bBlock;						// Blockiert die Steuerung?
 		int				Map_Width;
         int				Map_Height;
+		float			fAnimphase;
  
 };
 

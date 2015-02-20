@@ -11,14 +11,14 @@ CProgram::CProgram ()
 	SDL_EventState(SDL_MOUSEBUTTONDOWN, SDL_DISABLE);
 	SDL_EventState(SDL_MOUSEBUTTONUP, SDL_DISABLE);*/
 	pText = NULL;
-	pText = new CText();
+	pText = new CText(TEXT_LAYER);
 	pFont = OpenFont("Data/verdana.ttf", 28);
 }
 
 void CProgram::Run()
-{	
+{
+
 	CMenu Menu;
-	cout<<"Druecke Enter"<<endl;
 	pText->SetFont(pFont);
 	
 	pText->SetContent ("Drücke Enter!");
@@ -32,7 +32,7 @@ void CProgram::Run()
 	{
 		pText->Render();
 		g_pFramework->Update();		
-		g_pFramework->Render();
+		g_pRenderlayer->Render();
 		if (g_pFramework->KeyDown(SDL_SCANCODE_RETURN))
 		{
 			SDL_EventState(SDL_SYSWMEVENT, SDL_ENABLE);								// beachtet Systemevents wieder

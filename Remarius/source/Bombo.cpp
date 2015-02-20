@@ -2,9 +2,9 @@
 #define _USE_MATH_DEFINES
 #include <cmath>
  
-CBombo::CBombo (CSprite *pSpriteBombo, float fXPos, float fYPos, float *pPlayerXPos, float *pPlayerYPos)										// Bombos initialisieren
+CBombo::CBombo (float fXPos, float fYPos, float *pPlayerXPos, float *pPlayerYPos)										// Bombos initialisieren
 {
-	m_pSpriteMonster = pSpriteBombo;													// Zeiger auf Sprite kopieren und Koordinaten setzen
+	monsterSprite = CSprite(g_pLoader->getTexture("T_BOMBO"));													// Zeiger auf Sprite kopieren und Koordinaten setzen
 	m_fXPos = fXPos;
 	m_fYPos = fYPos;
 	pPlyx = pPlayerXPos;
@@ -12,19 +12,19 @@ CBombo::CBombo (CSprite *pSpriteBombo, float fXPos, float fYPos, float *pPlayerX
 
 	m_Rect.x = static_cast<int>(fXPos);														// Rect initialisieren
 	m_Rect.y = static_cast<int>(fYPos);
-	m_Rect.w = pSpriteBombo->GetRect().w;
-	m_Rect.h = pSpriteBombo->GetRect().h;
+	m_Rect.w = monsterSprite.Get_targetRect().w;
+	m_Rect.h = monsterSprite.Get_targetRect().h;
 
 	m_fDirection = 0.0f;
 	m_fCircularMove = 0.0f;
-	m_fAnimPhase = 0.0f;
+	animPhase = 0;
 	m_bIsAlive = true;
 	m_bAnimFlipper = 0;
 	m_fAnimCounter = 0.0f;
 	m_MoveMode = 2;
 	m_fCountdown = 0.0f;
 	m_fDistance = 0.0f;
-	m_Life = 10;
+	life = 10;
 	m_fDamageTimer = 0.0f;
 }
 void CBombo::Move3 ()

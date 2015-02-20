@@ -1,53 +1,39 @@
 #include "Stuff.hpp"
+#include <windows.h>
+
 
 
 CStuff::CStuff ()														// Player und Stuffprites laden
-{
+{	
 	m_pPlayer = NULL;																						// Spieler erzeugen
 	m_pPlayer = new CPlayer;
 	m_pPlayer->Reset ();
 
 	m_pSpriteStachelstein = NULL;																				// Stachelsteinensprite erzeugen
-	m_pSpriteStachelstein = new CSprite;
-	m_pSpriteStachelstein->Load ("Data/Stacelstone.png", 0, 64, 44);
+	m_pSpriteStachelstein = new CSprite(g_pLoader->getTexture("T_STACELSTONE"));
 
 	m_pSpriteHoover = NULL;																				// Staubsaugersprite erzeugen
-	m_pSpriteHoover = new CSprite;
-	m_pSpriteHoover->Load ("Data/Spider.png", 7, 130, 97);
+	m_pSpriteHoover = new CSprite(g_pLoader->getTexture("T_SPIDER"));
 
 	m_pSpriteBombo = NULL;																				// Bombosprite erzeugen
-	m_pSpriteBombo = new CSprite;
-	m_pSpriteBombo->Load ("Data/RoterSlime.png", 4, 86, 90);
+	m_pSpriteBombo = new CSprite(g_pLoader->getTexture("T_BOMBO"));
 
 	m_pSpriteExplosion = NULL;																				// Bombosprite erzeugen
-	m_pSpriteExplosion = new CSprite;
-	m_pSpriteExplosion->Load ("Data/Explosion.bmp", 10, 240, 240);
+	m_pSpriteExplosion = new CSprite(g_pLoader->getTexture("T_EXPLOSION"));
 
 	m_pSpriteSpider = NULL;																				// Hexaspidersprite erzeugen
-	m_pSpriteSpider = new CSprite;
-	m_pSpriteSpider->Load ("Data/Spider.png", 7, 130, 97);
+	m_pSpriteSpider = new CSprite(g_pLoader->getTexture("T_SPIDER"));
 
-
-	m_pSpriteTile = NULL;
-	m_pSpriteTile = new CSprite;
-	m_pSpriteTile->Load("Data/Texturset1.png", 4, 45, 45);
-
-	m_pSpriteWall=NULL;
-	m_pSpriteWall = new CSprite;
-    m_pSpriteWall->Load("Data/Wall.png", 0, 45, 45);
-
-	m_pCamera = NULL;
-	m_pCamera = new CCamera;
-
-	m_bSpawnLock = false;
-
-	m_pPlayer->Set_Map(LEVEL_WIDTH,LEVEL_HEIGHT);
+	m_bSpawnLock = false;	
         
-    for( int t = 0; t < TOTAL_TILES; t++ )
-    {
-       tiles[t]=NULL;
-    }
-    set_tiles();
+}
+
+void CStuff::init(fSDL_Rect *camera, int level_width, int level_height) // da der Konstruktor in der Initialisierungsliste zu einem unerwünschten Zeitpunkt aufgerufen wird...
+{
+	this->camera = camera;
+	this->level_width = level_width;
+	this->level_height = level_height;
+	m_pPlayer->Set_Map(level_width, level_height);
 }
 void CStuff::Quit ()																								// Müll freigeben
 {
@@ -57,66 +43,26 @@ void CStuff::Quit ()																								// Müll freigeben
 		delete (m_pPlayer);
 		m_pPlayer = NULL ;
 	}
-
-	if (m_pSpriteStachelstein != NULL)																		// Stachelsteinensprite freigeben
-	{
-		delete (m_pSpriteStachelstein);
-		m_pSpriteStachelstein = NULL;
-	}
-
-	if (m_pSpriteHoover != NULL)																			// Staubsaugersprite freigeben
-	{
-		delete (m_pSpriteHoover);
-		m_pSpriteHoover = NULL;
-	}
-
-	if (m_pSpriteBombo != NULL)																			// Staubsaugersprite freigeben
-	{
-		delete (m_pSpriteBombo);
-		m_pSpriteBombo = NULL;
-	}
-
-	if (m_pSpriteSpider != NULL)																			// Staubsaugersprite freigeben
-	{
-		delete (m_pSpriteSpider);
-		m_pSpriteSpider = NULL;
-	}
-
-	if (m_pSpriteExplosion != NULL)																			// Staubsaugersprite freigeben
-	{
-		delete (m_pSpriteExplosion);
-		m_pSpriteExplosion = NULL;
-	}
-	
-	if (m_pSpriteTile != NULL)
-    {
-       delete (m_pSpriteTile);
-       m_pSpriteTile = NULL;
-    }
-	if (m_pCamera != NULL)																			// Staubsaugersprite freigeben
-	{
-		delete (m_pCamera);
-		m_pCamera = NULL;
-	}
-	
- 
-    for( int t = 0; t < TOTAL_TILES; t++ )
-    {
-		delete tiles[ t ];    
-    }
- 
-	tiles2.clear();
-	tiles3.clear();
-	tiles4.clear();
 }
 
 void CStuff::Update()
 {
 	m_pPlayer->Update();
-	m_pCamera->SetPos (static_cast<float>(m_pPlayer->GetX()) - 512, static_cast<float>(m_pPlayer->GetY()) - 384);
-	m_pCamera->CorrectPos (LEVEL_WIDTH, LEVEL_HEIGHT);
-	show();
-	m_pPlayer->Render(m_pCamera->GetCameraRect().x, m_pCamera->GetCameraRect().y);
+	camera->x = m_pPlayer->GetX() - ((float)camera->w / 2);
+	camera->y = m_pPlayer->GetY() - ((float)camera->h / 2);
+	
+
+	if (camera->x < 0)
+		camera->x = 0;
+	if (camera->y < 0)
+		camera->y = 0;
+
+	if (camera->x > level_width - camera->w)
+		camera->x = level_width - camera->w;
+	if (camera->y > level_height - camera->h)
+		camera->y = level_height - camera->h;
+
+	m_pPlayer->Render(camera->x, camera->y);
 	m_pPlayer->LifeRender();
 
 	list<CExplosion>::iterator ItEx = m_ExplosionList.begin();
@@ -141,7 +87,7 @@ void CStuff::CommandSpawns()																					// Per Tastendruck Monster erze
 	if (g_pFramework->KeyDown(SDL_SCANCODE_H) && m_bSpawnLock == false)
 	{
 		CHoover Hoover;
-		Hoover.Init(m_pSpriteHoover);
+		Hoover.Init();
 		m_HooverList.push_back (Hoover);
 		m_bSpawnLock = true;
 		g_pDebugscreen->Set("Hoover gespawnt");
@@ -150,7 +96,7 @@ void CStuff::CommandSpawns()																					// Per Tastendruck Monster erze
 	{
 		int XPos = rand()%800;																		// Zufällige Position
 		int YPos = rand()%600;
-		CBombo Bombo(m_pSpriteBombo, static_cast<float>(XPos), static_cast<float>(YPos), m_pPlayer->pGetX(), m_pPlayer->pGetY());
+		CBombo Bombo(static_cast<float>(XPos), static_cast<float>(YPos), m_pPlayer->pGetX(), m_pPlayer->pGetY());
 		m_BomboList.push_back (Bombo);
 		m_bSpawnLock = true;
 
@@ -159,7 +105,7 @@ void CStuff::CommandSpawns()																					// Per Tastendruck Monster erze
 	{
 		int XPos = rand()%800;																		// Zufällige Position
 		int YPos = rand()%600;
-		CStachelstein Stachelstein(m_pSpriteStachelstein, static_cast<float>(XPos), static_cast<float>(YPos));	// Neuer Stachelstein
+		CStachelstein Stachelstein(static_cast<float>(XPos), static_cast<float>(YPos));	// Neuer Stachelstein
 		m_StachelsteinList.push_back (Stachelstein);														// Stachelstein in Liste einfügen
 		m_bSpawnLock = true;
 	}
@@ -167,7 +113,7 @@ void CStuff::CommandSpawns()																					// Per Tastendruck Monster erze
 	{
 		int XPos = rand()%1024;																		// Zufällige Position
 		int YPos = rand()%768;
-		CSpider Spider(m_pSpriteSpider, static_cast<float>(XPos), static_cast<float>(YPos), m_pPlayer->pGetX(), m_pPlayer->pGetY());
+		CSpider Spider(static_cast<float>(XPos), static_cast<float>(YPos), m_pPlayer->pGetX(), m_pPlayer->pGetY());
 		m_SpiderList.push_back (Spider);														// Spider in Liste einfügen
 		m_bSpawnLock = true;
 	}
@@ -211,7 +157,7 @@ void CStuff::CheckCollisions ()																					// Kollisionen prüfen
 		if (ItBombo->GetMode() == 5)
 		{
 			ItBombo->SetAlive(false);
-			CExplosion Explosion(m_pSpriteExplosion, static_cast<int>(ItBombo->GetX()-77.0f), static_cast<int>(ItBombo->GetY()-75.0f));
+			CExplosion Explosion(static_cast<int>(ItBombo->GetX()-77.0f), static_cast<int>(ItBombo->GetY()-75.0f));
 			m_ExplosionList.push_back(Explosion);
 		}
 		if (ItBombo->IsAlive())
@@ -262,14 +208,14 @@ void CStuff::CheckCollisions ()																					// Kollisionen prüfen
 	}
 	// Hexaspiders
 
-	list <CTile>::iterator ItTile4;
+	/*list <CTile>::iterator ItTile4;
 	for (ItTile4=tiles4.begin(); ItTile4!=tiles4.end(); ItTile4++)
 	{
 		if (CkRect(ItTile4->GetRect(), m_pPlayer->GetRect())==true)
 		{
 			m_pPlayer->ProcessMoving(-255.0f);
 		}
-	}
+	}*/
 
 }
 void CStuff::RenderMonsters ()																			// Monster rendern und updaten	
@@ -277,196 +223,43 @@ void CStuff::RenderMonsters ()																			// Monster rendern und updaten
 	list<CStachelstein>::iterator It;																	// Iterator für die Monster-Liste
 	for (It = m_StachelsteinList.begin (); It != m_StachelsteinList.end (); ++It)							// Monster-Liste durchlaufen
 	{
-		It->Render (m_pCamera->GetCameraRect().x, m_pCamera->GetCameraRect().y);																				// Monster rendern und updaten
+		It->Render (camera->x, camera->y);																				// Monster rendern und updaten
 		It->Update ();
 	}
 
 	list<CHoover>::iterator ItH;
 	for (ItH = m_HooverList.begin(); ItH != m_HooverList.end(); ItH++)
 	{
-		ItH->Render(m_pCamera->GetCameraRect().x, m_pCamera->GetCameraRect().y);
+		ItH->Render(camera->x, camera->y);
 		ItH->Update();
 	}
 
 	list<CBombo>::iterator ItB;
    for (ItB = m_BomboList.begin(); ItB != m_BomboList.end(); ItB++)
    {
-      ItB->Render(m_pCamera->GetCameraRect().x, m_pCamera->GetCameraRect().y);
+	   ItB->Render(camera->x, camera->y);
       ItB->Update();
    }
 
    list<CExplosion>::iterator ItE;
    for (ItE = m_ExplosionList.begin(); ItE != m_ExplosionList.end(); ItE++)
    {
-      ItE->Render(m_pCamera->GetCameraRect().x, m_pCamera->GetCameraRect().y);
+	   ItE->Render(camera->x, camera->y);
    }
    list<CSpider>::iterator ItS;
    for (ItS = m_SpiderList.begin(); ItS != m_SpiderList.end(); ItS++)
    {
-	   ItS->Render(m_pCamera->GetCameraRect().x, m_pCamera->GetCameraRect().y);
+	   ItS->Render(camera->x, camera->y);
 	   ItS->Update();
    }
-}
-bool CStuff::set_tiles()
-{
-    int x = 0, y = 0;
-    
-    ifstream map( "Map/Map1x1.map" );
-    
-    if(!map.is_open())
-    {
-        for( int t = 0; t < TOTAL_TILES; t++ )
-        {
-            tiles[ t ] = new CTile( x, y, rand()%4);
- 
-            x += TILE_WIDTH;
- 
-            if( x >= LEVEL_WIDTH )
-            {
-                x = 0;
- 
-                y += TILE_HEIGHT;    
-            }
-        }
-    }
-    else
-    {
-        for( int t = 0; t < TOTAL_TILES; t++ )
-        {
-            int tileType = -1;
- 
-            map >> tileType;
- 
-            if( ( tileType >= 0 ) && ( tileType < TILE_SPRITES ) )
-            {
-                tiles[ t ] = new CTile( x, y, tileType );    
-            }
-            else 
-            {
-                map.close();
-                return false;
-            }
-        
-            x += TILE_WIDTH;
-        
-            if( x >= LEVEL_WIDTH )
-            {
-                x = 0;
-            
-                y += TILE_HEIGHT;    
-            }
-        }
-    }
-	map.close();
- 
-    map.open( "Map/Map1x2.map" );
-	if (map.is_open())
-    {
-		int TileAmount;
-        int x,y,type;
-                
-        map>>TileAmount;
- 
-        for(int i=0; i<TileAmount;i++)
-        {
-			map>>type;
-			map>>x;
-            map>>y;
-            CTile Tile(x,y,type);
-            tiles2.push_back(Tile);
-        }
-	}
-	map.close();
- 
-	map.open( "Map/Map1x3.map" );
-	if (map.is_open())
-	{
-		int TileAmount;
-		int x,y,type;
-                
-		map>>TileAmount;
- 
-		for(int i=0; i<TileAmount;i++)
-		{
-			map>>type;
-			map>>x;
-			map>>y;
-			CTile Tile(x,y,type);
-			tiles3.push_back(Tile);
-		}
-	}
-	map.close();
- 
-	map.open( "Map/Map1x4.map" );
-	if (map.is_open())
-	{
-		int TileAmount;
-		int x,y,type;
-                
-		map>>TileAmount;
- 
-		for(int i=0; i<TileAmount;i++)
-		{
-			map>>type;
-			map>>x;
-			map>>y;
-			CTile Tile(x,y,type);
-			tiles4.push_back(Tile);
-		}
-    }
-	map.close();
-    
-    return true;
-}
-
-void CStuff::show()
-{
-        int type;
-        for (int t = 0; t < TOTAL_TILES; t++ )
-		{
-                type=(tiles[t]->get_type());
- 
-                if( CkRect( m_pCamera->GetCameraRect(), tiles[t]->GetRect() ) == true )
-                {
-                        m_pSpriteTile->SetScreenPos(tiles[t]->GetRect().x,tiles[t]->GetRect().y,
-                                        m_pCamera->GetCameraRect().x,m_pCamera->GetCameraRect().y);
-                        m_pSpriteTile->Render(static_cast<float>(type%4),static_cast<int>(type/4));
-                }
-        }
- 
-		list <CTile>::iterator ItTile2;
-        for (ItTile2=tiles2.begin(); ItTile2!=tiles2.end(); ItTile2++ )
-        {
-                type =ItTile2->get_type();
-                m_pSpriteTile->SetScreenPos(ItTile2->GetRect().x,ItTile2->GetRect().y,
-                                m_pCamera->GetCameraRect().x,m_pCamera->GetCameraRect().y);
-                m_pSpriteTile->Render(static_cast<float>(type%4),static_cast<int>(type/4));
-        }
- 
-        list <CTile>::iterator ItTile3;
-        for (ItTile3=tiles3.begin(); ItTile3!=tiles3.end(); ItTile3++ )
-        {
-                type =ItTile3->get_type();
-                m_pSpriteTile->SetScreenPos(ItTile3->GetRect().x,ItTile3->GetRect().y,
-                                m_pCamera->GetCameraRect().x,m_pCamera->GetCameraRect().y);
-                m_pSpriteTile->Render(static_cast<float>(type%4),static_cast<int>(type/4));
-        }
-		list <CTile>::iterator ItTile4;
-        for (ItTile4=tiles4.begin(); ItTile4!=tiles4.end(); ItTile4++ )
-        {
-                type =ItTile4->get_type();
-                m_pSpriteWall->SetScreenPos(ItTile4->GetRect().x,ItTile4->GetRect().y,
-                                m_pCamera->GetCameraRect().x,m_pCamera->GetCameraRect().y);
-                m_pSpriteWall->Render(static_cast<float>(type%4),static_cast<int>(type/4));
-        }
-}   
+} 
 
 bool CStuff::CkRect(SDL_Rect a, SDL_Rect b)
 {
-	if (a.y < b.y + b.h &&
-		a.y + a.h > b.y &&
-		a.x < b.x + b.w &&
-		a.x + a.w > b.x)
+	if (a.y < (b.y + b.h) &&
+		(a.y + a.h) > b.y &&
+		a.x < (b.x + b.w) &&
+		(a.x + a.w) > b.x)
 		return true;
 	else return false;
 }
