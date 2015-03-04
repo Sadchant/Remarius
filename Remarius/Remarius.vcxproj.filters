@@ -141,6 +141,9 @@
     <ClInclude Include="source\Terrain.hpp">
       <Filter>Programflow</Filter>
     </ClInclude>
+    <ClInclude Include="source\Programpart.hpp">
+      <Filter>Programflow</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="source\Hoover.cpp">

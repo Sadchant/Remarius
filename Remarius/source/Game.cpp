@@ -17,6 +17,8 @@ CGame::CGame():terrain("Map/Map1x1.map", &camera), Rectmaster()																	
 	Timecounter = 0;
 
 	Rectmaster.init(&camera, terrain.Get_Width(), terrain.Get_Height());
+
+	openPause = function<void()>([](){});
 }
 void CGame::Quit ()																								// Müll freigeben
 {
@@ -30,31 +32,27 @@ void CGame::Quit ()																								// Müll freigeben
 	}
 	
 }
-void CGame::Run (int save, bool Safegame)         // Hauptschleife des Spiels
+
+void CGame::startUp(int save)
 {
-	int ticks = 0;
 	m_Savestate = save;
-	if (Safegame)	
-		Load();
-	while (m_bGameRun == true)													// Wenn es läuft...
-	{																			// Events bearbeiten	
-		g_pFramework->Update ();												// Framework updaten und Buffer löschen
-	
-		Rectmaster.Update();
-		FpsCounter ();
-	
-		ProcessEvents ();	
-		//pTrack_1->Play ();
-		terrain.Render();
-		g_pDebugscreen->Render();
-		g_pRenderlayer->Render ();
-		/*if (ticks == 0)
-		{
-			while (true){}
-			cout << ":)";
-		}*/
-		ticks += 1;
-	}
+	Load();
+}
+void CGame::eventprocessing()
+{
+	g_pFramework->Update();												// Framework updaten und Buffer löschen
+
+	Rectmaster.Update();
+	FpsCounter();
+	ProcessEvents();
+
+	//pTrack_1->Play ();
+}
+void CGame::rendering()
+{
+	terrain.Render();
+	g_pDebugscreen->Render();
+	g_pRenderlayer->Render();
 }
 
 bool CGame::Load()
@@ -70,8 +68,8 @@ bool CGame::Load()
         }
  
 		std::ifstream load(m_cSavename);
-        if (!load != NULL)
-    {
+        if (load.is_open())
+		{
                 int offset1;
                 float offset2;
  
@@ -88,8 +86,10 @@ bool CGame::Load()
                 load.close();
  
                 return true;
-    }
+		}
+		else cout << "error opening file";
  
+		Rectmaster.SetPlayer(6, 900.0f, 520.0f);
     return false;
 }
 void CGame::Save()
@@ -131,7 +131,8 @@ void CGame::ProcessEvents ()																				// Events bearbeiten
 	if (g_pFramework->KeyDown (SDL_SCANCODE_ESCAPE))																// Wurde Escape gedrückt?
 	{
 		g_pDebugscreen->Set("Escape wurde gedrückt");																			// Auswahl auf "Spiel fortsetzen" setzen
-		Break ();																			// Pausemenü laufen lassen	
+		//Break ();																			// Pausemenü laufen lassen	
+		openPause();
 	}
 
 	if (g_pFramework->KeyDown(SDL_SCANCODE_L))																// Wurde Escape gedrückt?

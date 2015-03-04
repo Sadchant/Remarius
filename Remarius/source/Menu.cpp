@@ -16,6 +16,8 @@ CMenu::CMenu()
 	menuMusic->Load("Music/Track_1.mp3");
 
 	generateMenu();
+
+	startGame = function<void()>([](){});
 }
 void CMenu::generateMenu()
 {
@@ -29,7 +31,7 @@ void CMenu::generateMenu()
 		optionsbttn->setfunc(bind([](int& mpg){mpg = 2; }, ref(menPageIndex)));
 		mainmenu.addItem(optionsbttn);
 		CMenuButton* quitbttn = new CMenuButton("Beenden", defaultFont);
-		quitbttn->setfunc(bind([](bool& ms){ms = false; }, ref(menuState)));
+		quitbttn->setfunc(bind([](CMenu* menu){menu->quitProgram(); }, this));
 		mainmenu.addItem(quitbttn);
 		menuPages.push_back(mainmenu);
 	}
@@ -74,9 +76,7 @@ void CMenu::generateMenu()
 	{
 		CMenuPage loadsave("Spiel starten", defaultFont);
 		CMenuButton* loadbttn = new CMenuButton("Spiel fortsetzen", defaultFont);
-		loadbttn->setfunc(bind([](int& slcsave){	CGame Game;
-								Game.Run(slcsave);
-								Game.Quit();	}, ref(selectedSave)));
+		loadbttn->setfunc(bind([](CMenu* menu, int& mpg){menu->startGame(); mpg = 0; }, this, ref(menPageIndex)));
 		loadsave.addItem(loadbttn);
 		CMenuButton* deletebttn = new CMenuButton("Spielstand löschen", defaultFont);
 		deletebttn->setfunc([](){});
@@ -87,30 +87,28 @@ void CMenu::generateMenu()
 		menuPages.push_back(loadsave);
 	}
 }
-void CMenu::Run()
+
+void CMenu::startUp()
 {
 	menuMusic->Play();
 	menuMusic->PauseMusic(g_pOptions->music);
-	while (menuState)
-	{
-		while (SDL_PollEvent(&event))
-		{
-			if (event.key.repeat == 0)
-			menuPages[menPageIndex].processEvent(event.key);
-		}
-		menuMusic->Play();
-
-		menuPages[menPageIndex].render();
-		g_pRenderlayer->Render();
-	}
-
 }
-void CMenu::STARTGAME(int i, bool b)
+void CMenu::eventprocessing()
 {
-	CGame Game;
-	Game.Run(i, b);
-	Game.Quit();
+	while (SDL_PollEvent(&event))
+	{
+		if (event.key.repeat == 0)
+		menuPages[menPageIndex].processEvent(event.key);
+	}
 }
+void CMenu::rendering()
+{
+	menuMusic->Play();
+
+	menuPages[menPageIndex].render();
+	g_pRenderlayer->Render();
+}
+
 void CMenu::ReloadSprites()
 {
 	g_pLoader->reloadTextures();

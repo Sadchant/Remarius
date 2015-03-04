@@ -1,6 +1,7 @@
 #ifndef MENU_HPP
 #define MENU_HPP
 
+#include "Programpart.hpp"
 #include "Game.hpp"
 #include "MenuPage.hpp"
 #include "MenuButton.hpp"
@@ -12,20 +13,24 @@
 #include "Music.hpp"
 #include "XMLhandler.hpp"
 
-class CMenu
+class CMenu: public CProgrampart
 {
 public:
 	CMenu ();
-	void Run ();
-	void Quit ();
+	void	Quit ();
 	TTF_Font* getDefaultFont() { return defaultFont; }
+	void	setfunc(function<void()> func){ startGame = func; }
+	void	setquitfunc(function<void()> func){ quitProgram = func; }
+	void	startUp();
+	int			selectedSave;
 
 private:
 	void		PlayMenuMusic (int Volume);
 	void		generateMenu();
-	void		STARTGAME(int i, bool b = false);
 	void        ReloadSprites();
-
+	void		eventprocessing();
+	void		rendering();
+	
 	bool		m_bFullSize;
 	bool		m_bMusic;
 	bool		m_bSound;
@@ -35,7 +40,8 @@ private:
 	TTF_Font*	defaultFont;
 	CMusic*		menuMusic;
 	int			menPageIndex;
-	int			selectedSave;
+	function<void()> startGame;
+	function<void()> quitProgram;
 };
 
 #endif

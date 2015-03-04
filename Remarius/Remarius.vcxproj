@@ -33,6 +33,7 @@
     <ClInclude Include="source\PauseMenu.hpp" />
     <ClInclude Include="source\Player.hpp" />
     <ClInclude Include="source\Program.hpp" />
+    <ClInclude Include="source\Programpart.hpp" />
     <ClInclude Include="source\Renderable.hpp" />
     <ClInclude Include="source\Renderlayer.hpp" />
     <ClInclude Include="source\Shot.hpp" />

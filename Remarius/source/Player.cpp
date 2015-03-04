@@ -24,7 +24,7 @@ void CPlayer::Quit ()												// Sprites freigeben
 
 void CPlayer::Reset ()												// "Spawnen"
 {
-	m_fXPos = 9000.0f;													// Startposition des Spielers
+	m_fXPos = 900.0f;													// Startposition des Spielers
 	m_fYPos = 520.0f;
 	m_SpriteDirection = 0;
 	m_fDamageTimer = 1.0f;
