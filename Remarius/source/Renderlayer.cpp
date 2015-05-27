@@ -12,7 +12,6 @@ CRenderlayer::~CRenderlayer()
 void CRenderlayer::add_Renderjob(CRenderable* Renderable, Renderlayers Renderlayer)
 {
 	 Renderables[Renderlayer].push_back(Renderable);
-
 }
 
 void CRenderlayer::Render()

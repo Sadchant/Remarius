@@ -39,10 +39,15 @@ To-Do-List für Alpha 1.1
 - Program komplett neu (MVC) (rufl)
 - Pausemenu soll wieder funktionieren + neue Program (bugfix) (rufl)
 
-- Stuff + Game neu strukturieren (lany)
-- alle Monster sind zu sehen (Bugfix) (lany)
-- Menulayout schön machen (Bugfix) (lany)
+- Stuff + Game neu strukturieren (lany) [done]
+- alle Monster sind zu sehen (Bugfix) (lany) [done]
+- Menulayout schön machen (Bugfix) (lany) [done]
 
-- Zaun-Textur (sad)
-- Sterbesound für Remarius (sad)
-- besseren Fußboden-Renderer
+- Zaun-Textur (sad) [done]
+- Sterbesound für Remarius (sad) [done]
+- besseren Fußboden-Renderer [done]
+
+
+NPC:
+- kann sich bewegen
+- man kann ihn ansprechen

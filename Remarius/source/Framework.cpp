@@ -2,7 +2,9 @@
 
 // initialisiert die benötigten SDL-Teile und ruft Init_Video auf
 bool CFramework::Init ()
-{	
+{
+	sdl_Window = NULL;
+	sdl_Renderer = NULL;
 	if (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_TIMER | SDL_INIT_AUDIO) == -1)		// Alle benötigten Systeme der SDL initialisieren
 	{
 		cout << "SDL konnte nicht initialisiert werden!" << endl;
@@ -34,7 +36,8 @@ bool CFramework::Init ()
 		cout << "Fehler beim Aufruf von Mix_OpenAudio: " << Mix_GetError() << endl;
 		Quit();
 		return false;
-	}	
+	}
+	
 	return true;
 }
 
@@ -102,12 +105,14 @@ void CFramework::Quit ()
 void CFramework::Update ()
 {
 	g_pTimer->Update ();			// Timer updaten	
-	SDL_PumpEvents ();				// updated die Event-Warteschlange
-	SDL_PollEvent(&Event);
-	if (Event.type == SDL_QUIT) 
+	//SDL_PumpEvents ();				// updated die Event-Warteschlange
+	while (SDL_PollEvent(&event)) 
 	{
+		if (event.type == SDL_QUIT) 
+		{
 		exit(0);
-	}
+		}
+	}	
 }
 
 

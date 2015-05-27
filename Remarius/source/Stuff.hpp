@@ -22,7 +22,7 @@ class CStuff
 {
 	public:
 		CStuff	();
-		void	init(fSDL_Rect *camera, int level_width, int level_y);
+		void	init(SDL_Rect *camera, int level_width, int level_y);
 		void	Quit		();
 		void	Update		();
 		void	SetPlayer	(int Life, float X, float Y);
@@ -54,7 +54,7 @@ class CStuff
 		CSprite				*m_pSpriteHoover;		// Sprite für Staubsauger
 		CSprite				*m_pSpriteSpider;		// Sprite für die Hexaspider
 
-		fSDL_Rect*			camera;
+		SDL_Rect*			camera;
 		bool				m_bSpawnLock;			// Spawnlock für CommandSpawns();
 };
 

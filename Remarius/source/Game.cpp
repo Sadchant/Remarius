@@ -103,7 +103,7 @@ void CGame::Save()
         case (3):
                 {m_cSavename="Save 3";} break;
         }
-		std::ofstream save(m_cSavename);
+		ofstream save(m_cSavename);
 		save << Rectmaster.GetPlayerLife();
 		save << "\n";
 		save << Rectmaster.GetPlayerX() << " " << Rectmaster.GetPlayerY();

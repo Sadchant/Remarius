@@ -8,6 +8,7 @@
 #include "SDL_ttf.h"
 #include "SDL_mixer.h"
 #include "Options.hpp"
+//#include "Debugscreen.hpp"
 
 using namespace std;
 
@@ -29,7 +30,7 @@ class CFramework : public TSingleton<CFramework>
 	private:
 		SDL_Window*		sdl_Window;						// Fenster, in dem alles stattfindet		
 		SDL_Renderer*	sdl_Renderer;					// Renderer, der alles rendert
-		SDL_Event		Event;
+		SDL_Event		event;
 		const Uint8*	pKeystate;						// Array für aktuellen Tastaturstatus
 };
 

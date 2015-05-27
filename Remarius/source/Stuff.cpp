@@ -28,7 +28,7 @@ CStuff::CStuff ()														// Player und Stuffprites laden
         
 }
 
-void CStuff::init(fSDL_Rect *camera, int level_width, int level_height) // da der Konstruktor in der Initialisierungsliste zu einem unerwünschten Zeitpunkt aufgerufen wird...
+void CStuff::init(SDL_Rect *camera, int level_width, int level_height) // da der Konstruktor in der Initialisierungsliste zu einem unerwünschten Zeitpunkt aufgerufen wird...
 {
 	this->camera = camera;
 	this->level_width = level_width;
@@ -61,6 +61,9 @@ void CStuff::Update()
 		camera->x = level_width - camera->w;
 	if (camera->y > level_height - camera->h)
 		camera->y = level_height - camera->h;
+
+	g_pDebugscreen->Set("cameraX:", camera->x);
+	g_pDebugscreen->Set("cameraY:", camera->y);
 
 	m_pPlayer->Render(camera->x, camera->y);
 	m_pPlayer->LifeRender();

@@ -9,9 +9,9 @@
 #include "Sound.hpp"
 #include "Music.hpp"
 #include "Util.hpp"
-#include <fstream>
+//#include <fstream>
 #include <string>
-#include <sstream>
+//#include <sstream>
 #include <functional>
 
 class CGame: public CProgrampart
@@ -35,7 +35,7 @@ class CGame: public CProgrampart
 		
 		CStuff			Rectmaster;				// Verwaltung von allem, was ein Rect hat
 		CTerrain		terrain;
-		fSDL_Rect		camera;
+		SDL_Rect		camera;
 		bool			m_bGameRun;				// Läuft das Spiel noch?
 		int				Framecounter;
 		float			Timecounter;
